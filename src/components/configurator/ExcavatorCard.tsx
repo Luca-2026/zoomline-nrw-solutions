@@ -1,6 +1,7 @@
-import { ArrowRight, Shovel, Download } from "lucide-react";
+import { ArrowRight, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { type Excavator } from "@/data/products";
+import iconBagger from "@/assets/icons/icon-bagger.png";
 
 interface ExcavatorCardProps {
   product: Excavator;
@@ -31,8 +32,12 @@ export function ExcavatorCard({ product, onInquiry }: ExcavatorCardProps) {
       {/* Image */}
       <div className="aspect-[4/3] bg-muted relative overflow-hidden">
         {isPlaceholder(product.image) ? (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <Shovel className="h-16 w-16 text-muted-foreground/30" />
+          <div className="absolute inset-0 flex items-center justify-center bg-muted">
+            <img 
+              src={iconBagger} 
+              alt="Bagger" 
+              className="h-24 w-24 object-contain opacity-60"
+            />
           </div>
         ) : (
           <img
