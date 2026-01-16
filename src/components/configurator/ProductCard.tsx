@@ -7,6 +7,13 @@ interface ProductCardProps {
   onInquiry: () => void;
 }
 
+const formatPrice = (price: number) => {
+  return new Intl.NumberFormat("de-DE", {
+    style: "currency",
+    currency: "EUR",
+  }).format(price);
+};
+
 export function ProductCard({ product, onInquiry }: ProductCardProps) {
   return (
     <div className="group rounded-xl border border-border bg-card overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-primary/30">
@@ -20,6 +27,13 @@ export function ProductCard({ product, onInquiry }: ProductCardProps) {
             {product.categoryLabel}
           </span>
         </div>
+        {product.lithiumBattery && (
+          <div className="absolute top-3 right-3">
+            <span className="inline-flex items-center rounded-md bg-accent px-2 py-1 text-xs font-medium text-accent-foreground">
+              Lithium
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Content */}
@@ -27,9 +41,17 @@ export function ProductCard({ product, onInquiry }: ProductCardProps) {
         <h3 className="font-heading text-lg font-bold text-foreground mb-2">
           {product.name}
         </h3>
-        <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+        <p className="text-sm text-muted-foreground mb-3 line-clamp-2">
           {product.description}
         </p>
+
+        {/* Price */}
+        <div className="mb-3 p-2 rounded-lg bg-primary/5 border border-primary/20">
+          <p className="text-xs text-muted-foreground">UVP ab</p>
+          <p className="font-heading text-lg font-bold text-primary">
+            {formatPrice(product.uvpPrice)}
+          </p>
+        </div>
 
         {/* Specs */}
         <div className="grid grid-cols-2 gap-2 mb-4 text-sm">
@@ -37,19 +59,13 @@ export function ProductCard({ product, onInquiry }: ProductCardProps) {
             <span className="text-muted-foreground">Arbeitshöhe:</span>
             <span className="font-medium">{product.workingHeight} m</span>
           </div>
-          {product.reach > 0 && (
-            <div className="flex items-center gap-1">
-              <span className="text-muted-foreground">Reichweite:</span>
-              <span className="font-medium">{product.reach} m</span>
-            </div>
-          )}
+          <div className="flex items-center gap-1">
+            <span className="text-muted-foreground">Tragkraft:</span>
+            <span className="font-medium">{product.loadCapacity} kg</span>
+          </div>
           <div className="flex items-center gap-1">
             <span className="text-muted-foreground">Antrieb:</span>
             <span className="font-medium">{product.driveLabel}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <span className="text-muted-foreground">Einsatz:</span>
-            <span className="font-medium">{product.usageLabel}</span>
           </div>
         </div>
 

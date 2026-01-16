@@ -1,5 +1,4 @@
 import { useState, useMemo } from "react";
-import { SectionHeading } from "@/components/shared/SectionHeading";
 import { TrustBadges } from "@/components/shared/TrustBadges";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -12,49 +11,32 @@ import { InquiryModal } from "./InquiryModal";
 import { Filter, RotateCcw } from "lucide-react";
 
 interface PlatformFilters {
-  usage: string;
   drive: string;
   category: string;
   lithium: boolean;
   minHeight: number;
   maxHeight: number;
-  minReach: number;
-  maxReach: number;
-  features: string[];
 }
 
 const defaultFilters: PlatformFilters = {
-  usage: "all",
   drive: "all",
   category: "all",
   lithium: false,
-  minHeight: 6,
-  maxHeight: 30,
-  minReach: 0,
-  maxReach: 20,
-  features: [],
+  minHeight: 5,
+  maxHeight: 75,
 };
-
-const featureOptions = [
-  { value: "non-marking", label: "Nicht markierende Reifen" },
-  { value: "compact", label: "Kompakt / schmal" },
-  { value: "terrain", label: "Geländegängig" },
-];
 
 export function PlatformConfigurator() {
   const [filters, setFilters] = useState<PlatformFilters>(defaultFilters);
   const [selectedProduct, setSelectedProduct] = useState<AerialPlatform | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [showFilters, setShowFilters] = useState(true);
 
   const filteredProducts = useMemo(() => {
     return aerialPlatforms.filter((product) => {
-      if (filters.usage !== "all" && product.usage !== filters.usage) return false;
       if (filters.drive !== "all" && product.drive !== filters.drive) return false;
       if (filters.category !== "all" && product.category !== filters.category) return false;
       if (filters.lithium && !product.lithiumBattery) return false;
       if (product.workingHeight < filters.minHeight || product.workingHeight > filters.maxHeight) return false;
-      if (product.reach < filters.minReach || product.reach > filters.maxReach) return false;
       return true;
     });
   }, [filters]);
@@ -83,19 +65,6 @@ export function PlatformConfigurator() {
                 <RotateCcw className="h-4 w-4 mr-1" />
                 Reset
               </Button>
-            </div>
-
-            {/* Einsatzort */}
-            <div className="space-y-2">
-              <Label>Einsatzort</Label>
-              <Select value={filters.usage} onValueChange={(v) => setFilters({ ...filters, usage: v })}>
-                <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent>
-                  {platformFilterOptions.usage.map((opt) => (
-                    <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
             </div>
 
             {/* Antrieb */}
@@ -141,45 +110,11 @@ export function PlatformConfigurator() {
               <Label>Arbeitshöhe: {filters.minHeight}–{filters.maxHeight} m</Label>
               <Slider
                 value={[filters.minHeight, filters.maxHeight]}
-                min={6}
-                max={30}
-                step={2}
+                min={5}
+                max={75}
+                step={1}
                 onValueChange={([min, max]) => setFilters({ ...filters, minHeight: min, maxHeight: max })}
               />
-            </div>
-
-            {/* Reichweite */}
-            <div className="space-y-3">
-              <Label>Seitl. Reichweite: {filters.minReach}–{filters.maxReach} m</Label>
-              <Slider
-                value={[filters.minReach, filters.maxReach]}
-                min={0}
-                max={20}
-                step={2}
-                onValueChange={([min, max]) => setFilters({ ...filters, minReach: min, maxReach: max })}
-              />
-            </div>
-
-            {/* Features */}
-            <div className="space-y-2">
-              <Label>Optionen</Label>
-              {featureOptions.map((opt) => (
-                <div key={opt.value} className="flex items-center gap-2">
-                  <Checkbox
-                    id={opt.value}
-                    checked={filters.features.includes(opt.value)}
-                    onCheckedChange={(checked) => {
-                      setFilters({
-                        ...filters,
-                        features: checked
-                          ? [...filters.features, opt.value]
-                          : filters.features.filter((f) => f !== opt.value),
-                      });
-                    }}
-                  />
-                  <Label htmlFor={opt.value} className="cursor-pointer text-sm">{opt.label}</Label>
-                </div>
-              ))}
             </div>
 
             <Button className="w-full" onClick={() => handleInquiry()}>
@@ -230,11 +165,9 @@ export function PlatformConfigurator() {
         type="arbeitsbuehne"
         selectedProduct={selectedProduct?.name}
         filters={{
-          einsatzort: filters.usage !== "all" ? platformFilterOptions.usage.find(o => o.value === filters.usage)?.label : undefined,
           antrieb: filters.drive !== "all" ? platformFilterOptions.drive.find(o => o.value === filters.drive)?.label : undefined,
           lithium: filters.lithium,
           arbeitshoehe: filters.maxHeight,
-          reichweite: filters.maxReach,
         }}
       />
     </>
