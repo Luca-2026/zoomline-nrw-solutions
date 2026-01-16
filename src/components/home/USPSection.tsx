@@ -1,7 +1,17 @@
-import { Award, MapPin, Wrench, TrendingDown, Clock, Shield } from "lucide-react";
+import { Award, MapPin, Wrench, TrendingDown, Clock, Shield, Globe, Factory } from "lucide-react";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 
 const usps = [
+  {
+    icon: Globe,
+    title: "Top 5 weltweit",
+    description: "Zoomlion zählt zu den 5 größten Baumaschinenherstellern der Welt mit über 9 Mrd. USD Umsatz"
+  },
+  {
+    icon: TrendingDown,
+    title: "Bestes Preis-Leistungs-Verhältnis",
+    description: "Hochwertige Technik und Ausstattung zu attraktiven Anschaffungskosten"
+  },
   {
     icon: Award,
     title: "3 Jahre Garantie",
@@ -18,19 +28,9 @@ const usps = [
     description: "Sofort verfügbar an allen Standorten"
   },
   {
-    icon: TrendingDown,
-    title: "Preis-Leistungs-Vorteil",
-    description: "Mehr Ausstattung & Qualität für Ihr Budget"
-  },
-  {
     icon: Clock,
     title: "Kurze Reaktionszeiten",
     description: "Eigenes Team für Service & Inbetriebnahme"
-  },
-  {
-    icon: Shield,
-    title: "Exklusiver Fachhändler",
-    description: "Ihr Zoomlion Partner in Nordrhein-Westfalen"
   }
 ];
 
@@ -40,8 +40,8 @@ export function USPSection() {
       <div className="container mx-auto px-4">
         <SectionHeading
           badge="Ihre Vorteile"
-          title="Warum Zoomlion NRW?"
-          subtitle="Wir bieten mehr als nur Maschinen – wir sind Ihr verlässlicher Partner für Beratung, Service und Ersatzteile"
+          title="Warum Zoomlion?"
+          subtitle="Einer der weltweit größten Baumaschinenhersteller – jetzt mit exklusivem Fachhändler in NRW"
         />
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
