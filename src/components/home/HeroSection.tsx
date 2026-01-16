@@ -48,7 +48,7 @@ export function HeroSection() {
                   Bagger finden
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="secondary" className="sm:ml-2">
+              <Button asChild size="lg" variant="secondary" className="bg-white text-secondary hover:bg-white/90">
                 <Link to="/kontakt">
                   Anfrage senden
                 </Link>
