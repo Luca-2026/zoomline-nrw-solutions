@@ -27,7 +27,7 @@ export function Header() {
         <Link to="/" className="flex items-center">
           <img 
             src={logoImage} 
-            alt="Zoomlion NRW by SLT" 
+            alt="Zoomlion NRW - Fachhändler für Arbeitsbühnen und Bagger in Nordrhein-Westfalen" 
             className="h-10 md:h-12 w-auto"
           />
         </Link>

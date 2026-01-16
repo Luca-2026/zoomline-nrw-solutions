@@ -37,7 +37,7 @@ export function LocationsTeaser() {
                   {locationImage ? (
                     <img
                       src={locationImage}
-                      alt={location.name}
+                      alt={`Zoomlion NRW ${location.name} - Arbeitsbühnen und Bagger Standort ${location.city}`}
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                     />
                   ) : (

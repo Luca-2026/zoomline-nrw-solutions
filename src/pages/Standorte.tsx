@@ -35,7 +35,7 @@ const Standorte = () => {
                     {locationImage ? (
                       <img
                         src={locationImage}
-                        alt={loc.name}
+                        alt={`Zoomlion NRW ${loc.name} - Arbeitsbühnen und Bagger kaufen in ${loc.city}`}
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                       />
                     ) : (

@@ -12,7 +12,7 @@ export function Footer() {
             <Link to="/">
               <img 
                 src={logoImage} 
-                alt="Zoomlion NRW by SLT" 
+                alt="Zoomlion NRW Logo - Arbeitsbühnen und Bagger Fachhändler" 
                 className="h-12 w-auto"
               />
             </Link>

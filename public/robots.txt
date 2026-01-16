@@ -1,8 +1,13 @@
+# Robots.txt für www.zoomlion-nrw.de
+# Zoomlion NRW - Arbeitsbühnen & Bagger Fachhändler
+
 User-agent: Googlebot
 Allow: /
+Crawl-delay: 1
 
 User-agent: Bingbot
 Allow: /
+Crawl-delay: 1
 
 User-agent: Twitterbot
 Allow: /
@@ -12,3 +17,10 @@ Allow: /
 
 User-agent: *
 Allow: /
+
+# Sitemap
+Sitemap: https://www.zoomlion-nrw.de/sitemap.xml
+
+# Disallow admin/api paths (if any)
+Disallow: /api/
+Disallow: /_

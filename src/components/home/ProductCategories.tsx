@@ -44,7 +44,7 @@ export function ProductCategories() {
               <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-xl bg-muted overflow-hidden transition-colors group-hover:bg-primary/10">
                 <img 
                   src={category.icon} 
-                  alt={category.title} 
+                  alt={`${category.title} kaufen bei Zoomlion NRW - ${category.features.join(", ")}`}
                   className="h-14 w-14 object-contain"
                 />
               </div>
