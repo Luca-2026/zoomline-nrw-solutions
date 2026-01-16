@@ -31,6 +31,7 @@ interface InquiryRequest {
     maschine?: string;
     seriennummer?: string;
     anliegen?: string;
+    anbaugeraete?: string[];
   };
   selectedProduct?: string;
 }
@@ -52,6 +53,7 @@ const formatFilters = (filters: InquiryRequest["filters"], type: string): string
     if (filters.gewichtsklasse) filterText += `Gewichtsklasse: ${filters.gewichtsklasse}\n`;
     if (filters.antrieb) filterText += `Antrieb: ${filters.antrieb}\n`;
     if (filters.ausstattung?.length) filterText += `Ausstattung: ${filters.ausstattung.join(", ")}\n`;
+    if (filters.anbaugeraete?.length) filterText += `Gewünschte Anbaugeräte: ${filters.anbaugeraete.join(", ")}\n`;
     if (filters.lieferung !== undefined) filterText += `Lieferung gewünscht: ${filters.lieferung ? "Ja" : "Nein"}\n`;
   } else if (type === "service") {
     if (filters.maschine) filterText += `Maschine/Modell: ${filters.maschine}\n`;

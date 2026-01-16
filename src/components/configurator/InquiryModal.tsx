@@ -21,6 +21,17 @@ const inquirySchema = z.object({
   dsgvo: z.literal(true, { errorMap: () => ({ message: "Bitte stimmen Sie der Datenschutzerklärung zu" }) }),
 });
 
+const anbaugeraeteOptions = [
+  { id: "schnellwechsler", label: "Schnellwechsler" },
+  { id: "tieflöffel", label: "Tieflöffel" },
+  { id: "grabenraumlöffel", label: "Grabenräumlöffel" },
+  { id: "hydraulikhammer", label: "Hydraulikhammer" },
+  { id: "greifer", label: "Greifer" },
+  { id: "anbauverdichter", label: "Anbauverdichter" },
+  { id: "tiltrotator", label: "Tiltrotator" },
+  { id: "räumschild", label: "Räumschild" },
+];
+
 interface InquiryModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -34,6 +45,7 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters }
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [selectedAnbaugeraete, setSelectedAnbaugeraete] = useState<string[]>([]);
   
   const [formData, setFormData] = useState({
     firma: "",
@@ -51,6 +63,12 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters }
     if (errors[field]) {
       setErrors((prev) => ({ ...prev, [field]: "" }));
     }
+  };
+
+  const toggleAnbaugeraet = (id: string) => {
+    setSelectedAnbaugeraete((prev) =>
+      prev.includes(id) ? prev.filter((a) => a !== id) : [...prev, id]
+    );
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -72,6 +90,10 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters }
     setIsSubmitting(true);
 
     try {
+      const anbaugeraeteLabels = selectedAnbaugeraete.map(
+        (id) => anbaugeraeteOptions.find((o) => o.id === id)?.label || id
+      );
+
       const { data, error } = await supabase.functions.invoke("send-inquiry", {
         body: {
           type,
@@ -83,7 +105,10 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters }
           nachricht: formData.nachricht || undefined,
           rueckruf: formData.rueckruf,
           selectedProduct,
-          filters,
+          filters: {
+            ...filters,
+            anbaugeraete: type === "bagger" && anbaugeraeteLabels.length > 0 ? anbaugeraeteLabels : undefined,
+          },
         },
       });
 
@@ -108,6 +133,7 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters }
           rueckruf: false,
           dsgvo: false,
         });
+        setSelectedAnbaugeraete([]);
       }, 2000);
     } catch (error: any) {
       console.error("Error submitting inquiry:", error);
@@ -173,6 +199,7 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters }
                   gewichtsklasse: "Gewichtsklasse",
                   ausstattung: "Ausstattung",
                   lieferung: "Lieferung",
+                  anbaugeraete: "Anbaugeräte",
                 };
                 let displayValue = value;
                 if (typeof value === "boolean") displayValue = value ? "Ja" : "Nein";
@@ -245,6 +272,27 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters }
               onChange={(e) => handleChange("plz", e.target.value)}
             />
           </div>
+
+          {/* Anbaugeräte - nur bei Bagger */}
+          {type === "bagger" && (
+            <div className="space-y-2">
+              <Label>Gewünschte Anbaugeräte (optional)</Label>
+              <div className="grid grid-cols-2 gap-2">
+                {anbaugeraeteOptions.map((option) => (
+                  <div key={option.id} className="flex items-center gap-2">
+                    <Checkbox
+                      id={option.id}
+                      checked={selectedAnbaugeraete.includes(option.id)}
+                      onCheckedChange={() => toggleAnbaugeraet(option.id)}
+                    />
+                    <Label htmlFor={option.id} className="cursor-pointer text-sm">
+                      {option.label}
+                    </Label>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           <div>
             <Label htmlFor="nachricht">Nachricht / Anwendung</Label>
