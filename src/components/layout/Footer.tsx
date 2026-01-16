@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Phone, Mail, MapPin, ExternalLink } from "lucide-react";
 import logoImage from "@/assets/logo-zoomlion-nrw.png";
 
 export function Footer() {
@@ -166,6 +166,35 @@ export function Footer() {
                 </address>
               </li>
             </ul>
+
+            {/* Partner Links */}
+            <div className="mt-6 pt-4 border-t border-secondary-foreground/10">
+              <h4 className="text-xs font-semibold mb-3 text-secondary-foreground/60">Weitere Angebote</h4>
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <a
+                    href="https://www.slt-rental.de"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-secondary-foreground/80 hover:text-primary transition-colors"
+                  >
+                    <ExternalLink className="h-3 w-3" />
+                    Hier geht's zur Vermietung
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.baumaschinen.blog"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-secondary-foreground/80 hover:text-primary transition-colors"
+                  >
+                    <ExternalLink className="h-3 w-3" />
+                    Baumaschinen Blog
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 
