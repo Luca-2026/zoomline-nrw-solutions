@@ -1,3 +1,10 @@
+import ze20gImage from "@/assets/hot-deals/ze20g.png";
+import ze27guImage from "@/assets/hot-deals/ze27gu.jpg";
+import ze55guImage from "@/assets/hot-deals/ze55gu.png";
+import zs0607acLiImage from "@/assets/hot-deals/zs0607ac-li.png";
+import zs1012acLiImage from "@/assets/hot-deals/zs1012ac-li.png";
+import zmp09jImage from "@/assets/hot-deals/zmp09j.png";
+
 export interface HotDeal {
   id: string;
   name: string;
@@ -27,7 +34,7 @@ export const hotDeals: HotDeal[] = [
       { label: "Schwenkgeschwindigkeit", value: "9,5 r/min" },
       { label: "Spurweite", value: "980 / 1.300 mm" },
     ],
-    image: "/placeholder.svg",
+    image: ze20gImage,
   },
   {
     id: "deal-ze27gu",
@@ -45,7 +52,7 @@ export const hotDeals: HotDeal[] = [
       { label: "Max. Kipphöhe", value: "4.410 mm" },
       { label: "Besonderheit", value: "Zero-Tail Swing" },
     ],
-    image: "/placeholder.svg",
+    image: ze27guImage,
   },
   {
     id: "deal-ze55gu",
@@ -62,7 +69,7 @@ export const hotDeals: HotDeal[] = [
       { label: "Max. Grabtiefe", value: "3.670 mm" },
       { label: "Max. Kipphöhe", value: "5.560 mm" },
     ],
-    image: "/placeholder.svg",
+    image: ze55guImage,
   },
   {
     id: "deal-zs0607ac-li",
@@ -81,7 +88,7 @@ export const hotDeals: HotDeal[] = [
       { label: "Batterie", value: "135 Ah Li-Ion" },
       { label: "Bruttogewicht", value: "1.455 kg" },
     ],
-    image: "/placeholder.svg",
+    image: zs0607acLiImage,
   },
   {
     id: "deal-zs1012ac-li",
@@ -100,7 +107,7 @@ export const hotDeals: HotDeal[] = [
       { label: "Batterie", value: "230 Ah Li-Ion" },
       { label: "Bruttogewicht", value: "2.930 kg" },
     ],
-    image: "/placeholder.svg",
+    image: zs1012acLiImage,
   },
   {
     id: "deal-zmp09j",
@@ -118,6 +125,6 @@ export const hotDeals: HotDeal[] = [
       { label: "Steigfähigkeit", value: "25 % (≈14°)" },
       { label: "Bruttogewicht", value: "2.990 kg" },
     ],
-    image: "/placeholder.svg",
+    image: zmp09jImage,
   },
 ];

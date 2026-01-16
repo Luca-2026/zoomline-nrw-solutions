@@ -42,16 +42,14 @@ function HotDealDetailCard({ deal, onInquiry }: { deal: HotDeal; onInquiry: () =
 
       <div className="grid md:grid-cols-2 gap-0">
         {/* Image */}
-        <div className="aspect-square md:aspect-auto bg-muted relative min-h-[300px]">
-          <div className="absolute inset-0 flex items-center justify-center">
-            {deal.type === "bagger" ? (
-              <Shovel className="h-24 w-24 text-muted-foreground/30" />
-            ) : (
-              <ChevronsUp className="h-24 w-24 text-muted-foreground/30" />
-            )}
-          </div>
+        <div className="aspect-square md:aspect-auto bg-muted relative min-h-[300px] overflow-hidden">
+          <img
+            src={deal.image}
+            alt={deal.name}
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          />
           <div className="absolute top-4 left-4">
-            <span className="inline-flex items-center rounded-md bg-primary/10 px-3 py-1.5 text-sm font-medium text-primary">
+            <span className="inline-flex items-center rounded-md bg-primary/90 px-3 py-1.5 text-sm font-medium text-primary-foreground">
               {deal.type === "bagger" ? "Bagger" : "Arbeitsbühne"}
             </span>
           </div>
