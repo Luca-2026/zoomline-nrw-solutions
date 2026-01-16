@@ -28,7 +28,7 @@ const isPlaceholder = (image: string) => {
 
 export function ExcavatorCard({ product, onInquiry }: ExcavatorCardProps) {
   return (
-    <div className="group h-full flex flex-col rounded-xl border border-border bg-card overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-primary/30">
+    <div className="group h-full flex flex-col rounded-xl border border-border bg-card overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-primary/30 hover:-translate-y-1">
       {/* Image */}
       <div className="aspect-[4/3] bg-muted relative overflow-hidden flex-shrink-0">
         {isPlaceholder(product.image) ? (
