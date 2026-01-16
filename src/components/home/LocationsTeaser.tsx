@@ -1,8 +1,17 @@
 import { Link } from "react-router-dom";
-import { MapPin, Phone, ArrowRight } from "lucide-react";
+import { MapPin, Phone, ArrowRight, Building2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { locations } from "@/data/products";
+import bonnImage from "@/assets/locations/bonn.webp";
+import krefeldImage from "@/assets/locations/krefeld.jpg";
+
+// Mapping von Standort-IDs zu Bildern
+const locationImages: Record<string, string | null> = {
+  bonn: bonnImage,
+  krefeld: krefeldImage,
+  muelheim: null, // Platzhalter für Mülheim
+};
 
 export function LocationsTeaser() {
   return (
@@ -15,45 +24,58 @@ export function LocationsTeaser() {
         />
 
         <div className="grid gap-6 md:grid-cols-3 max-w-4xl mx-auto">
-          {locations.map((location) => (
-            <div
-              key={location.id}
-              className="group relative rounded-xl border border-border bg-card overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-primary/30"
-            >
-              {/* Map Placeholder */}
-              <div className="aspect-video bg-muted relative">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <MapPin className="h-10 w-10 text-primary/30 mx-auto mb-2" />
-                    <p className="text-xs text-muted-foreground">{location.mapPlaceholder}</p>
-                  </div>
+          {locations.map((location) => {
+            const locationImage = locationImages[location.id];
+            
+            return (
+              <div
+                key={location.id}
+                className="group relative rounded-xl border border-border bg-card overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-primary/30"
+              >
+                {/* Location Image */}
+                <div className="aspect-video bg-muted relative overflow-hidden">
+                  {locationImage ? (
+                    <img
+                      src={locationImage}
+                      alt={location.name}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-muted to-muted/80">
+                      <div className="text-center">
+                        <Building2 className="h-12 w-12 text-primary/30 mx-auto mb-2" />
+                        <p className="text-sm font-medium text-muted-foreground">{location.mapPlaceholder}</p>
+                        <p className="text-xs text-muted-foreground/70 mt-1">Bild folgt</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Content */}
+                <div className="p-4">
+                  <h3 className="font-heading text-lg font-bold text-foreground mb-2">
+                    {location.name}
+                  </h3>
+                  <p className="text-sm text-muted-foreground mb-1">
+                    {location.address}
+                  </p>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    {location.city}
+                  </p>
+
+                  {location.showPhone && location.phone && (
+                    <a
+                      href={`tel:${location.phone.replace(/\s/g, "")}`}
+                      className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+                    >
+                      <Phone className="h-4 w-4" />
+                      {location.phone}
+                    </a>
+                  )}
                 </div>
               </div>
-
-              {/* Content */}
-              <div className="p-4">
-                <h3 className="font-heading text-lg font-bold text-foreground mb-2">
-                  {location.name}
-                </h3>
-                <p className="text-sm text-muted-foreground mb-1">
-                  {location.address}
-                </p>
-                <p className="text-sm text-muted-foreground mb-3">
-                  {location.city}
-                </p>
-
-                {location.showPhone && location.phone && (
-                  <a
-                    href={`tel:${location.phone.replace(/\s/g, "")}`}
-                    className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
-                  >
-                    <Phone className="h-4 w-4" />
-                    {location.phone}
-                  </a>
-                )}
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         <div className="mt-8 text-center">
