@@ -42,8 +42,8 @@ const Kontakt = () => {
               <div className="p-6 rounded-xl border border-border bg-card">
                 <h3 className="font-heading font-bold mb-4">Direktkontakt</h3>
                 <div className="space-y-3">
-                  <a href="tel:0228-50466061" className="flex items-center gap-3 text-foreground hover:text-primary">
-                    <Phone className="h-5 w-5 text-primary" /> Bonn: 0228 504 660 61
+                  <a href="tel:022850466061" className="flex items-center gap-3 text-foreground hover:text-primary">
+                    <Phone className="h-5 w-5 text-primary" /> Bonn: 0228 50466061
                   </a>
                   <a href="tel:02151-4179904" className="flex items-center gap-3 text-foreground hover:text-primary">
                     <Phone className="h-5 w-5 text-primary" /> Krefeld: 02151 4179904
