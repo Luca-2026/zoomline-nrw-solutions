@@ -1,4 +1,4 @@
-import { ArrowRight, Shovel } from "lucide-react";
+import { ArrowRight, Shovel, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { type Excavator } from "@/data/products";
 
@@ -97,10 +97,21 @@ export function ExcavatorCard({ product, onInquiry }: ExcavatorCardProps) {
           ))}
         </div>
 
-        <Button className="w-full group/btn" onClick={onInquiry}>
-          Dieses Modell anfragen
-          <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
-        </Button>
+        <div className="flex flex-col gap-2">
+          <Button className="w-full group/btn" onClick={onInquiry}>
+            Dieses Modell anfragen
+            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
+          </Button>
+          
+          {product.datasheet && (
+            <Button asChild variant="outline" size="sm" className="w-full">
+              <a href={product.datasheet} target="_blank" rel="noopener noreferrer" download>
+                <Download className="mr-2 h-4 w-4" />
+                Datenblatt herunterladen
+              </a>
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );
