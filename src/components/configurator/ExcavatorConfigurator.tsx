@@ -12,15 +12,11 @@ import { Filter, RotateCcw } from "lucide-react";
 interface ExcavatorFilters {
   category: string;
   weightClass: string;
-  minWeight: number;
-  maxWeight: number;
 }
 
 const defaultFilters: ExcavatorFilters = {
   category: "all",
   weightClass: "all",
-  minWeight: 0,
-  maxWeight: 60000,
 };
 
 export function ExcavatorConfigurator() {
@@ -39,9 +35,6 @@ export function ExcavatorConfigurator() {
         const max = maxStr ? parseInt(maxStr) : Infinity;
         if (product.operatingWeight < min || product.operatingWeight > max) return false;
       }
-      
-      // Slider weight filter
-      if (product.operatingWeight < filters.minWeight || product.operatingWeight > filters.maxWeight) return false;
       
       return true;
     });
@@ -97,18 +90,6 @@ export function ExcavatorConfigurator() {
                   ))}
                 </SelectContent>
               </Select>
-            </div>
-
-            {/* Gewichtsbereich Slider */}
-            <div className="space-y-3">
-              <Label>Einsatzgewicht: {(filters.minWeight / 1000).toFixed(0)}–{(filters.maxWeight / 1000).toFixed(0)} t</Label>
-              <Slider
-                value={[filters.minWeight, filters.maxWeight]}
-                min={0}
-                max={60000}
-                step={1000}
-                onValueChange={([min, max]) => setFilters({ ...filters, minWeight: min, maxWeight: max })}
-              />
             </div>
 
             <Button className="w-full" onClick={() => handleInquiry()}>
