@@ -23,6 +23,7 @@ export interface AerialPlatform {
   features: string[];
   image: string;
   description: string;
+  datasheet?: string; // Pfad zum Datenblatt PDF
 }
 
 export interface Excavator {
@@ -38,6 +39,7 @@ export interface Excavator {
   warranty: string;
   image: string;
   description: string;
+  datasheet?: string; // Pfad zum Datenblatt PDF
 }
 
 // Arbeitsbühnen aus Preisliste AWP 2025
@@ -72,7 +74,8 @@ export const aerialPlatforms: AerialPlatform[] = [
     uvpPrice: 11375.98,
     features: ["Kompakt", "DC-Antrieb"],
     image: "/placeholder.svg",
-    description: "Kompakte DC Scherenarbeitsbühne."
+    description: "Kompakte DC Scherenarbeitsbühne.",
+    datasheet: "/datasheets/micro-scherenarbeitsbuehnen.pdf"
   },
   {
     id: "zs0407dc-li",
@@ -87,7 +90,8 @@ export const aerialPlatforms: AerialPlatform[] = [
     uvpPrice: 12173.70,
     features: ["Kompakt", "DC-Antrieb", "Lithium-Ionen Akku"],
     image: "/placeholder.svg",
-    description: "Kompakte DC Scherenarbeitsbühne mit Lithium-Akku."
+    description: "Kompakte DC Scherenarbeitsbühne mit Lithium-Akku.",
+    datasheet: "/datasheets/micro-scherenarbeitsbuehnen.pdf"
   },
   // ACW Series
   {
@@ -134,7 +138,8 @@ export const aerialPlatforms: AerialPlatform[] = [
     uvpPrice: 14727.02,
     features: ["AC-Antrieb"],
     image: "/placeholder.svg",
-    description: "Scherenarbeitsbühne mit AC-Antrieb."
+    description: "Scherenarbeitsbühne mit AC-Antrieb.",
+    datasheet: "/datasheets/scherenarbeitsbuehnen-ac-series.pdf"
   },
   {
     id: "zs0808ac",
@@ -149,7 +154,8 @@ export const aerialPlatforms: AerialPlatform[] = [
     uvpPrice: 18654.02,
     features: ["AC-Antrieb", "10m Arbeitshöhe"],
     image: "/placeholder.svg",
-    description: "Scherenarbeitsbühne mit 10m Arbeitshöhe."
+    description: "Scherenarbeitsbühne mit 10m Arbeitshöhe.",
+    datasheet: "/datasheets/scherenarbeitsbuehnen-ac-series.pdf"
   },
   {
     id: "zs0812ac",
@@ -164,7 +170,8 @@ export const aerialPlatforms: AerialPlatform[] = [
     uvpPrice: 20617.52,
     features: ["AC-Antrieb", "450kg Tragkraft"],
     image: "/placeholder.svg",
-    description: "Scherenarbeitsbühne mit hoher Tragkraft."
+    description: "Scherenarbeitsbühne mit hoher Tragkraft.",
+    datasheet: "/datasheets/scherenarbeitsbuehnen-ac-series.pdf"
   },
   {
     id: "zs1012ac",
@@ -179,7 +186,8 @@ export const aerialPlatforms: AerialPlatform[] = [
     uvpPrice: 24033.24,
     features: ["AC-Antrieb", "11,8m Arbeitshöhe"],
     image: "/placeholder.svg",
-    description: "Scherenarbeitsbühne mit 11,8m Arbeitshöhe."
+    description: "Scherenarbeitsbühne mit 11,8m Arbeitshöhe.",
+    datasheet: "/datasheets/scherenarbeitsbuehnen-ac-series.pdf"
   },
   {
     id: "zs1212ac",
@@ -194,7 +202,8 @@ export const aerialPlatforms: AerialPlatform[] = [
     uvpPrice: 27659.94,
     features: ["AC-Antrieb", "13,8m Arbeitshöhe"],
     image: "/placeholder.svg",
-    description: "Scherenarbeitsbühne mit 13,8m Arbeitshöhe."
+    description: "Scherenarbeitsbühne mit 13,8m Arbeitshöhe.",
+    datasheet: "/datasheets/scherenarbeitsbuehnen-ac-series.pdf"
   },
   {
     id: "zs1414ac",
@@ -209,7 +218,8 @@ export const aerialPlatforms: AerialPlatform[] = [
     uvpPrice: 34034.00,
     features: ["AC-Antrieb", "15,7m Arbeitshöhe"],
     image: "/placeholder.svg",
-    description: "Scherenarbeitsbühne mit 15,7m Arbeitshöhe."
+    description: "Scherenarbeitsbühne mit 15,7m Arbeitshöhe.",
+    datasheet: "/datasheets/scherenarbeitsbuehnen-ac-series.pdf"
   },
   // AC-Li Series
   {
@@ -225,7 +235,8 @@ export const aerialPlatforms: AerialPlatform[] = [
     uvpPrice: 15629.46,
     features: ["AC-Antrieb", "Lithium-Ionen Akku"],
     image: zs0607acLiImage,
-    description: "Scherenarbeitsbühne mit Lithium-Akku."
+    description: "Scherenarbeitsbühne mit Lithium-Akku.",
+    datasheet: "/datasheets/scherenarbeitsbuehnen-ac-li.pdf"
   },
   {
     id: "zs0808ac-li",
@@ -240,7 +251,8 @@ export const aerialPlatforms: AerialPlatform[] = [
     uvpPrice: 20041.56,
     features: ["AC-Antrieb", "Lithium-Ionen Akku", "10m Arbeitshöhe"],
     image: "/placeholder.svg",
-    description: "Scherenarbeitsbühne mit Lithium-Akku."
+    description: "Scherenarbeitsbühne mit Lithium-Akku.",
+    datasheet: "/datasheets/scherenarbeitsbuehnen-ac-li.pdf"
   },
   {
     id: "zs0812ac-li",
@@ -255,7 +267,8 @@ export const aerialPlatforms: AerialPlatform[] = [
     uvpPrice: 21677.04,
     features: ["AC-Antrieb", "Lithium-Ionen Akku", "450kg Tragkraft"],
     image: "/placeholder.svg",
-    description: "Scherenarbeitsbühne mit Lithium-Akku und hoher Tragkraft."
+    description: "Scherenarbeitsbühne mit Lithium-Akku und hoher Tragkraft.",
+    datasheet: "/datasheets/scherenarbeitsbuehnen-ac-li.pdf"
   },
   {
     id: "zs1008ac-li",
