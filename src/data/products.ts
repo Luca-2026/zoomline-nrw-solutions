@@ -1766,7 +1766,7 @@ export const locations: Location[] = [
     name: "Standort Bonn",
     address: "Drachenburgstraße 8",
     city: "53179 Bonn",
-    phone: "0228 504 660 61",
+    phone: "0228 50466061",
     showPhone: true,
     mapPlaceholder: "Bonn"
   },

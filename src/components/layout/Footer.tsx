@@ -100,7 +100,7 @@ export function Footer() {
                     href="tel:0228-50466061"
                     className="text-primary hover:underline"
                   >
-                    0228 504 660 61
+                    0228 50466061
                   </a>
                 </div>
               </li>
