@@ -127,12 +127,18 @@ Deno.serve(async (req) => {
     `;
 
     const emailResponse = await resend.emails.send({
-      from: "Zoomlion NRW <onboarding@resend.dev>",
+      from: "Zoomlion NRW <info@zoomlion-nrw.de>",
       to: ["verkauf@zoomlion-nrw.de"],
       replyTo: data.email,
       subject: getSubject(data),
       html: emailHtml,
     });
+
+    // Check if email was actually sent successfully
+    if (emailResponse.error) {
+      console.error("Resend error:", emailResponse.error);
+      throw new Error(emailResponse.error.message);
+    }
 
     console.log("Email sent successfully:", emailResponse);
 
