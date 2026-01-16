@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Truck, Shovel } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { SectionHeading } from "@/components/shared/SectionHeading";
+import iconArbeitsbuehne from "@/assets/icons/icon-arbeitsbuehne.png";
+import iconBagger from "@/assets/icons/icon-bagger.png";
 
 const categories = [
   {
     id: "arbeitsbuehnen",
     title: "Arbeitsbühnen",
     description: "Scheren-, Gelenk- und Teleskopbühnen für jeden Einsatz. Elektrisch, Diesel oder Hybrid.",
-    icon: Truck,
+    icon: iconArbeitsbuehne,
     href: "/arbeitsbuehnen",
     features: ["Scherenarbeitsbühnen", "Gelenkteleskopbühnen", "Mastbühnen", "Anhängerbühnen"]
   },
@@ -15,7 +17,7 @@ const categories = [
     id: "bagger",
     title: "Bagger",
     description: "Mini- und Kompaktbagger für Tiefbau, GaLaBau, Abbruch und universelle Einsätze.",
-    icon: Shovel,
+    icon: iconBagger,
     href: "/bagger",
     features: ["Minibagger 1-3t", "Kompaktbagger 3-8t", "Elektrobagger", "Abbruchbagger"]
   }
@@ -39,8 +41,12 @@ export function ProductCategories() {
               className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-primary/30"
             >
               {/* Icon */}
-              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                <category.icon className="h-7 w-7" />
+              <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-xl bg-muted overflow-hidden transition-colors group-hover:bg-primary/10">
+                <img 
+                  src={category.icon} 
+                  alt={category.title} 
+                  className="h-14 w-14 object-contain"
+                />
               </div>
 
               {/* Content */}

@@ -1,6 +1,7 @@
-import { ArrowRight, Truck, Download } from "lucide-react";
+import { ArrowRight, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { type AerialPlatform } from "@/data/products";
+import iconArbeitsbuehne from "@/assets/icons/icon-arbeitsbuehne.png";
 
 interface ProductCardProps {
   product: AerialPlatform;
@@ -24,8 +25,12 @@ export function ProductCard({ product, onInquiry }: ProductCardProps) {
       {/* Image */}
       <div className="aspect-[4/3] bg-muted relative overflow-hidden">
         {isPlaceholder(product.image) ? (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <Truck className="h-16 w-16 text-muted-foreground/30" />
+          <div className="absolute inset-0 flex items-center justify-center bg-muted">
+            <img 
+              src={iconArbeitsbuehne} 
+              alt="Arbeitsbühne" 
+              className="h-24 w-24 object-contain opacity-60"
+            />
           </div>
         ) : (
           <img
