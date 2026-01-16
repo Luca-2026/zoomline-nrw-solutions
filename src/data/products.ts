@@ -298,7 +298,8 @@ export const aerialPlatforms: AerialPlatform[] = [
     uvpPrice: 25774.98,
     features: ["AC-Antrieb", "Lithium-Ionen Akku"],
     image: zs1012acLiImage,
-    description: "Scherenarbeitsbühne mit 11,8m Arbeitshöhe."
+    description: "Scherenarbeitsbühne mit 11,8m Arbeitshöhe.",
+    datasheet: "/datasheets/scherenarbeitsbuehnen-ac-li.pdf"
   },
   {
     id: "zs1212ac-li",
@@ -313,7 +314,8 @@ export const aerialPlatforms: AerialPlatform[] = [
     uvpPrice: 29452.50,
     features: ["AC-Antrieb", "Lithium-Ionen Akku"],
     image: "/placeholder.svg",
-    description: "Scherenarbeitsbühne mit 13,8m Arbeitshöhe."
+    description: "Scherenarbeitsbühne mit 13,8m Arbeitshöhe.",
+    datasheet: "/datasheets/scherenarbeitsbuehnen-ac-li.pdf"
   },
   {
     id: "zs1414ac-li",
@@ -328,7 +330,8 @@ export const aerialPlatforms: AerialPlatform[] = [
     uvpPrice: 35997.50,
     features: ["AC-Antrieb", "Lithium-Ionen Akku"],
     image: "/placeholder.svg",
-    description: "Scherenarbeitsbühne mit 15,7m Arbeitshöhe."
+    description: "Scherenarbeitsbühne mit 15,7m Arbeitshöhe.",
+    datasheet: "/datasheets/scherenarbeitsbuehnen-ac-li.pdf"
   },
   // HA Series
   {
@@ -633,7 +636,8 @@ export const aerialPlatforms: AerialPlatform[] = [
     uvpPrice: 14779.38,
     features: ["Raupenfahrwerk", "Geländegängig"],
     image: "/placeholder.svg",
-    description: "Raupenscherenbühne für schwieriges Gelände."
+    description: "Raupenscherenbühne für schwieriges Gelände.",
+    datasheet: "/datasheets/raupen-scherenarbeitsbuehnen.pdf"
   },
   {
     id: "zs0610c",
@@ -648,7 +652,8 @@ export const aerialPlatforms: AerialPlatform[] = [
     uvpPrice: 21912.66,
     features: ["Raupenfahrwerk", "Geländegängig"],
     image: "/placeholder.svg",
-    description: "Raupenscherenbühne mit 8,8m Arbeitshöhe."
+    description: "Raupenscherenbühne mit 8,8m Arbeitshöhe.",
+    datasheet: "/datasheets/raupen-scherenarbeitsbuehnen.pdf"
   },
   {
     id: "zs1216c",
@@ -755,7 +760,8 @@ export const aerialPlatforms: AerialPlatform[] = [
     uvpPrice: 63002.94,
     features: ["Geländegängig", "Elektro"],
     image: "/placeholder.svg",
-    description: "Elektrische Geländescherenbühne."
+    description: "Elektrische Geländescherenbühne.",
+    datasheet: "/datasheets/zs1218ert-rough-scissor.pdf"
   },
   {
     id: "zs2023ert",
@@ -786,7 +792,8 @@ export const aerialPlatforms: AerialPlatform[] = [
     uvpPrice: 64638.42,
     features: ["Gelenkarm", "Elektro", "Geländegängig"],
     image: "/placeholder.svg",
-    description: "Elektrische Gelenkteleskopbühne."
+    description: "Elektrische Gelenkteleskopbühne.",
+    datasheet: "/datasheets/za10rje.pdf"
   },
   {
     id: "za14je",
@@ -816,7 +823,8 @@ export const aerialPlatforms: AerialPlatform[] = [
     uvpPrice: 90059.20,
     features: ["Gelenkarm", "Elektro", "Geländegängig"],
     image: "/placeholder.svg",
-    description: "Elektrische Gelenkteleskopbühne für raues Gelände."
+    description: "Elektrische Gelenkteleskopbühne für raues Gelände.",
+    datasheet: "/datasheets/za16jert.pdf"
   },
   {
     id: "za20jert",
@@ -831,7 +839,8 @@ export const aerialPlatforms: AerialPlatform[] = [
     uvpPrice: 114865.52,
     features: ["Gelenkarm", "Elektro", "Geländegängig", "21m Arbeitshöhe"],
     image: "/placeholder.svg",
-    description: "Große elektrische Gelenkteleskopbühne."
+    description: "Große elektrische Gelenkteleskopbühne.",
+    datasheet: "/datasheets/za20je.pdf"
   },
   // Gelenkteleskop Elektro Lithium
   {
@@ -862,7 +871,8 @@ export const aerialPlatforms: AerialPlatform[] = [
     uvpPrice: 97769.98,
     features: ["Gelenkarm", "Elektro", "Lithium-Ionen Akku", "Geländegängig"],
     image: "/placeholder.svg",
-    description: "Elektrische Gelenkteleskopbühne mit Lithium-Akku."
+    description: "Elektrische Gelenkteleskopbühne mit Lithium-Akku.",
+    datasheet: "/datasheets/za16jert.pdf"
   },
   {
     id: "za20jert-li",
@@ -877,7 +887,8 @@ export const aerialPlatforms: AerialPlatform[] = [
     uvpPrice: 126815.92,
     features: ["Gelenkarm", "Elektro", "Lithium-Ionen Akku"],
     image: "/placeholder.svg",
-    description: "Große elektrische Gelenkteleskopbühne mit Lithium-Akku."
+    description: "Große elektrische Gelenkteleskopbühne mit Lithium-Akku.",
+    datasheet: "/datasheets/za20je.pdf"
   },
   // Diesel Gelenkteleskop
   {
@@ -893,7 +904,8 @@ export const aerialPlatforms: AerialPlatform[] = [
     uvpPrice: 89994.52,
     features: ["Gelenkarm", "Diesel"],
     image: "/placeholder.svg",
-    description: "Diesel-Gelenkteleskopbühne."
+    description: "Diesel-Gelenkteleskopbühne.",
+    datasheet: "/datasheets/za14j.pdf"
   },
   {
     id: "za16j",
@@ -938,7 +950,8 @@ export const aerialPlatforms: AerialPlatform[] = [
     uvpPrice: 167722.94,
     features: ["Gelenkarm", "Diesel", "26m Arbeitshöhe"],
     image: "/placeholder.svg",
-    description: "Große Diesel-Gelenkteleskopbühne."
+    description: "Große Diesel-Gelenkteleskopbühne.",
+    datasheet: "/datasheets/za24j.pdf"
   },
   {
     id: "za26j",
@@ -1212,7 +1225,8 @@ export const aerialPlatforms: AerialPlatform[] = [
     uvpPrice: 167722.94,
     features: ["Teleskop", "Diesel"],
     image: "/placeholder.svg",
-    description: "Diesel-Teleskopbühne."
+    description: "Diesel-Teleskopbühne.",
+    datasheet: "/datasheets/zt26j.pdf"
   },
   {
     id: "zt32j",
@@ -1242,7 +1256,8 @@ export const aerialPlatforms: AerialPlatform[] = [
     uvpPrice: 286344.52,
     features: ["Teleskop", "Diesel", "40m Arbeitshöhe"],
     image: "/placeholder.svg",
-    description: "Große Diesel-Teleskopbühne."
+    description: "Große Diesel-Teleskopbühne.",
+    datasheet: "/datasheets/zt38j.pdf"
   },
   {
     id: "zt42j",
@@ -1257,7 +1272,8 @@ export const aerialPlatforms: AerialPlatform[] = [
     uvpPrice: 331347.94,
     features: ["Teleskop", "Diesel", "44m Arbeitshöhe"],
     image: "/placeholder.svg",
-    description: "Sehr große Diesel-Teleskopbühne."
+    description: "Sehr große Diesel-Teleskopbühne.",
+    datasheet: "/datasheets/zt42j.pdf"
   },
   {
     id: "zt51j",
