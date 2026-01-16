@@ -1405,7 +1405,7 @@ export const excavators: Excavator[] = [
     power: "11,8 kW",
     uvpPrice: 21375.00,
     features: ["3+4 Hydraulik-Kreislauf", "Multifunktions-Joystick proportional", "Klimaanlage"],
-    warranty: "24 Monate / 2000 Betriebsstunden",
+    warranty: "36 Monate / 3.000 Betriebsstunden",
     image: "/placeholder.svg",
     description: "Kompakter Minibagger mit 1,8t Einsatzgewicht."
   },
@@ -1419,7 +1419,7 @@ export const excavators: Excavator[] = [
     power: "15,4 kW",
     uvpPrice: 22375.00,
     features: ["3+4 Hydraulik-Kreislauf", "Multifunktions-Joystick proportional", "Klimaanlage"],
-    warranty: "24 Monate / 2000 Betriebsstunden",
+    warranty: "36 Monate / 3.000 Betriebsstunden",
     image: "/placeholder.svg",
     description: "Kompakter Minibagger mit 2t Einsatzgewicht."
   },
@@ -1433,7 +1433,7 @@ export const excavators: Excavator[] = [
     power: "15,4 kW",
     uvpPrice: 32937.50,
     features: ["3+4 Hydraulik-Kreislauf", "Multifunktions-Joystick proportional", "Klimaanlage"],
-    warranty: "24 Monate / 2000 Betriebsstunden",
+    warranty: "36 Monate / 3.000 Betriebsstunden",
     image: "/placeholder.svg",
     description: "Vielseitiger Kompaktbagger mit 2,7t Einsatzgewicht."
   },
@@ -1447,7 +1447,7 @@ export const excavators: Excavator[] = [
     power: "18,2 kW",
     uvpPrice: 37437.50,
     features: ["3+4 Hydraulik-Kreislauf", "Multifunktions-Joystick proportional", "Klimaanlage"],
-    warranty: "24 Monate / 2000 Betriebsstunden",
+    warranty: "36 Monate / 3.000 Betriebsstunden",
     image: "/placeholder.svg",
     description: "Leistungsstarker Kompaktbagger mit 3,8t Einsatzgewicht."
   },
@@ -1461,7 +1461,7 @@ export const excavators: Excavator[] = [
     power: "35,5 kW",
     uvpPrice: 54875.00,
     features: ["3+4 Hydraulik-Kreislauf", "Multifunktions-Joystick proportional", "Klimaanlage"],
-    warranty: "24 Monate / 2000 Betriebsstunden",
+    warranty: "36 Monate / 3.000 Betriebsstunden",
     image: "/placeholder.svg",
     description: "Kraftvoller Kompaktbagger mit 5,8t Einsatzgewicht."
   },
@@ -1475,7 +1475,7 @@ export const excavators: Excavator[] = [
     power: "42,4 kW",
     uvpPrice: 87375.00,
     features: ["3+4 Hydraulik-Kreislauf", "Multifunktions-Joystick proportional", "Klimaanlage"],
-    warranty: "24 Monate / 2000 Betriebsstunden",
+    warranty: "36 Monate / 3.000 Betriebsstunden",
     image: "/placeholder.svg",
     description: "Größter Kompaktbagger mit 7,5t Einsatzgewicht."
   },
@@ -1490,7 +1490,7 @@ export const excavators: Excavator[] = [
     power: "100 kW",
     uvpPrice: 95285.00,
     features: ["Installation Anbaugeräte komplett", "Schnellwechsler", "Multifunktions-Joystick", "Klimaanlage"],
-    warranty: "24 Monate / 2000 Betriebsstunden",
+    warranty: "36 Monate / 3.000 Betriebsstunden",
     image: "/placeholder.svg",
     description: "Professioneller Bagger mit 14,4t Einsatzgewicht."
   },
@@ -1504,7 +1504,7 @@ export const excavators: Excavator[] = [
     power: "90 kW",
     uvpPrice: 100300.00,
     features: ["Installation Anbaugeräte komplett", "Schnellwechsler", "Multifunktions-Joystick", "Klimaanlage"],
-    warranty: "24 Monate / 2000 Betriebsstunden",
+    warranty: "36 Monate / 3.000 Betriebsstunden",
     image: "/placeholder.svg",
     description: "Professioneller Bagger mit 15,8t Einsatzgewicht."
   },
@@ -1518,7 +1518,7 @@ export const excavators: Excavator[] = [
     power: "129 kW",
     uvpPrice: 135570.20,
     features: ["Installation Anbaugeräte komplett", "Schnellwechsler", "Multifunktions-Joystick", "Klimaanlage"],
-    warranty: "24 Monate / 2000 Betriebsstunden",
+    warranty: "36 Monate / 3.000 Betriebsstunden",
     image: "/placeholder.svg",
     description: "Leistungsstarker Pro-Bagger mit 23,6t Einsatzgewicht."
   },
@@ -1532,7 +1532,7 @@ export const excavators: Excavator[] = [
     power: "129 kW",
     uvpPrice: 139004.00,
     features: ["Installation Anbaugeräte komplett", "Schnellwechsler", "Multifunktions-Joystick", "Klimaanlage"],
-    warranty: "24 Monate / 2000 Betriebsstunden",
+    warranty: "36 Monate / 3.000 Betriebsstunden",
     image: "/placeholder.svg",
     description: "Leistungsstarker Pro-Bagger mit 23t Einsatzgewicht."
   },
@@ -1547,7 +1547,7 @@ export const excavators: Excavator[] = [
     power: "209 kW",
     uvpPrice: 168000.00,
     features: ["Installation Anbaugeräte komplett", "Schnellwechsler", "Multifunktions-Joystick", "Klimaanlage"],
-    warranty: "24 Monate / 2000 Betriebsstunden",
+    warranty: "36 Monate / 3.000 Betriebsstunden",
     image: "/placeholder.svg",
     description: "Schwerer Bagger mit 33,5t Einsatzgewicht."
   },
@@ -1561,7 +1561,7 @@ export const excavators: Excavator[] = [
     power: "242 kW",
     uvpPrice: 201040.00,
     features: ["Installation Anbaugeräte komplett", "Schnellwechsler", "Multifunktions-Joystick", "Klimaanlage"],
-    warranty: "24 Monate / 2000 Betriebsstunden",
+    warranty: "36 Monate / 3.000 Betriebsstunden",
     image: "/placeholder.svg",
     description: "Schwerer Bagger mit 37,5t Einsatzgewicht."
   },
@@ -1575,7 +1575,7 @@ export const excavators: Excavator[] = [
     power: "298 kW",
     uvpPrice: 290080.00,
     features: ["Installation Anbaugeräte komplett", "Schnellwechsler", "Multifunktions-Joystick", "Klimaanlage"],
-    warranty: "24 Monate / 2000 Betriebsstunden",
+    warranty: "36 Monate / 3.000 Betriebsstunden",
     image: "/placeholder.svg",
     description: "Größter schwerer Bagger mit 51t Einsatzgewicht."
   },
@@ -1590,7 +1590,7 @@ export const excavators: Excavator[] = [
     power: "18,2 kW",
     uvpPrice: 27500.00,
     features: ["Kompaktlader", "Vielseitig einsetzbar"],
-    warranty: "24 Monate / 2000 Betriebsstunden",
+    warranty: "36 Monate / 3.000 Betriebsstunden",
     image: "/placeholder.svg",
     description: "Kompakter Radlader."
   },
@@ -1604,7 +1604,7 @@ export const excavators: Excavator[] = [
     power: "47,9 kW",
     uvpPrice: 36500.00,
     features: ["Kompaktlader", "Vielseitig einsetzbar"],
-    warranty: "24 Monate / 2000 Betriebsstunden",
+    warranty: "36 Monate / 3.000 Betriebsstunden",
     image: "/placeholder.svg",
     description: "Vielseitiger Kompaktlader."
   },
@@ -1618,7 +1618,7 @@ export const excavators: Excavator[] = [
     power: "47,9 kW",
     uvpPrice: 43500.00,
     features: ["Raupenkompaktlader", "Geländegängig"],
-    warranty: "24 Monate / 2000 Betriebsstunden",
+    warranty: "36 Monate / 3.000 Betriebsstunden",
     image: "/placeholder.svg",
     description: "Raupenkompaktlader."
   },
@@ -1632,7 +1632,7 @@ export const excavators: Excavator[] = [
     power: "53,4 kW",
     uvpPrice: 53200.00,
     features: ["Kompaktlader", "Hohe Leistung"],
-    warranty: "24 Monate / 2000 Betriebsstunden",
+    warranty: "36 Monate / 3.000 Betriebsstunden",
     image: "/placeholder.svg",
     description: "Leistungsstarker Kompaktlader."
   },
@@ -1646,7 +1646,7 @@ export const excavators: Excavator[] = [
     power: "53,4 kW",
     uvpPrice: 61000.00,
     features: ["Raupenkompaktlader", "Geländegängig", "Hohe Leistung"],
-    warranty: "24 Monate / 2000 Betriebsstunden",
+    warranty: "36 Monate / 3.000 Betriebsstunden",
     image: "/placeholder.svg",
     description: "Leistungsstarker Raupenkompaktlader."
   }
