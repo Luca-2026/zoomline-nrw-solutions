@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Flame, Shovel, ChevronsUp } from "lucide-react";
+import { ArrowRight, Flame } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { hotDeals, type HotDeal } from "@/data/hotDeals";
@@ -34,16 +34,14 @@ function HotDealCard({ deal }: { deal: HotDeal }) {
       )}
 
       {/* Image */}
-      <div className="aspect-[4/3] bg-muted relative">
-        <div className="absolute inset-0 flex items-center justify-center">
-          {deal.type === "bagger" ? (
-            <Shovel className="h-20 w-20 text-muted-foreground/30" />
-          ) : (
-            <ChevronsUp className="h-20 w-20 text-muted-foreground/30" />
-          )}
-        </div>
+      <div className="aspect-[4/3] bg-muted relative overflow-hidden">
+        <img
+          src={deal.image}
+          alt={deal.name}
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+        />
         <div className="absolute top-3 left-3">
-          <span className="inline-flex items-center rounded-md bg-primary/10 px-2.5 py-1 text-xs font-medium text-primary">
+          <span className="inline-flex items-center rounded-md bg-primary/90 px-2.5 py-1 text-xs font-medium text-primary-foreground">
             {deal.type === "bagger" ? "Bagger" : "Arbeitsbühne"}
           </span>
         </div>
