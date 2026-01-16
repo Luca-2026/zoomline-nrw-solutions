@@ -9,6 +9,15 @@ import zs0607acLiImage from "@/assets/hot-deals/zs0607ac-li.png";
 import zs1012acLiImage from "@/assets/hot-deals/zs1012ac-li.png";
 import zmp09jImage from "@/assets/hot-deals/zmp09j.png";
 
+// Bagger-Bilder
+import ze18guImage from "@/assets/excavators/ze18gu.png";
+import ze36guImage from "@/assets/excavators/ze36gu.webp";
+import ze75gImage from "@/assets/excavators/ze75g.png";
+import ze135gImage from "@/assets/excavators/ze135g.png";
+import ze145guImage from "@/assets/excavators/ze145gu.png";
+import ze210glcImage from "@/assets/excavators/ze210glc.png";
+import ze225gnImage from "@/assets/excavators/ze225gn.png";
+
 export interface AerialPlatform {
   id: string;
   name: string;
@@ -1443,7 +1452,7 @@ export const excavators: Excavator[] = [
     uvpPrice: 21375.00,
     features: ["3+4 Hydraulik-Kreislauf", "Multifunktions-Joystick proportional", "Klimaanlage"],
     warranty: "36 Monate / 3.000 Betriebsstunden",
-    image: "/placeholder.svg",
+    image: ze18guImage,
     description: "Kompakter Minibagger mit 1,8t Einsatzgewicht.",
     datasheet: "/datasheets/ze18gu.pdf"
   },
@@ -1488,7 +1497,7 @@ export const excavators: Excavator[] = [
     uvpPrice: 37437.50,
     features: ["3+4 Hydraulik-Kreislauf", "Multifunktions-Joystick proportional", "Klimaanlage"],
     warranty: "36 Monate / 3.000 Betriebsstunden",
-    image: "/placeholder.svg",
+    image: ze36guImage,
     description: "Leistungsstarker Kompaktbagger mit 3,8t Einsatzgewicht.",
     datasheet: "/datasheets/ze36gu.pdf"
   },
@@ -1517,7 +1526,7 @@ export const excavators: Excavator[] = [
     uvpPrice: 87375.00,
     features: ["3+4 Hydraulik-Kreislauf", "Multifunktions-Joystick proportional", "Klimaanlage"],
     warranty: "36 Monate / 3.000 Betriebsstunden",
-    image: "/placeholder.svg",
+    image: ze75gImage,
     description: "Größter Kompaktbagger mit 7,5t Einsatzgewicht."
   },
   // Pro Line
@@ -1532,7 +1541,7 @@ export const excavators: Excavator[] = [
     uvpPrice: 95285.00,
     features: ["Installation Anbaugeräte komplett", "Schnellwechsler", "Multifunktions-Joystick", "Klimaanlage"],
     warranty: "36 Monate / 3.000 Betriebsstunden",
-    image: "/placeholder.svg",
+    image: ze135gImage,
     description: "Professioneller Bagger mit 14,4t Einsatzgewicht."
   },
   {
@@ -1546,7 +1555,7 @@ export const excavators: Excavator[] = [
     uvpPrice: 100300.00,
     features: ["Installation Anbaugeräte komplett", "Schnellwechsler", "Multifunktions-Joystick", "Klimaanlage"],
     warranty: "36 Monate / 3.000 Betriebsstunden",
-    image: "/placeholder.svg",
+    image: ze145guImage,
     description: "Professioneller Bagger mit 15,8t Einsatzgewicht."
   },
   {
@@ -1560,7 +1569,7 @@ export const excavators: Excavator[] = [
     uvpPrice: 135570.20,
     features: ["Installation Anbaugeräte komplett", "Schnellwechsler", "Multifunktions-Joystick", "Klimaanlage"],
     warranty: "36 Monate / 3.000 Betriebsstunden",
-    image: "/placeholder.svg",
+    image: ze210glcImage,
     description: "Leistungsstarker Pro-Bagger mit 23,6t Einsatzgewicht."
   },
   {
@@ -1574,7 +1583,7 @@ export const excavators: Excavator[] = [
     uvpPrice: 139004.00,
     features: ["Installation Anbaugeräte komplett", "Schnellwechsler", "Multifunktions-Joystick", "Klimaanlage"],
     warranty: "36 Monate / 3.000 Betriebsstunden",
-    image: "/placeholder.svg",
+    image: ze225gnImage,
     description: "Leistungsstarker Pro-Bagger mit 23t Einsatzgewicht."
   },
   // Heavy Line
