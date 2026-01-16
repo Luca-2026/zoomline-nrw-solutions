@@ -42,15 +42,15 @@ export function HeroSection() {
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10">
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white"
+              >
                 <Link to="/bagger">
                   <Wrench className="mr-2 h-5 w-5" />
                   Bagger finden
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="secondary" className="bg-white text-secondary hover:bg-white/90">
-                <Link to="/kontakt">
-                  Anfrage senden
                 </Link>
               </Button>
             </div>
