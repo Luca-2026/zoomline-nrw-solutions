@@ -48,11 +48,11 @@ export function USPSection() {
           {usps.map((usp, index) => (
             <div
               key={usp.title}
-              className="group relative p-6 rounded-xl border border-border bg-card transition-all duration-300 hover:shadow-lg hover:border-primary/30"
-              style={{ animationDelay: `${index * 100}ms` }}
+              className="group relative p-6 rounded-xl border border-border bg-card transition-all duration-300 hover:shadow-lg hover:border-primary/30 hover:-translate-y-1 animate-fade-in-up opacity-0"
+              style={{ animationDelay: `${0.1 + index * 0.1}s` }}
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent text-primary mb-4 transition-colors group-hover:bg-primary group-hover:text-primary-foreground">
-                <usp.icon className="h-6 w-6" />
+              <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent text-primary mb-4 transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-110">
+                <usp.icon className="h-6 w-6 transition-transform duration-300 group-hover:rotate-6" />
               </div>
               <h3 className="font-heading text-lg font-bold text-foreground mb-2">
                 {usp.title}

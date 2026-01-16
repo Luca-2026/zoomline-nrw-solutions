@@ -39,9 +39,10 @@ export function Header() {
               key={item.name}
               to={item.href}
               className={cn(
-                "px-3 py-2 text-sm font-medium transition-colors hover:text-primary",
+                "relative px-3 py-2 text-sm font-medium transition-all duration-200 hover:text-primary",
+                "after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-3/4",
                 location.pathname === item.href
-                  ? "text-primary"
+                  ? "text-primary after:w-3/4"
                   : "text-foreground/80"
               )}
             >
