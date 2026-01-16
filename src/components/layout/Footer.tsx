@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin } from "lucide-react";
+import logoImage from "@/assets/logo-zoomlion-nrw.png";
 
 export function Footer() {
   return (
@@ -8,16 +9,15 @@ export function Footer() {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           {/* Logo & Info */}
           <div className="space-y-4">
-            <div>
-              <span className="font-heading text-2xl font-bold text-primary">
-                ZOOMLINE
-              </span>
-              <span className="ml-1 text-sm font-medium text-muted-foreground">
-                NRW
-              </span>
-            </div>
+            <Link to="/">
+              <img 
+                src={logoImage} 
+                alt="Zoomlion NRW by SLT" 
+                className="h-12 w-auto"
+              />
+            </Link>
             <p className="text-sm text-secondary-foreground/80">
-              Exklusiver Fachhändler für Zoomline Arbeitsbühnen und Bagger in
+              Exklusiver Fachhändler für Zoomlion Arbeitsbühnen und Bagger in
               Nordrhein-Westfalen.
             </p>
             <p className="text-xs text-secondary-foreground/60">
@@ -143,10 +143,10 @@ export function Footer() {
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-primary" />
                 <a
-                  href="mailto:info@zoomline-nrw.de"
+                  href="mailto:info@zoomlion-nrw.de"
                   className="text-secondary-foreground/80 hover:text-primary transition-colors"
                 >
-                  info@zoomline-nrw.de
+                  info@zoomlion-nrw.de
                 </a>
               </li>
               <li className="flex items-start gap-2 mt-4">

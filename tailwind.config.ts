@@ -61,15 +61,14 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // Zoomline Custom Colors
-        zoomline: {
-          green: "hsl(var(--zoomline-green))",
-          "green-dark": "hsl(var(--zoomline-green-dark))",
-          "green-light": "hsl(var(--zoomline-green-light))",
-        },
-        anthracite: {
-          DEFAULT: "hsl(var(--anthracite))",
-          light: "hsl(var(--anthracite-light))",
+        // Zoomlion Custom Colors
+        zoomlion: {
+          lime: "hsl(var(--zoomlion-lime))",
+          "lime-dark": "hsl(var(--zoomlion-lime-dark))",
+          "lime-light": "hsl(var(--zoomlion-lime-light))",
+          anthracite: "hsl(var(--zoomlion-anthracite))",
+          "anthracite-light": "hsl(var(--zoomlion-anthracite-light))",
+          petrol: "hsl(var(--zoomlion-petrol))",
         },
       },
       borderRadius: {

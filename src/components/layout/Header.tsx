@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Phone, ChevronDown } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import logoImage from "@/assets/logo-zoomlion-nrw.png";
 
 const navigation = [
   { name: "Startseite", href: "/" },
@@ -22,15 +23,12 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <nav className="container mx-auto flex h-16 items-center justify-between px-4 lg:px-6">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
-          <div className="flex flex-col">
-            <span className="font-heading text-xl font-bold text-primary">
-              ZOOMLINE
-            </span>
-            <span className="text-[10px] font-medium tracking-widest text-muted-foreground">
-              NRW
-            </span>
-          </div>
+        <Link to="/" className="flex items-center">
+          <img 
+            src={logoImage} 
+            alt="Zoomlion NRW by SLT" 
+            className="h-10 md:h-12 w-auto"
+          />
         </Link>
 
         {/* Desktop Navigation */}
