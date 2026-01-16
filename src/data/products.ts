@@ -1,6 +1,14 @@
 // Zoomlion NRW Produktdaten - Arbeitsbühnen & Bagger
 // Basierend auf offiziellen Preislisten 2025
 
+// Produktbilder
+import ze20gImage from "@/assets/hot-deals/ze20g.png";
+import ze27guImage from "@/assets/hot-deals/ze27gu.jpg";
+import ze55guImage from "@/assets/hot-deals/ze55gu.png";
+import zs0607acLiImage from "@/assets/hot-deals/zs0607ac-li.png";
+import zs1012acLiImage from "@/assets/hot-deals/zs1012ac-li.png";
+import zmp09jImage from "@/assets/hot-deals/zmp09j.png";
+
 export interface AerialPlatform {
   id: string;
   name: string;
@@ -216,7 +224,7 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: true,
     uvpPrice: 15629.46,
     features: ["AC-Antrieb", "Lithium-Ionen Akku"],
-    image: "/placeholder.svg",
+    image: zs0607acLiImage,
     description: "Scherenarbeitsbühne mit Lithium-Akku."
   },
   {
@@ -276,7 +284,7 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: true,
     uvpPrice: 25774.98,
     features: ["AC-Antrieb", "Lithium-Ionen Akku"],
-    image: "/placeholder.svg",
+    image: zs1012acLiImage,
     description: "Scherenarbeitsbühne mit 11,8m Arbeitshöhe."
   },
   {
@@ -1022,7 +1030,7 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: false,
     uvpPrice: 37227.96,
     features: ["Mastbühne", "11m Arbeitshöhe"],
-    image: "/placeholder.svg",
+    image: zmp09jImage,
     description: "Große Mastbühne."
   },
   // Elektro Teleskopbühnen
@@ -1420,7 +1428,7 @@ export const excavators: Excavator[] = [
     uvpPrice: 22375.00,
     features: ["3+4 Hydraulik-Kreislauf", "Multifunktions-Joystick proportional", "Klimaanlage"],
     warranty: "36 Monate / 3.000 Betriebsstunden",
-    image: "/placeholder.svg",
+    image: ze20gImage,
     description: "Kompakter Minibagger mit 2t Einsatzgewicht."
   },
   {
@@ -1434,7 +1442,7 @@ export const excavators: Excavator[] = [
     uvpPrice: 32937.50,
     features: ["3+4 Hydraulik-Kreislauf", "Multifunktions-Joystick proportional", "Klimaanlage"],
     warranty: "36 Monate / 3.000 Betriebsstunden",
-    image: "/placeholder.svg",
+    image: ze27guImage,
     description: "Vielseitiger Kompaktbagger mit 2,7t Einsatzgewicht."
   },
   {
@@ -1462,7 +1470,7 @@ export const excavators: Excavator[] = [
     uvpPrice: 54875.00,
     features: ["3+4 Hydraulik-Kreislauf", "Multifunktions-Joystick proportional", "Klimaanlage"],
     warranty: "36 Monate / 3.000 Betriebsstunden",
-    image: "/placeholder.svg",
+    image: ze55guImage,
     description: "Kraftvoller Kompaktbagger mit 5,8t Einsatzgewicht."
   },
   {

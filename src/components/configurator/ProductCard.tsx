@@ -14,16 +14,28 @@ const formatPrice = (price: number) => {
   }).format(price);
 };
 
+const isPlaceholder = (image: string) => {
+  return image === "/placeholder.svg" || !image;
+};
+
 export function ProductCard({ product, onInquiry }: ProductCardProps) {
   return (
     <div className="group rounded-xl border border-border bg-card overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-primary/30">
       {/* Image */}
-      <div className="aspect-[4/3] bg-muted relative">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <Truck className="h-16 w-16 text-muted-foreground/30" />
-        </div>
+      <div className="aspect-[4/3] bg-muted relative overflow-hidden">
+        {isPlaceholder(product.image) ? (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <Truck className="h-16 w-16 text-muted-foreground/30" />
+          </div>
+        ) : (
+          <img
+            src={product.image}
+            alt={product.name}
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          />
+        )}
         <div className="absolute top-3 left-3">
-          <span className="inline-flex items-center rounded-md bg-primary/10 px-2 py-1 text-xs font-medium text-primary">
+          <span className="inline-flex items-center rounded-md bg-primary/90 px-2 py-1 text-xs font-medium text-primary-foreground">
             {product.categoryLabel}
           </span>
         </div>
