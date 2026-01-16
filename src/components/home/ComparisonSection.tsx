@@ -54,7 +54,7 @@ export function ComparisonSection() {
                     Kriterium
                   </th>
                   <th className="px-6 py-4 text-center text-sm font-bold text-primary">
-                    Zoomlion NRW
+                    Zoomlion
                   </th>
                   <th className="px-6 py-4 text-center text-sm font-medium text-muted-foreground">
                     Typische Alternative
