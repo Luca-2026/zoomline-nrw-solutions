@@ -37,7 +37,7 @@ function HotDealCard({ deal }: { deal: HotDeal }) {
       <div className="aspect-[4/3] bg-muted relative overflow-hidden">
         <img
           src={deal.image}
-          alt={deal.name}
+          alt={`Zoomlion ${deal.name} ${deal.type === "bagger" ? "Bagger" : "Arbeitsbühne"} kaufen - ${deal.highlight} - Aktionspreis bei Zoomlion NRW`}
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
         <div className="absolute top-3 left-3">

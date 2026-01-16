@@ -10,7 +10,7 @@ export function HeroSection() {
       <div className="absolute inset-0">
         <img 
           src={heroGrafik} 
-          alt="Zoomlion Maschinen - Arbeitsbühnen und Bagger" 
+          alt="Zoomlion Arbeitsbühnen und Bagger kaufen in NRW - Scherenarbeitsbühnen, Teleskopbühnen und Minibagger vom Top 5 Hersteller weltweit" 
           className="w-full h-full object-cover object-center"
         />
         {/* Gradient Overlay for better text readability */}

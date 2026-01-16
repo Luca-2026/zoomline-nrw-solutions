@@ -28,14 +28,14 @@ export function ProductCard({ product, onInquiry }: ProductCardProps) {
           <div className="absolute inset-0 flex items-center justify-center bg-muted">
             <img 
               src={iconArbeitsbuehne} 
-              alt="Arbeitsbühne" 
+              alt="Zoomlion Arbeitsbühne kaufen - Scherenarbeitsbühne, Teleskopbühne, Gelenkbühne NRW" 
               className="h-24 w-24 object-contain opacity-60"
             />
           </div>
         ) : (
           <img
             src={product.image}
-            alt={product.name}
+            alt={`Zoomlion ${product.name} ${product.categoryLabel} kaufen - ${product.workingHeight}m Arbeitshöhe, ${product.driveLabel} Antrieb`}
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
         )}

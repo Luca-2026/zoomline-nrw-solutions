@@ -35,14 +35,14 @@ export function ExcavatorCard({ product, onInquiry }: ExcavatorCardProps) {
           <div className="absolute inset-0 flex items-center justify-center bg-muted">
             <img 
               src={iconBagger} 
-              alt="Bagger" 
+              alt="Zoomlion Bagger kaufen - Minibagger und Kompaktbagger NRW" 
               className="h-24 w-24 object-contain opacity-60"
             />
           </div>
         ) : (
           <img
             src={product.image}
-            alt={product.name}
+            alt={`Zoomlion ${product.name} ${product.categoryLabel} kaufen - ${(product.operatingWeight / 1000).toFixed(1)}t Betriebsgewicht, ${product.power} Leistung`}
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
         )}

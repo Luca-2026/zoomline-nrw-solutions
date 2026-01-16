@@ -45,7 +45,7 @@ function HotDealDetailCard({ deal, onInquiry }: { deal: HotDeal; onInquiry: () =
         <div className="aspect-square md:aspect-auto bg-muted relative min-h-[300px] overflow-hidden">
           <img
             src={deal.image}
-            alt={deal.name}
+            alt={`Zoomlion ${deal.name} ${deal.type === "bagger" ? "Bagger" : "Arbeitsbühne"} Sonderangebot - ${deal.highlight} günstig kaufen NRW`}
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
           <div className="absolute top-4 left-4">
