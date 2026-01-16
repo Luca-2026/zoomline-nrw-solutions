@@ -1444,7 +1444,8 @@ export const excavators: Excavator[] = [
     features: ["3+4 Hydraulik-Kreislauf", "Multifunktions-Joystick proportional", "Klimaanlage"],
     warranty: "36 Monate / 3.000 Betriebsstunden",
     image: "/placeholder.svg",
-    description: "Kompakter Minibagger mit 1,8t Einsatzgewicht."
+    description: "Kompakter Minibagger mit 1,8t Einsatzgewicht.",
+    datasheet: "/datasheets/ze18gu.pdf"
   },
   {
     id: "ze20g",
@@ -1458,7 +1459,8 @@ export const excavators: Excavator[] = [
     features: ["3+4 Hydraulik-Kreislauf", "Multifunktions-Joystick proportional", "Klimaanlage"],
     warranty: "36 Monate / 3.000 Betriebsstunden",
     image: ze20gImage,
-    description: "Kompakter Minibagger mit 2t Einsatzgewicht."
+    description: "Kompakter Minibagger mit 2t Einsatzgewicht.",
+    datasheet: "/datasheets/ze20g.pdf"
   },
   {
     id: "ze27gu",
@@ -1472,7 +1474,8 @@ export const excavators: Excavator[] = [
     features: ["3+4 Hydraulik-Kreislauf", "Multifunktions-Joystick proportional", "Klimaanlage"],
     warranty: "36 Monate / 3.000 Betriebsstunden",
     image: ze27guImage,
-    description: "Vielseitiger Kompaktbagger mit 2,7t Einsatzgewicht."
+    description: "Vielseitiger Kompaktbagger mit 2,7t Einsatzgewicht.",
+    datasheet: "/datasheets/ze27gu.pdf"
   },
   {
     id: "ze36gu",
@@ -1486,7 +1489,8 @@ export const excavators: Excavator[] = [
     features: ["3+4 Hydraulik-Kreislauf", "Multifunktions-Joystick proportional", "Klimaanlage"],
     warranty: "36 Monate / 3.000 Betriebsstunden",
     image: "/placeholder.svg",
-    description: "Leistungsstarker Kompaktbagger mit 3,8t Einsatzgewicht."
+    description: "Leistungsstarker Kompaktbagger mit 3,8t Einsatzgewicht.",
+    datasheet: "/datasheets/ze36gu.pdf"
   },
   {
     id: "ze55gu",
