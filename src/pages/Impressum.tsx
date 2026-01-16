@@ -13,7 +13,7 @@ const Impressum = () => (
           Deutschland
         </p>
         <h2>Kontakt</h2>
-        <p>Telefon: 02151 4179904<br />E-Mail: info@zoomline-nrw.de</p>
+        <p>Telefon: 02151 4179904<br />E-Mail: verkauf@zoomlion-nrw.de</p>
         <h2>Handelsregister</h2>
         <p><em>Platzhalter – Registergericht und HRA/HRB-Nummer eintragen</em></p>
         <h2>Umsatzsteuer-ID</h2>

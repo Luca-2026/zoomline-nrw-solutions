@@ -1,4 +1,4 @@
-// Zoomline NRW Produktdaten - Arbeitsbühnen & Bagger
+// Zoomlion NRW Produktdaten - Arbeitsbühnen & Bagger
 // Diese Datei enthält Platzhalter-Produkte, die später durch echte Modelle ersetzt werden können
 
 export interface AerialPlatform {
@@ -47,7 +47,7 @@ export interface Excavator {
 export const aerialPlatforms: AerialPlatform[] = [
   {
     id: "zl-scissor-10e",
-    name: "Zoomline ZL 10E",
+    name: "Zoomlion ZL 10E",
     category: "scissor",
     categoryLabel: "Scherenarbeitsbühne",
     workingHeight: 10,
@@ -63,7 +63,7 @@ export const aerialPlatforms: AerialPlatform[] = [
   },
   {
     id: "zl-scissor-14e",
-    name: "Zoomline ZL 14E",
+    name: "Zoomlion ZL 14E",
     category: "scissor",
     categoryLabel: "Scherenarbeitsbühne",
     workingHeight: 14,
@@ -79,7 +79,7 @@ export const aerialPlatforms: AerialPlatform[] = [
   },
   {
     id: "zl-boom-16j",
-    name: "Zoomline ZL 16J",
+    name: "Zoomlion ZL 16J",
     category: "boom",
     categoryLabel: "Gelenkteleskopbühne",
     workingHeight: 16,
@@ -95,7 +95,7 @@ export const aerialPlatforms: AerialPlatform[] = [
   },
   {
     id: "zl-boom-20j",
-    name: "Zoomline ZL 20J",
+    name: "Zoomlion ZL 20J",
     category: "boom",
     categoryLabel: "Gelenkteleskopbühne",
     workingHeight: 20,
@@ -111,7 +111,7 @@ export const aerialPlatforms: AerialPlatform[] = [
   },
   {
     id: "zl-boom-26s",
-    name: "Zoomline ZL 26S",
+    name: "Zoomlion ZL 26S",
     category: "boom",
     categoryLabel: "Teleskoparbeitsbühne",
     workingHeight: 26,
@@ -127,7 +127,7 @@ export const aerialPlatforms: AerialPlatform[] = [
   },
   {
     id: "zl-scissor-12h",
-    name: "Zoomline ZL 12H",
+    name: "Zoomlion ZL 12H",
     category: "scissor",
     categoryLabel: "Scherenarbeitsbühne",
     workingHeight: 12,
@@ -143,7 +143,7 @@ export const aerialPlatforms: AerialPlatform[] = [
   },
   {
     id: "zl-mast-8e",
-    name: "Zoomline ZL 8M",
+    name: "Zoomlion ZL 8M",
     category: "mast",
     categoryLabel: "Mastbühne",
     workingHeight: 8,
@@ -159,7 +159,7 @@ export const aerialPlatforms: AerialPlatform[] = [
   },
   {
     id: "zl-trailer-12",
-    name: "Zoomline ZL 12T",
+    name: "Zoomlion ZL 12T",
     category: "trailer",
     categoryLabel: "Anhängerbühne",
     workingHeight: 12,
@@ -179,7 +179,7 @@ export const aerialPlatforms: AerialPlatform[] = [
 export const excavators: Excavator[] = [
   {
     id: "zl-mini-17",
-    name: "Zoomline ZE 17",
+    name: "Zoomlion ZE 17",
     category: "mini",
     categoryLabel: "Minibagger",
     weightClass: "1-2t",
@@ -201,7 +201,7 @@ export const excavators: Excavator[] = [
   },
   {
     id: "zl-mini-25",
-    name: "Zoomline ZE 25",
+    name: "Zoomlion ZE 25",
     category: "mini",
     categoryLabel: "Minibagger",
     weightClass: "2-3t",
@@ -223,7 +223,7 @@ export const excavators: Excavator[] = [
   },
   {
     id: "zl-compact-35",
-    name: "Zoomline ZE 35",
+    name: "Zoomlion ZE 35",
     category: "compact",
     categoryLabel: "Kompaktbagger",
     weightClass: "3-5t",
@@ -245,7 +245,7 @@ export const excavators: Excavator[] = [
   },
   {
     id: "zl-compact-50",
-    name: "Zoomline ZE 50",
+    name: "Zoomlion ZE 50",
     category: "compact",
     categoryLabel: "Kompaktbagger",
     weightClass: "5-8t",
@@ -267,7 +267,7 @@ export const excavators: Excavator[] = [
   },
   {
     id: "zl-mini-15e",
-    name: "Zoomline ZE 15E",
+    name: "Zoomlion ZE 15E",
     category: "mini",
     categoryLabel: "Minibagger",
     weightClass: "1-2t",
@@ -289,7 +289,7 @@ export const excavators: Excavator[] = [
   },
   {
     id: "zl-midi-60",
-    name: "Zoomline ZE 60",
+    name: "Zoomlion ZE 60",
     category: "midi",
     categoryLabel: "Midibagger",
     weightClass: ">8t",

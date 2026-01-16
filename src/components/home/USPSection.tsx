@@ -30,7 +30,7 @@ const usps = [
   {
     icon: Shield,
     title: "Exklusiver Fachhändler",
-    description: "Ihr Zoomline Partner in Nordrhein-Westfalen"
+    description: "Ihr Zoomlion Partner in Nordrhein-Westfalen"
   }
 ];
 
@@ -40,7 +40,7 @@ export function USPSection() {
       <div className="container mx-auto px-4">
         <SectionHeading
           badge="Ihre Vorteile"
-          title="Warum Zoomline NRW?"
+          title="Warum Zoomlion NRW?"
           subtitle="Wir bieten mehr als nur Maschinen – wir sind Ihr verlässlicher Partner für Beratung, Service und Ersatzteile"
         />
 
