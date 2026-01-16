@@ -3,6 +3,13 @@ import { ArrowRight, Flame, Shovel, ChevronsUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { hotDeals, type HotDeal } from "@/data/hotDeals";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const formatPrice = (price: number) => {
   return new Intl.NumberFormat("de-DE", {
@@ -15,7 +22,7 @@ const formatPrice = (price: number) => {
 
 function HotDealCard({ deal }: { deal: HotDeal }) {
   return (
-    <div className="group relative rounded-xl border-2 border-primary/30 bg-card overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-primary hover:scale-[1.02]">
+    <div className="group relative rounded-xl border-2 border-primary/30 bg-card overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-primary h-full">
       {/* Hot Deal Badge */}
       {deal.highlight && (
         <div className="absolute top-3 right-3 z-10">
@@ -82,9 +89,6 @@ function HotDealCard({ deal }: { deal: HotDeal }) {
 }
 
 export function HotDealsSection() {
-  // Show first 3 deals on homepage
-  const featuredDeals = hotDeals.slice(0, 3);
-
   return (
     <section className="py-16 md:py-24 bg-gradient-to-b from-destructive/5 to-background">
       <div className="container mx-auto px-4 lg:px-6">
@@ -98,11 +102,23 @@ export function HotDealsSection() {
           <Flame className="h-8 w-8 text-destructive animate-pulse" />
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 mt-10">
-          {featuredDeals.map((deal) => (
-            <HotDealCard key={deal.id} deal={deal} />
-          ))}
-        </div>
+        <Carousel
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+          className="w-full mt-10"
+        >
+          <CarouselContent className="-ml-4">
+            {hotDeals.map((deal) => (
+              <CarouselItem key={deal.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                <HotDealCard deal={deal} />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="hidden md:flex -left-4 lg:-left-6" />
+          <CarouselNext className="hidden md:flex -right-4 lg:-right-6" />
+        </Carousel>
 
         <div className="mt-10 text-center">
           <Button asChild size="lg" variant="outline" className="group">
