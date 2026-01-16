@@ -7,6 +7,20 @@ interface ExcavatorCardProps {
   onInquiry: () => void;
 }
 
+const formatPrice = (price: number) => {
+  return new Intl.NumberFormat("de-DE", {
+    style: "currency",
+    currency: "EUR",
+  }).format(price);
+};
+
+const formatWeight = (weight: number) => {
+  if (weight >= 1000) {
+    return `${(weight / 1000).toFixed(1)} t`;
+  }
+  return `${weight} kg`;
+};
+
 export function ExcavatorCard({ product, onInquiry }: ExcavatorCardProps) {
   return (
     <div className="group rounded-xl border border-border bg-card overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-primary/30">
@@ -20,7 +34,7 @@ export function ExcavatorCard({ product, onInquiry }: ExcavatorCardProps) {
             {product.categoryLabel}
           </span>
           <span className="inline-flex items-center rounded-md bg-secondary/80 px-2 py-1 text-xs font-medium text-secondary-foreground">
-            {product.weightClassLabel}
+            {formatWeight(product.operatingWeight)}
           </span>
         </div>
       </div>
@@ -30,39 +44,33 @@ export function ExcavatorCard({ product, onInquiry }: ExcavatorCardProps) {
         <h3 className="font-heading text-lg font-bold text-foreground mb-2">
           {product.name}
         </h3>
-        <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+        <p className="text-sm text-muted-foreground mb-3 line-clamp-2">
           {product.description}
         </p>
+
+        {/* Price */}
+        <div className="mb-3 p-2 rounded-lg bg-primary/5 border border-primary/20">
+          <p className="text-xs text-muted-foreground">UVP ab</p>
+          <p className="font-heading text-lg font-bold text-primary">
+            {formatPrice(product.uvpPrice)}
+          </p>
+        </div>
 
         {/* Specs */}
         <div className="grid grid-cols-2 gap-2 mb-4 text-sm">
           <div className="flex items-center gap-1">
-            <span className="text-muted-foreground">Antrieb:</span>
-            <span className="font-medium">{product.driveLabel}</span>
+            <span className="text-muted-foreground">Motor:</span>
+            <span className="font-medium">{product.engine}</span>
           </div>
           <div className="flex items-center gap-1">
-            <span className="text-muted-foreground">Einsatz:</span>
-            <span className="font-medium">{product.applicationLabel}</span>
+            <span className="text-muted-foreground">Leistung:</span>
+            <span className="font-medium">{product.power}</span>
           </div>
         </div>
 
-        {/* Equipment */}
-        <div className="flex flex-wrap gap-1 mb-4">
-          {product.equipment.quickCoupler && (
-            <span className="inline-flex items-center rounded bg-accent px-2 py-0.5 text-xs text-accent-foreground">
-              Schnellwechsler
-            </span>
-          )}
-          {product.equipment.cabin && (
-            <span className="inline-flex items-center rounded bg-accent px-2 py-0.5 text-xs text-accent-foreground">
-              Kabine
-            </span>
-          )}
-          {product.equipment.additionalHydraulics && (
-            <span className="inline-flex items-center rounded bg-accent px-2 py-0.5 text-xs text-accent-foreground">
-              Zusatzhydraulik
-            </span>
-          )}
+        {/* Warranty */}
+        <div className="mb-3 text-xs text-muted-foreground">
+          <span className="font-medium">Garantie:</span> {product.warranty}
         </div>
 
         {/* Features */}

@@ -1,9 +1,8 @@
 import { useState, useMemo } from "react";
-import { SectionHeading } from "@/components/shared/SectionHeading";
 import { TrustBadges } from "@/components/shared/TrustBadges";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { excavators, excavatorFilterOptions, type Excavator } from "@/data/products";
 import { ExcavatorCard } from "./ExcavatorCard";
@@ -11,27 +10,17 @@ import { InquiryModal } from "./InquiryModal";
 import { Filter, RotateCcw } from "lucide-react";
 
 interface ExcavatorFilters {
-  application: string;
+  category: string;
   weightClass: string;
-  drive: string;
-  quickCoupler: boolean;
-  additionalHydraulics: boolean;
-  tiltrotatorReady: boolean;
-  cabin: boolean;
-  adjustableArm: boolean;
-  delivery: boolean;
+  minWeight: number;
+  maxWeight: number;
 }
 
 const defaultFilters: ExcavatorFilters = {
-  application: "all",
+  category: "all",
   weightClass: "all",
-  drive: "all",
-  quickCoupler: false,
-  additionalHydraulics: false,
-  tiltrotatorReady: false,
-  cabin: false,
-  adjustableArm: false,
-  delivery: false,
+  minWeight: 0,
+  maxWeight: 60000,
 };
 
 export function ExcavatorConfigurator() {
@@ -41,14 +30,19 @@ export function ExcavatorConfigurator() {
 
   const filteredProducts = useMemo(() => {
     return excavators.filter((product) => {
-      if (filters.application !== "all" && product.application !== filters.application) return false;
-      if (filters.weightClass !== "all" && product.weightClass !== filters.weightClass) return false;
-      if (filters.drive !== "all" && product.drive !== filters.drive) return false;
-      if (filters.quickCoupler && !product.equipment.quickCoupler) return false;
-      if (filters.additionalHydraulics && !product.equipment.additionalHydraulics) return false;
-      if (filters.tiltrotatorReady && !product.equipment.tiltrotatorReady) return false;
-      if (filters.cabin && !product.equipment.cabin) return false;
-      if (filters.adjustableArm && !product.equipment.adjustableArm) return false;
+      if (filters.category !== "all" && product.category !== filters.category) return false;
+      
+      // Weight class filter
+      if (filters.weightClass !== "all") {
+        const [minStr, maxStr] = filters.weightClass.split("-");
+        const min = parseInt(minStr);
+        const max = maxStr ? parseInt(maxStr) : Infinity;
+        if (product.operatingWeight < min || product.operatingWeight > max) return false;
+      }
+      
+      // Slider weight filter
+      if (product.operatingWeight < filters.minWeight || product.operatingWeight > filters.maxWeight) return false;
+      
       return true;
     });
   }, [filters]);
@@ -60,16 +54,6 @@ export function ExcavatorConfigurator() {
 
   const resetFilters = () => {
     setFilters(defaultFilters);
-  };
-
-  const getSelectedEquipment = () => {
-    const equipment: string[] = [];
-    if (filters.quickCoupler) equipment.push("Schnellwechsler");
-    if (filters.additionalHydraulics) equipment.push("Zusatzhydraulik");
-    if (filters.tiltrotatorReady) equipment.push("Tiltrotator vorbereitet");
-    if (filters.cabin) equipment.push("Kabine");
-    if (filters.adjustableArm) equipment.push("Verstellausleger");
-    return equipment;
   };
 
   return (
@@ -89,13 +73,13 @@ export function ExcavatorConfigurator() {
               </Button>
             </div>
 
-            {/* Einsatzbereich */}
+            {/* Kategorie */}
             <div className="space-y-2">
-              <Label>Einsatzbereich</Label>
-              <Select value={filters.application} onValueChange={(v) => setFilters({ ...filters, application: v })}>
+              <Label>Kategorie</Label>
+              <Select value={filters.category} onValueChange={(v) => setFilters({ ...filters, category: v })}>
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
-                  {excavatorFilterOptions.application.map((opt) => (
+                  {excavatorFilterOptions.category.map((opt) => (
                     <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
                   ))}
                 </SelectContent>
@@ -115,50 +99,16 @@ export function ExcavatorConfigurator() {
               </Select>
             </div>
 
-            {/* Antrieb */}
-            <div className="space-y-2">
-              <Label>Antrieb</Label>
-              <Select value={filters.drive} onValueChange={(v) => setFilters({ ...filters, drive: v })}>
-                <SelectTrigger><SelectValue /></SelectTrigger>
-                <SelectContent>
-                  {excavatorFilterOptions.drive.map((opt) => (
-                    <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            {/* Ausstattung */}
-            <div className="space-y-2">
-              <Label>Gewünschte Ausstattung</Label>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2">
-                  <Checkbox id="quickCoupler" checked={filters.quickCoupler} onCheckedChange={(v) => setFilters({ ...filters, quickCoupler: !!v })} />
-                  <Label htmlFor="quickCoupler" className="cursor-pointer text-sm">Schnellwechsler</Label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Checkbox id="additionalHydraulics" checked={filters.additionalHydraulics} onCheckedChange={(v) => setFilters({ ...filters, additionalHydraulics: !!v })} />
-                  <Label htmlFor="additionalHydraulics" className="cursor-pointer text-sm">Zusatzhydraulik</Label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Checkbox id="tiltrotatorReady" checked={filters.tiltrotatorReady} onCheckedChange={(v) => setFilters({ ...filters, tiltrotatorReady: !!v })} />
-                  <Label htmlFor="tiltrotatorReady" className="cursor-pointer text-sm">Tiltrotator vorbereitet</Label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Checkbox id="cabin" checked={filters.cabin} onCheckedChange={(v) => setFilters({ ...filters, cabin: !!v })} />
-                  <Label htmlFor="cabin" className="cursor-pointer text-sm">Kabine</Label>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Checkbox id="adjustableArm" checked={filters.adjustableArm} onCheckedChange={(v) => setFilters({ ...filters, adjustableArm: !!v })} />
-                  <Label htmlFor="adjustableArm" className="cursor-pointer text-sm">Verstellausleger</Label>
-                </div>
-              </div>
-            </div>
-
-            {/* Lieferung */}
-            <div className="flex items-center gap-2">
-              <Checkbox id="delivery" checked={filters.delivery} onCheckedChange={(v) => setFilters({ ...filters, delivery: !!v })} />
-              <Label htmlFor="delivery" className="cursor-pointer">Lieferung gewünscht</Label>
+            {/* Gewichtsbereich Slider */}
+            <div className="space-y-3">
+              <Label>Einsatzgewicht: {(filters.minWeight / 1000).toFixed(0)}–{(filters.maxWeight / 1000).toFixed(0)} t</Label>
+              <Slider
+                value={[filters.minWeight, filters.maxWeight]}
+                min={0}
+                max={60000}
+                step={1000}
+                onValueChange={([min, max]) => setFilters({ ...filters, minWeight: min, maxWeight: max })}
+              />
             </div>
 
             <Button className="w-full" onClick={() => handleInquiry()}>
@@ -209,11 +159,7 @@ export function ExcavatorConfigurator() {
         type="bagger"
         selectedProduct={selectedProduct?.name}
         filters={{
-          einsatzbereich: filters.application !== "all" ? excavatorFilterOptions.application.find(o => o.value === filters.application)?.label : undefined,
           gewichtsklasse: filters.weightClass !== "all" ? excavatorFilterOptions.weightClass.find(o => o.value === filters.weightClass)?.label : undefined,
-          antrieb: filters.drive !== "all" ? excavatorFilterOptions.drive.find(o => o.value === filters.drive)?.label : undefined,
-          ausstattung: getSelectedEquipment(),
-          lieferung: filters.delivery,
         }}
       />
     </>
