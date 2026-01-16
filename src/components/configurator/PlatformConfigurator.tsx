@@ -13,6 +13,7 @@ import { Filter, RotateCcw } from "lucide-react";
 interface PlatformFilters {
   drive: string;
   category: string;
+  application: string;
   lithium: boolean;
   minHeight: number;
   maxHeight: number;
@@ -21,6 +22,7 @@ interface PlatformFilters {
 const defaultFilters: PlatformFilters = {
   drive: "all",
   category: "all",
+  application: "all",
   lithium: false,
   minHeight: 5,
   maxHeight: 75,
@@ -37,6 +39,19 @@ export function PlatformConfigurator() {
       if (filters.category !== "all" && product.category !== filters.category) return false;
       if (filters.lithium && !product.lithiumBattery) return false;
       if (product.workingHeight < filters.minHeight || product.workingHeight > filters.maxHeight) return false;
+      
+      // Einsatzbereich Filter
+      if (filters.application === "indoor") {
+        // Innenbereich: Nur elektrische Modelle (emissionsfrei, leise)
+        if (product.drive !== "electric") return false;
+      } else if (filters.application === "outdoor") {
+        // Außenbereich: Diesel und Hybrid Modelle
+        if (product.drive === "electric" && !product.category.includes("rough") && product.category !== "crawler") return false;
+      } else if (filters.application === "electric-all") {
+        // Alle Elektro-Modelle
+        if (product.drive !== "electric") return false;
+      }
+      
       return true;
     });
   }, [filters]);
@@ -87,6 +102,19 @@ export function PlatformConfigurator() {
                 <SelectTrigger><SelectValue /></SelectTrigger>
                 <SelectContent>
                   {platformFilterOptions.category.map((opt) => (
+                    <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Einsatzbereich */}
+            <div className="space-y-2">
+              <Label>Einsatzbereich</Label>
+              <Select value={filters.application} onValueChange={(v) => setFilters({ ...filters, application: v })}>
+                <SelectTrigger><SelectValue /></SelectTrigger>
+                <SelectContent className="bg-card border border-border z-50">
+                  {platformFilterOptions.application.map((opt) => (
                     <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>
                   ))}
                 </SelectContent>

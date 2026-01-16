@@ -1728,6 +1728,12 @@ export const platformFilterOptions = {
     { value: "electric", label: "Elektro" },
     { value: "diesel", label: "Diesel" },
     { value: "hybrid", label: "Hybrid" }
+  ],
+  application: [
+    { value: "all", label: "Alle Einsatzbereiche" },
+    { value: "indoor", label: "Innenbereich" },
+    { value: "outdoor", label: "Außenbereich" },
+    { value: "electric-all", label: "Alle Elektro-Modelle" }
   ]
 };
 
