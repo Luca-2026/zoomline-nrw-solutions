@@ -28,9 +28,9 @@ const isPlaceholder = (image: string) => {
 
 export function ExcavatorCard({ product, onInquiry }: ExcavatorCardProps) {
   return (
-    <div className="group rounded-xl border border-border bg-card overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-primary/30">
+    <div className="group h-full flex flex-col rounded-xl border border-border bg-card overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-primary/30">
       {/* Image */}
-      <div className="aspect-[4/3] bg-muted relative overflow-hidden">
+      <div className="aspect-[4/3] bg-muted relative overflow-hidden flex-shrink-0">
         {isPlaceholder(product.image) ? (
           <div className="absolute inset-0 flex items-center justify-center bg-muted">
             <img 
@@ -57,7 +57,7 @@ export function ExcavatorCard({ product, onInquiry }: ExcavatorCardProps) {
       </div>
 
       {/* Content */}
-      <div className="p-4">
+      <div className="p-4 flex flex-col flex-grow">
         <h3 className="font-heading text-lg font-bold text-foreground mb-2">
           {product.name}
         </h3>
@@ -102,7 +102,7 @@ export function ExcavatorCard({ product, onInquiry }: ExcavatorCardProps) {
           ))}
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 mt-auto">
           <Button className="w-full group/btn" onClick={onInquiry}>
             Dieses Modell anfragen
             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
