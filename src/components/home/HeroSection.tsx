@@ -4,7 +4,7 @@ import { ArrowRight, Truck, Wrench } from "lucide-react";
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-secondary via-secondary to-anthracite-light">
+    <section className="relative overflow-hidden bg-gradient-to-br from-secondary via-secondary to-zoomlion-anthracite-light">
       {/* Background Pattern */}
       <div className="absolute inset-0 industrial-pattern opacity-5" />
       
