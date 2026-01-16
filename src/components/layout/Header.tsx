@@ -7,6 +7,7 @@ import logoImage from "@/assets/logo-zoomlion-nrw.png";
 
 const navigation = [
   { name: "Startseite", href: "/" },
+  { name: "Hot Deals", href: "/hot-deals", highlight: true },
   { name: "Arbeitsbühnen", href: "/arbeitsbuehnen" },
   { name: "Bagger", href: "/bagger" },
   { name: "Service", href: "/service" },

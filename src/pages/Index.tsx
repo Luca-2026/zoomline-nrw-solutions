@@ -1,5 +1,6 @@
 import { Layout } from "@/components/layout/Layout";
 import { HeroSection } from "@/components/home/HeroSection";
+import { HotDealsSection } from "@/components/home/HotDealsSection";
 import { ProductCategories } from "@/components/home/ProductCategories";
 import { USPSection } from "@/components/home/USPSection";
 import { ComparisonSection } from "@/components/home/ComparisonSection";
@@ -10,6 +11,7 @@ const Index = () => {
   return (
     <Layout showCTABar={false}>
       <HeroSection />
+      <HotDealsSection />
       <ProductCategories />
       <USPSection />
       <ComparisonSection />

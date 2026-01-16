@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Arbeitsbuehnen from "./pages/Arbeitsbuehnen";
 import Bagger from "./pages/Bagger";
+import HotDeals from "./pages/HotDeals";
 import Service from "./pages/Service";
 import Standorte from "./pages/Standorte";
 import UeberUns from "./pages/UeberUns";
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/arbeitsbuehnen" element={<Arbeitsbuehnen />} />
           <Route path="/bagger" element={<Bagger />} />
+          <Route path="/hot-deals" element={<HotDeals />} />
           <Route path="/service" element={<Service />} />
           <Route path="/standorte" element={<Standorte />} />
           <Route path="/ueber-uns" element={<UeberUns />} />
