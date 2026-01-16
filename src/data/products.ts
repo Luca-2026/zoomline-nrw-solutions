@@ -18,6 +18,14 @@ import ze145guImage from "@/assets/excavators/ze145gu.png";
 import ze210glcImage from "@/assets/excavators/ze210glc.png";
 import ze225gnImage from "@/assets/excavators/ze225gn.png";
 
+// Arbeitsbühnen-Bilder
+import zs0407dcImage from "@/assets/platforms/zs0407dc.jpg";
+import zsCrawlerImage from "@/assets/platforms/zs-crawler.jpg";
+import zs1218ertImage from "@/assets/platforms/zs1218ert.jpg";
+import zs0607acwLiImage from "@/assets/platforms/zs0607acw-li.jpg";
+import zt22jeImage from "@/assets/platforms/zt22je-zt26je.jpg";
+import zt58jImage from "@/assets/platforms/zt58j-zt68j.jpg";
+
 export interface AerialPlatform {
   id: string;
   name: string;
@@ -82,7 +90,7 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: false,
     uvpPrice: 11375.98,
     features: ["Kompakt", "DC-Antrieb"],
-    image: "/placeholder.svg",
+    image: zs0407dcImage,
     description: "Kompakte DC Scherenarbeitsbühne.",
     datasheet: "/datasheets/micro-scherenarbeitsbuehnen.pdf"
   },
@@ -98,7 +106,7 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: true,
     uvpPrice: 12173.70,
     features: ["Kompakt", "DC-Antrieb", "Lithium-Ionen Akku"],
-    image: "/placeholder.svg",
+    image: zs0407dcImage,
     description: "Kompakte DC Scherenarbeitsbühne mit Lithium-Akku.",
     datasheet: "/datasheets/micro-scherenarbeitsbuehnen.pdf"
   },
@@ -115,7 +123,7 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: false,
     uvpPrice: 15512.42,
     features: ["AC-Antrieb", "Wartungsarm"],
-    image: "/placeholder.svg",
+    image: zs0607acwLiImage,
     description: "Scherenarbeitsbühne mit AC-Antrieb."
   },
   {
@@ -130,7 +138,7 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: true,
     uvpPrice: 18901.96,
     features: ["AC-Antrieb", "Wartungsarm", "Lithium-Ionen Akku"],
-    image: "/placeholder.svg",
+    image: zs0607acwLiImage,
     description: "Scherenarbeitsbühne mit AC-Antrieb und Lithium-Akku."
   },
   // AC Series
@@ -644,7 +652,7 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: false,
     uvpPrice: 14779.38,
     features: ["Raupenfahrwerk", "Geländegängig"],
-    image: "/placeholder.svg",
+    image: zsCrawlerImage,
     description: "Raupenscherenbühne für schwieriges Gelände.",
     datasheet: "/datasheets/raupen-scherenarbeitsbuehnen.pdf"
   },
@@ -660,7 +668,7 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: false,
     uvpPrice: 21912.66,
     features: ["Raupenfahrwerk", "Geländegängig"],
-    image: "/placeholder.svg",
+    image: zsCrawlerImage,
     description: "Raupenscherenbühne mit 8,8m Arbeitshöhe.",
     datasheet: "/datasheets/raupen-scherenarbeitsbuehnen.pdf"
   },
@@ -676,7 +684,7 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: false,
     uvpPrice: 44676.94,
     features: ["Raupenfahrwerk", "Geländegängig", "13,8m Arbeitshöhe"],
-    image: "/placeholder.svg",
+    image: zsCrawlerImage,
     description: "Große Raupenscherenbühne."
   },
   // Diesel Rough Terrain
@@ -768,7 +776,7 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: false,
     uvpPrice: 63002.94,
     features: ["Geländegängig", "Elektro"],
-    image: "/placeholder.svg",
+    image: zs1218ertImage,
     description: "Elektrische Geländescherenbühne.",
     datasheet: "/datasheets/zs1218ert-rough-scissor.pdf"
   },
@@ -1127,7 +1135,7 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: true,
     uvpPrice: 139082.02,
     features: ["Teleskop", "Elektro", "Lithium-Ionen Akku"],
-    image: "/placeholder.svg",
+    image: zt22jeImage,
     description: "Elektrische Teleskopbühne mit Lithium-Akku."
   },
   {
@@ -1142,7 +1150,7 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: true,
     uvpPrice: 139082.02,
     features: ["Teleskop", "Elektro", "Lithium-Ionen Akku"],
-    image: "/placeholder.svg",
+    image: zt22jeImage,
     description: "Elektrische Teleskopbühne mit 25m Arbeitshöhe."
   },
   {
@@ -1157,7 +1165,7 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: true,
     uvpPrice: 179987.50,
     features: ["Teleskop", "Elektro", "Lithium-Ionen Akku"],
-    image: "/placeholder.svg",
+    image: zt22jeImage,
     description: "Elektrische Teleskopbühne mit 28,7m Arbeitshöhe."
   },
   {
@@ -1311,7 +1319,7 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: false,
     uvpPrice: 628320.00,
     features: ["Teleskop", "Diesel", "58m Arbeitshöhe"],
-    image: "/placeholder.svg",
+    image: zt58jImage,
     description: "Größte Diesel-Teleskopbühne."
   },
   {
