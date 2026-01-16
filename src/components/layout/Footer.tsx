@@ -81,6 +81,14 @@ export function Footer() {
                   Kontakt
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/faq"
+                  className="text-secondary-foreground/80 hover:text-primary transition-colors"
+                >
+                  FAQ
+                </Link>
+              </li>
             </ul>
           </div>
 
