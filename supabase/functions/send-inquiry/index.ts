@@ -70,7 +70,7 @@ const getSubject = (data: InquiryRequest): string => {
     kontakt: "Kontaktanfrage",
   };
   
-  return `Zoomline NRW – Anfrage ${typeLabels[data.type]} – ${data.firma} – ${data.plz || "Keine PLZ"}`;
+  return `Zoomlion NRW – Anfrage ${typeLabels[data.type]} – ${data.firma} – ${data.plz || "Keine PLZ"}`;
 };
 
 Deno.serve(async (req) => {
@@ -95,7 +95,7 @@ Deno.serve(async (req) => {
     const filterText = formatFilters(data.filters, data.type);
     
     const emailHtml = `
-      <h1>Neue Anfrage über Zoomline NRW</h1>
+      <h1>Neue Anfrage über Zoomlion NRW</h1>
       
       <h2>Kontaktdaten</h2>
       <table style="border-collapse: collapse; width: 100%;">
@@ -121,12 +121,12 @@ Deno.serve(async (req) => {
       ` : ""}
 
       <hr style="margin-top: 30px;">
-      <p style="color: #666; font-size: 12px;">Diese E-Mail wurde automatisch über das Kontaktformular von zoomline-nrw.de generiert.</p>
+      <p style="color: #666; font-size: 12px;">Diese E-Mail wurde automatisch über das Kontaktformular von zoomlion-nrw.de generiert.</p>
     `;
 
     const emailResponse = await resend.emails.send({
-      from: "Zoomline NRW <onboarding@resend.dev>",
-      to: ["info@zoomline-nrw.de"],
+      from: "Zoomlion NRW <onboarding@resend.dev>",
+      to: ["verkauf@zoomlion-nrw.de"],
       replyTo: data.email,
       subject: getSubject(data),
       html: emailHtml,

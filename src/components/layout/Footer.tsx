@@ -143,10 +143,10 @@ export function Footer() {
               <li className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-primary" />
                 <a
-                  href="mailto:info@zoomlion-nrw.de"
+                  href="mailto:verkauf@zoomlion-nrw.de"
                   className="text-secondary-foreground/80 hover:text-primary transition-colors"
                 >
-                  info@zoomlion-nrw.de
+                  verkauf@zoomlion-nrw.de
                 </a>
               </li>
               <li className="flex items-start gap-2 mt-4">

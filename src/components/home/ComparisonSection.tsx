@@ -40,7 +40,7 @@ export function ComparisonSection() {
       <div className="container mx-auto px-4">
         <SectionHeading
           badge="Wirtschaftlichkeit"
-          title="Warum Zoomline wirtschaftlich überzeugt"
+          title="Warum Zoomlion wirtschaftlich überzeugt"
           subtitle="Ein Vergleich, der für sich spricht – entscheiden Sie selbst"
         />
 
@@ -54,7 +54,7 @@ export function ComparisonSection() {
                     Kriterium
                   </th>
                   <th className="px-6 py-4 text-center text-sm font-bold text-primary">
-                    Zoomline NRW
+                    Zoomlion NRW
                   </th>
                   <th className="px-6 py-4 text-center text-sm font-medium text-muted-foreground">
                     Typische Alternative
@@ -98,7 +98,7 @@ export function ComparisonSection() {
                 <h4 className="font-medium text-foreground mb-3">{row.category}</h4>
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div>
-                    <p className="text-xs text-primary font-medium mb-1">Zoomline</p>
+                    <p className="text-xs text-primary font-medium mb-1">Zoomlion</p>
                     <div className="flex items-center gap-1">
                       <Check className="h-4 w-4 text-primary" />
                       <span>{row.zoomline.value}</span>

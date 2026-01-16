@@ -9,12 +9,12 @@ const UeberUns = () => {
         <div className="container mx-auto px-4 max-w-4xl">
           <SectionHeading
             badge="Über uns"
-            title="Zoomline NRW – Ihr Partner für Baumaschinen"
-            subtitle="Exklusiver Fachhändler für Zoomline Arbeitsbühnen und Bagger in Nordrhein-Westfalen"
+            title="Zoomlion NRW – Ihr Partner für Baumaschinen"
+            subtitle="Exklusiver Fachhändler für Zoomlion Arbeitsbühnen und Bagger in Nordrhein-Westfalen"
           />
           <div className="prose prose-lg max-w-none mb-12">
             <p>
-              <strong>Zoomline NRW</strong> ist Ihr exklusiver Ansprechpartner für Zoomline Arbeitsbühnen und Bagger 
+              <strong>Zoomlion NRW</strong> ist Ihr exklusiver Ansprechpartner für Zoomlion Arbeitsbühnen und Bagger 
               in Nordrhein-Westfalen. Mit drei Standorten in Bonn, Krefeld und Mülheim an der Ruhr sind wir 
               immer in Ihrer Nähe.
             </p>
