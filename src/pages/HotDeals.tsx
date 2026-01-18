@@ -17,6 +17,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { FinancingSection } from "@/components/financing/FinancingSection";
+import type { FinancingRequestData } from "@/lib/financing";
 
 const formatPrice = (price: number) => {
   return new Intl.NumberFormat("de-DE", {
@@ -121,6 +123,10 @@ export default function HotDeals() {
     acceptPrivacy: false,
   });
 
+  const [financingData, setFinancingData] = useState<FinancingRequestData>({
+    financingRequested: false,
+  });
+
   const handleInquiry = (deal: HotDeal) => {
     setSelectedDeal(deal);
     setFormData((prev) => ({
@@ -157,6 +163,16 @@ export default function HotDeals() {
             dealType: selectedDeal?.typeLabel,
             dealPrice: selectedDeal ? formatPrice(selectedDeal.dealPrice) : "",
           },
+          financing: financingData.financingRequested ? {
+            financingRequested: financingData.financingRequested,
+            netPurchasePrice: financingData.netPurchasePrice,
+            downPaymentPercent: financingData.downPaymentPercent,
+            downPaymentEur: financingData.downPaymentEur,
+            termMonths: financingData.termMonths,
+            balloonPercent: financingData.balloonPercent,
+            balloonEur: financingData.balloonEur,
+            estimatedMonthlyRate: financingData.estimatedMonthlyRate,
+          } : undefined,
         },
       });
 
@@ -176,6 +192,7 @@ export default function HotDeals() {
         message: "",
         acceptPrivacy: false,
       });
+      setFinancingData({ financingRequested: false });
     } catch (error) {
       console.error("Error sending inquiry:", error);
       toast({
@@ -363,6 +380,12 @@ export default function HotDeals() {
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
               />
             </div>
+
+            {/* Financing Section */}
+            <FinancingSection 
+              productPrice={selectedDeal?.dealPrice} 
+              onChange={setFinancingData}
+            />
 
             <div className="flex items-start space-x-2">
               <Checkbox
