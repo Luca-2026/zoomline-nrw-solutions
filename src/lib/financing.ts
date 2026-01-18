@@ -163,12 +163,12 @@ export function parseGermanNumber(value: string): number {
  */
 export interface FinancingRequestData {
   financingRequested: boolean;
-  netPurchasePrice: number;
-  downPaymentPercent: number;
-  downPaymentEur: number;
-  termMonths: number;
-  balloonPercent: number;
-  balloonEur: number;
-  estimatedMonthlyRate: number;
+  netPurchasePrice?: number;
+  downPaymentPercent?: number;
+  downPaymentEur?: number;
+  termMonths?: number;
+  balloonPercent?: number;
+  balloonEur?: number;
+  estimatedMonthlyRate?: number;
   priceOnRequest?: boolean;
 }
