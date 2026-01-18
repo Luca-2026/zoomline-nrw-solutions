@@ -192,6 +192,7 @@ export function PlatformConfigurator() {
         onClose={() => setIsModalOpen(false)}
         type="arbeitsbuehne"
         selectedProduct={selectedProduct?.name}
+        productPrice={selectedProduct?.uvpPrice}
         filters={{
           antrieb: filters.drive !== "all" ? platformFilterOptions.drive.find(o => o.value === filters.drive)?.label : undefined,
           lithium: filters.lithium,

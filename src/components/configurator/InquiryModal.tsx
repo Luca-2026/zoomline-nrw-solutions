@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { z } from "zod";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
@@ -9,6 +9,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2, CheckCircle } from "lucide-react";
+import { FinancingSection } from "@/components/financing/FinancingSection";
+import { FinancingRequestData } from "@/lib/financing";
 
 const inquirySchema = z.object({
   firma: z.string().trim().min(1, "Firma ist erforderlich").max(100),
@@ -38,14 +40,25 @@ interface InquiryModalProps {
   type: "arbeitsbuehne" | "bagger" | "service" | "kontakt";
   selectedProduct?: string;
   filters?: Record<string, any>;
+  productPrice?: number;
 }
 
-export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters }: InquiryModalProps) {
+export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, productPrice }: InquiryModalProps) {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [selectedAnbaugeraete, setSelectedAnbaugeraete] = useState<string[]>([]);
+  const [financingData, setFinancingData] = useState<FinancingRequestData>({
+    financingRequested: false,
+    netPurchasePrice: 0,
+    downPaymentPercent: 20,
+    downPaymentEur: 0,
+    termMonths: 36,
+    balloonPercent: 20,
+    balloonEur: 0,
+    estimatedMonthlyRate: 0
+  });
   
   const [formData, setFormData] = useState({
     firma: "",
@@ -57,6 +70,10 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters }
     rueckruf: false,
     dsgvo: false,
   });
+
+  const handleFinancingChange = useCallback((data: FinancingRequestData) => {
+    setFinancingData(data);
+  }, []);
 
   const handleChange = (field: string, value: string | boolean) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -109,6 +126,7 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters }
             ...filters,
             anbaugeraete: type === "bagger" && anbaugeraeteLabels.length > 0 ? anbaugeraeteLabels : undefined,
           },
+          financing: financingData.financingRequested ? financingData : undefined,
         },
       });
 
@@ -134,6 +152,16 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters }
           dsgvo: false,
         });
         setSelectedAnbaugeraete([]);
+        setFinancingData({
+          financingRequested: false,
+          netPurchasePrice: 0,
+          downPaymentPercent: 20,
+          downPaymentEur: 0,
+          termMonths: 36,
+          balloonPercent: 20,
+          balloonEur: 0,
+          estimatedMonthlyRate: 0
+        });
       }, 2000);
     } catch (error: any) {
       console.error("Error submitting inquiry:", error);
@@ -292,6 +320,14 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters }
                 ))}
               </div>
             </div>
+          )}
+
+          {/* Finanzierung - bei Arbeitsbühnen und Bagger */}
+          {(type === "arbeitsbuehne" || type === "bagger") && (
+            <FinancingSection
+              productPrice={productPrice}
+              onChange={handleFinancingChange}
+            />
           )}
 
           <div>
