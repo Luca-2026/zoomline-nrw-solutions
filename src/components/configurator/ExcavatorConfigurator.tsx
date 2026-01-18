@@ -139,6 +139,7 @@ export function ExcavatorConfigurator() {
         onClose={() => setIsModalOpen(false)}
         type="bagger"
         selectedProduct={selectedProduct?.name}
+        productPrice={selectedProduct?.uvpPrice}
         filters={{
           gewichtsklasse: filters.weightClass !== "all" ? excavatorFilterOptions.weightClass.find(o => o.value === filters.weightClass)?.label : undefined,
         }}
