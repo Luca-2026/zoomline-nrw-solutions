@@ -10,9 +10,9 @@ const navigation = [
   { name: "Hot Deals", href: "/hot-deals", highlight: true },
   { name: "Arbeitsbühnen", href: "/arbeitsbuehnen" },
   { name: "Bagger", href: "/bagger" },
+  { name: "Finanzierung", href: "/finanzierung" },
   { name: "Service", href: "/service" },
   { name: "Standorte", href: "/standorte" },
-  { name: "Über uns", href: "/ueber-uns" },
   { name: "Kontakt", href: "/kontakt" },
 ];
 

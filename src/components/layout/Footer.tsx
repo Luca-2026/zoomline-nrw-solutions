@@ -67,6 +67,14 @@ export function Footer() {
               </li>
               <li>
                 <Link
+                  to="/finanzierung"
+                  className="text-secondary-foreground/80 hover:text-primary transition-colors"
+                >
+                  Finanzierungsrechner
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/ueber-uns"
                   className="text-secondary-foreground/80 hover:text-primary transition-colors"
                 >
