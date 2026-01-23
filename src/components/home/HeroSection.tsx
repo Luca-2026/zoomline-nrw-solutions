@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Truck, Wrench } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import heroGrafik from "@/assets/hero-grafik.jpg";
+import iconArbeitsbuehne from "@/assets/icons/icon-arbeitsbuehne.png";
+import iconBagger from "@/assets/icons/icon-bagger.png";
 
 export function HeroSection() {
   return (
@@ -10,7 +12,7 @@ export function HeroSection() {
       <div className="absolute inset-0">
         <img 
           src={heroGrafik} 
-          alt="Zoomlion Arbeitsbühnen und Bagger kaufen in NRW - Scherenarbeitsbühnen, Teleskopbühnen und Minibagger vom Top 5 Hersteller weltweit" 
+          alt="Zoomlion Arbeitsbühnen und Minibagger kaufen in NRW - Scherenarbeitsbühnen, Teleskopbühnen und Kompaktbagger vom Top 5 Hersteller weltweit" 
           className="w-full h-full object-cover object-center"
         />
         {/* Gradient Overlay for better text readability */}
@@ -40,11 +42,15 @@ export function HeroSection() {
               Mit 3 Jahren Garantie und Ersatzteilen vor Ort.
             </p>
 
-            {/* CTAs */}
+            {/* CTAs with Custom Icons */}
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in-up opacity-0" style={{ animationDelay: '0.4s' }}>
               <Button asChild size="lg" className="group hover-glow transition-all duration-300">
-                <Link to="/arbeitsbuehnen">
-                  <Truck className="mr-2 h-5 w-5" />
+                <Link to="/arbeitsbuehnen" className="flex items-center">
+                  <img 
+                    src={iconArbeitsbuehne} 
+                    alt="" 
+                    className="mr-2 h-6 w-6 object-contain brightness-0 invert" 
+                  />
                   Arbeitsbühne finden
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
@@ -53,11 +59,16 @@ export function HeroSection() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="border-white/30 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 hover:text-white transition-all duration-300"
+                className="border-white/30 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 hover:text-white transition-all duration-300 group"
               >
-                <Link to="/bagger">
-                  <Wrench className="mr-2 h-5 w-5" />
+                <Link to="/bagger" className="flex items-center">
+                  <img 
+                    src={iconBagger} 
+                    alt="" 
+                    className="mr-2 h-6 w-6 object-contain brightness-0 invert" 
+                  />
                   Bagger finden
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1 opacity-0 group-hover:opacity-100" />
                 </Link>
               </Button>
             </div>
