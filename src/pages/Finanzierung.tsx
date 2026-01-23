@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Layout } from "@/components/layout/Layout";
 import { SectionHeading } from "@/components/shared/SectionHeading";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { FinancingCalculator } from "@/components/financing/FinancingCalculator";
 import { InquiryModal } from "@/components/configurator/InquiryModal";
 import { TrustBadges } from "@/components/shared/TrustBadges";
@@ -84,6 +85,12 @@ const Finanzierung = () => {
 
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
+          <Breadcrumbs 
+            items={[
+              { label: "Start", href: "/" },
+              { label: "Finanzierung" }
+            ]} 
+          />
           <SectionHeading
             badge="Finanzierung"
             title="Finanzierungsrechner"

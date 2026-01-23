@@ -1,5 +1,6 @@
 import { Layout } from "@/components/layout/Layout";
 import { SectionHeading } from "@/components/shared/SectionHeading";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { 
   Wrench, 
   Package, 
@@ -65,6 +66,12 @@ const Service = () => {
       {/* Hero Section */}
       <section className="relative py-16 md:py-24 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
         <div className="container mx-auto px-4">
+          <Breadcrumbs 
+            items={[
+              { label: "Start", href: "/" },
+              { label: "Service" }
+            ]} 
+          />
           <div className="max-w-3xl">
             <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
               Service & Ersatzteile
