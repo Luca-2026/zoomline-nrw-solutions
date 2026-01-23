@@ -1,9 +1,8 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, type ChangeEvent } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
 import { ArrowRightLeft, Upload, X, Loader2, Image as ImageIcon, AlertCircle } from "lucide-react";
@@ -24,6 +23,7 @@ export interface TradeInData {
 }
 
 interface TradeInSectionProps {
+  value: TradeInData;
   onChange: (data: TradeInData) => void;
 }
 
@@ -37,53 +37,23 @@ const zustandOptions = [
 const currentYear = new Date().getFullYear();
 const yearOptions = Array.from({ length: 30 }, (_, i) => currentYear - i);
 
-export function TradeInSection({ onChange }: TradeInSectionProps) {
-  const [enabled, setEnabled] = useState(false);
+export function TradeInSection({ value, onChange }: TradeInSectionProps) {
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
-  const [formData, setFormData] = useState<Omit<TradeInData, "enabled">>({
-    hersteller: "",
-    modell: "",
-    baujahr: "",
-    betriebsstunden: "",
-    zustand: "",
-    seriennummer: "",
-    ausstattung: "",
-    letzteWartung: "",
-    standort: "",
-    anmerkungen: "",
-    imageUrls: [],
-  });
-  
-  // Use ref to store onChange to avoid it being a dependency
-  const onChangeRef = useRef(onChange);
-  onChangeRef.current = onChange;
-  
-  // Track if this is initial mount to avoid calling onChange
-  const isInitialMount = useRef(true);
-  
-  // Sync to parent only when values actually change (not on initial render)
-  useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-      return;
-    }
-    onChangeRef.current({ enabled, ...formData });
-  }, [enabled, formData]);
 
   const updateFormField = (updates: Partial<Omit<TradeInData, "enabled">>) => {
-    setFormData((prev) => ({ ...prev, ...updates }));
+    onChange({ ...value, ...updates });
   };
 
   const handleToggle = (checked: boolean) => {
-    setEnabled(checked);
+    onChange({ ...value, enabled: checked });
   };
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files || files.length === 0) return;
 
-    const remainingSlots = 3 - formData.imageUrls.length;
+    const remainingSlots = 3 - value.imageUrls.length;
     if (remainingSlots <= 0) {
       setUploadError("Maximal 3 Bilder erlaubt");
       return;
@@ -131,7 +101,7 @@ export function TradeInSection({ onChange }: TradeInSectionProps) {
       }
 
       if (uploadedUrls.length > 0) {
-        updateFormField({ imageUrls: [...formData.imageUrls, ...uploadedUrls] });
+        updateFormField({ imageUrls: [...value.imageUrls, ...uploadedUrls] });
       }
     } catch (error) {
       console.error("Upload error:", error);
@@ -144,7 +114,7 @@ export function TradeInSection({ onChange }: TradeInSectionProps) {
   };
 
   const removeImage = (index: number) => {
-    const newUrls = formData.imageUrls.filter((_, i) => i !== index);
+    const newUrls = value.imageUrls.filter((_, i) => i !== index);
     updateFormField({ imageUrls: newUrls });
   };
 
@@ -153,17 +123,17 @@ export function TradeInSection({ onChange }: TradeInSectionProps) {
       {/* Toggle Header */}
       <div
         className={`p-4 flex items-center gap-3 cursor-pointer transition-colors ${
-          enabled ? "bg-amber-500/10 border-b border-border" : "bg-muted/30 hover:bg-muted/50"
+          value.enabled ? "bg-amber-500/10 border-b border-border" : "bg-muted/30 hover:bg-muted/50"
         }`}
-        onClick={() => handleToggle(!enabled)}
+        onClick={() => handleToggle(!value.enabled)}
       >
         <Checkbox
           id="trade-in-toggle"
-          checked={enabled}
+          checked={value.enabled}
           onCheckedChange={(v) => handleToggle(!!v)}
           onClick={(e) => e.stopPropagation()}
         />
-        <ArrowRightLeft className={`h-5 w-5 ${enabled ? "text-amber-600" : "text-muted-foreground"}`} />
+        <ArrowRightLeft className={`h-5 w-5 ${value.enabled ? "text-amber-600" : "text-muted-foreground"}`} />
         <div className="flex-1">
           <Label htmlFor="trade-in-toggle" className="cursor-pointer font-medium">
             Inzahlungnahme einer Gebrauchtmaschine
@@ -175,7 +145,7 @@ export function TradeInSection({ onChange }: TradeInSectionProps) {
       </div>
 
       {/* Form Content */}
-      {enabled && (
+      {value.enabled && (
         <div className="p-4 space-y-4 bg-amber-500/5">
           <p className="text-sm text-muted-foreground">
             Beschreiben Sie Ihre Maschine – wir erstellen Ihnen ein unverbindliches Ankaufsangebot.
@@ -188,7 +158,7 @@ export function TradeInSection({ onChange }: TradeInSectionProps) {
               <Input
                 id="ti-hersteller"
                 placeholder="z.B. Caterpillar, Liebherr, Zoomlion"
-                value={formData.hersteller}
+                  value={value.hersteller}
                 onChange={(e) => updateFormField({ hersteller: e.target.value })}
               />
             </div>
@@ -197,7 +167,7 @@ export function TradeInSection({ onChange }: TradeInSectionProps) {
               <Input
                 id="ti-modell"
                 placeholder="z.B. 320D, A918"
-                value={formData.modell}
+                  value={value.modell}
                 onChange={(e) => updateFormField({ modell: e.target.value })}
               />
             </div>
@@ -206,7 +176,7 @@ export function TradeInSection({ onChange }: TradeInSectionProps) {
           <div className="grid sm:grid-cols-3 gap-4">
             <div>
               <Label htmlFor="ti-baujahr">Baujahr *</Label>
-              <Select value={formData.baujahr} onValueChange={(v) => updateFormField({ baujahr: v })}>
+              <Select value={value.baujahr} onValueChange={(v) => updateFormField({ baujahr: v })}>
                 <SelectTrigger id="ti-baujahr">
                   <SelectValue placeholder="Wählen..." />
                 </SelectTrigger>
@@ -225,13 +195,13 @@ export function TradeInSection({ onChange }: TradeInSectionProps) {
                 id="ti-stunden"
                 type="number"
                 placeholder="z.B. 5000"
-                value={formData.betriebsstunden}
+                  value={value.betriebsstunden}
                 onChange={(e) => updateFormField({ betriebsstunden: e.target.value })}
               />
             </div>
             <div>
               <Label htmlFor="ti-zustand">Zustand *</Label>
-              <Select value={formData.zustand} onValueChange={(v) => updateFormField({ zustand: v })}>
+              <Select value={value.zustand} onValueChange={(v) => updateFormField({ zustand: v })}>
                 <SelectTrigger id="ti-zustand">
                   <SelectValue placeholder="Wählen..." />
                 </SelectTrigger>
@@ -253,7 +223,7 @@ export function TradeInSection({ onChange }: TradeInSectionProps) {
               <Input
                 id="ti-seriennummer"
                 placeholder="Falls bekannt"
-                value={formData.seriennummer}
+                  value={value.seriennummer}
                 onChange={(e) => updateFormField({ seriennummer: e.target.value })}
               />
             </div>
@@ -262,7 +232,7 @@ export function TradeInSection({ onChange }: TradeInSectionProps) {
               <Input
                 id="ti-wartung"
                 type="month"
-                value={formData.letzteWartung}
+                  value={value.letzteWartung}
                 onChange={(e) => updateFormField({ letzteWartung: e.target.value })}
               />
             </div>
@@ -274,7 +244,7 @@ export function TradeInSection({ onChange }: TradeInSectionProps) {
               <Input
                 id="ti-standort"
                 placeholder="PLZ / Ort"
-                value={formData.standort}
+                  value={value.standort}
                 onChange={(e) => updateFormField({ standort: e.target.value })}
               />
             </div>
@@ -283,7 +253,7 @@ export function TradeInSection({ onChange }: TradeInSectionProps) {
               <Input
                 id="ti-ausstattung"
                 placeholder="z.B. Klimaanlage, Schnellwechsler"
-                value={formData.ausstattung}
+                  value={value.ausstattung}
                 onChange={(e) => updateFormField({ ausstattung: e.target.value })}
               />
             </div>
@@ -295,7 +265,7 @@ export function TradeInSection({ onChange }: TradeInSectionProps) {
               id="ti-anmerkungen"
               rows={2}
               placeholder="Bekannte Mängel, Reparaturen, Besonderheiten..."
-              value={formData.anmerkungen}
+              value={value.anmerkungen}
               onChange={(e) => updateFormField({ anmerkungen: e.target.value })}
             />
           </div>
@@ -305,7 +275,7 @@ export function TradeInSection({ onChange }: TradeInSectionProps) {
             <Label className="mb-2 block">Fotos der Maschine (max. 3 Bilder)</Label>
             <div className="grid grid-cols-3 gap-3">
               {/* Uploaded Images */}
-              {formData.imageUrls.map((url, index) => (
+              {value.imageUrls.map((url, index) => (
                 <div key={index} className="relative aspect-square rounded-lg overflow-hidden border border-border bg-muted">
                   <img src={url} alt={`Bild ${index + 1}`} className="w-full h-full object-cover" />
                   <button
@@ -319,7 +289,7 @@ export function TradeInSection({ onChange }: TradeInSectionProps) {
               ))}
 
               {/* Upload Button */}
-              {formData.imageUrls.length < 3 && (
+              {value.imageUrls.length < 3 && (
                 <label className="aspect-square rounded-lg border-2 border-dashed border-border bg-muted/50 hover:bg-muted cursor-pointer flex flex-col items-center justify-center gap-1 transition-colors">
                   <input
                     type="file"
@@ -341,8 +311,8 @@ export function TradeInSection({ onChange }: TradeInSectionProps) {
               )}
 
               {/* Empty Slots */}
-              {formData.imageUrls.length < 2 &&
-                Array.from({ length: 2 - formData.imageUrls.length }).map((_, i) => (
+              {value.imageUrls.length < 2 &&
+                Array.from({ length: 2 - value.imageUrls.length }).map((_, i) => (
                   <div
                     key={`empty-${i}`}
                     className="aspect-square rounded-lg border border-dashed border-border bg-muted/30 flex items-center justify-center"
