@@ -369,7 +369,7 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
 
           {/* Inzahlungnahme - bei Arbeitsbühnen und Bagger */}
           {(type === "arbeitsbuehne" || type === "bagger") && (
-            <TradeInSection onChange={handleTradeInChange} />
+            <TradeInSection value={tradeInData} onChange={handleTradeInChange} />
           )}
 
           <div>
