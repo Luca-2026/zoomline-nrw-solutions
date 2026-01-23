@@ -40,9 +40,23 @@
     <meta name="theme-color" content="#16a34a" />
     <meta name="msapplication-TileColor" content="#16a34a" />
     
-    <!-- Google Fonts - Inter + Plus Jakarta Sans -->
+    <!-- Preload Critical Assets für bessere LCP -->
+    <!-- Preload Hero Image - wichtigstes LCP-Element -->
+    <link rel="preload" href="/src/assets/hero-grafik.jpg" as="image" type="image/jpeg" fetchpriority="high" />
+    <!-- Preload Logo -->
+    <link rel="preload" href="/src/assets/logo-zoomlion-nrw.png" as="image" type="image/png" />
+    
+    <!-- Preconnect zu externen Ressourcen -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    
+    <!-- Preload kritische Fonts mit font-display: swap -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/plusjakartasans/v8/LDIbaomQNQcsA88c7O9yZ4KMCoOg4IA6-91aHEjcWuA_KU7NSg.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="https://fonts.gstatic.com/s/inter/v13/UcC73FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7.woff2" as="font" type="font/woff2" crossorigin />
+    
+    <!-- Google Fonts - Inter + Plus Jakarta Sans -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
 
     <!-- Open Graph / Facebook -->
