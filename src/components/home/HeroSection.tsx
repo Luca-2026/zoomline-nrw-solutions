@@ -46,13 +46,11 @@ export function HeroSection() {
             <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in-up opacity-0" style={{ animationDelay: '0.4s' }}>
               <Button asChild size="lg" className="group hover-glow transition-all duration-300">
                 <Link to="/arbeitsbuehnen" className="flex items-center">
-                  <span className="mr-2 h-7 w-7 rounded-md bg-white/20 p-1 flex items-center justify-center">
-                    <img 
-                      src={iconArbeitsbuehne} 
-                      alt="Arbeitsbühne" 
-                      className="h-5 w-5 object-contain" 
-                    />
-                  </span>
+                  <img 
+                    src={iconArbeitsbuehne} 
+                    alt="Arbeitsbühne" 
+                    className="mr-3 h-8 w-8 object-contain" 
+                  />
                   Arbeitsbühne finden
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Link>
@@ -64,13 +62,11 @@ export function HeroSection() {
                 className="border-white/30 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 hover:text-white transition-all duration-300 group"
               >
                 <Link to="/bagger" className="flex items-center">
-                  <span className="mr-2 h-7 w-7 rounded-md bg-white/20 p-1 flex items-center justify-center">
-                    <img 
-                      src={iconBagger} 
-                      alt="Bagger" 
-                      className="h-5 w-5 object-contain" 
-                    />
-                  </span>
+                  <img 
+                    src={iconBagger} 
+                    alt="Bagger" 
+                    className="mr-3 h-8 w-8 object-contain" 
+                  />
                   Bagger finden
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1 opacity-0 group-hover:opacity-100" />
                 </Link>
