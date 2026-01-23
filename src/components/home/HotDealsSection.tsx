@@ -1,3 +1,4 @@
+import { useEffect, useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Flame } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -9,6 +10,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi,
 } from "@/components/ui/carousel";
 
 const formatPrice = (price: number) => {
@@ -37,12 +39,12 @@ function HotDealCard({ deal }: { deal: HotDeal }) {
       <div className="aspect-[4/3] bg-muted relative overflow-hidden">
         <img
           src={deal.image}
-          alt={`Zoomlion ${deal.name} ${deal.type === "bagger" ? "Bagger" : "Arbeitsbühne"} kaufen - ${deal.highlight} - Aktionspreis bei Zoomlion NRW`}
+          alt={`Zoomlion ${deal.name} ${deal.type === "bagger" ? "Minibagger" : "Arbeitsbühne"} kaufen - ${deal.highlight} - Sonderangebot NRW`}
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
         <div className="absolute top-3 left-3">
           <span className="inline-flex items-center rounded-md bg-primary/90 px-2.5 py-1 text-xs font-medium text-primary-foreground">
-            {deal.type === "bagger" ? "Bagger" : "Arbeitsbühne"}
+            {deal.type === "bagger" ? "Minibagger" : "Arbeitsbühne"}
           </span>
         </div>
       </div>
@@ -87,6 +89,44 @@ function HotDealCard({ deal }: { deal: HotDeal }) {
 }
 
 export function HotDealsSection() {
+  const [api, setApi] = useState<CarouselApi>();
+  const [isPaused, setIsPaused] = useState(false);
+  const [current, setCurrent] = useState(0);
+  const [count, setCount] = useState(0);
+
+  // Auto-scroll interval (4 seconds)
+  const AUTOPLAY_INTERVAL = 4000;
+
+  useEffect(() => {
+    if (!api) return;
+
+    setCount(api.scrollSnapList().length);
+    setCurrent(api.selectedScrollSnap());
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap());
+    });
+  }, [api]);
+
+  // Auto-scroll effect
+  useEffect(() => {
+    if (!api || isPaused) return;
+
+    const interval = setInterval(() => {
+      api.scrollNext();
+    }, AUTOPLAY_INTERVAL);
+
+    return () => clearInterval(interval);
+  }, [api, isPaused]);
+
+  const handleMouseEnter = useCallback(() => {
+    setIsPaused(true);
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    setIsPaused(false);
+  }, []);
+
   return (
     <section className="py-16 md:py-24 bg-gradient-to-b from-destructive/5 to-background">
       <div className="container mx-auto px-4 lg:px-6">
@@ -100,23 +140,45 @@ export function HotDealsSection() {
           <Flame className="h-8 w-8 text-destructive animate-pulse" />
         </div>
 
-        <Carousel
-          opts={{
-            align: "start",
-            loop: true,
-          }}
-          className="w-full mt-10"
+        <div 
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
         >
-          <CarouselContent className="-ml-4">
-            {hotDeals.map((deal) => (
-              <CarouselItem key={deal.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                <HotDealCard deal={deal} />
-              </CarouselItem>
+          <Carousel
+            setApi={setApi}
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-full mt-10"
+          >
+            <CarouselContent className="-ml-4">
+              {hotDeals.map((deal) => (
+                <CarouselItem key={deal.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
+                  <HotDealCard deal={deal} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="hidden md:flex -left-4 lg:-left-6" />
+            <CarouselNext className="hidden md:flex -right-4 lg:-right-6" />
+          </Carousel>
+
+          {/* Progress Indicators */}
+          <div className="flex justify-center gap-2 mt-6">
+            {Array.from({ length: count }).map((_, index) => (
+              <button
+                key={index}
+                onClick={() => api?.scrollTo(index)}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  index === current 
+                    ? "w-8 bg-primary" 
+                    : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                }`}
+                aria-label={`Gehe zu Slide ${index + 1}`}
+              />
             ))}
-          </CarouselContent>
-          <CarouselPrevious className="hidden md:flex -left-4 lg:-left-6" />
-          <CarouselNext className="hidden md:flex -right-4 lg:-right-6" />
-        </Carousel>
+          </div>
+        </div>
 
         <div className="mt-10 text-center">
           <Button asChild size="lg" variant="outline" className="group">
