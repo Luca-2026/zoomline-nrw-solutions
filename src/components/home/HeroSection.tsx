@@ -8,12 +8,15 @@ import iconBagger from "@/assets/icons/icon-bagger.png";
 export function HeroSection() {
   return (
     <section className="relative overflow-hidden min-h-[600px] lg:min-h-[700px]">
-      {/* Hero Background Image */}
+      {/* Hero Background Image - Critical LCP Element */}
       <div className="absolute inset-0">
         <img 
           src={heroGrafik} 
           alt="Zoomlion Arbeitsbühnen und Minibagger kaufen in NRW - Scherenarbeitsbühnen, Teleskopbühnen und Kompaktbagger vom Top 5 Hersteller weltweit" 
           className="w-full h-full object-cover object-center"
+          fetchPriority="high"
+          decoding="sync"
+          loading="eager"
         />
         {/* Gradient Overlay for better text readability */}
         <div className="absolute inset-0 bg-gradient-to-r from-secondary/95 via-secondary/80 to-secondary/40" />
