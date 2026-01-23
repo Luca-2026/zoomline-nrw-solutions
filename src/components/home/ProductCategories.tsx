@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { SectionHeading } from "@/components/shared/SectionHeading";
+import { LazyImage } from "@/components/shared/LazyImage";
 import iconArbeitsbuehne from "@/assets/icons/icon-arbeitsbuehne.png";
 import iconBagger from "@/assets/icons/icon-bagger.png";
 
@@ -42,10 +43,11 @@ export function ProductCategories() {
             >
               {/* Icon */}
               <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-xl bg-muted overflow-hidden transition-colors group-hover:bg-primary/10">
-                <img 
+                <LazyImage 
                   src={category.icon} 
                   alt={`${category.title} kaufen bei Zoomlion NRW - ${category.features.join(", ")}`}
                   className="h-14 w-14 object-contain"
+                  wrapperClassName="h-14 w-14"
                 />
               </div>
 

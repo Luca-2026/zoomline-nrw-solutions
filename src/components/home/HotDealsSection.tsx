@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Flame } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/shared/SectionHeading";
+import { LazyImage } from "@/components/shared/LazyImage";
 import { hotDeals, type HotDeal } from "@/data/hotDeals";
 
 const formatPrice = (price: number) => {
@@ -29,12 +30,13 @@ function HotDealCard({ deal }: { deal: HotDeal }) {
 
       {/* Image */}
       <div className="aspect-[4/3] bg-muted relative overflow-hidden">
-        <img
+        <LazyImage
           src={deal.image}
           alt={`Zoomlion ${deal.name} ${deal.type === "bagger" ? "Minibagger" : "Arbeitsbühne"} kaufen - ${deal.highlight} - Sonderangebot NRW`}
           className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+          wrapperClassName="absolute inset-0"
         />
-        <div className="absolute top-3 left-3">
+        <div className="absolute top-3 left-3 z-10">
           <span className="inline-flex items-center rounded-md bg-primary/90 px-2.5 py-1 text-xs font-medium text-primary-foreground">
             {deal.type === "bagger" ? "Minibagger" : "Arbeitsbühne"}
           </span>
