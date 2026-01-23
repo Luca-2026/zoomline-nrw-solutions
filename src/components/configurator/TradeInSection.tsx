@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -54,22 +54,29 @@ export function TradeInSection({ onChange }: TradeInSectionProps) {
     anmerkungen: "",
     imageUrls: [],
   });
+  
+  // Use ref to store onChange to avoid it being a dependency
+  const onChangeRef = useRef(onChange);
+  onChangeRef.current = onChange;
+  
+  // Track if this is initial mount to avoid calling onChange
+  const isInitialMount = useRef(true);
+  
+  // Sync to parent only when values actually change (not on initial render)
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+    onChangeRef.current({ enabled, ...formData });
+  }, [enabled, formData]);
 
-  const updateData = useCallback(
-    (updates: Partial<Omit<TradeInData, "enabled">>) => {
-      setFormData((prev) => {
-        const newData = { ...prev, ...updates };
-        // Use setTimeout to avoid calling onChange during render
-        setTimeout(() => onChange({ enabled, ...newData }), 0);
-        return newData;
-      });
-    },
-    [enabled, onChange]
-  );
+  const updateFormField = (updates: Partial<Omit<TradeInData, "enabled">>) => {
+    setFormData((prev) => ({ ...prev, ...updates }));
+  };
 
   const handleToggle = (checked: boolean) => {
     setEnabled(checked);
-    onChange({ enabled: checked, ...formData });
   };
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -124,7 +131,7 @@ export function TradeInSection({ onChange }: TradeInSectionProps) {
       }
 
       if (uploadedUrls.length > 0) {
-        updateData({ imageUrls: [...formData.imageUrls, ...uploadedUrls] });
+        updateFormField({ imageUrls: [...formData.imageUrls, ...uploadedUrls] });
       }
     } catch (error) {
       console.error("Upload error:", error);
@@ -138,7 +145,7 @@ export function TradeInSection({ onChange }: TradeInSectionProps) {
 
   const removeImage = (index: number) => {
     const newUrls = formData.imageUrls.filter((_, i) => i !== index);
-    updateData({ imageUrls: newUrls });
+    updateFormField({ imageUrls: newUrls });
   };
 
   return (
@@ -182,7 +189,7 @@ export function TradeInSection({ onChange }: TradeInSectionProps) {
                 id="ti-hersteller"
                 placeholder="z.B. Caterpillar, Liebherr, Zoomlion"
                 value={formData.hersteller}
-                onChange={(e) => updateData({ hersteller: e.target.value })}
+                onChange={(e) => updateFormField({ hersteller: e.target.value })}
               />
             </div>
             <div>
@@ -191,7 +198,7 @@ export function TradeInSection({ onChange }: TradeInSectionProps) {
                 id="ti-modell"
                 placeholder="z.B. 320D, A918"
                 value={formData.modell}
-                onChange={(e) => updateData({ modell: e.target.value })}
+                onChange={(e) => updateFormField({ modell: e.target.value })}
               />
             </div>
           </div>
@@ -199,7 +206,7 @@ export function TradeInSection({ onChange }: TradeInSectionProps) {
           <div className="grid sm:grid-cols-3 gap-4">
             <div>
               <Label htmlFor="ti-baujahr">Baujahr *</Label>
-              <Select value={formData.baujahr} onValueChange={(v) => updateData({ baujahr: v })}>
+              <Select value={formData.baujahr} onValueChange={(v) => updateFormField({ baujahr: v })}>
                 <SelectTrigger id="ti-baujahr">
                   <SelectValue placeholder="Wählen..." />
                 </SelectTrigger>
@@ -219,12 +226,12 @@ export function TradeInSection({ onChange }: TradeInSectionProps) {
                 type="number"
                 placeholder="z.B. 5000"
                 value={formData.betriebsstunden}
-                onChange={(e) => updateData({ betriebsstunden: e.target.value })}
+                onChange={(e) => updateFormField({ betriebsstunden: e.target.value })}
               />
             </div>
             <div>
               <Label htmlFor="ti-zustand">Zustand *</Label>
-              <Select value={formData.zustand} onValueChange={(v) => updateData({ zustand: v })}>
+              <Select value={formData.zustand} onValueChange={(v) => updateFormField({ zustand: v })}>
                 <SelectTrigger id="ti-zustand">
                   <SelectValue placeholder="Wählen..." />
                 </SelectTrigger>
@@ -247,7 +254,7 @@ export function TradeInSection({ onChange }: TradeInSectionProps) {
                 id="ti-seriennummer"
                 placeholder="Falls bekannt"
                 value={formData.seriennummer}
-                onChange={(e) => updateData({ seriennummer: e.target.value })}
+                onChange={(e) => updateFormField({ seriennummer: e.target.value })}
               />
             </div>
             <div>
@@ -256,7 +263,7 @@ export function TradeInSection({ onChange }: TradeInSectionProps) {
                 id="ti-wartung"
                 type="month"
                 value={formData.letzteWartung}
-                onChange={(e) => updateData({ letzteWartung: e.target.value })}
+                onChange={(e) => updateFormField({ letzteWartung: e.target.value })}
               />
             </div>
           </div>
@@ -268,7 +275,7 @@ export function TradeInSection({ onChange }: TradeInSectionProps) {
                 id="ti-standort"
                 placeholder="PLZ / Ort"
                 value={formData.standort}
-                onChange={(e) => updateData({ standort: e.target.value })}
+                onChange={(e) => updateFormField({ standort: e.target.value })}
               />
             </div>
             <div>
@@ -277,7 +284,7 @@ export function TradeInSection({ onChange }: TradeInSectionProps) {
                 id="ti-ausstattung"
                 placeholder="z.B. Klimaanlage, Schnellwechsler"
                 value={formData.ausstattung}
-                onChange={(e) => updateData({ ausstattung: e.target.value })}
+                onChange={(e) => updateFormField({ ausstattung: e.target.value })}
               />
             </div>
           </div>
@@ -289,7 +296,7 @@ export function TradeInSection({ onChange }: TradeInSectionProps) {
               rows={2}
               placeholder="Bekannte Mängel, Reparaturen, Besonderheiten..."
               value={formData.anmerkungen}
-              onChange={(e) => updateData({ anmerkungen: e.target.value })}
+              onChange={(e) => updateFormField({ anmerkungen: e.target.value })}
             />
           </div>
 
