@@ -1,28 +1,10 @@
 import { Helmet } from "react-helmet-async";
 import { Layout } from "@/components/layout/Layout";
 import { SectionHeading } from "@/components/shared/SectionHeading";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { PlatformConfigurator } from "@/components/configurator/PlatformConfigurator";
 
 const Arbeitsbuehnen = () => {
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Start",
-        "item": "https://www.zoomlion-nrw.de/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Arbeitsbühnen kaufen",
-        "item": "https://www.zoomlion-nrw.de/arbeitsbuehnen"
-      }
-    ]
-  };
-
   const productSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
@@ -77,15 +59,18 @@ const Arbeitsbuehnen = () => {
         
         {/* Structured Data */}
         <script type="application/ld+json">
-          {JSON.stringify(breadcrumbSchema)}
-        </script>
-        <script type="application/ld+json">
           {JSON.stringify(productSchema)}
         </script>
       </Helmet>
 
       <section className="py-12 md:py-16">
         <div className="container mx-auto px-4">
+          <Breadcrumbs 
+            items={[
+              { label: "Start", href: "/" },
+              { label: "Arbeitsbühnen" }
+            ]} 
+          />
           <SectionHeading
             badge="Arbeitsbühnen kaufen"
             title="Arbeitsbühnen kaufen in NRW"

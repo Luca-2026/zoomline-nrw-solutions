@@ -1,12 +1,13 @@
 import { Helmet } from "react-helmet-async";
 import { Layout } from "@/components/layout/Layout";
 import { SectionHeading } from "@/components/shared/SectionHeading";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Phone } from "lucide-react";
 import { TrustBadges } from "@/components/shared/TrustBadges";
 
 const Kontakt = () => {
@@ -53,6 +54,12 @@ const Kontakt = () => {
 
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
+          <Breadcrumbs 
+            items={[
+              { label: "Start", href: "/" },
+              { label: "Kontakt" }
+            ]} 
+          />
           <SectionHeading
             badge="Kontakt"
             title="Jetzt Angebot anfragen"

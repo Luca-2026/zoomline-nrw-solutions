@@ -1,8 +1,9 @@
 import { Helmet } from "react-helmet-async";
 import { Layout } from "@/components/layout/Layout";
 import { SectionHeading } from "@/components/shared/SectionHeading";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { locations } from "@/data/products";
-import { MapPin, Phone, Mail, Building2 } from "lucide-react";
+import { Phone, Mail, Building2 } from "lucide-react";
 import bonnImage from "@/assets/locations/bonn.webp";
 import krefeldImage from "@/assets/locations/krefeld.jpg";
 
@@ -16,25 +17,6 @@ const locationImages: Record<string, string | null> = {
 const EMAIL = "verkauf@zoomlion-nrw.de";
 
 const Standorte = () => {
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Start",
-        "item": "https://www.zoomlion-nrw.de/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Standorte",
-        "item": "https://www.zoomlion-nrw.de/standorte"
-      }
-    ]
-  };
-
   return (
     <Layout>
       <Helmet>
@@ -56,14 +38,16 @@ const Standorte = () => {
         <meta property="og:title" content="3 Standorte in NRW – Zoomlion Minibagger & Arbeitsbühnen" />
         <meta property="og:description" content="Beratung, Service und Ersatzteile immer in Ihrer Nähe. 3 Standorte in Nordrhein-Westfalen." />
         <meta property="og:url" content="https://www.zoomlion-nrw.de/standorte" />
-        
-        <script type="application/ld+json">
-          {JSON.stringify(breadcrumbSchema)}
-        </script>
       </Helmet>
 
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
+          <Breadcrumbs 
+            items={[
+              { label: "Start", href: "/" },
+              { label: "Standorte" }
+            ]} 
+          />
           <SectionHeading
             badge="Standorte"
             title="3 Standorte in Nordrhein-Westfalen"
@@ -82,6 +66,7 @@ const Standorte = () => {
                         src={locationImage}
                         alt={`Zoomlion Händler ${loc.name} - Minibagger und Arbeitsbühnen kaufen in ${loc.city}`}
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        loading="lazy"
                       />
                     ) : (
                       <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-muted to-muted/80">
