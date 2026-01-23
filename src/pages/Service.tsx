@@ -17,6 +17,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { locations } from "@/data/products";
 
 const mainServices = [
   { 
@@ -217,18 +218,14 @@ const Service = () => {
                   komfortablen Hol- und Bringservice an.
                 </p>
                 <ul className="space-y-3 mb-6">
-                  <li className="flex items-center gap-3">
-                    <MapPin className="h-5 w-5 text-primary flex-shrink-0" />
-                    <span><strong>Krefeld</strong> – Hauptstandort & Lager</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <MapPin className="h-5 w-5 text-primary flex-shrink-0" />
-                    <span><strong>Köln</strong> – Showroom & Service</span>
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <MapPin className="h-5 w-5 text-primary flex-shrink-0" />
-                    <span><strong>Dortmund</strong> – Vertrieb & Service</span>
-                  </li>
+                  {locations.map((loc) => (
+                    <li key={loc.id} className="flex items-center gap-3">
+                      <MapPin className="h-5 w-5 text-primary flex-shrink-0" />
+                      <span>
+                        <strong>{loc.name.replace("Standort ", "")}</strong> – {loc.address}, {loc.city}
+                      </span>
+                    </li>
+                  ))}
                 </ul>
                 <Button asChild>
                   <Link to="/standorte">
