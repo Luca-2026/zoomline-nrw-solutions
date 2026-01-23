@@ -11,6 +11,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Loader2, CheckCircle } from "lucide-react";
 import { FinancingSection } from "@/components/financing/FinancingSection";
 import { FinancingRequestData } from "@/lib/financing";
+import { TradeInSection, TradeInData } from "@/components/configurator/TradeInSection";
 
 const inquirySchema = z.object({
   firma: z.string().trim().min(1, "Firma ist erforderlich").max(100),
@@ -59,6 +60,20 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
     balloonEur: 0,
     estimatedMonthlyRate: 0
   });
+  const [tradeInData, setTradeInData] = useState<TradeInData>({
+    enabled: false,
+    hersteller: "",
+    modell: "",
+    baujahr: "",
+    betriebsstunden: "",
+    zustand: "",
+    seriennummer: "",
+    ausstattung: "",
+    letzteWartung: "",
+    standort: "",
+    anmerkungen: "",
+    imageUrls: [],
+  });
   
   const [formData, setFormData] = useState({
     firma: "",
@@ -74,6 +89,10 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
 
   const handleFinancingChange = useCallback((data: FinancingRequestData) => {
     setFinancingData(data);
+  }, []);
+
+  const handleTradeInChange = useCallback((data: TradeInData) => {
+    setTradeInData(data);
   }, []);
 
   const handleChange = (field: string, value: string | boolean) => {
@@ -129,6 +148,7 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
             anbaugeraete: type === "bagger" && anbaugeraeteLabels.length > 0 ? anbaugeraeteLabels : undefined,
           },
           financing: financingData.financingRequested ? financingData : undefined,
+          tradeIn: tradeInData.enabled ? tradeInData : undefined,
         },
       });
 
@@ -164,6 +184,20 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
           balloonPercent: 20,
           balloonEur: 0,
           estimatedMonthlyRate: 0
+        });
+        setTradeInData({
+          enabled: false,
+          hersteller: "",
+          modell: "",
+          baujahr: "",
+          betriebsstunden: "",
+          zustand: "",
+          seriennummer: "",
+          ausstattung: "",
+          letzteWartung: "",
+          standort: "",
+          anmerkungen: "",
+          imageUrls: [],
         });
       }, 2000);
     } catch (error: any) {
@@ -331,6 +365,11 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
               productPrice={productPrice}
               onChange={handleFinancingChange}
             />
+          )}
+
+          {/* Inzahlungnahme - bei Arbeitsbühnen und Bagger */}
+          {(type === "arbeitsbuehne" || type === "bagger") && (
+            <TradeInSection onChange={handleTradeInChange} />
           )}
 
           <div>
