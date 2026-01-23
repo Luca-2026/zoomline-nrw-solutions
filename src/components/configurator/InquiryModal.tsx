@@ -68,6 +68,7 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
     plz: "",
     nachricht: "",
     rueckruf: false,
+    wartungsvertrag: false,
     dsgvo: false,
   });
 
@@ -121,6 +122,7 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
           plz: formData.plz || undefined,
           nachricht: formData.nachricht || undefined,
           rueckruf: formData.rueckruf,
+          wartungsvertrag: formData.wartungsvertrag,
           selectedProduct,
           filters: {
             ...filters,
@@ -149,6 +151,7 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
           plz: "",
           nachricht: "",
           rueckruf: false,
+          wartungsvertrag: false,
           dsgvo: false,
         });
         setSelectedAnbaugeraete([]);
@@ -348,6 +351,17 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
               onCheckedChange={(v) => handleChange("rueckruf", !!v)}
             />
             <Label htmlFor="rueckruf" className="cursor-pointer">Bitte um Rückruf</Label>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <Checkbox
+              id="wartungsvertrag"
+              checked={formData.wartungsvertrag}
+              onCheckedChange={(v) => handleChange("wartungsvertrag", !!v)}
+            />
+            <Label htmlFor="wartungsvertrag" className="cursor-pointer">
+              Wartungsvertrag gewünscht
+            </Label>
           </div>
 
           <div className="flex items-start gap-2">
