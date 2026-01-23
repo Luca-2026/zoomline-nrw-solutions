@@ -57,11 +57,14 @@ export function TradeInSection({ onChange }: TradeInSectionProps) {
 
   const updateData = useCallback(
     (updates: Partial<Omit<TradeInData, "enabled">>) => {
-      const newData = { ...formData, ...updates };
-      setFormData(newData);
-      onChange({ enabled, ...newData });
+      setFormData((prev) => {
+        const newData = { ...prev, ...updates };
+        // Use setTimeout to avoid calling onChange during render
+        setTimeout(() => onChange({ enabled, ...newData }), 0);
+        return newData;
+      });
     },
-    [formData, enabled, onChange]
+    [enabled, onChange]
   );
 
   const handleToggle = (checked: boolean) => {
