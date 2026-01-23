@@ -1,17 +1,9 @@
-import { useEffect, useCallback, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Flame } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { hotDeals, type HotDeal } from "@/data/hotDeals";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-  type CarouselApi,
-} from "@/components/ui/carousel";
 
 const formatPrice = (price: number) => {
   return new Intl.NumberFormat("de-DE", {
@@ -24,7 +16,7 @@ const formatPrice = (price: number) => {
 
 function HotDealCard({ deal }: { deal: HotDeal }) {
   return (
-    <div className="group relative rounded-xl border-2 border-primary/30 bg-card overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-primary h-full">
+    <div className="group relative rounded-xl border-2 border-primary/30 bg-card overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-primary h-full min-w-[320px] md:min-w-[360px]">
       {/* Hot Deal Badge */}
       {deal.highlight && (
         <div className="absolute top-3 right-3 z-10">
@@ -89,46 +81,44 @@ function HotDealCard({ deal }: { deal: HotDeal }) {
 }
 
 export function HotDealsSection() {
-  const [api, setApi] = useState<CarouselApi>();
+  const scrollRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
-  const [current, setCurrent] = useState(0);
-  const [count, setCount] = useState(0);
-
-  // Auto-scroll interval (4 seconds)
-  const AUTOPLAY_INTERVAL = 4000;
+  
+  // Duplicate deals for seamless infinite scroll
+  const duplicatedDeals = [...hotDeals, ...hotDeals, ...hotDeals];
 
   useEffect(() => {
-    if (!api) return;
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer) return;
 
-    setCount(api.scrollSnapList().length);
-    setCurrent(api.selectedScrollSnap());
+    let animationFrameId: number;
+    let scrollPosition = 0;
+    const scrollSpeed = 0.5; // pixels per frame
 
-    api.on("select", () => {
-      setCurrent(api.selectedScrollSnap());
-    });
-  }, [api]);
+    const scroll = () => {
+      if (!isPaused && scrollContainer) {
+        scrollPosition += scrollSpeed;
+        
+        // Reset scroll position when we've scrolled through one set of deals
+        const singleSetWidth = scrollContainer.scrollWidth / 3;
+        if (scrollPosition >= singleSetWidth) {
+          scrollPosition = 0;
+        }
+        
+        scrollContainer.scrollLeft = scrollPosition;
+      }
+      animationFrameId = requestAnimationFrame(scroll);
+    };
 
-  // Auto-scroll effect
-  useEffect(() => {
-    if (!api || isPaused) return;
+    animationFrameId = requestAnimationFrame(scroll);
 
-    const interval = setInterval(() => {
-      api.scrollNext();
-    }, AUTOPLAY_INTERVAL);
-
-    return () => clearInterval(interval);
-  }, [api, isPaused]);
-
-  const handleMouseEnter = useCallback(() => {
-    setIsPaused(true);
-  }, []);
-
-  const handleMouseLeave = useCallback(() => {
-    setIsPaused(false);
-  }, []);
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [isPaused]);
 
   return (
-    <section className="py-16 md:py-24 bg-gradient-to-b from-destructive/5 to-background">
+    <section className="py-16 md:py-24 bg-gradient-to-b from-destructive/5 to-background overflow-hidden">
       <div className="container mx-auto px-4 lg:px-6">
         <div className="flex items-center justify-center gap-3 mb-4">
           <Flame className="h-8 w-8 text-destructive animate-pulse" />
@@ -139,47 +129,32 @@ export function HotDealsSection() {
           />
           <Flame className="h-8 w-8 text-destructive animate-pulse" />
         </div>
+      </div>
 
+      {/* Continuous Scroll Container */}
+      <div 
+        className="mt-10 relative"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
+        {/* Gradient Overlays for fade effect */}
+        <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+        
         <div 
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
+          ref={scrollRef}
+          className="flex gap-6 overflow-x-hidden px-4 md:px-8"
+          style={{ scrollBehavior: 'auto' }}
         >
-          <Carousel
-            setApi={setApi}
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full mt-10"
-          >
-            <CarouselContent className="-ml-4">
-              {hotDeals.map((deal) => (
-                <CarouselItem key={deal.id} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                  <HotDealCard deal={deal} />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="hidden md:flex -left-4 lg:-left-6" />
-            <CarouselNext className="hidden md:flex -right-4 lg:-right-6" />
-          </Carousel>
-
-          {/* Progress Indicators */}
-          <div className="flex justify-center gap-2 mt-6">
-            {Array.from({ length: count }).map((_, index) => (
-              <button
-                key={index}
-                onClick={() => api?.scrollTo(index)}
-                className={`h-2 rounded-full transition-all duration-300 ${
-                  index === current 
-                    ? "w-8 bg-primary" 
-                    : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/50"
-                }`}
-                aria-label={`Gehe zu Slide ${index + 1}`}
-              />
-            ))}
-          </div>
+          {duplicatedDeals.map((deal, index) => (
+            <div key={`${deal.id}-${index}`} className="flex-shrink-0">
+              <HotDealCard deal={deal} />
+            </div>
+          ))}
         </div>
+      </div>
 
+      <div className="container mx-auto px-4 lg:px-6">
         <div className="mt-10 text-center">
           <Button asChild size="lg" variant="outline" className="group">
             <Link to="/hot-deals">
