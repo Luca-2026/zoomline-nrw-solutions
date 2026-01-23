@@ -130,8 +130,6 @@ export function TradeInSection({ value, onChange }: TradeInSectionProps) {
         <Checkbox
           id="trade-in-toggle"
           checked={value.enabled}
-          onCheckedChange={(v) => handleToggle(!!v)}
-          onClick={(e) => e.stopPropagation()}
         />
         <ArrowRightLeft className={`h-5 w-5 ${value.enabled ? "text-amber-600" : "text-muted-foreground"}`} />
         <div className="flex-1">
