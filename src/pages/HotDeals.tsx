@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { Flame, Shovel, ChevronsUp, ArrowRight, Phone, Mail } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
@@ -47,12 +48,12 @@ function HotDealDetailCard({ deal, onInquiry }: { deal: HotDeal; onInquiry: () =
         <div className="aspect-square md:aspect-auto bg-muted relative min-h-[300px] overflow-hidden">
           <img
             src={deal.image}
-            alt={`Zoomlion ${deal.name} ${deal.type === "bagger" ? "Bagger" : "Arbeitsbühne"} Sonderangebot - ${deal.highlight} günstig kaufen NRW`}
+            alt={`Zoomlion ${deal.name} ${deal.type === "bagger" ? "Minibagger" : "Arbeitsbühne"} kaufen - ${deal.highlight} Sonderangebot NRW`}
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
           />
           <div className="absolute top-4 left-4">
             <span className="inline-flex items-center rounded-md bg-primary/90 px-3 py-1.5 text-sm font-medium text-primary-foreground">
-              {deal.type === "bagger" ? "Bagger" : "Arbeitsbühne"}
+              {deal.type === "bagger" ? "Minibagger" : "Arbeitsbühne"}
             </span>
           </div>
         </div>
@@ -211,8 +212,54 @@ export default function HotDeals() {
   const excavators = hotDeals.filter((d) => d.type === "bagger");
   const platforms = hotDeals.filter((d) => d.type === "arbeitsbuehne");
 
+  const dealsSchema = {
+    "@context": "https://schema.org",
+    "@type": "OfferCatalog",
+    "name": "Zoomlion Hot Deals - Sonderangebote Baumaschinen NRW",
+    "description": "Limitierte Sonderangebote für Minibagger und Arbeitsbühnen von Zoomlion in NRW",
+    "numberOfItems": hotDeals.length,
+    "itemListElement": hotDeals.map((deal, index) => ({
+      "@type": "Offer",
+      "position": index + 1,
+      "name": deal.name,
+      "description": `${deal.typeLabel} - ${deal.subtitle}`,
+      "price": deal.dealPrice,
+      "priceCurrency": "EUR",
+      "availability": "https://schema.org/LimitedAvailability",
+      "seller": {
+        "@type": "Organization",
+        "name": "Zoomlion NRW"
+      }
+    }))
+  };
+
   return (
     <Layout>
+      <Helmet>
+        <title>Hot Deals – Minibagger & Arbeitsbühnen Sonderangebote NRW | Zoomlion</title>
+        <meta 
+          name="title" 
+          content="Hot Deals – Minibagger & Arbeitsbühnen Sonderangebote NRW | Zoomlion" 
+        />
+        <meta 
+          name="description" 
+          content="🔥 Limitierte Sonderangebote: Zoomlion Minibagger & Arbeitsbühnen zu Bestpreisen kaufen ➤ Sofort verfügbar ✓ Finanzierung möglich ✓ 3 Jahre Garantie. Jetzt zugreifen!" 
+        />
+        <meta 
+          name="keywords" 
+          content="Minibagger Angebot NRW, Arbeitsbühne Sonderangebot, Baumaschinen günstig kaufen, Zoomlion Aktion, Bagger Schnäppchen, Arbeitsbühne reduziert, Hot Deals Baumaschinen" 
+        />
+        <link rel="canonical" href="https://www.zoomlion-nrw.de/hot-deals" />
+        
+        <meta property="og:title" content="Hot Deals – Baumaschinen Sonderangebote NRW" />
+        <meta property="og:description" content="Limitierte Sonderangebote für Minibagger und Arbeitsbühnen. Jetzt zu Bestpreisen kaufen!" />
+        <meta property="og:url" content="https://www.zoomlion-nrw.de/hot-deals" />
+        
+        <script type="application/ld+json">
+          {JSON.stringify(dealsSchema)}
+        </script>
+      </Helmet>
+
       {/* Hero */}
       <section className="py-12 md:py-20 bg-gradient-to-b from-destructive/10 to-background">
         <div className="container mx-auto px-4 lg:px-6 text-center">
@@ -224,8 +271,7 @@ export default function HotDeals() {
             <Flame className="h-12 w-12 text-destructive animate-pulse" />
           </div>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Limitierte Sonderangebote zu Bestpreisen – solange der Vorrat reicht!
-            Greifen Sie jetzt zu und sichern Sie sich Ihr Traumgerät.
+            Limitierte Sonderangebote für Minibagger & Arbeitsbühnen zu Bestpreisen – solange der Vorrat reicht!
           </p>
           <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary/10 px-6 py-2 text-primary font-medium">
             <span>🔥</span>
@@ -242,7 +288,7 @@ export default function HotDeals() {
             <div className="flex items-center gap-3 mb-8">
               <Shovel className="h-8 w-8 text-primary" />
               <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground">
-                Bagger Deals
+                Minibagger Sonderangebote
               </h2>
             </div>
             <div className="space-y-8">
@@ -265,7 +311,7 @@ export default function HotDeals() {
             <div className="flex items-center gap-3 mb-8">
               <ChevronsUp className="h-8 w-8 text-primary" />
               <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground">
-                Arbeitsbühnen Deals
+                Arbeitsbühnen Sonderangebote
               </h2>
             </div>
             <div className="space-y-8">
