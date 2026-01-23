@@ -29,6 +29,7 @@ interface InquiryRequest {
   standort?: string;
   nachricht?: string;
   rueckruf?: boolean;
+  wartungsvertrag?: boolean;
   filters?: {
     einsatzort?: string;
     antrieb?: string;
@@ -151,7 +152,8 @@ const getSubject = (data: InquiryRequest): string => {
   };
   
   const financingTag = data.financing?.financingRequested ? " [FINANZIERUNG]" : "";
-  return `Zoomlion NRW – Anfrage ${typeLabels[data.type]}${financingTag} – ${data.firma} – ${data.plz || "Keine PLZ"}`;
+  const wartungsTag = data.wartungsvertrag ? " [WARTUNGSVERTRAG]" : "";
+  return `Zoomlion NRW – Anfrage ${typeLabels[data.type]}${financingTag}${wartungsTag} – ${data.firma} – ${data.plz || "Keine PLZ"}`;
 };
 
 Deno.serve(async (req) => {
@@ -188,6 +190,7 @@ Deno.serve(async (req) => {
         ${data.plz ? `<tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>PLZ / Einsatzort:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${data.plz}</td></tr>` : ""}
         ${data.standort ? `<tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Bevorzugter Standort:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${data.standort}</td></tr>` : ""}
         ${data.rueckruf ? `<tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Rückruf gewünscht:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">Ja</td></tr>` : ""}
+        ${data.wartungsvertrag ? `<tr style="background: #ecfdf5;"><td style="padding: 8px; border: 1px solid #ddd;"><strong>🔧 Wartungsvertrag gewünscht:</strong></td><td style="padding: 8px; border: 1px solid #ddd; color: #059669; font-weight: bold;">Ja</td></tr>` : ""}
       </table>
 
       ${data.selectedProduct ? `<h2>Gewähltes Produkt</h2><p>${data.selectedProduct}</p>` : ""}

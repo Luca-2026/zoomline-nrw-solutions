@@ -120,6 +120,7 @@ export default function HotDeals() {
     phone: "",
     company: "",
     message: "",
+    wartungsvertrag: false,
     acceptPrivacy: false,
   });
 
@@ -163,6 +164,7 @@ export default function HotDeals() {
             dealType: selectedDeal?.typeLabel,
             dealPrice: selectedDeal ? formatPrice(selectedDeal.dealPrice) : "",
           },
+          wartungsvertrag: formData.wartungsvertrag,
           financing: financingData.financingRequested ? {
             financingRequested: financingData.financingRequested,
             netPurchasePrice: financingData.netPurchasePrice,
@@ -190,6 +192,7 @@ export default function HotDeals() {
         phone: "",
         company: "",
         message: "",
+        wartungsvertrag: false,
         acceptPrivacy: false,
       });
       setFinancingData({ financingRequested: false });
@@ -386,6 +389,19 @@ export default function HotDeals() {
               productPrice={selectedDeal?.dealPrice} 
               onChange={setFinancingData}
             />
+
+            <div className="flex items-start space-x-2">
+              <Checkbox
+                id="wartungsvertrag"
+                checked={formData.wartungsvertrag}
+                onCheckedChange={(checked) =>
+                  setFormData({ ...formData, wartungsvertrag: checked as boolean })
+                }
+              />
+              <Label htmlFor="wartungsvertrag" className="text-sm leading-relaxed">
+                Ich interessiere mich für einen <strong>Wartungsvertrag</strong> (planbare Kosten, bevorzugter Service)
+              </Label>
+            </div>
 
             <div className="flex items-start space-x-2">
               <Checkbox
