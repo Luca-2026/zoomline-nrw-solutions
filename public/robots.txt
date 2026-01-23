@@ -1,5 +1,5 @@
-# Robots.txt für www.arbeitsbuehne-kaufen-nrw.de
-# Arbeitsbühne kaufen NRW - Zoomlion Fachhändler
+# Robots.txt für www.zoomlion-nrw.de
+# Zoomlion NRW - Exklusiver Fachhändler für Arbeitsbühnen & Bagger
 
 User-agent: Googlebot
 Allow: /
@@ -19,7 +19,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://www.arbeitsbuehne-kaufen-nrw.de/sitemap.xml
+Sitemap: https://www.zoomlion-nrw.de/sitemap.xml
 
 # Disallow admin/api paths (if any)
 Disallow: /api/
