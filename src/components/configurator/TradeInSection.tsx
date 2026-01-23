@@ -20,11 +20,15 @@ export interface TradeInData {
   standort: string;
   anmerkungen: string;
   imageUrls: string[];
+  // Neue Felder für Arbeitsbühnen
+  buehnenTyp?: string;
+  antriebsart?: string;
 }
 
 interface TradeInSectionProps {
   value: TradeInData;
   onChange: (data: TradeInData) => void;
+  productType?: "bagger" | "arbeitsbuehne";
 }
 
 const zustandOptions = [
@@ -34,10 +38,32 @@ const zustandOptions = [
   { value: "reparaturbeduerftig", label: "Reparaturbedürftig" },
 ];
 
+// Bagger-spezifische Optionen
+const baggerHerstellerSuggestions = "z.B. Caterpillar, Liebherr, Zoomlion, Kubota, Takeuchi";
+const baggerModellSuggestions = "z.B. 320D, A918, ZE36GU";
+
+// Arbeitsbühnen-spezifische Optionen
+const buehnenHerstellerSuggestions = "z.B. JLG, Genie, Haulotte, Niftylift, Skyjack, Zoomlion";
+const buehnenModellSuggestions = "z.B. 2646ES, GS-1930, HA20 RTJ Pro";
+
+const buehnenTypOptions = [
+  { value: "scherenarbeitsbuehne", label: "Scherenarbeitsbühne" },
+  { value: "gelenkteleskop", label: "Gelenkteleskopbühne" },
+  { value: "teleskop", label: "Teleskopbühne" },
+  { value: "mastbuehne", label: "Mastbühne" },
+  { value: "anhaengerbuehne", label: "Anhängerarbeitsbühne" },
+  { value: "raupenbuehne", label: "Raupenarbeitsbühne" },
+];
+
+const antriebsartOptions = [
+  { value: "elektrisch", label: "Elektrisch" },
+  { value: "diesel", label: "Diesel" },
+  { value: "hybrid", label: "Hybrid" },
+];
+
 const BUCKET = "trade-in-images" as const;
 
 function createUploadPath(fileName: string) {
-  // keep it deterministic and collision-safe enough
   const ext = fileName.split(".").pop() || "jpg";
   const rand = typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
   return `inquiries/${rand}.${ext}`;
@@ -55,9 +81,11 @@ function getBucketPathFromPublicUrl(publicUrl: string): string | null {
   }
 }
 
-export function TradeInSection({ value, onChange }: TradeInSectionProps) {
+export function TradeInSection({ value, onChange, productType = "bagger" }: TradeInSectionProps) {
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
+
+  const isArbeitsbuehne = productType === "arbeitsbuehne";
 
   const yearOptions = useMemo(() => {
     const currentYear = new Date().getFullYear();
@@ -66,9 +94,7 @@ export function TradeInSection({ value, onChange }: TradeInSectionProps) {
 
   const commitChange = useCallback(
     (next: TradeInData) => {
-      // avoid pointless parent updates (helps prevent render loops)
       if (next === value) return;
-      // ultra-light shallow equality for common cases
       const same =
         next.enabled === value.enabled &&
         next.hersteller === value.hersteller &&
@@ -81,6 +107,8 @@ export function TradeInSection({ value, onChange }: TradeInSectionProps) {
         next.letzteWartung === value.letzteWartung &&
         next.standort === value.standort &&
         next.anmerkungen === value.anmerkungen &&
+        next.buehnenTyp === value.buehnenTyp &&
+        next.antriebsart === value.antriebsart &&
         next.imageUrls.length === value.imageUrls.length &&
         next.imageUrls.every((u, i) => u === value.imageUrls[i]);
       if (same) return;
@@ -123,13 +151,11 @@ export function TradeInSection({ value, onChange }: TradeInSectionProps) {
       const uploadedUrls: string[] = [];
 
       for (const file of filesToUpload) {
-        // Validate file type
         if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
           setUploadError("Nur JPG, PNG oder WebP erlaubt");
           continue;
         }
 
-        // Validate file size (5MB)
         if (file.size > 5 * 1024 * 1024) {
           setUploadError("Maximale Dateigröße: 5MB");
           continue;
@@ -162,7 +188,6 @@ export function TradeInSection({ value, onChange }: TradeInSectionProps) {
       setUploadError("Fehler beim Hochladen");
     } finally {
       setUploading(false);
-      // Reset input
       e.target.value = "";
     }
   };
@@ -173,12 +198,10 @@ export function TradeInSection({ value, onChange }: TradeInSectionProps) {
       const newUrls = value.imageUrls.filter((_, i) => i !== index);
       updateFormField({ imageUrls: newUrls });
 
-      // best-effort delete from storage (non-blocking)
       const path = url ? getBucketPathFromPublicUrl(url) : null;
       if (!path) return;
       const { error } = await supabase.storage.from(BUCKET).remove([path]);
       if (error) {
-        // do not block UX; just log
         console.warn("Could not remove trade-in image:", error);
       }
     },
@@ -215,7 +238,7 @@ export function TradeInSection({ value, onChange }: TradeInSectionProps) {
             Inzahlungnahme einer Gebrauchtmaschine
           </Label>
           <p className="text-xs text-muted-foreground">
-            Wir kaufen Ihre alte Maschine an und verrechnen den Wert
+            Wir kaufen Ihre alte {isArbeitsbuehne ? "Arbeitsbühne" : "Maschine"} an und verrechnen den Wert
           </p>
         </div>
       </div>
@@ -224,8 +247,44 @@ export function TradeInSection({ value, onChange }: TradeInSectionProps) {
       {value.enabled && (
         <div className="p-4 space-y-4 bg-primary/5">
           <p className="text-sm text-muted-foreground">
-            Beschreiben Sie Ihre Maschine – wir erstellen Ihnen ein unverbindliches Ankaufsangebot.
+            Beschreiben Sie Ihre {isArbeitsbuehne ? "Arbeitsbühne" : "Maschine"} – wir erstellen Ihnen ein unverbindliches Ankaufsangebot.
           </p>
+
+          {/* Arbeitsbühnen-spezifische Felder: Typ und Antrieb */}
+          {isArbeitsbuehne && (
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="ti-buehnentyp">Bühnentyp *</Label>
+                <Select value={value.buehnenTyp || ""} onValueChange={(v) => updateFormField({ buehnenTyp: v })}>
+                  <SelectTrigger id="ti-buehnentyp">
+                    <SelectValue placeholder="Typ wählen..." />
+                  </SelectTrigger>
+                  <SelectContent className="bg-card border border-border z-50">
+                    {buehnenTypOptions.map((opt) => (
+                      <SelectItem key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label htmlFor="ti-antrieb">Antriebsart *</Label>
+                <Select value={value.antriebsart || ""} onValueChange={(v) => updateFormField({ antriebsart: v })}>
+                  <SelectTrigger id="ti-antrieb">
+                    <SelectValue placeholder="Antrieb wählen..." />
+                  </SelectTrigger>
+                  <SelectContent className="bg-card border border-border z-50">
+                    {antriebsartOptions.map((opt) => (
+                      <SelectItem key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          )}
 
           {/* Basic Info */}
           <div className="grid sm:grid-cols-2 gap-4">
@@ -233,8 +292,8 @@ export function TradeInSection({ value, onChange }: TradeInSectionProps) {
               <Label htmlFor="ti-hersteller">Hersteller *</Label>
               <Input
                 id="ti-hersteller"
-                placeholder="z.B. Caterpillar, Liebherr, Zoomlion"
-                  value={value.hersteller}
+                placeholder={isArbeitsbuehne ? buehnenHerstellerSuggestions : baggerHerstellerSuggestions}
+                value={value.hersteller}
                 onChange={(e) => updateFormField({ hersteller: e.target.value })}
               />
             </div>
@@ -242,8 +301,8 @@ export function TradeInSection({ value, onChange }: TradeInSectionProps) {
               <Label htmlFor="ti-modell">Modell / Typ *</Label>
               <Input
                 id="ti-modell"
-                placeholder="z.B. 320D, A918"
-                  value={value.modell}
+                placeholder={isArbeitsbuehne ? buehnenModellSuggestions : baggerModellSuggestions}
+                value={value.modell}
                 onChange={(e) => updateFormField({ modell: e.target.value })}
               />
             </div>
@@ -256,7 +315,7 @@ export function TradeInSection({ value, onChange }: TradeInSectionProps) {
                 <SelectTrigger id="ti-baujahr">
                   <SelectValue placeholder="Wählen..." />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-card border border-border z-50">
                   {yearOptions.map((year) => (
                     <SelectItem key={year} value={year.toString()}>
                       {year}
@@ -271,7 +330,7 @@ export function TradeInSection({ value, onChange }: TradeInSectionProps) {
                 id="ti-stunden"
                 type="number"
                 placeholder="z.B. 5000"
-                  value={value.betriebsstunden}
+                value={value.betriebsstunden}
                 onChange={(e) => updateFormField({ betriebsstunden: e.target.value })}
               />
             </div>
@@ -281,7 +340,7 @@ export function TradeInSection({ value, onChange }: TradeInSectionProps) {
                 <SelectTrigger id="ti-zustand">
                   <SelectValue placeholder="Wählen..." />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-card border border-border z-50">
                   {zustandOptions.map((opt) => (
                     <SelectItem key={opt.value} value={opt.value}>
                       {opt.label}
@@ -299,7 +358,7 @@ export function TradeInSection({ value, onChange }: TradeInSectionProps) {
               <Input
                 id="ti-seriennummer"
                 placeholder="Falls bekannt"
-                  value={value.seriennummer}
+                value={value.seriennummer}
                 onChange={(e) => updateFormField({ seriennummer: e.target.value })}
               />
             </div>
@@ -308,32 +367,45 @@ export function TradeInSection({ value, onChange }: TradeInSectionProps) {
               <Input
                 id="ti-wartung"
                 type="month"
-                  value={value.letzteWartung}
+                value={value.letzteWartung}
                 onChange={(e) => updateFormField({ letzteWartung: e.target.value })}
               />
             </div>
           </div>
 
-          <div className="grid sm:grid-cols-2 gap-4">
+          {/* Standort - volle Breite für Arbeitsbühnen (kein Sonderausstattungs-Feld) */}
+          {isArbeitsbuehne ? (
             <div>
               <Label htmlFor="ti-standort">Standort der Maschine</Label>
               <Input
                 id="ti-standort"
                 placeholder="PLZ / Ort"
-                  value={value.standort}
+                value={value.standort}
                 onChange={(e) => updateFormField({ standort: e.target.value })}
               />
             </div>
-            <div>
-              <Label htmlFor="ti-ausstattung">Sonderausstattung</Label>
-              <Input
-                id="ti-ausstattung"
-                placeholder="z.B. Klimaanlage, Schnellwechsler"
+          ) : (
+            <div className="grid sm:grid-cols-2 gap-4">
+              <div>
+                <Label htmlFor="ti-standort">Standort der Maschine</Label>
+                <Input
+                  id="ti-standort"
+                  placeholder="PLZ / Ort"
+                  value={value.standort}
+                  onChange={(e) => updateFormField({ standort: e.target.value })}
+                />
+              </div>
+              <div>
+                <Label htmlFor="ti-ausstattung">Sonderausstattung</Label>
+                <Input
+                  id="ti-ausstattung"
+                  placeholder="z.B. Klimaanlage, Schnellwechsler"
                   value={value.ausstattung}
-                onChange={(e) => updateFormField({ ausstattung: e.target.value })}
-              />
+                  onChange={(e) => updateFormField({ ausstattung: e.target.value })}
+                />
+              </div>
             </div>
-          </div>
+          )}
 
           <div>
             <Label htmlFor="ti-anmerkungen">Anmerkungen / Schäden</Label>
@@ -348,7 +420,7 @@ export function TradeInSection({ value, onChange }: TradeInSectionProps) {
 
           {/* Image Upload */}
           <div>
-            <Label className="mb-2 block">Fotos der Maschine (max. 3 Bilder)</Label>
+            <Label className="mb-2 block">Fotos der {isArbeitsbuehne ? "Arbeitsbühne" : "Maschine"} (max. 3 Bilder)</Label>
             <div className="grid grid-cols-3 gap-3">
               {/* Uploaded Images */}
               {value.imageUrls.map((url, index) => (
