@@ -1,26 +1,40 @@
 # Robots.txt für www.zoomlion-nrw.de
-# Zoomlion NRW - Exklusiver Fachhändler für Arbeitsbühnen & Bagger
+# Zoomlion NRW - Minibagger & Arbeitsbühnen kaufen in Nordrhein-Westfalen
 
+# Googlebot - Hauptsuchmaschine
 User-agent: Googlebot
 Allow: /
 Crawl-delay: 1
 
+# Google Images - Wichtig für Produktbilder
+User-agent: Googlebot-Image
+Allow: /
+
+# Bingbot
 User-agent: Bingbot
 Allow: /
 Crawl-delay: 1
 
+# Social Media Crawler
 User-agent: Twitterbot
 Allow: /
 
 User-agent: facebookexternalhit
 Allow: /
 
+User-agent: LinkedInBot
+Allow: /
+
+# Andere Crawler
 User-agent: *
 Allow: /
+Crawl-delay: 2
 
 # Sitemap
 Sitemap: https://www.zoomlion-nrw.de/sitemap.xml
 
-# Disallow admin/api paths (if any)
+# Disallow - Technische Pfade
 Disallow: /api/
 Disallow: /_
+Disallow: /supabase/
+Disallow: /*.json$

@@ -1,71 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <!-- Homepage - Höchste Priorität -->
   <url>
     <loc>https://www.zoomlion-nrw.de/</loc>
     <lastmod>2026-01-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
+  
+  <!-- Produktseiten - Hohe Priorität für Kaufintention -->
   <url>
     <loc>https://www.zoomlion-nrw.de/arbeitsbuehnen</loc>
     <lastmod>2026-01-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://www.zoomlion-nrw.de/platforms/zs0607acw-li.jpg</image:loc>
+      <image:title>Zoomlion Arbeitsbühnen kaufen NRW</image:title>
+      <image:caption>Scherenarbeitsbühnen, Teleskopbühnen und Gelenkbühnen von Zoomlion</image:caption>
+    </image:image>
   </url>
+  
   <url>
     <loc>https://www.zoomlion-nrw.de/bagger</loc>
     <lastmod>2026-01-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://www.zoomlion-nrw.de/excavators/ze18gu.png</image:loc>
+      <image:title>Zoomlion Minibagger kaufen NRW</image:title>
+      <image:caption>Minibagger und Kompaktbagger von Zoomlion kaufen</image:caption>
+    </image:image>
   </url>
+  
+  <!-- Hot Deals - Aktionsseite -->
   <url>
     <loc>https://www.zoomlion-nrw.de/hot-deals</loc>
     <lastmod>2026-01-23</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
+  
+  <!-- Finanzierung - Wichtig für Kaufentscheidung -->
   <url>
     <loc>https://www.zoomlion-nrw.de/finanzierung</loc>
     <lastmod>2026-01-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
-  <url>
-    <loc>https://www.zoomlion-nrw.de/service</loc>
-    <lastmod>2026-01-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
+  
+  <!-- Standorte - Lokal SEO -->
   <url>
     <loc>https://www.zoomlion-nrw.de/standorte</loc>
     <lastmod>2026-01-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
+  
+  <!-- Service - Vertrauensbildung -->
   <url>
-    <loc>https://www.zoomlion-nrw.de/ueber-uns</loc>
+    <loc>https://www.zoomlion-nrw.de/service</loc>
     <lastmod>2026-01-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
+    <priority>0.8</priority>
   </url>
+  
+  <!-- Kontakt - Lead-Generierung -->
   <url>
     <loc>https://www.zoomlion-nrw.de/kontakt</loc>
     <lastmod>2026-01-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  
+  <!-- FAQ - Long-Tail Keywords -->
   <url>
     <loc>https://www.zoomlion-nrw.de/faq</loc>
     <lastmod>2026-01-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.75</priority>
   </url>
+  
+  <!-- Über uns -->
+  <url>
+    <loc>https://www.zoomlion-nrw.de/ueber-uns</loc>
+    <lastmod>2026-01-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- Rechtliches -->
   <url>
     <loc>https://www.zoomlion-nrw.de/datenschutz</loc>
     <lastmod>2026-01-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+  
   <url>
     <loc>https://www.zoomlion-nrw.de/impressum</loc>
     <lastmod>2026-01-23</lastmod>
