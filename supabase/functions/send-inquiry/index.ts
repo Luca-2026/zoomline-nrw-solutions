@@ -19,15 +19,34 @@ interface FinancingData {
   priceOnRequest?: boolean;
 }
 
+interface TradeInData {
+  enabled: boolean;
+  hersteller: string;
+  modell: string;
+  baujahr: string;
+  betriebsstunden: string;
+  zustand: string;
+  seriennummer?: string;
+  ausstattung?: string;
+  letzteWartung?: string;
+  standort?: string;
+  anmerkungen?: string;
+  imageUrls: string[];
+}
+
 interface InquiryRequest {
-  type: "arbeitsbuehne" | "bagger" | "service" | "kontakt";
-  firma: string;
-  ansprechpartner: string;
+  type: "arbeitsbuehne" | "bagger" | "service" | "kontakt" | "hot-deal";
+  firma?: string;
+  ansprechpartner?: string;
+  name?: string;
   email: string;
-  telefon: string;
+  telefon?: string;
+  phone?: string;
+  company?: string;
   plz?: string;
   standort?: string;
   nachricht?: string;
+  message?: string;
   rueckruf?: boolean;
   wartungsvertrag?: boolean;
   filters?: {
@@ -46,9 +65,13 @@ interface InquiryRequest {
     anliegen?: string;
     anbaugeraete?: string[];
     finanzierung?: string;
+    dealName?: string;
+    dealType?: string;
+    dealPrice?: string;
   };
   selectedProduct?: string;
   financing?: FinancingData;
+  tradeIn?: TradeInData;
 }
 
 const formatFilters = (filters: InquiryRequest["filters"], type: string): string => {
@@ -143,17 +166,94 @@ const formatFinancing = (financing: FinancingData | undefined): string => {
   return html;
 };
 
+const formatTradeIn = (tradeIn: TradeInData | undefined): string => {
+  if (!tradeIn || !tradeIn.enabled) {
+    return "";
+  }
+
+  const zustandLabels: Record<string, string> = {
+    "sehr-gut": "Sehr gut – kaum Gebrauchsspuren",
+    "gut": "Gut – normale Gebrauchsspuren",
+    "befriedigend": "Befriedigend – stärkere Gebrauchsspuren",
+    "reparaturbeduerftig": "Reparaturbedürftig",
+  };
+
+  let html = `
+    <h2 style="color: #d97706; border-bottom: 2px solid #d97706; padding-bottom: 8px;">
+      🔄 Inzahlungnahme Gebrauchtmaschine
+    </h2>
+    <table style="border-collapse: collapse; width: 100%; margin-bottom: 20px;">
+      <tr style="background: #fef3c7;">
+        <td style="padding: 10px; border: 1px solid #ddd;"><strong>Hersteller:</strong></td>
+        <td style="padding: 10px; border: 1px solid #ddd; font-weight: bold;">${tradeIn.hersteller}</td>
+      </tr>
+      <tr style="background: #fef3c7;">
+        <td style="padding: 10px; border: 1px solid #ddd;"><strong>Modell / Typ:</strong></td>
+        <td style="padding: 10px; border: 1px solid #ddd; font-weight: bold;">${tradeIn.modell}</td>
+      </tr>
+      <tr>
+        <td style="padding: 10px; border: 1px solid #ddd;"><strong>Baujahr:</strong></td>
+        <td style="padding: 10px; border: 1px solid #ddd;">${tradeIn.baujahr}</td>
+      </tr>
+      <tr>
+        <td style="padding: 10px; border: 1px solid #ddd;"><strong>Betriebsstunden:</strong></td>
+        <td style="padding: 10px; border: 1px solid #ddd;">${tradeIn.betriebsstunden} h</td>
+      </tr>
+      <tr>
+        <td style="padding: 10px; border: 1px solid #ddd;"><strong>Zustand:</strong></td>
+        <td style="padding: 10px; border: 1px solid #ddd;">${zustandLabels[tradeIn.zustand] || tradeIn.zustand}</td>
+      </tr>
+      ${tradeIn.seriennummer ? `<tr>
+        <td style="padding: 10px; border: 1px solid #ddd;"><strong>Seriennummer:</strong></td>
+        <td style="padding: 10px; border: 1px solid #ddd;">${tradeIn.seriennummer}</td>
+      </tr>` : ""}
+      ${tradeIn.ausstattung ? `<tr>
+        <td style="padding: 10px; border: 1px solid #ddd;"><strong>Sonderausstattung:</strong></td>
+        <td style="padding: 10px; border: 1px solid #ddd;">${tradeIn.ausstattung}</td>
+      </tr>` : ""}
+      ${tradeIn.letzteWartung ? `<tr>
+        <td style="padding: 10px; border: 1px solid #ddd;"><strong>Letzte Wartung:</strong></td>
+        <td style="padding: 10px; border: 1px solid #ddd;">${tradeIn.letzteWartung}</td>
+      </tr>` : ""}
+      ${tradeIn.standort ? `<tr>
+        <td style="padding: 10px; border: 1px solid #ddd;"><strong>Standort der Maschine:</strong></td>
+        <td style="padding: 10px; border: 1px solid #ddd;">${tradeIn.standort}</td>
+      </tr>` : ""}
+      ${tradeIn.anmerkungen ? `<tr>
+        <td style="padding: 10px; border: 1px solid #ddd;"><strong>Anmerkungen / Schäden:</strong></td>
+        <td style="padding: 10px; border: 1px solid #ddd;">${tradeIn.anmerkungen}</td>
+      </tr>` : ""}
+    </table>
+    ${tradeIn.imageUrls && tradeIn.imageUrls.length > 0 ? `
+      <h3 style="margin-top: 20px;">Fotos der Maschine:</h3>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        ${tradeIn.imageUrls.map((url, i) => `
+          <a href="${url}" target="_blank" style="display: inline-block;">
+            <img src="${url}" alt="Maschinenfoto ${i + 1}" style="max-width: 200px; max-height: 150px; border: 1px solid #ddd; border-radius: 5px;" />
+          </a>
+        `).join("")}
+      </div>
+      <p style="font-size: 12px; color: #666; margin-top: 10px;">Klicken Sie auf die Bilder, um sie in voller Größe anzuzeigen.</p>
+    ` : ""}
+  `;
+
+  return html;
+};
+
 const getSubject = (data: InquiryRequest): string => {
   const typeLabels: Record<string, string> = {
     arbeitsbuehne: "Arbeitsbühne",
     bagger: "Bagger",
     service: "Service",
     kontakt: "Kontaktanfrage",
+    "hot-deal": "Hot Deal",
   };
   
   const financingTag = data.financing?.financingRequested ? " [FINANZIERUNG]" : "";
   const wartungsTag = data.wartungsvertrag ? " [WARTUNGSVERTRAG]" : "";
-  return `Zoomlion NRW – Anfrage ${typeLabels[data.type]}${financingTag}${wartungsTag} – ${data.firma} – ${data.plz || "Keine PLZ"}`;
+  const tradeInTag = data.tradeIn?.enabled ? " [INZAHLUNGNAHME]" : "";
+  const firmaName = data.firma || data.company || data.name || "Unbekannt";
+  return `Zoomlion NRW – Anfrage ${typeLabels[data.type] || data.type}${financingTag}${wartungsTag}${tradeInTag} – ${firmaName} – ${data.plz || "Keine PLZ"}`;
 };
 
 Deno.serve(async (req) => {
@@ -165,9 +265,14 @@ Deno.serve(async (req) => {
 
   try {
     const data: InquiryRequest = await req.json();
-    console.log("Processing inquiry for:", data.firma, "Financing:", data.financing?.financingRequested);
+    const firmaName = data.firma || data.company || data.name || "";
+    const ansprechpartnerName = data.ansprechpartner || data.name || "";
+    const telefonNr = data.telefon || data.phone || "";
+    const nachrichtText = data.nachricht || data.message || "";
+    
+    console.log("Processing inquiry for:", firmaName, "TradeIn:", data.tradeIn?.enabled);
 
-    if (!data.firma || !data.ansprechpartner || !data.email || !data.telefon) {
+    if (!data.email || (!firmaName && !ansprechpartnerName)) {
       console.error("Missing required fields");
       return new Response(
         JSON.stringify({ error: "Pflichtfelder fehlen" }),
@@ -177,16 +282,17 @@ Deno.serve(async (req) => {
 
     const filterText = formatFilters(data.filters, data.type);
     const financingHtml = formatFinancing(data.financing);
+    const tradeInHtml = formatTradeIn(data.tradeIn);
     
     const emailHtml = `
       <h1>Neue Anfrage über Zoomlion NRW</h1>
       
       <h2>Kontaktdaten</h2>
       <table style="border-collapse: collapse; width: 100%;">
-        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Firma:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${data.firma}</td></tr>
-        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Ansprechpartner:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${data.ansprechpartner}</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Firma:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${firmaName || "-"}</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Ansprechpartner:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${ansprechpartnerName || "-"}</td></tr>
         <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>E-Mail:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${data.email}</td></tr>
-        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Telefon:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${data.telefon}</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Telefon:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${telefonNr || "-"}</td></tr>
         ${data.plz ? `<tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>PLZ / Einsatzort:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${data.plz}</td></tr>` : ""}
         ${data.standort ? `<tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Bevorzugter Standort:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${data.standort}</td></tr>` : ""}
         ${data.rueckruf ? `<tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Rückruf gewünscht:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">Ja</td></tr>` : ""}
@@ -202,9 +308,11 @@ Deno.serve(async (req) => {
 
       ${financingHtml}
 
-      ${data.nachricht ? `
+      ${tradeInHtml}
+
+      ${nachrichtText ? `
       <h2>Nachricht</h2>
-      <p>${data.nachricht.replace(/\n/g, "<br>")}</p>
+      <p>${nachrichtText.replace(/\n/g, "<br>")}</p>
       ` : ""}
 
       <hr style="margin-top: 30px;">
