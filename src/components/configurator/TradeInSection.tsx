@@ -188,12 +188,20 @@ export function TradeInSection({ value, onChange }: TradeInSectionProps) {
   return (
     <div className="border border-border rounded-lg overflow-hidden">
       {/* Toggle Header */}
-      <button
-        type="button"
-        className={`w-full text-left p-4 flex items-center gap-3 transition-colors ${
+      <div
+        role="button"
+        tabIndex={0}
+        aria-expanded={value.enabled}
+        className={`p-4 flex items-center gap-3 cursor-pointer transition-colors ${
           value.enabled ? "bg-primary/10 border-b border-border" : "bg-muted/30 hover:bg-muted/50"
         }`}
         onClick={() => setEnabled(!value.enabled)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setEnabled(!value.enabled);
+          }
+        }}
       >
         <Checkbox
           id="trade-in-toggle"
@@ -203,14 +211,14 @@ export function TradeInSection({ value, onChange }: TradeInSectionProps) {
         />
         <ArrowRightLeft className={`h-5 w-5 ${value.enabled ? "text-primary" : "text-muted-foreground"}`} />
         <div className="flex-1">
-          <div className="font-medium">
+          <Label htmlFor="trade-in-toggle" className="cursor-pointer font-medium">
             Inzahlungnahme einer Gebrauchtmaschine
-          </div>
+          </Label>
           <p className="text-xs text-muted-foreground">
             Wir kaufen Ihre alte Maschine an und verrechnen den Wert
           </p>
         </div>
-      </button>
+      </div>
 
       {/* Form Content */}
       {value.enabled && (
