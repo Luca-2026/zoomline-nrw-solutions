@@ -1,4 +1,4 @@
-import { useState, type ChangeEvent } from "react";
+import { useCallback, useMemo, useState, type ChangeEvent } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -34,20 +34,76 @@ const zustandOptions = [
   { value: "reparaturbeduerftig", label: "Reparaturbedürftig" },
 ];
 
-const currentYear = new Date().getFullYear();
-const yearOptions = Array.from({ length: 30 }, (_, i) => currentYear - i);
+const BUCKET = "trade-in-images" as const;
+
+function createUploadPath(fileName: string) {
+  // keep it deterministic and collision-safe enough
+  const ext = fileName.split(".").pop() || "jpg";
+  const rand = typeof crypto !== "undefined" && "randomUUID" in crypto ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  return `inquiries/${rand}.${ext}`;
+}
+
+function getBucketPathFromPublicUrl(publicUrl: string): string | null {
+  try {
+    const u = new URL(publicUrl);
+    const marker = `/storage/v1/object/public/${BUCKET}/`;
+    const idx = u.pathname.indexOf(marker);
+    if (idx === -1) return null;
+    return decodeURIComponent(u.pathname.slice(idx + marker.length));
+  } catch {
+    return null;
+  }
+}
 
 export function TradeInSection({ value, onChange }: TradeInSectionProps) {
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
 
-  const updateFormField = (updates: Partial<Omit<TradeInData, "enabled">>) => {
-    onChange({ ...value, ...updates });
-  };
+  const yearOptions = useMemo(() => {
+    const currentYear = new Date().getFullYear();
+    return Array.from({ length: 30 }, (_, i) => currentYear - i);
+  }, []);
 
-  const handleToggle = (checked: boolean) => {
-    onChange({ ...value, enabled: checked });
-  };
+  const commitChange = useCallback(
+    (next: TradeInData) => {
+      // avoid pointless parent updates (helps prevent render loops)
+      if (next === value) return;
+      // ultra-light shallow equality for common cases
+      const same =
+        next.enabled === value.enabled &&
+        next.hersteller === value.hersteller &&
+        next.modell === value.modell &&
+        next.baujahr === value.baujahr &&
+        next.betriebsstunden === value.betriebsstunden &&
+        next.zustand === value.zustand &&
+        next.seriennummer === value.seriennummer &&
+        next.ausstattung === value.ausstattung &&
+        next.letzteWartung === value.letzteWartung &&
+        next.standort === value.standort &&
+        next.anmerkungen === value.anmerkungen &&
+        next.imageUrls.length === value.imageUrls.length &&
+        next.imageUrls.every((u, i) => u === value.imageUrls[i]);
+      if (same) return;
+      onChange(next);
+    },
+    [onChange, value]
+  );
+
+  const updateFormField = useCallback(
+    (updates: Partial<Omit<TradeInData, "enabled">>) => {
+      commitChange({ ...value, ...updates });
+    },
+    [commitChange, value]
+  );
+
+  const setEnabled = useCallback(
+    (checked: boolean) => {
+      if (checked === value.enabled) return;
+      setUploadError(null);
+      commitChange({ ...value, enabled: checked });
+    },
+    [commitChange, value]
+  );
 
   const handleImageUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -79,12 +135,10 @@ export function TradeInSection({ value, onChange }: TradeInSectionProps) {
           continue;
         }
 
-        const fileExt = file.name.split(".").pop();
-        const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
-        const filePath = `inquiries/${fileName}`;
+        const filePath = createUploadPath(file.name);
 
         const { error: uploadError } = await supabase.storage
-          .from("trade-in-images")
+          .from(BUCKET)
           .upload(filePath, file);
 
         if (uploadError) {
@@ -94,7 +148,7 @@ export function TradeInSection({ value, onChange }: TradeInSectionProps) {
         }
 
         const { data: urlData } = supabase.storage
-          .from("trade-in-images")
+          .from(BUCKET)
           .getPublicUrl(filePath);
 
         uploadedUrls.push(urlData.publicUrl);
@@ -113,38 +167,54 @@ export function TradeInSection({ value, onChange }: TradeInSectionProps) {
     }
   };
 
-  const removeImage = (index: number) => {
-    const newUrls = value.imageUrls.filter((_, i) => i !== index);
-    updateFormField({ imageUrls: newUrls });
-  };
+  const removeImage = useCallback(
+    async (index: number) => {
+      const url = value.imageUrls[index];
+      const newUrls = value.imageUrls.filter((_, i) => i !== index);
+      updateFormField({ imageUrls: newUrls });
+
+      // best-effort delete from storage (non-blocking)
+      const path = url ? getBucketPathFromPublicUrl(url) : null;
+      if (!path) return;
+      const { error } = await supabase.storage.from(BUCKET).remove([path]);
+      if (error) {
+        // do not block UX; just log
+        console.warn("Could not remove trade-in image:", error);
+      }
+    },
+    [updateFormField, value.imageUrls]
+  );
 
   return (
     <div className="border border-border rounded-lg overflow-hidden">
       {/* Toggle Header */}
-      <div
-        className={`p-4 flex items-center gap-3 cursor-pointer transition-colors ${
-          value.enabled ? "bg-amber-500/10 border-b border-border" : "bg-muted/30 hover:bg-muted/50"
+      <button
+        type="button"
+        className={`w-full text-left p-4 flex items-center gap-3 transition-colors ${
+          value.enabled ? "bg-primary/10 border-b border-border" : "bg-muted/30 hover:bg-muted/50"
         }`}
-        onClick={() => handleToggle(!value.enabled)}
+        onClick={() => setEnabled(!value.enabled)}
       >
         <Checkbox
           id="trade-in-toggle"
           checked={value.enabled}
+          onCheckedChange={(v) => setEnabled(!!v)}
+          onClick={(e) => e.stopPropagation()}
         />
-        <ArrowRightLeft className={`h-5 w-5 ${value.enabled ? "text-amber-600" : "text-muted-foreground"}`} />
+        <ArrowRightLeft className={`h-5 w-5 ${value.enabled ? "text-primary" : "text-muted-foreground"}`} />
         <div className="flex-1">
-          <Label htmlFor="trade-in-toggle" className="cursor-pointer font-medium">
+          <div className="font-medium">
             Inzahlungnahme einer Gebrauchtmaschine
-          </Label>
+          </div>
           <p className="text-xs text-muted-foreground">
             Wir kaufen Ihre alte Maschine an und verrechnen den Wert
           </p>
         </div>
-      </div>
+      </button>
 
       {/* Form Content */}
       {value.enabled && (
-        <div className="p-4 space-y-4 bg-amber-500/5">
+        <div className="p-4 space-y-4 bg-primary/5">
           <p className="text-sm text-muted-foreground">
             Beschreiben Sie Ihre Maschine – wir erstellen Ihnen ein unverbindliches Ankaufsangebot.
           </p>
