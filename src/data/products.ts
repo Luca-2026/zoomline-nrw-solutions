@@ -62,6 +62,7 @@ import zx23aeImage from "@/assets/platforms/zx23ae.png";
 import zmp04Image from "@/assets/platforms/zmp04.png";
 import zmp06Image from "@/assets/platforms/zmp06.png";
 import zt32jeImage from "@/assets/platforms/zt32je.png";
+import za14jImage from "@/assets/platforms/za14j.png";
 
 // Teleskoplader-Bilder
 import zth2506Image from "@/assets/telehandlers/zth2506.png";
@@ -991,7 +992,7 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: false,
     uvpPrice: 89994.52,
     features: ["Gelenkarm", "Diesel"],
-    image: "/placeholder.svg",
+    image: za14jImage,
     description: "Diesel-Gelenkteleskopbühne.",
     datasheet: "/datasheets/za14j.pdf"
   },
