@@ -176,8 +176,8 @@ const Service = () => {
               </div>
             </div>
             <Button asChild size="lg" variant="secondary">
-              <Link to="/kontakt">
-                Wartungsvertrag anfragen
+              <Link to="/servicevertraege">
+                Serviceverträge entdecken
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
