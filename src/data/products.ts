@@ -29,6 +29,7 @@ import zt18jeImage from "@/assets/platforms/zt18je.png";
 import zt21jeImage from "@/assets/platforms/zt21je.png";
 import zt42jeImage from "@/assets/platforms/zt42je.png";
 import zt38jeImage from "@/assets/platforms/zt38je.png";
+import zt21jehImage from "@/assets/platforms/zt21jeh.png";
 
 // Teleskoplader-Bilder
 import zth2506Image from "@/assets/telehandlers/zth2506.png";
@@ -1381,8 +1382,9 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: false,
     uvpPrice: 147262.50,
     features: ["Teleskop", "Hybrid"],
-    image: "/placeholder.svg",
-    description: "Hybrid-Teleskopbühne."
+    image: zt21jehImage,
+    description: "Hybrid-Teleskopbühne.",
+    datasheet: "/datasheets/zt21jeh.pdf"
   },
   {
     id: "zt26jeh",
