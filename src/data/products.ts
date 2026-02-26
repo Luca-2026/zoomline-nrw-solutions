@@ -28,6 +28,7 @@ import zt58jImage from "@/assets/platforms/zt58j-zt68j.jpg";
 import zt18jeImage from "@/assets/platforms/zt18je.png";
 import zt21jeImage from "@/assets/platforms/zt21je.png";
 import zt42jeImage from "@/assets/platforms/zt42je.png";
+import zt38jeImage from "@/assets/platforms/zt38je.png";
 
 // Teleskoplader-Bilder
 import zth2506Image from "@/assets/telehandlers/zth2506.png";
@@ -1209,8 +1210,9 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: true,
     uvpPrice: 310887.50,
     features: ["Teleskop", "Elektro", "Lithium-Ionen Akku", "40m Arbeitshöhe"],
-    image: "/placeholder.svg",
-    description: "Sehr große elektrische Teleskopbühne."
+    image: zt38jeImage,
+    description: "Sehr große elektrische Teleskopbühne.",
+    datasheet: "/datasheets/zt38je.pdf"
   },
   // Diesel Teleskopbühnen
   {
@@ -1286,7 +1288,7 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: false,
     uvpPrice: 286344.52,
     features: ["Teleskop", "Diesel", "40m Arbeitshöhe"],
-    image: "/placeholder.svg",
+    image: zt38jeImage,
     description: "Große Diesel-Teleskopbühne.",
     datasheet: "/datasheets/zt38j.pdf"
   },
