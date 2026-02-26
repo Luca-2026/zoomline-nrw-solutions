@@ -52,6 +52,7 @@ import zs1212hdImage from "@/assets/platforms/zs1212hd.png";
 import zs1414hdImage from "@/assets/platforms/zs1414hd.png";
 import zs1414hdLiImage from "@/assets/platforms/zs1414hd-li.png";
 import zs1018rtImage from "@/assets/platforms/zs1018rt.png";
+import zs1218rtImage from "@/assets/platforms/zs1218rt.png";
 
 // Teleskoplader-Bilder
 import zth2506Image from "@/assets/telehandlers/zth2506.png";
@@ -771,8 +772,9 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: false,
     uvpPrice: 67093.18,
     features: ["Geländegängig", "Diesel"],
-    image: "/placeholder.svg",
-    description: "Diesel-Geländescherenbühne mit 14,3m Arbeitshöhe."
+    image: zs1218rtImage,
+    description: "Diesel-Geländescherenbühne mit 14,3m Arbeitshöhe.",
+    datasheet: "/datasheets/zs1218rt.pdf"
   },
   {
     id: "zs1023rt",
