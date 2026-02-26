@@ -4,6 +4,7 @@ import { SectionHeading } from "@/components/shared/SectionHeading";
 import { LazyImage } from "@/components/shared/LazyImage";
 import iconArbeitsbuehne from "@/assets/icons/icon-arbeitsbuehne.png";
 import iconBagger from "@/assets/icons/icon-bagger.png";
+import iconTeleskoplader from "@/assets/icons/icon-teleskoplader.png";
 
 const categories = [
   {
@@ -26,7 +27,7 @@ const categories = [
     id: "teleskoplader",
     title: "Teleskoplader",
     description: "Leistungsstarke Telehandler für Bau, Landwirtschaft und Industrie. Drehbar oder starr.",
-    icon: iconBagger,
+    icon: iconTeleskoplader,
     href: "/teleskoplader",
     features: ["Nicht rotierend", "Drehbar (360°)", "4×4 Allrad", "Bis 24,8m Höhe"]
   }
