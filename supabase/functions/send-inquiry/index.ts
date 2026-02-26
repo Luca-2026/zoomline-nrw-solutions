@@ -1,4 +1,5 @@
 import { Resend } from "https://esm.sh/resend@4.0.0";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
 
@@ -7,6 +8,61 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+// ─── Rate Limiting (in-memory, per-instance) ────────────────────────────
+const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
+const RATE_LIMIT_MAX = 10; // max requests per IP per window
+const ipRequestLog = new Map<string, number[]>();
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const timestamps = ipRequestLog.get(ip) || [];
+  const recent = timestamps.filter((t) => now - t < RATE_LIMIT_WINDOW_MS);
+  recent.push(now);
+  ipRequestLog.set(ip, recent);
+  // Cleanup old entries periodically
+  if (ipRequestLog.size > 10000) {
+    for (const [key, vals] of ipRequestLog) {
+      if (vals.every((t) => now - t > RATE_LIMIT_WINDOW_MS)) ipRequestLog.delete(key);
+    }
+  }
+  return recent.length > RATE_LIMIT_MAX;
+}
+
+// ─── Input Validation & Sanitization ────────────────────────────────────
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function sanitizeString(value: unknown, maxLength: number): string {
+  if (typeof value !== "string") return "";
+  return escapeHtml(value.trim().slice(0, maxLength));
+}
+
+function sanitizeNumber(value: unknown, min = 0, max = 999999999): number {
+  const n = Number(value);
+  if (isNaN(n)) return 0;
+  return Math.min(Math.max(n, min), max);
+}
+
+function validateEmail(email: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.length <= 255;
+}
+
+const VALID_TYPES = ["arbeitsbuehne", "bagger", "service", "kontakt", "hot-deal"];
+const STORAGE_BUCKET = "trade-in-images";
+const SIGNED_URL_EXPIRY = 3600; // 1 hour
+
+function validateImagePath(path: string): boolean {
+  // Only allow paths that look like storage paths (no URLs, no traversal)
+  return /^inquiries\/[a-zA-Z0-9-]+\.\w+$/.test(path);
+}
+
+// ─── Interfaces ─────────────────────────────────────────────────────────
 interface FinancingData {
   financingRequested: boolean;
   netPurchasePrice: number;
@@ -31,11 +87,11 @@ interface TradeInData {
   letzteWartung?: string;
   standort?: string;
   anmerkungen?: string;
-  imageUrls: string[];
+  imageUrls: string[]; // Now storage paths, not URLs
 }
 
 interface InquiryRequest {
-  type: "arbeitsbuehne" | "bagger" | "service" | "kontakt" | "hot-deal";
+  type: string;
   firma?: string;
   ansprechpartner?: string;
   name?: string;
@@ -49,54 +105,37 @@ interface InquiryRequest {
   message?: string;
   rueckruf?: boolean;
   wartungsvertrag?: boolean;
-  filters?: {
-    einsatzort?: string;
-    antrieb?: string;
-    lithium?: boolean;
-    arbeitshoehe?: number;
-    reichweite?: number;
-    untergrund?: string[];
-    einsatzbereich?: string;
-    gewichtsklasse?: string;
-    ausstattung?: string[];
-    lieferung?: boolean;
-    maschine?: string;
-    seriennummer?: string;
-    anliegen?: string;
-    anbaugeraete?: string[];
-    finanzierung?: string;
-    dealName?: string;
-    dealType?: string;
-    dealPrice?: string;
-  };
+  filters?: Record<string, unknown>;
   selectedProduct?: string;
   financing?: FinancingData;
   tradeIn?: TradeInData;
+  // Honeypot field - should be empty
+  _hp_field?: string;
 }
 
-const formatFilters = (filters: InquiryRequest["filters"], type: string): string => {
+// ─── Formatting helpers ─────────────────────────────────────────────────
+const formatFilters = (filters: Record<string, unknown> | undefined, type: string): string => {
   if (!filters) return "";
-  
   let filterText = "";
   
   if (type === "arbeitsbuehne") {
-    if (filters.einsatzort) filterText += `Einsatzort: ${filters.einsatzort}\n`;
-    if (filters.antrieb) filterText += `Antrieb: ${filters.antrieb}\n`;
+    if (filters.einsatzort) filterText += `Einsatzort: ${sanitizeString(filters.einsatzort, 100)}\n`;
+    if (filters.antrieb) filterText += `Antrieb: ${sanitizeString(filters.antrieb, 50)}\n`;
     if (filters.lithium !== undefined) filterText += `Lithium-Ionen gewünscht: ${filters.lithium ? "Ja" : "Nein"}\n`;
-    if (filters.arbeitshoehe) filterText += `Arbeitshöhe: ${filters.arbeitshoehe} m\n`;
-    if (filters.reichweite) filterText += `Seitliche Reichweite: ${filters.reichweite} m\n`;
-    if (filters.untergrund?.length) filterText += `Untergrund: ${filters.untergrund.join(", ")}\n`;
+    if (filters.arbeitshoehe) filterText += `Arbeitshöhe: ${sanitizeNumber(filters.arbeitshoehe, 0, 200)} m\n`;
+    if (filters.reichweite) filterText += `Seitliche Reichweite: ${sanitizeNumber(filters.reichweite, 0, 100)} m\n`;
+    if (Array.isArray(filters.untergrund)) filterText += `Untergrund: ${(filters.untergrund as string[]).map(s => sanitizeString(s, 50)).join(", ")}\n`;
   } else if (type === "bagger") {
-    if (filters.einsatzbereich) filterText += `Einsatzbereich: ${filters.einsatzbereich}\n`;
-    if (filters.gewichtsklasse) filterText += `Gewichtsklasse: ${filters.gewichtsklasse}\n`;
-    if (filters.antrieb) filterText += `Antrieb: ${filters.antrieb}\n`;
-    if (filters.ausstattung?.length) filterText += `Ausstattung: ${filters.ausstattung.join(", ")}\n`;
-    if (filters.anbaugeraete?.length) filterText += `Gewünschte Anbaugeräte: ${filters.anbaugeraete.join(", ")}\n`;
+    if (filters.einsatzbereich) filterText += `Einsatzbereich: ${sanitizeString(filters.einsatzbereich, 100)}\n`;
+    if (filters.gewichtsklasse) filterText += `Gewichtsklasse: ${sanitizeString(filters.gewichtsklasse, 50)}\n`;
+    if (filters.antrieb) filterText += `Antrieb: ${sanitizeString(filters.antrieb, 50)}\n`;
+    if (Array.isArray(filters.ausstattung)) filterText += `Ausstattung: ${(filters.ausstattung as string[]).map(s => sanitizeString(s, 50)).join(", ")}\n`;
+    if (Array.isArray(filters.anbaugeraete)) filterText += `Gewünschte Anbaugeräte: ${(filters.anbaugeraete as string[]).map(s => sanitizeString(s, 50)).join(", ")}\n`;
     if (filters.lieferung !== undefined) filterText += `Lieferung gewünscht: ${filters.lieferung ? "Ja" : "Nein"}\n`;
   } else if (type === "service") {
-    if (filters.maschine) filterText += `Maschine/Modell: ${filters.maschine}\n`;
-    if (filters.seriennummer) filterText += `Seriennummer: ${filters.seriennummer}\n`;
-    if (filters.anliegen) filterText += `Anliegen: ${filters.anliegen}\n`;
+    if (filters.maschine) filterText += `Maschine/Modell: ${sanitizeString(filters.maschine, 200)}\n`;
+    if (filters.seriennummer) filterText += `Seriennummer: ${sanitizeString(filters.seriennummer, 100)}\n`;
+    if (filters.anliegen) filterText += `Anliegen: ${sanitizeString(filters.anliegen, 500)}\n`;
   }
   
   return filterText;
@@ -112,9 +151,15 @@ const formatCurrency = (amount: number): string => {
 };
 
 const formatFinancing = (financing: FinancingData | undefined): string => {
-  if (!financing || !financing.financingRequested) {
-    return "";
-  }
+  if (!financing || !financing.financingRequested) return "";
+
+  const price = sanitizeNumber(financing.netPurchasePrice, 0, 50000000);
+  const downPct = sanitizeNumber(financing.downPaymentPercent, 0, 100);
+  const downEur = sanitizeNumber(financing.downPaymentEur, 0, 50000000);
+  const term = sanitizeNumber(financing.termMonths, 1, 120);
+  const balloonPct = sanitizeNumber(financing.balloonPercent, 0, 100);
+  const balloonEur = sanitizeNumber(financing.balloonEur, 0, 50000000);
+  const rate = sanitizeNumber(financing.estimatedMonthlyRate, 0, 1000000);
 
   let html = `
     <h2 style="color: #2563eb; border-bottom: 2px solid #2563eb; padding-bottom: 8px;">
@@ -136,23 +181,23 @@ const formatFinancing = (financing: FinancingData | undefined): string => {
     html += `
       <tr>
         <td style="padding: 10px; border: 1px solid #ddd;"><strong>Nettokaufpreis:</strong></td>
-        <td style="padding: 10px; border: 1px solid #ddd;">${formatCurrency(financing.netPurchasePrice)}</td>
+        <td style="padding: 10px; border: 1px solid #ddd;">${formatCurrency(price)}</td>
       </tr>
       <tr>
         <td style="padding: 10px; border: 1px solid #ddd;"><strong>Anzahlung:</strong></td>
-        <td style="padding: 10px; border: 1px solid #ddd;">${financing.downPaymentPercent}% (${formatCurrency(financing.downPaymentEur)})</td>
+        <td style="padding: 10px; border: 1px solid #ddd;">${downPct}% (${formatCurrency(downEur)})</td>
       </tr>
       <tr>
         <td style="padding: 10px; border: 1px solid #ddd;"><strong>Laufzeit:</strong></td>
-        <td style="padding: 10px; border: 1px solid #ddd;">${financing.termMonths} Monate</td>
+        <td style="padding: 10px; border: 1px solid #ddd;">${term} Monate</td>
       </tr>
       <tr>
         <td style="padding: 10px; border: 1px solid #ddd;"><strong>Schlussrate:</strong></td>
-        <td style="padding: 10px; border: 1px solid #ddd;">${financing.balloonPercent}% (${formatCurrency(financing.balloonEur)})</td>
+        <td style="padding: 10px; border: 1px solid #ddd;">${balloonPct}% (${formatCurrency(balloonEur)})</td>
       </tr>
       <tr style="background: #fef3c7;">
         <td style="padding: 10px; border: 1px solid #ddd;"><strong>Monatliche Rate (ca.):</strong></td>
-        <td style="padding: 10px; border: 1px solid #ddd; font-size: 18px; font-weight: bold; color: #d97706;">${formatCurrency(financing.estimatedMonthlyRate)}</td>
+        <td style="padding: 10px; border: 1px solid #ddd; font-size: 18px; font-weight: bold; color: #d97706;">${formatCurrency(rate)}</td>
       </tr>`;
   }
 
@@ -166,10 +211,8 @@ const formatFinancing = (financing: FinancingData | undefined): string => {
   return html;
 };
 
-const formatTradeIn = (tradeIn: TradeInData | undefined): string => {
-  if (!tradeIn || !tradeIn.enabled) {
-    return "";
-  }
+const formatTradeIn = async (tradeIn: TradeInData | undefined): Promise<string> => {
+  if (!tradeIn || !tradeIn.enabled) return "";
 
   const zustandLabels: Record<string, string> = {
     "sehr-gut": "Sehr gut – kaum Gebrauchsspuren",
@@ -178,6 +221,8 @@ const formatTradeIn = (tradeIn: TradeInData | undefined): string => {
     "reparaturbeduerftig": "Reparaturbedürftig",
   };
 
+  const s = (v: string | undefined, max: number) => sanitizeString(v || "", max);
+
   let html = `
     <h2 style="color: #d97706; border-bottom: 2px solid #d97706; padding-bottom: 8px;">
       🔄 Inzahlungnahme Gebrauchtmaschine
@@ -185,62 +230,80 @@ const formatTradeIn = (tradeIn: TradeInData | undefined): string => {
     <table style="border-collapse: collapse; width: 100%; margin-bottom: 20px;">
       <tr style="background: #fef3c7;">
         <td style="padding: 10px; border: 1px solid #ddd;"><strong>Hersteller:</strong></td>
-        <td style="padding: 10px; border: 1px solid #ddd; font-weight: bold;">${tradeIn.hersteller}</td>
+        <td style="padding: 10px; border: 1px solid #ddd; font-weight: bold;">${s(tradeIn.hersteller, 100)}</td>
       </tr>
       <tr style="background: #fef3c7;">
         <td style="padding: 10px; border: 1px solid #ddd;"><strong>Modell / Typ:</strong></td>
-        <td style="padding: 10px; border: 1px solid #ddd; font-weight: bold;">${tradeIn.modell}</td>
+        <td style="padding: 10px; border: 1px solid #ddd; font-weight: bold;">${s(tradeIn.modell, 100)}</td>
       </tr>
       <tr>
         <td style="padding: 10px; border: 1px solid #ddd;"><strong>Baujahr:</strong></td>
-        <td style="padding: 10px; border: 1px solid #ddd;">${tradeIn.baujahr}</td>
+        <td style="padding: 10px; border: 1px solid #ddd;">${s(tradeIn.baujahr, 4)}</td>
       </tr>
       <tr>
         <td style="padding: 10px; border: 1px solid #ddd;"><strong>Betriebsstunden:</strong></td>
-        <td style="padding: 10px; border: 1px solid #ddd;">${tradeIn.betriebsstunden} h</td>
+        <td style="padding: 10px; border: 1px solid #ddd;">${s(tradeIn.betriebsstunden, 10)} h</td>
       </tr>
       <tr>
         <td style="padding: 10px; border: 1px solid #ddd;"><strong>Zustand:</strong></td>
-        <td style="padding: 10px; border: 1px solid #ddd;">${zustandLabels[tradeIn.zustand] || tradeIn.zustand}</td>
+        <td style="padding: 10px; border: 1px solid #ddd;">${zustandLabels[tradeIn.zustand || ""] || s(tradeIn.zustand, 50)}</td>
       </tr>
       ${tradeIn.seriennummer ? `<tr>
         <td style="padding: 10px; border: 1px solid #ddd;"><strong>Seriennummer:</strong></td>
-        <td style="padding: 10px; border: 1px solid #ddd;">${tradeIn.seriennummer}</td>
+        <td style="padding: 10px; border: 1px solid #ddd;">${s(tradeIn.seriennummer, 100)}</td>
       </tr>` : ""}
       ${tradeIn.ausstattung ? `<tr>
         <td style="padding: 10px; border: 1px solid #ddd;"><strong>Sonderausstattung:</strong></td>
-        <td style="padding: 10px; border: 1px solid #ddd;">${tradeIn.ausstattung}</td>
+        <td style="padding: 10px; border: 1px solid #ddd;">${s(tradeIn.ausstattung, 500)}</td>
       </tr>` : ""}
       ${tradeIn.letzteWartung ? `<tr>
         <td style="padding: 10px; border: 1px solid #ddd;"><strong>Letzte Wartung:</strong></td>
-        <td style="padding: 10px; border: 1px solid #ddd;">${tradeIn.letzteWartung}</td>
+        <td style="padding: 10px; border: 1px solid #ddd;">${s(tradeIn.letzteWartung, 20)}</td>
       </tr>` : ""}
       ${tradeIn.standort ? `<tr>
         <td style="padding: 10px; border: 1px solid #ddd;"><strong>Standort der Maschine:</strong></td>
-        <td style="padding: 10px; border: 1px solid #ddd;">${tradeIn.standort}</td>
+        <td style="padding: 10px; border: 1px solid #ddd;">${s(tradeIn.standort, 100)}</td>
       </tr>` : ""}
       ${tradeIn.anmerkungen ? `<tr>
         <td style="padding: 10px; border: 1px solid #ddd;"><strong>Anmerkungen / Schäden:</strong></td>
-        <td style="padding: 10px; border: 1px solid #ddd;">${tradeIn.anmerkungen}</td>
+        <td style="padding: 10px; border: 1px solid #ddd;">${s(tradeIn.anmerkungen, 2000)}</td>
       </tr>` : ""}
-    </table>
-    ${tradeIn.imageUrls && tradeIn.imageUrls.length > 0 ? `
-      <h3 style="margin-top: 20px;">Fotos der Maschine:</h3>
-      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-        ${tradeIn.imageUrls.map((url, i) => `
-          <a href="${url}" target="_blank" style="display: inline-block;">
-            <img src="${url}" alt="Maschinenfoto ${i + 1}" style="max-width: 200px; max-height: 150px; border: 1px solid #ddd; border-radius: 5px;" />
-          </a>
-        `).join("")}
-      </div>
-      <p style="font-size: 12px; color: #666; margin-top: 10px;">Klicken Sie auf die Bilder, um sie in voller Größe anzuzeigen.</p>
-    ` : ""}
-  `;
+    </table>`;
+
+  // Generate signed URLs for trade-in images
+  if (tradeIn.imageUrls && tradeIn.imageUrls.length > 0) {
+    const validPaths = tradeIn.imageUrls.filter(validateImagePath).slice(0, 6);
+    
+    if (validPaths.length > 0) {
+      const supabaseAdmin = createClient(
+        Deno.env.get("SUPABASE_URL")!,
+        Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
+      );
+      
+      const { data: signedData } = await supabaseAdmin.storage
+        .from(STORAGE_BUCKET)
+        .createSignedUrls(validPaths, SIGNED_URL_EXPIRY);
+
+      if (signedData && signedData.length > 0) {
+        html += `
+          <h3 style="margin-top: 20px;">Fotos der Maschine:</h3>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            ${signedData.filter(d => d.signedUrl).map((d, i) => `
+              <a href="${d.signedUrl}" target="_blank" style="display: inline-block;">
+                <img src="${d.signedUrl}" alt="Maschinenfoto ${i + 1}" style="max-width: 200px; max-height: 150px; border: 1px solid #ddd; border-radius: 5px;" />
+              </a>
+            `).join("")}
+          </div>
+          <p style="font-size: 12px; color: #666; margin-top: 10px;">Bilder-Links sind 1 Stunde gültig. Klicken Sie auf die Bilder, um sie in voller Größe anzuzeigen.</p>
+        `;
+      }
+    }
+  }
 
   return html;
 };
 
-const getSubject = (data: InquiryRequest): string => {
+const getSubject = (firmaName: string, type: string, financing?: FinancingData, wartungsvertrag?: boolean, tradeIn?: TradeInData): string => {
   const typeLabels: Record<string, string> = {
     arbeitsbuehne: "Arbeitsbühne",
     bagger: "Bagger",
@@ -249,13 +312,13 @@ const getSubject = (data: InquiryRequest): string => {
     "hot-deal": "Hot Deal",
   };
   
-  const financingTag = data.financing?.financingRequested ? " [FINANZIERUNG]" : "";
-  const wartungsTag = data.wartungsvertrag ? " [WARTUNGSVERTRAG]" : "";
-  const tradeInTag = data.tradeIn?.enabled ? " [INZAHLUNGNAHME]" : "";
-  const firmaName = data.firma || data.company || data.name || "Unbekannt";
-  return `Zoomlion NRW – Anfrage ${typeLabels[data.type] || data.type}${financingTag}${wartungsTag}${tradeInTag} – ${firmaName} – ${data.plz || "Keine PLZ"}`;
+  const financingTag = financing?.financingRequested ? " [FINANZIERUNG]" : "";
+  const wartungsTag = wartungsvertrag ? " [WARTUNGSVERTRAG]" : "";
+  const tradeInTag = tradeIn?.enabled ? " [INZAHLUNGNAHME]" : "";
+  return `Zoomlion NRW – Anfrage ${typeLabels[type] || type}${financingTag}${wartungsTag}${tradeInTag} – ${firmaName}`;
 };
 
+// ─── Main handler ───────────────────────────────────────────────────────
 Deno.serve(async (req) => {
   console.log("Received inquiry request");
   
@@ -264,15 +327,57 @@ Deno.serve(async (req) => {
   }
 
   try {
-    const data: InquiryRequest = await req.json();
-    const firmaName = data.firma || data.company || data.name || "";
-    const ansprechpartnerName = data.ansprechpartner || data.name || "";
-    const telefonNr = data.telefon || data.phone || "";
-    const nachrichtText = data.nachricht || data.message || "";
+    // Rate limiting
+    const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || 
+                     req.headers.get("cf-connecting-ip") || 
+                     "unknown";
     
-    console.log("Processing inquiry for:", firmaName, "TradeIn:", data.tradeIn?.enabled);
+    if (isRateLimited(clientIp)) {
+      console.warn("Rate limited IP:", clientIp);
+      return new Response(
+        JSON.stringify({ error: "Zu viele Anfragen. Bitte versuchen Sie es später erneut." }),
+        { status: 429, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
 
-    if (!data.email || (!firmaName && !ansprechpartnerName)) {
+    const data: InquiryRequest = await req.json();
+
+    // Honeypot check
+    if (data._hp_field) {
+      console.warn("Honeypot triggered");
+      // Return success to not reveal the check
+      return new Response(
+        JSON.stringify({ success: true, message: "Anfrage erfolgreich gesendet" }),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    // Validate type
+    if (!data.type || !VALID_TYPES.includes(data.type)) {
+      return new Response(
+        JSON.stringify({ error: "Ungültiger Anfragetyp" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    // Validate & sanitize core fields
+    const email = sanitizeString(data.email, 255);
+    if (!validateEmail(email)) {
+      return new Response(
+        JSON.stringify({ error: "Ungültige E-Mail-Adresse" }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    const firmaName = sanitizeString(data.firma || data.company || data.name || "", 200);
+    const ansprechpartnerName = sanitizeString(data.ansprechpartner || data.name || "", 200);
+    const telefonNr = sanitizeString(data.telefon || data.phone || "", 30);
+    const nachrichtText = sanitizeString(data.nachricht || data.message || "", 5000);
+    const plz = sanitizeString(data.plz || "", 20);
+    const standort = sanitizeString(data.standort || "", 100);
+    const selectedProduct = sanitizeString(data.selectedProduct || "", 200);
+    
+    if (!email || (!firmaName && !ansprechpartnerName)) {
       console.error("Missing required fields");
       return new Response(
         JSON.stringify({ error: "Pflichtfelder fehlen" }),
@@ -282,7 +387,7 @@ Deno.serve(async (req) => {
 
     const filterText = formatFilters(data.filters, data.type);
     const financingHtml = formatFinancing(data.financing);
-    const tradeInHtml = formatTradeIn(data.tradeIn);
+    const tradeInHtml = await formatTradeIn(data.tradeIn);
     
     const emailHtml = `
       <h1>Neue Anfrage über Zoomlion NRW</h1>
@@ -291,15 +396,15 @@ Deno.serve(async (req) => {
       <table style="border-collapse: collapse; width: 100%;">
         <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Firma:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${firmaName || "-"}</td></tr>
         <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Ansprechpartner:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${ansprechpartnerName || "-"}</td></tr>
-        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>E-Mail:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${data.email}</td></tr>
+        <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>E-Mail:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${email}</td></tr>
         <tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Telefon:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${telefonNr || "-"}</td></tr>
-        ${data.plz ? `<tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>PLZ / Einsatzort:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${data.plz}</td></tr>` : ""}
-        ${data.standort ? `<tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Bevorzugter Standort:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${data.standort}</td></tr>` : ""}
+        ${plz ? `<tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>PLZ / Einsatzort:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${plz}</td></tr>` : ""}
+        ${standort ? `<tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Bevorzugter Standort:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">${standort}</td></tr>` : ""}
         ${data.rueckruf ? `<tr><td style="padding: 8px; border: 1px solid #ddd;"><strong>Rückruf gewünscht:</strong></td><td style="padding: 8px; border: 1px solid #ddd;">Ja</td></tr>` : ""}
         ${data.wartungsvertrag ? `<tr style="background: #ecfdf5;"><td style="padding: 8px; border: 1px solid #ddd;"><strong>🔧 Wartungsvertrag gewünscht:</strong></td><td style="padding: 8px; border: 1px solid #ddd; color: #059669; font-weight: bold;">Ja</td></tr>` : ""}
       </table>
 
-      ${data.selectedProduct ? `<h2>Gewähltes Produkt</h2><p>${data.selectedProduct}</p>` : ""}
+      ${selectedProduct ? `<h2>Gewähltes Produkt</h2><p>${selectedProduct}</p>` : ""}
 
       ${filterText ? `
       <h2>Filterauswahl</h2>
@@ -322,12 +427,11 @@ Deno.serve(async (req) => {
     const emailResponse = await resend.emails.send({
       from: "Zoomlion NRW <info@zoomlion-nrw.de>",
       to: ["verkauf@zoomlion-nrw.de"],
-      replyTo: data.email,
-      subject: getSubject(data),
+      replyTo: email,
+      subject: getSubject(firmaName || "Unbekannt", data.type, data.financing, data.wartungsvertrag, data.tradeIn),
       html: emailHtml,
     });
 
-    // Check if email was actually sent successfully
     if (emailResponse.error) {
       console.error("Resend error:", emailResponse.error);
       throw new Error(emailResponse.error.message);
