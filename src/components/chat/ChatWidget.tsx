@@ -164,7 +164,7 @@ export function ChatWidget() {
           aria-label="Chat öffnen"
         >
           <MessageCircle className="h-5 w-5" />
-          <span className="text-sm font-medium hidden sm:inline">KI-Berater</span>
+          <span className="text-sm font-medium hidden sm:inline">Beratung</span>
         </button>
       )}
 
