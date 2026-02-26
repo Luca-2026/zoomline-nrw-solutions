@@ -27,6 +27,7 @@ import zt22jeImage from "@/assets/platforms/zt22je-zt26je.jpg";
 import zt58jImage from "@/assets/platforms/zt58j-zt68j.jpg";
 import zt18jeImage from "@/assets/platforms/zt18je.png";
 import zt21jeImage from "@/assets/platforms/zt21je.png";
+import zt42jeImage from "@/assets/platforms/zt42je.png";
 
 // Teleskoplader-Bilder
 import zth2506Image from "@/assets/telehandlers/zth2506.png";
@@ -1301,7 +1302,7 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: false,
     uvpPrice: 331347.94,
     features: ["Teleskop", "Diesel", "44m Arbeitshöhe"],
-    image: "/placeholder.svg",
+    image: zt42jeImage,
     description: "Sehr große Diesel-Teleskopbühne.",
     datasheet: "/datasheets/zt42j.pdf"
   },
@@ -1408,7 +1409,7 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: false,
     uvpPrice: 364072.94,
     features: ["Teleskop", "Hybrid", "44m Arbeitshöhe"],
-    image: "/placeholder.svg",
+    image: zt42jeImage,
     description: "Große Hybrid-Teleskopbühne."
   },
   {
