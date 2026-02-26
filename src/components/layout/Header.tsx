@@ -10,6 +10,7 @@ const navigation = [
   { name: "Hot Deals", href: "/hot-deals", highlight: true },
   { name: "Arbeitsbühnen", href: "/arbeitsbuehnen" },
   { name: "Bagger", href: "/bagger" },
+  { name: "Teleskoplader", href: "/teleskoplader" },
   { name: "Finanzierung", href: "/finanzierung" },
   { name: "Service", href: "/service" },
   { name: "Standorte", href: "/standorte" },

@@ -38,7 +38,7 @@ const anbaugeraeteOptions = [
 interface InquiryModalProps {
   isOpen: boolean;
   onClose: () => void;
-  type: "arbeitsbuehne" | "bagger" | "service" | "kontakt";
+  type: "arbeitsbuehne" | "bagger" | "teleskoplader" | "service" | "kontakt";
   selectedProduct?: string;
   filters?: Record<string, any>;
   productPrice?: number;
@@ -215,6 +215,7 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
   const typeLabels: Record<string, string> = {
     arbeitsbuehne: "Arbeitsbühne",
     bagger: "Bagger",
+    teleskoplader: "Teleskoplader",
     service: "Service",
     kontakt: "Kontakt",
   };
@@ -359,20 +360,20 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
             </div>
           )}
 
-          {/* Finanzierung - bei Arbeitsbühnen und Bagger */}
-          {(type === "arbeitsbuehne" || type === "bagger") && (
+          {/* Finanzierung - bei Arbeitsbühnen, Bagger und Teleskoplader */}
+          {(type === "arbeitsbuehne" || type === "bagger" || type === "teleskoplader") && (
             <FinancingSection
               productPrice={productPrice}
               onChange={handleFinancingChange}
             />
           )}
 
-          {/* Inzahlungnahme - bei Arbeitsbühnen und Bagger */}
-          {(type === "arbeitsbuehne" || type === "bagger") && (
+          {/* Inzahlungnahme - bei Arbeitsbühnen, Bagger und Teleskoplader */}
+          {(type === "arbeitsbuehne" || type === "bagger" || type === "teleskoplader") && (
             <TradeInSection 
               value={tradeInData} 
               onChange={handleTradeInChange} 
-              productType={type}
+              productType={type === "teleskoplader" ? "bagger" : type}
             />
           )}
 
