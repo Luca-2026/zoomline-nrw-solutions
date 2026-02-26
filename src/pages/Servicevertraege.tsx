@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Layout } from "@/components/layout/Layout";
 import { SectionHeading } from "@/components/shared/SectionHeading";
@@ -6,7 +8,9 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import {
   CheckCircle,
+  XCircle,
   ArrowRight,
+  ArrowDown,
   Package,
   Wrench,
   Shield,
@@ -19,54 +23,75 @@ import {
   FileText,
   Truck,
   Eye,
+  Star,
 } from "lucide-react";
 
 const packages = [
   {
+    id: "zl-care",
     name: "ZL|Care",
     subtitle: "Wartungsteile-Paket",
+    tagline: "Für alle, die selbst schrauben – aber keine Kompromisse bei den Teilen machen.",
     description:
-      "Sie erhalten regelmäßig alle benötigten Original-Wartungsteile und -kits – automatisch, rechtzeitig und perfekt abgestimmt auf Ihre Maschine. So führen Sie Inspektionen selbst durch oder lassen uns übernehmen. Inklusive kostenloser Beratung für optimale Maschinenplanung.",
+      "Mit ZL|Care erhalten Sie regelmäßig alle benötigten Original-Wartungsteile und -kits – automatisch, rechtzeitig und perfekt abgestimmt auf Ihre Zoomlion-Maschine. Führen Sie Inspektionen in Eigenregie durch oder lassen Sie unser Team übernehmen. Inklusive kostenloser Beratung für optimale Maschinenplanung und Auslastung.",
     icon: Package,
+    color: "from-blue-500/10 to-blue-600/5",
+    idealFor: ["Werkstattleiter mit eigenem Mechaniker-Team", "Unternehmen mit eigener Serviceabteilung", "Erfahrene Maschinenbediener, die selbst warten"],
     features: [
-      { label: "Wartungsteile", value: "Original Zoomlion" },
-      { label: "Lieferung", value: "just in time" },
-      { label: "Öldiagnose-Set", value: "inklusive" },
-      { label: "Ölversorgung", value: "optional" },
+      { label: "Original Zoomlion-Wartungsteile", included: true },
+      { label: "Automatische Just-in-time-Lieferung", included: true },
+      { label: "Öldiagnose-Set", included: true },
+      { label: "Kostenlose Serviceberatung", included: true },
+      { label: "Ölversorgung", included: false, note: "optional zubuchbar" },
+      { label: "Durchführung der Wartung", included: false, note: "eigenständig" },
+      { label: "UVV-Prüfung", included: false },
+      { label: "Reparaturen", included: false },
+      { label: "Ersatzgerät", included: false },
     ],
     highlight: false,
   },
   {
+    id: "zl-pro",
     name: "ZL|Pro",
     subtitle: "Inspektionsvertrag",
+    tagline: "Volle Kostenkontrolle bei jeder Inspektion – keine Überraschungen.",
     description:
-      "Planbare Inspektionskosten in einem festen Vertrag. Arbeitszeit, Anfahrt, Original-Wartungsteile und UVV-Prüfung sind bereits enthalten. So bleiben Ihre Maschinen zuverlässig im Einsatz – ohne Überraschungen bei den Kosten.",
+      "ZL|Pro sichert Ihnen planbare Inspektionskosten in einem festen Vertrag. Arbeitszeit, Anfahrt, Original-Wartungsteile und die gesetzlich vorgeschriebene UVV-Prüfung sind bereits enthalten. Ihre Maschinen bleiben zuverlässig im Einsatz – ohne versteckte Kosten. Wir kümmern uns um die termingerechte Durchführung aller Inspektionen, sodass im Tagesgeschäft nichts übersehen wird.",
     icon: Eye,
+    color: "from-primary/10 to-primary/5",
+    idealFor: ["Flottenmanager mit mehreren Maschinen", "Unternehmen ohne eigene Werkstatt", "Betriebe, die planbare Fixkosten bevorzugen"],
     features: [
-      { label: "Wartungsteile", value: "Original Zoomlion" },
-      { label: "Wartung", value: "inklusive" },
-      { label: "UVV-Prüfung", value: "inklusive" },
-      { label: "Öldiagnose", value: "inklusive" },
-      { label: "Ölversorgung", value: "optional" },
-      { label: "Anfahrt", value: "optional" },
+      { label: "Original Zoomlion-Wartungsteile", included: true },
+      { label: "Komplette Wartungsdurchführung", included: true },
+      { label: "UVV-Prüfung", included: true },
+      { label: "Öldiagnose", included: true },
+      { label: "Automatische Terminplanung", included: true },
+      { label: "Ölversorgung", included: false, note: "optional zubuchbar" },
+      { label: "Anfahrt", included: false, note: "optional zubuchbar" },
+      { label: "Reparaturen", included: false },
+      { label: "Ersatzgerät", included: false },
     ],
     highlight: true,
   },
   {
+    id: "zl-complete",
     name: "ZL|Complete",
     subtitle: "Full-Service-Vertrag",
+    tagline: "Das Rundum-Sorglos-Paket – inklusive kostenlosem Ersatzgerät.",
     description:
-      "Ihr Rundum-Sorglos-Paket für Wartung und Reparatur. Neben allen Inspektionen sind auch Reparaturen inklusive – mit Ersatzteilen, Arbeitslohn und Anfahrt. Im Reparaturfall erhalten Sie kostenlos ein baugleiches oder höherwertiges Ersatzgerät, damit Sie weiterarbeiten können. So vermeiden Sie ungeplante Kosten und Stillstände.",
+      "ZL|Complete ist Ihr Rundum-Sorglos-Vertrag für Wartung und Reparatur. Neben allen Inspektionen sind auch sämtliche Reparaturen inklusive – mit Ersatzteilen, Arbeitslohn und Anfahrt. Das Besondere: Im Reparaturfall stellen wir Ihnen kostenlos ein baugleiches oder höherwertiges Ersatzgerät zur Verfügung, damit Ihre Baustelle nicht stillsteht. So vermeiden Sie ungeplante Kosten und maximale Maschinenverfügbarkeit ist garantiert.",
     icon: Wrench,
+    color: "from-green-500/10 to-green-600/5",
+    idealFor: ["Großprojekte mit engem Zeitplan", "Unternehmen, die null Ausfallrisiko brauchen", "Betriebe ohne eigene Werkstattkapazitäten"],
     features: [
-      { label: "Wartungsteile", value: "Original Zoomlion" },
-      { label: "Wartung", value: "inklusive" },
-      { label: "Reparaturen", value: "inklusive" },
-      { label: "Ersatzgerät", value: "inklusive" },
-      { label: "UVV-Prüfung", value: "inklusive" },
-      { label: "Öldiagnose", value: "inklusive" },
-      { label: "Ölversorgung", value: "optional" },
-      { label: "Anfahrt", value: "optional" },
+      { label: "Original Zoomlion-Wartungsteile", included: true },
+      { label: "Komplette Wartungsdurchführung", included: true },
+      { label: "Alle Reparaturen inkl. Arbeitslohn", included: true },
+      { label: "Kostenloses Ersatzgerät (baugleich/höherwertig)", included: true },
+      { label: "UVV-Prüfung", included: true },
+      { label: "Öldiagnose", included: true },
+      { label: "Anfahrt", included: true },
+      { label: "Ölversorgung", included: false, note: "optional zubuchbar" },
     ],
     highlight: false,
   },
@@ -106,6 +131,18 @@ const reasons = [
 ];
 
 const Servicevertraege = () => {
+  const location = useLocation();
+
+  // Scroll to hash on navigation
+  useEffect(() => {
+    if (location.hash) {
+      const el = document.getElementById(location.hash.slice(1));
+      if (el) {
+        setTimeout(() => el.scrollIntoView({ behavior: "smooth", block: "start" }), 100);
+      }
+    }
+  }, [location.hash]);
+
   const schema = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -125,12 +162,9 @@ const Servicevertraege = () => {
         <title>Serviceverträge für Baumaschinen | Zoomlion NRW</title>
         <meta
           name="description"
-          content="Serviceverträge für Zoomlion Arbeitsbühnen, Bagger & Teleskoplader: Wartungsteile, Inspektionen, Full-Service. Maximale Verfügbarkeit bei planbaren Kosten. 3 Standorte in NRW."
+          content="Serviceverträge für Zoomlion Arbeitsbühnen, Bagger & Teleskoplader: Wartungsteile, Inspektionen, Full-Service mit kostenlosem Ersatzgerät. 3 Standorte in NRW."
         />
-        <link
-          rel="canonical"
-          href="https://www.zoomlion-nrw.de/servicevertraege"
-        />
+        <link rel="canonical" href="https://www.zoomlion-nrw.de/servicevertraege" />
         <script type="application/ld+json">{JSON.stringify(schema)}</script>
       </Helmet>
 
@@ -154,8 +188,7 @@ const Servicevertraege = () => {
             <p className="text-lg text-muted-foreground mb-8 max-w-2xl">
               Maximale Maschinenverfügbarkeit – mit voller Kostenkontrolle und
               erstklassigem Service. Wir garantieren, dass keine Inspektion im
-              Tagesgeschäft übersehen wird und Ihre Maschinen stets die
-              notwendige Wartung erhalten.
+              Tagesgeschäft übersehen wird und Ihre Maschinen stets die notwendige Wartung erhalten.
             </p>
             <div className="flex flex-wrap gap-4">
               <Button asChild size="lg">
@@ -175,13 +208,13 @@ const Servicevertraege = () => {
         </div>
       </section>
 
-      {/* Pakete Übersicht */}
+      {/* Pakete Kurzübersicht mit Anchor-Links */}
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
           <SectionHeading
-            badge="Servicepakete"
-            title="Der richtige Servicevertrag"
-            subtitle="Niedrigere Kosten, höhere Produktivität, mehr Sicherheit"
+            badge="Vergleich"
+            title="Drei Pakete – ein Ziel: Ihre Maschine läuft."
+            subtitle={'Wählen Sie das Paket, das zu Ihrem Betrieb passt. Klicken Sie auf „Details" für alle Leistungen.'}
           />
           <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {packages.map((pkg) => (
@@ -194,55 +227,122 @@ const Servicevertraege = () => {
                 }`}
               >
                 {pkg.highlight && (
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-primary text-primary-foreground text-xs font-bold">
-                    Beliebteste Wahl
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center gap-1">
+                    <Star className="h-3 w-3" /> Beliebteste Wahl
                   </div>
                 )}
                 <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6">
                   <pkg.icon className="h-7 w-7 text-primary" />
                 </div>
-                <h3 className="font-heading text-2xl font-bold mb-1">
-                  {pkg.name}
-                </h3>
-                <p className="text-sm text-muted-foreground mb-6">
-                  {pkg.subtitle}
-                </p>
-                <div className="space-y-3 mb-8 flex-1">
-                  {pkg.features.map((f) => (
-                    <div
-                      key={f.label}
-                      className="flex items-center justify-between text-sm"
-                    >
-                      <span className="text-muted-foreground">{f.label}</span>
-                      <span
-                        className={`font-medium ${
-                          f.value === "inklusive"
-                            ? "text-primary"
-                            : f.value === "optional"
-                              ? "text-muted-foreground"
-                              : "text-foreground"
-                        }`}
-                      >
-                        {f.value === "inklusive" && (
-                          <CheckCircle className="inline h-4 w-4 mr-1" />
-                        )}
-                        {f.value}
-                      </span>
+                <h3 className="font-heading text-2xl font-bold mb-1">{pkg.name}</h3>
+                <p className="text-sm text-muted-foreground mb-2">{pkg.subtitle}</p>
+                <p className="text-sm text-foreground/80 italic mb-6">{pkg.tagline}</p>
+                <div className="space-y-2 mb-8 flex-1">
+                  {pkg.features.slice(0, 5).map((f) => (
+                    <div key={f.label} className="flex items-center gap-2 text-sm">
+                      {f.included ? (
+                        <CheckCircle className="h-4 w-4 text-primary flex-shrink-0" />
+                      ) : (
+                        <XCircle className="h-4 w-4 text-muted-foreground/40 flex-shrink-0" />
+                      )}
+                      <span className={f.included ? "" : "text-muted-foreground"}>{f.label}</span>
                     </div>
                   ))}
+                  {pkg.features.length > 5 && (
+                    <p className="text-xs text-muted-foreground ml-6">+ {pkg.features.length - 5} weitere Leistungen</p>
+                  )}
                 </div>
                 <Button
                   asChild
                   variant={pkg.highlight ? "default" : "outline"}
                   className="w-full"
                 >
-                  <Link to="/kontakt">Servicevertrag sichern</Link>
+                  <a href={`#${pkg.id}`}>
+                    Details ansehen
+                    <ArrowDown className="ml-2 h-4 w-4" />
+                  </a>
                 </Button>
               </div>
             ))}
           </div>
         </div>
       </section>
+
+      {/* Detailsektionen für jedes Paket */}
+      {packages.map((pkg, index) => (
+        <section
+          key={pkg.id}
+          id={pkg.id}
+          className={`py-16 md:py-24 scroll-mt-20 ${index % 2 === 0 ? "bg-muted/50" : ""}`}
+        >
+          <div className="container mx-auto px-4">
+            <div className="max-w-5xl mx-auto">
+              <div className="grid lg:grid-cols-5 gap-10 items-start">
+                {/* Left: Info */}
+                <div className="lg:col-span-3">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${pkg.color} flex items-center justify-center`}>
+                      <pkg.icon className="h-6 w-6 text-primary" />
+                    </div>
+                    <div>
+                      <h2 className="font-heading text-2xl md:text-3xl font-bold">{pkg.name}</h2>
+                      <p className="text-sm text-primary font-medium">{pkg.subtitle}</p>
+                    </div>
+                  </div>
+                  <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
+                    {pkg.description}
+                  </p>
+
+                  <div className="mb-8">
+                    <h3 className="font-heading font-bold mb-3">Ideal für:</h3>
+                    <ul className="space-y-2">
+                      {pkg.idealFor.map((item) => (
+                        <li key={item} className="flex items-center gap-2 text-sm">
+                          <CheckCircle className="h-4 w-4 text-primary flex-shrink-0" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <Button asChild size="lg">
+                    <Link to="/kontakt">
+                      {pkg.name} anfragen
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                </div>
+
+                {/* Right: Feature-Liste */}
+                <div className="lg:col-span-2">
+                  <div className="p-6 rounded-2xl border border-border bg-card">
+                    <h3 className="font-heading font-bold mb-4">Leistungen</h3>
+                    <div className="space-y-3">
+                      {pkg.features.map((f) => (
+                        <div key={f.label} className="flex items-start gap-3 text-sm">
+                          {f.included ? (
+                            <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                          ) : (
+                            <XCircle className="h-5 w-5 text-muted-foreground/40 flex-shrink-0 mt-0.5" />
+                          )}
+                          <div>
+                            <span className={f.included ? "font-medium" : "text-muted-foreground"}>
+                              {f.label}
+                            </span>
+                            {f.note && (
+                              <span className="block text-xs text-muted-foreground">{f.note}</span>
+                            )}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      ))}
 
       {/* Service-Versprechen */}
       <section className="py-16 md:py-24 bg-primary text-primary-foreground">
@@ -256,34 +356,22 @@ const Servicevertraege = () => {
                 Ihre Zeit. Unsere Priorität.
               </h2>
               <p className="text-lg opacity-90 max-w-2xl mx-auto">
-                Mit unserem Service-Versprechen sichern Sie langfristige
-                Einsatzfähigkeit, maximale Betriebskontinuität und nachhaltigen
-                Investitionsschutz.
+                Mit unserem Service-Versprechen sichern Sie langfristige Einsatzfähigkeit, maximale Betriebskontinuität und nachhaltigen Investitionsschutz.
               </p>
             </div>
             <div className="grid md:grid-cols-2 gap-8">
               <div className="p-6 rounded-2xl bg-white/10">
                 <Truck className="h-10 w-10 mb-4 opacity-90" />
-                <h3 className="font-heading text-xl font-bold mb-3">
-                  Ersatzteilverfügbarkeit
-                </h3>
-                <p className="opacity-90 mb-4">
-                  Wartungs-, Verschleiß- und übliche Reparaturteile: verfügbar
-                  am nächsten Werktag ab unseren NRW-Standorten. Dank schneller
-                  Ersatzteilverfügbarkeit minimieren wir Ausfallzeiten
-                  konsequent.
+                <h3 className="font-heading text-xl font-bold mb-3">Ersatzteilverfügbarkeit</h3>
+                <p className="opacity-90">
+                  Wartungs-, Verschleiß- und übliche Reparaturteile: verfügbar am nächsten Werktag ab unseren NRW-Standorten. Dank schneller Ersatzteilverfügbarkeit minimieren wir Ausfallzeiten konsequent.
                 </p>
               </div>
               <div className="p-6 rounded-2xl bg-white/10">
                 <Wrench className="h-10 w-10 mb-4 opacity-90" />
-                <h3 className="font-heading text-xl font-bold mb-3">
-                  Schnelle Reparaturen
-                </h3>
-                <p className="opacity-90 mb-4">
-                  Übliche Reparaturen innerhalb von zwei Werktagen oder nach
-                  Wunschtermin. Umfangreiche Reparaturen nach Vereinbarung. So
-                  bleiben Ihre Maschinen einsatzbereit und Sie können sich voll
-                  auf Ihr Kerngeschäft konzentrieren.
+                <h3 className="font-heading text-xl font-bold mb-3">Schnelle Reparaturen</h3>
+                <p className="opacity-90">
+                  Übliche Reparaturen innerhalb von zwei Werktagen oder nach Wunschtermin. Umfangreiche Reparaturen nach Vereinbarung. So bleiben Ihre Maschinen einsatzbereit.
                 </p>
               </div>
             </div>
@@ -299,49 +387,10 @@ const Servicevertraege = () => {
         </div>
       </section>
 
-      {/* Pakete Detail */}
-      <section className="py-16 md:py-24">
-        <div className="container mx-auto px-4">
-          <SectionHeading
-            title="Die Leistungen im Überblick"
-            subtitle="Drei Servicepakete – abgestimmt auf Ihren Bedarf"
-          />
-          <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {packages.map((pkg) => (
-              <div
-                key={pkg.name + "-detail"}
-                className="p-8 rounded-2xl border border-border bg-card"
-              >
-                <h3 className="font-heading text-xl font-bold mb-2">
-                  {pkg.name}
-                </h3>
-                <p className="text-sm font-medium text-primary mb-4">
-                  {pkg.subtitle}
-                </p>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {pkg.description}
-                </p>
-              </div>
-            ))}
-          </div>
-          <div className="text-center mt-10">
-            <Button asChild size="lg">
-              <Link to="/kontakt">
-                Beratung anfragen
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
       {/* 6 Gründe */}
       <section className="py-16 md:py-24 bg-muted/50">
         <div className="container mx-auto px-4">
-          <SectionHeading
-            badge="Vorteile"
-            title="Sechs Gründe für einen Servicevertrag"
-          />
+          <SectionHeading badge="Vorteile" title="Sechs Gründe für einen Servicevertrag" />
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {reasons.map((reason, i) => (
               <div
@@ -352,9 +401,7 @@ const Servicevertraege = () => {
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                     <reason.icon className="h-5 w-5 text-primary" />
                   </div>
-                  <span className="text-sm font-bold text-primary">
-                    {i + 1}.
-                  </span>
+                  <span className="text-sm font-bold text-primary">{i + 1}.</span>
                 </div>
                 <h3 className="font-heading font-bold mb-2">{reason.title}</h3>
                 <p className="text-sm text-muted-foreground">{reason.desc}</p>
@@ -385,10 +432,7 @@ const Servicevertraege = () => {
                   Ihr Servicevertrag. NRW-weit.
                 </h2>
                 <p className="text-muted-foreground mb-6">
-                  Ob für eine Maschine oder eine ganze Flotte – wir haben den
-                  passenden Servicevertrag. Unser Expertenteam berät Sie
-                  persönlich und unverbindlich – an 3 Standorten in NRW.
-                  Gemeinsam finden wir die optimale Lösung für Ihren Bedarf.
+                  Ob für eine Maschine oder eine ganze Flotte – wir haben den passenden Servicevertrag. Unser Expertenteam berät Sie persönlich und unverbindlich – an 3 Standorten in NRW.
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <Button asChild>
@@ -405,24 +449,16 @@ const Servicevertraege = () => {
               <div className="space-y-4">
                 <div className="p-6 rounded-2xl bg-card border border-border">
                   <FileText className="h-10 w-10 text-primary mb-3" />
-                  <h3 className="font-heading font-bold mb-2">
-                    Serviceberatung – Anfrage stellen
-                  </h3>
+                  <h3 className="font-heading font-bold mb-2">Serviceberatung</h3>
                   <p className="text-sm text-muted-foreground">
-                    Wir analysieren Ihre Maschinennutzung und empfehlen das
-                    optimale Servicepaket. Vereinbaren Sie jetzt Ihren
-                    persönlichen Beratungstermin.
+                    Wir analysieren Ihre Maschinennutzung und empfehlen das optimale Servicepaket. Vereinbaren Sie jetzt Ihren persönlichen Beratungstermin.
                   </p>
                 </div>
                 <div className="p-6 rounded-2xl bg-card border border-border">
                   <Shield className="h-10 w-10 text-primary mb-3" />
-                  <h3 className="font-heading font-bold mb-2">
-                    Maßgeschneiderte Verträge
-                  </h3>
+                  <h3 className="font-heading font-bold mb-2">Maßgeschneiderte Verträge</h3>
                   <p className="text-sm text-muted-foreground">
-                    Exakt abgestimmt auf Ihre Maschinennutzung und Ihr Budget:
-                    Erfahren Sie alles über Leistungen, Unterschiede und
-                    Vorteile unserer drei Servicepakete.
+                    Exakt abgestimmt auf Ihre Maschinennutzung und Ihr Budget: Erfahren Sie alles über Leistungen, Unterschiede und Vorteile unserer drei Servicepakete.
                   </p>
                 </div>
               </div>
@@ -431,7 +467,7 @@ const Servicevertraege = () => {
         </div>
       </section>
 
-      {/* Wartung & Service Abschluss */}
+      {/* Abschluss CTA */}
       <section className="py-16 md:py-24 bg-secondary text-secondary-foreground">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
@@ -439,15 +475,10 @@ const Servicevertraege = () => {
               Wartung und Service für Ihre Baumaschinen
             </h2>
             <p className="opacity-90 mb-4">
-              Mit professioneller Wartung und vorausschauender Diagnostik sorgen
-              wir dafür, dass Ihre Baumaschinen zuverlässig und effizient im
-              Einsatz bleiben. So vermeiden Sie ungeplante Stillstände und
-              verlängern die Lebensdauer Ihrer Maschinen.
+              Mit professioneller Wartung und vorausschauender Diagnostik sorgen wir dafür, dass Ihre Baumaschinen zuverlässig und effizient im Einsatz bleiben.
             </p>
             <p className="opacity-90 mb-8">
-              Ob Sie ein passendes Filterkit für den Selbsteinbau benötigen oder
-              einen umfassenden Full-Service-Vertrag wünschen – wir bieten die
-              passende Lösung für Ihre Anforderungen.
+              Ob Filterkit für den Selbsteinbau oder umfassender Full-Service-Vertrag mit kostenlosem Ersatzgerät – wir bieten die passende Lösung.
             </p>
             <Button asChild size="lg" variant="secondary">
               <Link to="/kontakt">
