@@ -1,22 +1,25 @@
-# SPA Routing fuer React/Vite (Apache + LiteSpeed)
+# React/Vite SPA Routing fuer Apache + LiteSpeed
 DirectoryIndex index.html
-Options -MultiViews
+Options -Indexes -MultiViews
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
 
-  # Existierende Dateien/Ordner/Symlinks direkt ausliefern
+  # index.html nicht erneut umschreiben
+  RewriteRule ^index\.html$ - [L]
+
+  # Vorhandene Dateien/Ordner/Symlinks normal ausliefern
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d [OR]
   RewriteCond %{REQUEST_FILENAME} -l
   RewriteRule ^ - [L]
 
-  # Alle anderen Requests an die SPA-Entry-Datei
-  RewriteRule ^ index.html [L]
+  # Deep-Links der SPA immer auf index.html
+  RewriteRule ^.*$ /index.html [L]
 </IfModule>
 
-# Optionaler Fallback, falls Rewrite beim Host eingeschraenkt ist
+# Fallback falls Rewrite-Regeln beim Host eingeschraenkt sind
 ErrorDocument 404 /index.html
 
 # Caching fuer statische Assets
@@ -32,6 +35,12 @@ ErrorDocument 404 /index.html
 </IfModule>
 
 <IfModule mod_headers.c>
+  # HTML nicht aggressiv cachen
+  <FilesMatch "\.(html)$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+  </FilesMatch>
+
+  # Statische Assets lange cachen
   <FilesMatch "\.(js|css|png|jpg|jpeg|webp|svg|ico|pdf)$">
     Header set Cache-Control "public, max-age=2592000, immutable"
   </FilesMatch>
