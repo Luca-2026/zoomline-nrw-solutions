@@ -1129,7 +1129,8 @@ export const aerialPlatforms: AerialPlatform[] = [
     uvpPrice: 18823.42,
     features: ["Kompakt", "Mastbühne"],
     image: zmp06Image,
-    description: "Mastbühne mit 7,9m Arbeitshöhe."
+    description: "Mastbühne mit 7,9m Arbeitshöhe.",
+    datasheet: "/datasheets/zmp06.pdf"
   },
   {
     id: "zmp09j",
@@ -1144,7 +1145,8 @@ export const aerialPlatforms: AerialPlatform[] = [
     uvpPrice: 37227.96,
     features: ["Mastbühne", "11m Arbeitshöhe"],
     image: zmp09jImage,
-    description: "Große Mastbühne."
+    description: "Große Mastbühne.",
+    datasheet: "/datasheets/zmp09j.pdf"
   },
   // Elektro Teleskopbühnen
   {
