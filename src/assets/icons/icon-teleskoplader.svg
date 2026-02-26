@@ -1,0 +1,25 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="64" cy="64" r="60" fill="#66696D"/>
+
+  <!-- Wheels -->
+  <circle cx="43" cy="86" r="9" fill="white"/>
+  <circle cx="79" cy="86" r="9" fill="white"/>
+  <circle cx="43" cy="86" r="5" fill="#66696D"/>
+  <circle cx="79" cy="86" r="5" fill="#66696D"/>
+
+  <!-- Body -->
+  <path d="M34 74H70L75 79V86H33V77C33 75.3431 34.3431 74 36 74H34Z" fill="white"/>
+  <rect x="56" y="66" width="14" height="10" rx="2" fill="white"/>
+
+  <!-- Cabin -->
+  <path d="M53 64C53 62.3431 54.3431 61 56 61H68C69.1046 61 70 61.8954 70 63V76H53V64Z" fill="white"/>
+  <rect x="57" y="64" width="10" height="10" rx="1" fill="#66696D"/>
+
+  <!-- Boom -->
+  <path d="M38 72L72 48L76 53L42 77L38 72Z" fill="white"/>
+  <path d="M71 48L86 38L90 42L76 53L71 48Z" fill="white"/>
+
+  <!-- Fork -->
+  <rect x="88" y="34" width="2.8" height="16" rx="1" fill="white"/>
+  <rect x="90" y="48" width="10" height="2.8" rx="1" fill="white"/>
+</svg>

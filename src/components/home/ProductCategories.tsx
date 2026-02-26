@@ -4,7 +4,7 @@ import { SectionHeading } from "@/components/shared/SectionHeading";
 import { LazyImage } from "@/components/shared/LazyImage";
 import iconArbeitsbuehne from "@/assets/icons/icon-arbeitsbuehne.png";
 import iconBagger from "@/assets/icons/icon-bagger.png";
-import iconTeleskoplader from "@/assets/icons/icon-teleskoplader.png";
+import iconTeleskoplader from "@/assets/icons/icon-teleskoplader.svg";
 
 const categories = [
   {

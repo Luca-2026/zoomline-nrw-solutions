@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import heroGrafik from "@/assets/hero-grafik.jpg";
 import iconArbeitsbuehne from "@/assets/icons/icon-arbeitsbuehne.png";
 import iconBagger from "@/assets/icons/icon-bagger.png";
-import iconTeleskoplader from "@/assets/icons/icon-teleskoplader.png";
+import iconTeleskoplader from "@/assets/icons/icon-teleskoplader.svg";
 
 export function HeroSection() {
   return (
