@@ -88,6 +88,7 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
     rueckruf: false,
     lieferung: false,
     wartungsvertrag: false,
+    wartungsvertragArt: "",
     wartungsvertragMonate: "",
     dsgvo: false,
   });
@@ -161,6 +162,7 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
           strasse: formData.strasse || undefined,
           plz: formData.plz || undefined,
           lieferung: formData.lieferung,
+          wartungsvertragArt: formData.wartungsvertrag ? formData.wartungsvertragArt : undefined,
           wartungsvertragMonate: formData.wartungsvertrag ? formData.wartungsvertragMonate : undefined,
           nachricht: formData.nachricht || undefined,
           rueckruf: formData.rueckruf,
@@ -197,6 +199,7 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
           rueckruf: false,
           lieferung: false,
           wartungsvertrag: false,
+          wartungsvertragArt: "",
           wartungsvertragMonate: "",
           dsgvo: false,
         });
@@ -457,14 +460,17 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
             </Label>
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-3">
             <div className="flex items-center gap-2">
               <Checkbox
                 id="wartungsvertrag"
                 checked={formData.wartungsvertrag}
                 onCheckedChange={(v) => {
                   handleChange("wartungsvertrag", !!v);
-                  if (!v) handleChange("wartungsvertragMonate", "");
+                  if (!v) {
+                    handleChange("wartungsvertragArt", "");
+                    handleChange("wartungsvertragMonate", "");
+                  }
                 }}
               />
               <Label htmlFor="wartungsvertrag" className="cursor-pointer">
@@ -472,19 +478,34 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
               </Label>
             </div>
             {formData.wartungsvertrag && (
-              <div className="ml-6">
-                <Label htmlFor="wartungsvertragMonate" className="text-sm">Laufzeit</Label>
-                <Select value={formData.wartungsvertragMonate} onValueChange={(v) => handleChange("wartungsvertragMonate", v)}>
-                  <SelectTrigger id="wartungsvertragMonate" className="w-48">
-                    <SelectValue placeholder="Laufzeit wählen..." />
-                  </SelectTrigger>
-                  <SelectContent className="bg-card border border-border z-50">
-                    <SelectItem value="12">12 Monate</SelectItem>
-                    <SelectItem value="24">24 Monate</SelectItem>
-                    <SelectItem value="36">36 Monate</SelectItem>
-                    <SelectItem value="48">48 Monate</SelectItem>
-                  </SelectContent>
-                </Select>
+              <div className="ml-6 space-y-3">
+                <div>
+                  <Label htmlFor="wartungsvertragArt" className="text-sm">Art des Vertrags</Label>
+                  <Select value={formData.wartungsvertragArt} onValueChange={(v) => handleChange("wartungsvertragArt", v)}>
+                    <SelectTrigger id="wartungsvertragArt" className="w-56">
+                      <SelectValue placeholder="Vertragsart wählen..." />
+                    </SelectTrigger>
+                    <SelectContent className="bg-card border border-border z-50">
+                      <SelectItem value="ZL|Care">ZL|Care – Wartungsteile-Paket</SelectItem>
+                      <SelectItem value="ZL|Pro">ZL|Pro – Inspektionsvertrag</SelectItem>
+                      <SelectItem value="ZL|Complete">ZL|Complete – Full-Service</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label htmlFor="wartungsvertragMonate" className="text-sm">Laufzeit</Label>
+                  <Select value={formData.wartungsvertragMonate} onValueChange={(v) => handleChange("wartungsvertragMonate", v)}>
+                    <SelectTrigger id="wartungsvertragMonate" className="w-48">
+                      <SelectValue placeholder="Laufzeit wählen..." />
+                    </SelectTrigger>
+                    <SelectContent className="bg-card border border-border z-50">
+                      <SelectItem value="12">12 Monate</SelectItem>
+                      <SelectItem value="24">24 Monate</SelectItem>
+                      <SelectItem value="36">36 Monate</SelectItem>
+                      <SelectItem value="48">48 Monate</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
             )}
           </div>
