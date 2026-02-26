@@ -56,6 +56,7 @@ import zs1218rtImage from "@/assets/platforms/zs1218rt.png";
 import zs1023rtImage from "@/assets/platforms/zs1023rt.png";
 import zs1323rtImage from "@/assets/platforms/zs1323rt.png";
 import zs1623rtImage from "@/assets/platforms/zs1623rt.png";
+import zs2023ertImage from "@/assets/platforms/zs2023ert.png";
 
 // Teleskoplader-Bilder
 import zth2506Image from "@/assets/telehandlers/zth2506.png";
@@ -856,8 +857,9 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: false,
     uvpPrice: 162813.42,
     features: ["Geländegängig", "Elektro", "22m Arbeitshöhe"],
-    image: "/placeholder.svg",
-    description: "Große elektrische Geländescherenbühne."
+    image: zs2023ertImage,
+    description: "Große elektrische Geländescherenbühne.",
+    datasheet: "/datasheets/zs2023ert.pdf"
   },
   // Gelenkteleskoparbeitsbühne Elektro
   {
