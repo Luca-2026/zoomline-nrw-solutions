@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState, type ChangeEvent } from "react";
+import { useCallback, useMemo, useRef, useState, type ChangeEvent } from "react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -87,50 +87,31 @@ export function TradeInSection({ value, onChange, productType = "bagger" }: Trad
 
   const isArbeitsbuehne = productType === "arbeitsbuehne";
 
+  // Use a ref to avoid dependency cycles
+  const valueRef = useRef(value);
+  valueRef.current = value;
+  const onChangeRef = useRef(onChange);
+  onChangeRef.current = onChange;
+
   const yearOptions = useMemo(() => {
     const currentYear = new Date().getFullYear();
     return Array.from({ length: 30 }, (_, i) => currentYear - i);
   }, []);
 
-  const commitChange = useCallback(
-    (next: TradeInData) => {
-      if (next === value) return;
-      const same =
-        next.enabled === value.enabled &&
-        next.hersteller === value.hersteller &&
-        next.modell === value.modell &&
-        next.baujahr === value.baujahr &&
-        next.betriebsstunden === value.betriebsstunden &&
-        next.zustand === value.zustand &&
-        next.seriennummer === value.seriennummer &&
-        next.ausstattung === value.ausstattung &&
-        next.letzteWartung === value.letzteWartung &&
-        next.standort === value.standort &&
-        next.anmerkungen === value.anmerkungen &&
-        next.buehnenTyp === value.buehnenTyp &&
-        next.antriebsart === value.antriebsart &&
-        next.imageUrls.length === value.imageUrls.length &&
-        next.imageUrls.every((u, i) => u === value.imageUrls[i]);
-      if (same) return;
-      onChange(next);
-    },
-    [onChange, value]
-  );
-
   const updateFormField = useCallback(
     (updates: Partial<Omit<TradeInData, "enabled">>) => {
-      commitChange({ ...value, ...updates });
+      onChangeRef.current({ ...valueRef.current, ...updates });
     },
-    [commitChange, value]
+    []
   );
 
   const setEnabled = useCallback(
     (checked: boolean) => {
-      if (checked === value.enabled) return;
+      if (checked === valueRef.current.enabled) return;
       setUploadError(null);
-      commitChange({ ...value, enabled: checked });
+      onChangeRef.current({ ...valueRef.current, enabled: checked });
     },
-    [commitChange, value]
+    []
   );
 
   const handleImageUpload = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -194,8 +175,9 @@ export function TradeInSection({ value, onChange, productType = "bagger" }: Trad
 
   const removeImage = useCallback(
     async (index: number) => {
-      const url = value.imageUrls[index];
-      const newUrls = value.imageUrls.filter((_, i) => i !== index);
+      const urls = valueRef.current.imageUrls;
+      const url = urls[index];
+      const newUrls = urls.filter((_, i) => i !== index);
       updateFormField({ imageUrls: newUrls });
 
       const path = url ? getBucketPathFromPublicUrl(url) : null;
@@ -205,7 +187,7 @@ export function TradeInSection({ value, onChange, productType = "bagger" }: Trad
         console.warn("Could not remove trade-in image:", error);
       }
     },
-    [updateFormField, value.imageUrls]
+    [updateFormField]
   );
 
   return (
