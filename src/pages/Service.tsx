@@ -215,7 +215,7 @@ const Service = () => {
       </section>
 
       {/* Stats */}
-      <section className="py-8 border-b bg-card">
+      <section className="py-8 bg-card">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {stats.map((stat) => (
@@ -226,6 +226,9 @@ const Service = () => {
                 <div className="text-sm text-muted-foreground">{stat.label}</div>
               </div>
             ))}
+          </div>
+          <div className="flex justify-center mt-6">
+            <ArrowRight className="h-5 w-5 text-primary/50 rotate-90 animate-bounce" />
           </div>
         </div>
       </section>
