@@ -73,11 +73,12 @@ const UeberUns = () => {
             </p>
             <h2 className="font-heading text-2xl font-bold mt-8 mb-4">Warum Zoomlion NRW?</h2>
             <ul>
+              <li><strong>Made in EU:</strong> Zoomlion produziert in Ungarn – europäische Qualitätsstandards, kurze Lieferwege und volle EU-Konformität</li>
               <li><strong>Top 5 Hersteller weltweit:</strong> Zoomlion gehört zu den größten Baumaschinenherstellern der Welt</li>
               <li><strong>3 Jahre Garantie:</strong> Umfassender Schutz für Ihre Investition</li>
               <li><strong>Ersatzteile vor Ort:</strong> Schnelle Verfügbarkeit an allen Standorten</li>
               <li><strong>Flexible Finanzierung:</strong> Attraktive Konditionen für Ihr Budget</li>
-              <li><strong>Kompetente Beratung:</strong> Erfahrene Experten für Minibagger und Arbeitsbühnen</li>
+              <li><strong>Kompetente Beratung:</strong> Erfahrene Experten für Minibagger, Arbeitsbühnen und Teleskoplader</li>
             </ul>
           </div>
           <TrustBadges />

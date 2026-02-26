@@ -1,4 +1,4 @@
-import { Shield, Clock, MapPin, Users, Wrench, Award } from "lucide-react";
+import { Shield, Clock, MapPin, Users, Wrench, Award, Factory } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const badges = [
@@ -6,6 +6,11 @@ const badges = [
     icon: Award,
     label: "3 Jahre Garantie",
     sublabel: "oder 3.000 Stunden"
+  },
+  {
+    icon: Factory,
+    label: "Made in EU",
+    sublabel: "Produktion in Ungarn"
   },
   {
     icon: MapPin,
@@ -47,7 +52,7 @@ export function TrustBadges({ variant = "default", className }: TrustBadgesProps
   }
 
   return (
-    <div className={cn("grid grid-cols-2 md:grid-cols-4 gap-4", className)}>
+    <div className={cn("grid grid-cols-2 md:grid-cols-5 gap-4", className)}>
       {badges.map((badge) => (
         <div
           key={badge.label}

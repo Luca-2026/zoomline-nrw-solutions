@@ -8,6 +8,11 @@ const usps = [
     description: "Zoomlion zählt zu den 5 größten Baumaschinenherstellern der Welt mit über 9 Mrd. USD Umsatz"
   },
   {
+    icon: Factory,
+    title: "Made in EU",
+    description: "Produktion in Ungarn – europäische Qualitätsstandards, kurze Lieferwege, EU-Konformität"
+  },
+  {
     icon: TrendingDown,
     title: "Bestes Preis-Leistungs-Verhältnis",
     description: "Hochwertige Technik und Ausstattung zu attraktiven Anschaffungskosten"

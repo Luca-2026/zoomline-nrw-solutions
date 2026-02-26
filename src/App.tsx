@@ -23,6 +23,7 @@ const Datenschutz = lazy(() => import("./pages/Datenschutz"));
 const Impressum = lazy(() => import("./pages/Impressum"));
 const FAQ = lazy(() => import("./pages/FAQ"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const StadtSeite = lazy(() => import("./pages/StadtSeite"));
 
 const queryClient = new QueryClient();
 
@@ -58,6 +59,7 @@ const App = () => (
               <Route path="/datenschutz" element={<Datenschutz />} />
               <Route path="/impressum" element={<Impressum />} />
               <Route path="/faq" element={<FAQ />} />
+              <Route path="/baumaschinen/:stadt" element={<StadtSeite />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
