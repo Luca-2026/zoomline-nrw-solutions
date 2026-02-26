@@ -39,6 +39,7 @@ import zs1212acImage from "@/assets/platforms/zs1212ac.png";
 import zs1414acImage from "@/assets/platforms/zs1414ac.png";
 import zs0808acLiImage from "@/assets/platforms/zs0808ac-li.png";
 import zs1008acLiImage from "@/assets/platforms/zs1008ac-li.png";
+import zs0607haImage from "@/assets/platforms/zs0607ha.png";
 
 // Teleskoplader-Bilder
 import zth2506Image from "@/assets/telehandlers/zth2506.png";
@@ -386,8 +387,9 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: false,
     uvpPrice: 14334.32,
     features: ["HA-Serie"],
-    image: "/placeholder.svg",
-    description: "Scherenarbeitsbühne HA-Serie."
+    image: zs0607haImage,
+    description: "Scherenarbeitsbühne HA-Serie.",
+    datasheet: "/datasheets/zs0607ha.pdf"
   },
   {
     id: "zs0812ha",
@@ -462,8 +464,9 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: true,
     uvpPrice: 15315.30,
     features: ["HA-Serie", "Lithium-Ionen Akku"],
-    image: "/placeholder.svg",
-    description: "Scherenarbeitsbühne HA-Serie mit Lithium-Akku."
+    image: zs0607haImage,
+    description: "Scherenarbeitsbühne HA-Serie mit Lithium-Akku.",
+    datasheet: "/datasheets/zs0607ha.pdf"
   },
   {
     id: "zs0812ha-li",
