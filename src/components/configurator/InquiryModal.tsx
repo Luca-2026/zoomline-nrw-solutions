@@ -19,7 +19,8 @@ const inquirySchema = z.object({
   ansprechpartner: z.string().trim().min(1, "Ansprechpartner ist erforderlich").max(100),
   email: z.string().trim().email("Ungültige E-Mail-Adresse").max(255),
   telefon: z.string().trim().min(1, "Telefon ist erforderlich").max(50),
-  plz: z.string().max(50).optional(),
+  strasse: z.string().trim().min(1, "Straße ist erforderlich").max(200),
+  plz: z.string().trim().min(1, "PLZ / Ort ist erforderlich").max(50),
   nachricht: z.string().max(2000).optional(),
   rueckruf: z.boolean().optional(),
   dsgvo: z.literal(true, { errorMap: () => ({ message: "Bitte stimmen Sie der Datenschutzerklärung zu" }) }),
@@ -331,23 +332,27 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
           </div>
 
           <div>
-            <Label htmlFor="strasse">Straße / Hausnr.</Label>
+            <Label htmlFor="strasse">Straße / Hausnr. *</Label>
             <Input
               id="strasse"
               value={formData.strasse}
               onChange={(e) => handleChange("strasse", e.target.value)}
               placeholder="z.B. Musterstraße 12"
+              className={errors.strasse ? "border-destructive" : ""}
             />
+            {errors.strasse && <p className="text-xs text-destructive mt-1">{errors.strasse}</p>}
           </div>
 
           <div>
-            <Label htmlFor="plz">PLZ / Ort</Label>
+            <Label htmlFor="plz">PLZ / Ort *</Label>
             <Input
               id="plz"
               value={formData.plz}
               onChange={(e) => handleChange("plz", e.target.value)}
               placeholder="z.B. 47807 Krefeld"
+              className={errors.plz ? "border-destructive" : ""}
             />
+            {errors.plz && <p className="text-xs text-destructive mt-1">{errors.plz}</p>}
           </div>
 
           <div className="grid sm:grid-cols-2 gap-4">
