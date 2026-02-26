@@ -12,6 +12,7 @@ import Index from "./pages/Index";
 // Lazy load all other pages for code-splitting
 const Arbeitsbuehnen = lazy(() => import("./pages/Arbeitsbuehnen"));
 const Bagger = lazy(() => import("./pages/Bagger"));
+const Teleskoplader = lazy(() => import("./pages/Teleskoplader"));
 const HotDeals = lazy(() => import("./pages/HotDeals"));
 const Service = lazy(() => import("./pages/Service"));
 const Standorte = lazy(() => import("./pages/Standorte"));
@@ -47,6 +48,7 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/arbeitsbuehnen" element={<Arbeitsbuehnen />} />
               <Route path="/bagger" element={<Bagger />} />
+              <Route path="/teleskoplader" element={<Teleskoplader />} />
               <Route path="/hot-deals" element={<HotDeals />} />
               <Route path="/service" element={<Service />} />
               <Route path="/standorte" element={<Standorte />} />

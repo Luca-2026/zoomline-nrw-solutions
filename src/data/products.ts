@@ -26,6 +26,13 @@ import zs0607acwLiImage from "@/assets/platforms/zs0607acw-li.jpg";
 import zt22jeImage from "@/assets/platforms/zt22je-zt26je.jpg";
 import zt58jImage from "@/assets/platforms/zt58j-zt68j.jpg";
 
+// Teleskoplader-Bilder
+import zth2506Image from "@/assets/telehandlers/zth2506.png";
+import zth3507Image from "@/assets/telehandlers/zth3507.png";
+import zth3513Image from "@/assets/telehandlers/zth3513.png";
+import zth4518rImage from "@/assets/telehandlers/zth4518r.png";
+import zth4525rImage from "@/assets/telehandlers/zth4525r.png";
+
 export interface AerialPlatform {
   id: string;
   name: string;
@@ -1753,6 +1760,109 @@ export const excavatorFilterOptions = {
     { value: "8000-25000", label: "8-25 Tonnen" },
     { value: "25000-100000", label: "Über 25 Tonnen" }
   ]
+};
+
+// Teleskoplader
+export interface Telehandler {
+  id: string;
+  name: string;
+  category: "fixed" | "rotating";
+  categoryLabel: string;
+  liftCapacity: number; // in kg
+  maxWorkingHeight: number; // in m
+  operatingWeight: number; // in kg
+  features: string[];
+  image: string;
+  description: string;
+  datasheet?: string;
+}
+
+export const telehandlers: Telehandler[] = [
+  {
+    id: "zth2506",
+    name: "ZTH2506",
+    category: "fixed",
+    categoryLabel: "Nicht rotierend",
+    liftCapacity: 2500,
+    maxWorkingHeight: 6.1,
+    operatingWeight: 4970,
+    features: ["4×4-Antrieb", "Antischlupf-Differential", "10,1-Zoll-Display", "Schwebende Gabel"],
+    image: zth2506Image,
+    description: "Kompakter Teleskoplader mit 2.500 kg Hubkraft und 6,1 m Arbeitshöhe. Starkes Fahrgestell mit hervorragender Geländegängigkeit.",
+    datasheet: "/datasheets/zth2506.pdf"
+  },
+  {
+    id: "zth3507",
+    name: "ZTH3507",
+    category: "fixed",
+    categoryLabel: "Nicht rotierend",
+    liftCapacity: 3500,
+    maxWorkingHeight: 7,
+    operatingWeight: 7350,
+    features: ["4×4-Antrieb", "Antischlupf-Differential", "10,1-Zoll-Display", "Schwebende Gabel"],
+    image: zth3507Image,
+    description: "Leistungsstarker Teleskoplader mit 3.500 kg Hubkraft und 7 m Arbeitshöhe. Hydraulisch angetriebenes Ausfahrsystem für reibungslose Bewegung.",
+    datasheet: "/datasheets/zth3507.pdf"
+  },
+  {
+    id: "zth3513",
+    name: "ZTH3513",
+    category: "fixed",
+    categoryLabel: "Nicht rotierend",
+    liftCapacity: 3500,
+    maxWorkingHeight: 12.7,
+    operatingWeight: 9800,
+    features: ["4×4-Antrieb", "Antischlupf-Differential", "10,1-Zoll-Display", "Schwebende Gabel", "Großer Arbeitsbereich"],
+    image: zth3513Image,
+    description: "Teleskoplader mit 3.500 kg Hubkraft und 12,7 m Arbeitshöhe. Hohe Kapazität und großer Arbeitsbereich für vielseitige Einsätze.",
+    datasheet: "/datasheets/zth3513.pdf"
+  },
+  {
+    id: "zth4518r",
+    name: "ZTH4518R",
+    category: "rotating",
+    categoryLabel: "Drehend (360°)",
+    liftCapacity: 4500,
+    maxWorkingHeight: 18,
+    operatingWeight: 14300,
+    features: ["360° Drehung", "Hydrostatischer Antrieb", "4×4-Antrieb", "10,1-Zoll-Display", "Schwebende Gabel"],
+    image: zth4518rImage,
+    description: "Drehbarer Teleskoplader mit 4.500 kg Hubkraft und 18 m Arbeitshöhe. 360° kontinuierliche Drehung für maximale Flexibilität.",
+    datasheet: "/datasheets/zth4518r.pdf"
+  },
+  {
+    id: "zth4525r",
+    name: "ZTH4525R",
+    category: "rotating",
+    categoryLabel: "Drehend (360°)",
+    liftCapacity: 4500,
+    maxWorkingHeight: 24.8,
+    operatingWeight: 16000,
+    features: ["360° Drehung", "Hydrostatischer Antrieb", "4×4-Antrieb", "10,1-Zoll-Display", "Schwebende Gabel", "Großer Arbeitsbereich"],
+    image: zth4525rImage,
+    description: "Drehbarer Teleskoplader mit 4.500 kg Hubkraft und 24,8 m Arbeitshöhe. Hydrostatischer Antrieb für komfortables Fahren und hohe Fahrgeschwindigkeit.",
+    datasheet: "/datasheets/zth4525r.pdf"
+  },
+];
+
+export const telehandlerFilterOptions = {
+  category: [
+    { value: "all", label: "Alle Typen" },
+    { value: "fixed", label: "Nicht rotierend" },
+    { value: "rotating", label: "Drehend (360°)" },
+  ],
+  workingHeight: [
+    { value: "all", label: "Alle Arbeitshöhen" },
+    { value: "0-10", label: "Bis 10 m" },
+    { value: "10-20", label: "10–20 m" },
+    { value: "20-30", label: "Über 20 m" },
+  ],
+  weight: [
+    { value: "all", label: "Alle Gewichtsklassen" },
+    { value: "0-6000", label: "Bis 6 t" },
+    { value: "6000-12000", label: "6–12 t" },
+    { value: "12000-50000", label: "Über 12 t" },
+  ],
 };
 
 // Standorte

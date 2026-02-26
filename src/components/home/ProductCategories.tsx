@@ -21,6 +21,14 @@ const categories = [
     icon: iconBagger,
     href: "/bagger",
     features: ["Minibagger 1-3t", "Kompaktbagger 3-8t", "Elektrobagger", "Abbruchbagger"]
+  },
+  {
+    id: "teleskoplader",
+    title: "Teleskoplader",
+    description: "Leistungsstarke Telehandler für Bau, Landwirtschaft und Industrie. Drehbar oder starr.",
+    icon: iconBagger,
+    href: "/teleskoplader",
+    features: ["Nicht rotierend", "Drehbar (360°)", "4×4 Allrad", "Bis 24,8m Höhe"]
   }
 ];
 
@@ -34,7 +42,7 @@ export function ProductCategories() {
           subtitle="Nutzen Sie unsere Konfiguratoren für eine schnelle und einfache Auswahl"
         />
 
-        <div className="grid gap-6 md:grid-cols-2 max-w-4xl mx-auto">
+        <div className="grid gap-6 md:grid-cols-3 max-w-5xl mx-auto">
           {categories.map((category) => (
             <Link
               key={category.id}

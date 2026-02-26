@@ -34,6 +34,19 @@
     </image:image>
   </url>
   
+  <!-- Teleskoplader - Produktseite -->
+  <url>
+    <loc>https://www.zoomlion-nrw.de/teleskoplader</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://www.zoomlion-nrw.de/telehandlers/zth4525r.png</image:loc>
+      <image:title>Zoomlion Teleskoplader kaufen NRW</image:title>
+      <image:caption>Teleskoplader und Drehteleskoplader von Zoomlion kaufen</image:caption>
+    </image:image>
+  </url>
+  
   <!-- Hot Deals - Aktionsseite -->
   <url>
     <loc>https://www.zoomlion-nrw.de/hot-deals</loc>

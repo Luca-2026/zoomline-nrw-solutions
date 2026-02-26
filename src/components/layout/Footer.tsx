@@ -17,7 +17,7 @@ export function Footer() {
               />
             </Link>
             <p className="text-sm text-secondary-foreground/80">
-              Exklusiver Fachhändler für Zoomlion Arbeitsbühnen und Bagger in
+              Exklusiver Fachhändler für Zoomlion Arbeitsbühnen, Bagger und Teleskoplader in
               Nordrhein-Westfalen.
             </p>
             <p className="text-xs text-secondary-foreground/60">
@@ -47,6 +47,14 @@ export function Footer() {
                   className="text-secondary-foreground/80 hover:text-primary transition-colors"
                 >
                   Bagger
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/teleskoplader"
+                  className="text-secondary-foreground/80 hover:text-primary transition-colors"
+                >
+                  Teleskoplader
                 </Link>
               </li>
               <li>
