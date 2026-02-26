@@ -64,6 +64,7 @@ import zmp06Image from "@/assets/platforms/zmp06.png";
 import zt32jeImage from "@/assets/platforms/zt32je.png";
 import za14jImage from "@/assets/platforms/za14j.png";
 import za26jImage from "@/assets/platforms/za26j.png";
+import za32jImage from "@/assets/platforms/za32j.png";
 
 // Teleskoplader-Bilder
 import zth2506Image from "@/assets/telehandlers/zth2506.png";
@@ -1071,8 +1072,9 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: false,
     uvpPrice: 261800.00,
     features: ["Gelenkarm", "Diesel", "34m Arbeitshöhe"],
-    image: "/placeholder.svg",
-    description: "Sehr große Diesel-Gelenkteleskopbühne."
+    image: za32jImage,
+    description: "Sehr große Diesel-Gelenkteleskopbühne.",
+    datasheet: "/datasheets/za32j.pdf"
   },
   {
     id: "za42j",
