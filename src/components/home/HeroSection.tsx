@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 import heroGrafik from "@/assets/hero-grafik.jpg";
 import iconArbeitsbuehne from "@/assets/icons/icon-arbeitsbuehne.png";
 import iconBagger from "@/assets/icons/icon-bagger.png";
+import iconTeleskoplader from "@/assets/icons/icon-teleskoplader.png";
 
 export function HeroSection() {
   return (
@@ -82,7 +83,7 @@ export function HeroSection() {
               >
                 <Link to="/teleskoplader" className="flex items-center">
                   <img 
-                    src={iconBagger} 
+                    src={iconTeleskoplader} 
                     alt="Teleskoplader" 
                     className="mr-3 h-8 w-8 object-contain" 
                   />
