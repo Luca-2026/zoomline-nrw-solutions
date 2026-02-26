@@ -32,6 +32,7 @@ import zt38jeImage from "@/assets/platforms/zt38je.png";
 import zt21jehImage from "@/assets/platforms/zt21jeh.png";
 import zs0607eImage from "@/assets/platforms/zs0607e.png";
 import zs0607acImage from "@/assets/platforms/zs0607ac.png";
+import zs0808acImage from "@/assets/platforms/zs0808ac.png";
 
 // Teleskoplader-Bilder
 import zth2506Image from "@/assets/telehandlers/zth2506.png";
@@ -185,9 +186,9 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: false,
     uvpPrice: 18654.02,
     features: ["AC-Antrieb", "10m Arbeitshöhe"],
-    image: "/placeholder.svg",
+    image: zs0808acImage,
     description: "Scherenarbeitsbühne mit 10m Arbeitshöhe.",
-    datasheet: "/datasheets/scherenarbeitsbuehnen-ac-series.pdf"
+    datasheet: "/datasheets/zs0808ac.pdf"
   },
   {
     id: "zs0812ac",
