@@ -60,6 +60,7 @@ import zs2023ertImage from "@/assets/platforms/zs2023ert.png";
 import zx27aeImage from "@/assets/platforms/zx27ae.png";
 import zx23aeImage from "@/assets/platforms/zx23ae.png";
 import zmp04Image from "@/assets/platforms/zmp04.png";
+import zmp06Image from "@/assets/platforms/zmp06.png";
 
 // Teleskoplader-Bilder
 import zth2506Image from "@/assets/telehandlers/zth2506.png";
@@ -1127,7 +1128,7 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: false,
     uvpPrice: 18823.42,
     features: ["Kompakt", "Mastbühne"],
-    image: "/placeholder.svg",
+    image: zmp06Image,
     description: "Mastbühne mit 7,9m Arbeitshöhe."
   },
   {
