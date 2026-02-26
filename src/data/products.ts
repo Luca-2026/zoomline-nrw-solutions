@@ -33,6 +33,7 @@ import zt21jehImage from "@/assets/platforms/zt21jeh.png";
 import zs0607eImage from "@/assets/platforms/zs0607e.png";
 import zs0607acImage from "@/assets/platforms/zs0607ac.png";
 import zs0808acImage from "@/assets/platforms/zs0808ac.png";
+import zs0812acImage from "@/assets/platforms/zs0812ac.png";
 
 // Teleskoplader-Bilder
 import zth2506Image from "@/assets/telehandlers/zth2506.png";
@@ -202,9 +203,9 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: false,
     uvpPrice: 20617.52,
     features: ["AC-Antrieb", "450kg Tragkraft"],
-    image: "/placeholder.svg",
+    image: zs0812acImage,
     description: "Scherenarbeitsbühne mit hoher Tragkraft.",
-    datasheet: "/datasheets/scherenarbeitsbuehnen-ac-series.pdf"
+    datasheet: "/datasheets/zs0812ac.pdf"
   },
   {
     id: "zs1012ac",
@@ -299,9 +300,9 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: true,
     uvpPrice: 21677.04,
     features: ["AC-Antrieb", "Lithium-Ionen Akku", "450kg Tragkraft"],
-    image: "/placeholder.svg",
+    image: zs0812acImage,
     description: "Scherenarbeitsbühne mit Lithium-Akku und hoher Tragkraft.",
-    datasheet: "/datasheets/scherenarbeitsbuehnen-ac-li.pdf"
+    datasheet: "/datasheets/zs0812ac.pdf"
   },
   {
     id: "zs1008ac-li",
