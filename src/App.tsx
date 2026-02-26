@@ -15,6 +15,7 @@ const Bagger = lazy(() => import("./pages/Bagger"));
 const Teleskoplader = lazy(() => import("./pages/Teleskoplader"));
 const HotDeals = lazy(() => import("./pages/HotDeals"));
 const Service = lazy(() => import("./pages/Service"));
+const Servicevertraege = lazy(() => import("./pages/Servicevertraege"));
 const Standorte = lazy(() => import("./pages/Standorte"));
 const UeberUns = lazy(() => import("./pages/UeberUns"));
 const Kontakt = lazy(() => import("./pages/Kontakt"));
@@ -52,6 +53,7 @@ const App = () => (
               <Route path="/teleskoplader" element={<Teleskoplader />} />
               <Route path="/hot-deals" element={<HotDeals />} />
               <Route path="/service" element={<Service />} />
+              <Route path="/servicevertraege" element={<Servicevertraege />} />
               <Route path="/standorte" element={<Standorte />} />
               <Route path="/ueber-uns" element={<UeberUns />} />
               <Route path="/kontakt" element={<Kontakt />} />

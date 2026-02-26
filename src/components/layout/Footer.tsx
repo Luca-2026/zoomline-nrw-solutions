@@ -67,6 +67,14 @@ export function Footer() {
               </li>
               <li>
                 <Link
+                  to="/servicevertraege"
+                  className="text-secondary-foreground/80 hover:text-primary transition-colors"
+                >
+                  Serviceverträge
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/standorte"
                   className="text-secondary-foreground/80 hover:text-primary transition-colors"
                 >
