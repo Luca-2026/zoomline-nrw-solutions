@@ -69,28 +69,28 @@ const servicePackages = [
 const mainServices = [
   { 
     icon: Package, 
-    title: "Ersatzteile vor Ort", 
-    desc: "Sofort verfügbar an unseren 3 NRW-Standorten – Original-Ersatzteile mit Qualitätsgarantie",
+    title: "Ersatzteile für Baumaschinen", 
+    desc: "Sofort verfügbar an unseren 3 NRW-Standorten – Original-Ersatzteile für Arbeitsbühnen, Bagger und Teleskoplader",
     features: ["Lagerbestand an allen Standorten", "24h Expressbestellung möglich", "Original Zoomlion-Teile"]
   },
   { 
     icon: Wrench, 
-    title: "Werkstatt-Service", 
-    desc: "Professionelle Wartung, Reparatur & Instandsetzung durch geschulte Techniker",
-    features: ["Alle Maschinentypen", "UVV-Prüfungen", "Garantiearbeiten"]
+    title: "Werkstatt & Reparatur-Service", 
+    desc: "Professionelle Wartung, Reparatur & Instandsetzung Ihrer Arbeitsbühnen, Minibagger und Teleskoplader durch geschulte Techniker",
+    features: ["Alle Maschinentypen", "UVV-Prüfungen nach DGUV", "Garantiearbeiten"]
   },
   { 
     icon: Users, 
     title: "Einweisung & Schulung", 
-    desc: "Professionelle Inbetriebnahme und Bedienerschulungen für sicheren Einsatz",
+    desc: "Professionelle Inbetriebnahme und Bedienerschulungen für den sicheren Einsatz Ihrer Baumaschinen",
     features: ["Vor-Ort-Einweisung", "Dokumentation", "Zertifikate"]
   },
 ];
 
 const additionalServices = [
-  { icon: FileCheck, title: "UVV-Prüfung", desc: "Gesetzeskonforme Sicherheitsprüfungen" },
-  { icon: Settings, title: "Wartungsverträge", desc: "Planbare Kosten, maximale Verfügbarkeit" },
-  { icon: Truck, title: "Hol- & Bringservice", desc: "Wir holen Ihre Maschine ab und liefern sie zurück" },
+  { icon: FileCheck, title: "UVV-Prüfung", desc: "Gesetzeskonforme Sicherheitsprüfungen nach DGUV für Arbeitsbühnen & Baumaschinen" },
+  { icon: Settings, title: "Wartungsverträge", desc: "Planbare Kosten, maximale Verfügbarkeit für Ihre Maschinenflotte" },
+  { icon: Truck, title: "Hol- & Bringservice", desc: "Wir holen Ihre Maschine ab und liefern sie gewartet zurück" },
   { icon: Shield, title: "Garantieverlängerung", desc: "Zusätzliche Absicherung über die Standardgarantie hinaus" },
 ];
 
@@ -101,12 +101,79 @@ const stats = [
   { value: "5+", label: "Servicetechniker" },
 ];
 
+const serviceFaqs = [
+  {
+    q: "Welche Baumaschinen werden bei Ihnen gewartet?",
+    a: "Wir warten und reparieren alle Zoomlion Arbeitsbühnen, Minibagger, Kompaktbagger und Teleskoplader. Als exklusiver Fachhändler kennen wir jedes Modell im Detail."
+  },
+  {
+    q: "Wie läuft eine UVV-Prüfung für Arbeitsbühnen ab?",
+    a: "Die UVV-Prüfung nach DGUV umfasst eine vollständige Sicherheitsprüfung Ihrer Arbeitsbühne – von der Hydraulik über die Elektrik bis zur Tragfähigkeit. Sie erhalten ein Prüfprotokoll und die Prüfplakette."
+  },
+  {
+    q: "Bieten Sie Serviceverträge für Baumaschinen an?",
+    a: "Ja, wir bieten drei maßgeschneiderte Servicepakete: ZL|Care (Wartungsteile), ZL|Pro (Inspektionsvertrag inkl. UVV) und ZL|Complete (Full-Service mit kostenlosem Ersatzgerät im Reparaturfall)."
+  },
+  {
+    q: "Wie schnell sind Ersatzteile verfügbar?",
+    a: "Gängige Wartungs- und Verschleißteile sind an unseren 3 NRW-Standorten (Bonn, Krefeld, Mülheim) sofort verfügbar. Spezialteile liefern wir per 24h-Expressversand."
+  },
+];
+
 const Service = () => {
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": "https://www.zoomlion-nrw.de/service#service",
+    "name": "Baumaschinen Service & Wartung NRW",
+    "description": "Professioneller Service für Arbeitsbühnen, Bagger und Teleskoplader in NRW: Wartung, Reparatur, UVV-Prüfung, Ersatzteile und Serviceverträge.",
+    "provider": {
+      "@type": "Organization",
+      "name": "Zoomlion NRW",
+      "@id": "https://www.zoomlion-nrw.de/#organization"
+    },
+    "areaServed": {
+      "@type": "State",
+      "name": "Nordrhein-Westfalen"
+    },
+    "serviceType": ["Wartung", "Reparatur", "UVV-Prüfung", "Ersatzteile", "Serviceverträge"],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Serviceleistungen",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "UVV-Prüfung Arbeitsbühnen" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Wartung Baumaschinen" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Servicevertrag Baumaschinen" } }
+      ]
+    }
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": serviceFaqs.map(faq => ({
+      "@type": "Question",
+      "name": faq.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.a
+      }
+    }))
+  };
+
   return (
     <Layout>
       <Helmet>
-        <title>Service & Ersatzteile | Zoomlion NRW</title>
-        <meta name="description" content="Professioneller Service für Arbeitsbühnen und Bagger in NRW: Ersatzteile, Wartung, Reparatur, UVV-Prüfung und Wartungsverträge. 3 Standorte in NRW." />
+        <title>Baumaschinen Wartung & Service NRW | UVV-Prüfung & Reparatur</title>
+        <meta name="description" content="Baumaschinen Service in NRW ➤ Wartung, Reparatur & UVV-Prüfung für Arbeitsbühnen, Bagger & Teleskoplader ✓ Ersatzteile vor Ort ✓ Serviceverträge ✓ 3 Standorte. Jetzt Serviceanfrage stellen!" />
+        <meta name="keywords" content="Baumaschinen Wartung NRW, UVV-Prüfung Arbeitsbühnen, Baumaschinen Reparatur, Servicevertrag Baumaschinen, Wartung Arbeitsbühne, Baumaschinen Service Krefeld, Baumaschinen Service Bonn, Ersatzteile Arbeitsbühne, Zoomlion Service" />
+        <link rel="canonical" href="https://www.zoomlion-nrw.de/service" />
+        <meta property="og:title" content="Baumaschinen Wartung & Service NRW | Zoomlion" />
+        <meta property="og:description" content="Professioneller Service für Arbeitsbühnen, Bagger & Teleskoplader: Wartung, UVV-Prüfung, Reparatur und Serviceverträge an 3 Standorten in NRW." />
+        <meta property="og:url" content="https://www.zoomlion-nrw.de/service" />
+        <meta property="og:type" content="website" />
+        <script type="application/ld+json">{JSON.stringify(serviceSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
 
       {/* Hero Section */}
@@ -115,19 +182,20 @@ const Service = () => {
           <Breadcrumbs 
             items={[
               { label: "Start", href: "/" },
-              { label: "Service" }
+              { label: "Service & Wartung" }
             ]} 
           />
           <div className="max-w-3xl">
             <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-              Service & Ersatzteile
+              Service, Wartung & Reparatur
             </span>
             <h1 className="font-heading text-4xl md:text-5xl font-bold mb-6">
-              Rundum-Service für Ihre Maschinen
+              Baumaschinen Wartung & Service in NRW
             </h1>
             <p className="text-lg text-muted-foreground mb-8 max-w-2xl">
-              Von der Ersatzteilversorgung über Wartung und Reparatur bis zur UVV-Prüfung – 
-              wir sorgen dafür, dass Ihre Zoomlion-Maschinen immer einsatzbereit sind.
+              Von der Ersatzteilversorgung über <strong>Wartung und Reparatur</strong> bis zur <strong>UVV-Prüfung nach DGUV</strong> – 
+              wir sorgen dafür, dass Ihre Arbeitsbühnen, Bagger und Teleskoplader immer einsatzbereit sind. 
+              An <strong>3 Standorten in Nordrhein-Westfalen</strong>.
             </p>
             <div className="flex flex-wrap gap-4">
               <Button asChild size="lg">
@@ -167,7 +235,7 @@ const Service = () => {
         <div className="container mx-auto px-4">
           <SectionHeading
             badge="Top-Vorteil"
-            title="Unsere Serviceverträge – Ihr Wettbewerbsvorteil"
+            title="Serviceverträge für Baumaschinen – Ihr Wettbewerbsvorteil"
             subtitle="Drei Pakete für maximale Verfügbarkeit bei planbaren Kosten. Beim Full-Service-Vertrag erhalten Sie ein kostenloses Ersatzgerät im Reparaturfall."
           />
           <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -258,8 +326,8 @@ const Service = () => {
       <section className="py-16 md:py-24 bg-card">
         <div className="container mx-auto px-4">
           <SectionHeading
-            title="Weitere Services"
-            subtitle="Alles, was Sie für den Betrieb Ihrer Maschinen brauchen"
+            title="Weitere Services für Ihre Baumaschinen"
+            subtitle="Alles, was Sie für den sicheren Betrieb Ihrer Maschinen brauchen"
           />
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
             {additionalServices.map((s) => (
@@ -276,21 +344,48 @@ const Service = () => {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <section className="py-16 md:py-24 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="max-w-3xl mx-auto">
+            <h2 className="font-heading text-2xl md:text-3xl font-bold mb-8 text-center">
+              Häufige Fragen zu Wartung & Service
+            </h2>
+            <div className="space-y-4">
+              {serviceFaqs.map((faq) => (
+                <div key={faq.q} className="p-5 rounded-xl border border-border bg-card">
+                  <h3 className="font-heading font-bold mb-2">{faq.q}</h3>
+                  <p className="text-sm text-muted-foreground">{faq.a}</p>
+                </div>
+              ))}
+            </div>
+            <div className="text-center mt-8">
+              <Button asChild variant="outline">
+                <Link to="/faq">
+                  Alle FAQ ansehen
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Standorte / Hol-Bring */}
-      <section className="py-16 md:py-24 bg-muted/50">
+      <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
                 <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
-                  Bequem & flexibel
+                  Ihr Servicepartner vor Ort
                 </span>
                 <h2 className="font-heading text-2xl md:text-3xl font-bold mb-4">
-                  Bringen Sie Ihre Maschine zu uns
+                  Baumaschinen-Service an 3 Standorten in NRW
                 </h2>
                 <p className="text-muted-foreground mb-6">
-                  Sie können Ihre Maschine jederzeit an einem unserer 3 NRW-Standorte 
-                  zur Wartung oder Reparatur abgeben. Alternativ bieten wir auch einen 
+                  Bringen Sie Ihre Arbeitsbühne, Ihren Bagger oder Teleskoplader jederzeit an einem 
+                  unserer Standorte zur Wartung oder Reparatur ab. Alternativ bieten wir auch einen 
                   komfortablen Hol- und Bringservice an.
                 </p>
                 <ul className="space-y-3 mb-6">
@@ -329,6 +424,35 @@ const Service = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SEO Content + Querlinks */}
+      <section className="py-12 bg-muted/30">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <div className="prose prose-lg max-w-none">
+            <h2 className="font-heading text-2xl font-bold mb-4">Baumaschinen Wartung und Reparatur in Nordrhein-Westfalen</h2>
+            <p>
+              Als exklusiver <strong>Zoomlion Fachhändler in NRW</strong> bieten wir Ihnen umfassenden Service 
+              für alle <Link to="/arbeitsbuehnen" className="text-primary hover:underline font-medium">Arbeitsbühnen</Link>, 
+              <Link to="/bagger" className="text-primary hover:underline font-medium"> Minibagger</Link> und 
+              <Link to="/teleskoplader" className="text-primary hover:underline font-medium"> Teleskoplader</Link> aus dem Zoomlion-Programm.
+            </p>
+            <p>
+              Ob regelmäßige <strong>Wartung</strong>, <strong>UVV-Prüfung nach DGUV</strong>, <strong>Reparatur</strong> oder 
+              ein maßgeschneiderter <Link to="/servicevertraege" className="text-primary hover:underline font-medium">Servicevertrag für Baumaschinen</Link> – 
+              unser geschultes Fachpersonal sorgt an unseren 
+              <Link to="/standorte" className="text-primary hover:underline font-medium"> 3 Standorten in Bonn, Krefeld und Mülheim</Link> für 
+              maximale Maschinenverfügbarkeit.
+            </p>
+            <h3 className="font-heading text-xl font-bold mt-6 mb-3">Service für alle Maschinentypen</h3>
+            <ul>
+              <li><strong>Wartung Arbeitsbühnen</strong> – Scherenarbeitsbühnen, Gelenkteleskopbühnen, Teleskopbühnen</li>
+              <li><strong>Wartung Minibagger & Kompaktbagger</strong> – Von 1,8 bis 25 Tonnen</li>
+              <li><strong>Wartung Teleskoplader</strong> – Starre und drehbare Telehandler</li>
+              <li><strong>UVV-Prüfung</strong> – Für Arbeitsbühnen und alle weiteren Baumaschinen nach DGUV</li>
+            </ul>
           </div>
         </div>
       </section>

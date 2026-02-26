@@ -118,7 +118,7 @@ const FAQ = () => {
           name="keywords" 
           content="Zoomlion FAQ, Arbeitsbühnen Fragen, Bagger kaufen NRW, Zoomlion Garantie, Baumaschinen Service, Zoomlion Ersatzteile" 
         />
-        <link rel="canonical" href="https://zoomlion-nrw.de/faq" />
+        <link rel="canonical" href="https://www.zoomlion-nrw.de/faq" />
         <script type="application/ld+json">
           {JSON.stringify(faqSchema)}
         </script>

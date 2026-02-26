@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
@@ -12,24 +13,20 @@ const Arbeitsbuehnen = () => {
     "description": "Übersicht aller Zoomlion Arbeitsbühnen zum Kauf in Nordrhein-Westfalen. Scheren-, Gelenk- und Teleskopbühnen bis 68m.",
     "numberOfItems": 50,
     "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Scherenarbeitsbühnen",
-        "url": "https://www.zoomlion-nrw.de/arbeitsbuehnen#scheren"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Gelenkteleskopbühnen",
-        "url": "https://www.zoomlion-nrw.de/arbeitsbuehnen#gelenk"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "Teleskopbühnen",
-        "url": "https://www.zoomlion-nrw.de/arbeitsbuehnen#teleskop"
-      }
+      { "@type": "ListItem", "position": 1, "name": "Scherenarbeitsbühnen", "url": "https://www.zoomlion-nrw.de/arbeitsbuehnen#scheren" },
+      { "@type": "ListItem", "position": 2, "name": "Gelenkteleskopbühnen", "url": "https://www.zoomlion-nrw.de/arbeitsbuehnen#gelenk" },
+      { "@type": "ListItem", "position": 3, "name": "Teleskopbühnen", "url": "https://www.zoomlion-nrw.de/arbeitsbuehnen#teleskop" }
+    ]
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Welche Arbeitsbühnen kann ich bei Zoomlion NRW kaufen?", "acceptedAnswer": { "@type": "Answer", "text": "Wir bieten Scherenarbeitsbühnen (elektrisch, Diesel, Hybrid), Gelenkteleskopbühnen, Teleskopbühnen bis 68m und Raupenarbeitsbühnen. Alle Modelle sind CE-zertifiziert und EU-konform." } },
+      { "@type": "Question", "name": "Gibt es eine Garantie auf Zoomlion Arbeitsbühnen?", "acceptedAnswer": { "@type": "Answer", "text": "Ja, alle Zoomlion Arbeitsbühnen haben 3 Jahre Garantie oder 3.000 Betriebsstunden." } },
+      { "@type": "Question", "name": "Kann ich eine Arbeitsbühne auch finanzieren?", "acceptedAnswer": { "@type": "Answer", "text": "Ja, wir bieten flexible Finanzierungsmöglichkeiten mit Laufzeiten von 12 bis 48 Monaten." } },
+      { "@type": "Question", "name": "Wie läuft die Wartung meiner Arbeitsbühne ab?", "acceptedAnswer": { "@type": "Answer", "text": "Wir bieten drei Servicepakete: ZL|Care (Wartungsteile), ZL|Pro (Inspektion inkl. UVV) und ZL|Complete (Full-Service mit Ersatzgerät)." } }
     ]
   };
 
@@ -57,9 +54,11 @@ const Arbeitsbuehnen = () => {
         <meta property="og:url" content="https://www.zoomlion-nrw.de/arbeitsbuehnen" />
         <meta property="og:type" content="website" />
         
-        {/* Structured Data */}
         <script type="application/ld+json">
           {JSON.stringify(productSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(faqSchema)}
         </script>
       </Helmet>
 
@@ -101,10 +100,35 @@ const Arbeitsbuehnen = () => {
             <h3 className="font-heading text-xl font-bold mt-6 mb-3">Warum Arbeitsbühnen bei Zoomlion NRW kaufen?</h3>
             <p>
               Mit <strong>3 Jahren Garantie</strong>, <strong>Ersatzteilen vor Ort</strong> und 
-              <strong>flexibler Finanzierung</strong> machen wir Ihnen den Kauf so einfach wie möglich. 
+              <strong> flexibler Finanzierung</strong> machen wir Ihnen den Kauf so einfach wie möglich. 
               Als <strong>Top 5 Hersteller weltweit</strong> steht Zoomlion für Qualität und Zuverlässigkeit 
               zu einem <strong>hervorragenden Preis-Leistungs-Verhältnis</strong>.
             </p>
+            <p>
+              Neben dem Kauf bieten wir auch maßgeschneiderte <Link to="/servicevertraege" className="text-primary hover:underline font-medium">Serviceverträge für Arbeitsbühnen</Link> – 
+              inklusive <strong>UVV-Prüfung</strong> und optionalem <strong>kostenlosen Ersatzgerät</strong>. 
+              Informieren Sie sich auch über unsere <Link to="/finanzierung" className="text-primary hover:underline font-medium">Finanzierungsmöglichkeiten</Link>.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-12">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <h2 className="font-heading text-2xl font-bold mb-6 text-center">Häufige Fragen zum Arbeitsbühnen-Kauf</h2>
+          <div className="space-y-4">
+            {[
+              { q: "Welche Arbeitsbühnen kann ich bei Zoomlion NRW kaufen?", a: "Wir bieten Scherenarbeitsbühnen (elektrisch, Diesel, Hybrid), Gelenkteleskopbühnen, Teleskopbühnen bis 68m und Raupenarbeitsbühnen. Alle Modelle sind CE-zertifiziert und EU-konform." },
+              { q: "Gibt es eine Garantie auf Zoomlion Arbeitsbühnen?", a: "Ja, alle Zoomlion Arbeitsbühnen haben 3 Jahre Garantie oder 3.000 Betriebsstunden. Zusätzlich bieten wir Serviceverträge mit UVV-Prüfung und kostenlosem Ersatzgerät." },
+              { q: "Kann ich eine Arbeitsbühne auch finanzieren?", a: "Ja, wir bieten flexible Finanzierungsmöglichkeiten mit Laufzeiten von 12 bis 48 Monaten. Nutzen Sie unseren Online-Finanzierungsrechner für eine erste Kalkulation." },
+              { q: "Wie läuft die Wartung meiner Arbeitsbühne ab?", a: "Wir bieten drei Servicepakete: ZL|Care (Wartungsteile), ZL|Pro (Inspektion inkl. UVV) und ZL|Complete (Full-Service mit Ersatzgerät). Die UVV-Prüfung nach DGUV ist in ZL|Pro und ZL|Complete enthalten." },
+            ].map((faq) => (
+              <div key={faq.q} className="p-5 rounded-xl border border-border bg-card">
+                <h3 className="font-heading font-bold mb-2">{faq.q}</h3>
+                <p className="text-sm text-muted-foreground">{faq.a}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

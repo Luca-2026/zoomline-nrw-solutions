@@ -159,12 +159,16 @@ const Servicevertraege = () => {
   return (
     <Layout>
       <Helmet>
-        <title>Serviceverträge für Baumaschinen | Zoomlion NRW</title>
+        <title>Servicevertrag Baumaschinen NRW | Wartungsvertrag Arbeitsbühne & Bagger</title>
         <meta
           name="description"
-          content="Serviceverträge für Zoomlion Arbeitsbühnen, Bagger & Teleskoplader: Wartungsteile, Inspektionen, Full-Service mit kostenlosem Ersatzgerät. 3 Standorte in NRW."
+          content="Servicevertrag für Baumaschinen in NRW ➤ Wartungsverträge für Arbeitsbühnen, Bagger & Teleskoplader ✓ UVV-Prüfung inklusive ✓ Kostenloses Ersatzgerät ✓ 3 Standorte. Jetzt beraten lassen!"
         />
+        <meta name="keywords" content="Servicevertrag Baumaschinen, Wartungsvertrag Arbeitsbühne, Wartungsvertrag Bagger, UVV-Prüfung Arbeitsbühnen, Baumaschinen Wartung NRW, Servicevertrag Teleskoplader, Full-Service Baumaschinen, Inspektionsvertrag Baumaschinen" />
         <link rel="canonical" href="https://www.zoomlion-nrw.de/servicevertraege" />
+        <meta property="og:title" content="Servicevertrag Baumaschinen NRW | Zoomlion" />
+        <meta property="og:description" content="Maßgeschneiderte Serviceverträge für Arbeitsbühnen, Bagger & Teleskoplader. UVV-Prüfung, Wartung und Reparatur aus einer Hand." />
+        <meta property="og:url" content="https://www.zoomlion-nrw.de/servicevertraege" />
         <script type="application/ld+json">{JSON.stringify(schema)}</script>
       </Helmet>
 
@@ -183,7 +187,7 @@ const Servicevertraege = () => {
               Servicepakete
             </span>
             <h1 className="font-heading text-4xl md:text-5xl font-bold mb-6">
-              Serviceverträge für Ihre Baumaschinen
+              Serviceverträge & Wartungsverträge für Baumaschinen in NRW
             </h1>
             <p className="text-lg text-muted-foreground mb-8 max-w-2xl">
               Maximale Maschinenverfügbarkeit – mit voller Kostenkontrolle und

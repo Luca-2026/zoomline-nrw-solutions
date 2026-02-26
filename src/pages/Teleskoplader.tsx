@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
@@ -142,20 +143,37 @@ const Teleskoplader = () => {
               <li><strong>Inzahlungnahme</strong> Ihrer Gebrauchtmaschine möglich</li>
               <li><strong>4×4-Allradantrieb</strong> für maximale Geländegängigkeit</li>
             </ul>
-            <h3 className="font-heading text-xl font-bold mt-6 mb-3">Teleskoplader für jeden Einsatzbereich</h3>
-            <p>
-              Unsere <strong>Zoomlion Teleskoplader</strong> sind vielseitig einsetzbar – dank serienmäßiger schwebender Gabel 
-              und optionaler Anbaugeräte wie <strong>Hebebühne</strong>, <strong>Schaufel</strong>, <strong>Ausleger</strong> und 
-              weiteres Zubehör. Alle Modelle verfügen über ein <strong>4×4-Antriebssystem</strong> mit Antischlupf-Differentialgetriebe 
-              für hohe Zugkraft und Geländegängigkeit.
-            </p>
             <h3 className="font-heading text-xl font-bold mt-6 mb-3">Drehteleskoplader vs. starre Teleskoplader</h3>
             <p>
               <strong>Nicht rotierende Teleskoplader</strong> (ZTH2506, ZTH3507, ZTH3513) eignen sich ideal für den Materialtransport 
               auf Baustellen und in der Landwirtschaft. <strong>Drehteleskoplader</strong> (ZTH4518R, ZTH4525R) bieten mit ihrer 
-              <strong>360°-Endlosdrehung</strong> maximale Flexibilität und einen riesigen Arbeitsbereich – perfekt für komplexe 
+              <strong> 360°-Endlosdrehung</strong> maximale Flexibilität – perfekt für komplexe 
               Bauprojekte und beengte Platzverhältnisse.
             </p>
+            <p>
+              Nutzen Sie unsere <Link to="/finanzierung" className="text-primary hover:underline font-medium">Finanzierungsoptionen</Link> und 
+              sichern Sie sich einen <Link to="/servicevertraege" className="text-primary hover:underline font-medium">Wartungsvertrag für Ihren Teleskoplader</Link> – 
+              für maximale Verfügbarkeit bei planbaren Kosten.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-12">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <h2 className="font-heading text-2xl font-bold mb-6 text-center">Häufige Fragen zum Teleskoplader-Kauf</h2>
+          <div className="space-y-4">
+            {[
+              { q: "Was ist der Unterschied zwischen Drehteleskoplader und starrem Teleskoplader?", a: "Starre Teleskoplader (z.B. ZTH2506) haben einen fixen Oberwagen, Drehteleskoplader (z.B. ZTH4525R) können sich 360° endlos drehen. Das ermöglicht einen riesigen Arbeitsbereich ohne Umsetzen der Maschine." },
+              { q: "Welche Anbaugeräte gibt es für Zoomlion Teleskoplader?", a: "Serienmäßig wird eine schwebende Gabel mitgeliefert. Optional sind Hebebühne, Schaufel, Ausleger und weiteres Zubehör erhältlich. So wird Ihr Teleskoplader zum vielseitigen Multitalent." },
+              { q: "Bieten Sie Wartungsverträge für Teleskoplader an?", a: "Ja, unsere drei Servicepakete (ZL|Care, ZL|Pro, ZL|Complete) gelten auch für Teleskoplader – inklusive UVV-Prüfung und optionalem kostenlosen Ersatzgerät." },
+            ].map((faq) => (
+              <div key={faq.q} className="p-5 rounded-xl border border-border bg-card">
+                <h3 className="font-heading font-bold mb-2">{faq.q}</h3>
+                <p className="text-sm text-muted-foreground">{faq.a}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
