@@ -83,6 +83,7 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
     plz: "",
     nachricht: "",
     rueckruf: false,
+    lieferung: false,
     wartungsvertrag: false,
     dsgvo: false,
   });
@@ -124,6 +125,21 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
       return;
     }
 
+    // Validate trade-in fields if enabled
+    if (tradeInData.enabled) {
+      const tradeInErrors: Record<string, string> = {};
+      if (!tradeInData.seriennummer.trim()) {
+        tradeInErrors.tradeInSeriennummer = "Seriennummer ist bei Inzahlungnahme Pflicht";
+      }
+      if (tradeInData.imageUrls.length < 4) {
+        tradeInErrors.tradeInImages = `Mindestens 4 Bilder erforderlich (noch ${4 - tradeInData.imageUrls.length} fehlend)`;
+      }
+      if (Object.keys(tradeInErrors).length > 0) {
+        setErrors((prev) => ({ ...prev, ...tradeInErrors }));
+        return;
+      }
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -139,6 +155,7 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
           email: formData.email,
           telefon: formData.telefon,
           plz: formData.plz || undefined,
+          lieferung: formData.lieferung,
           nachricht: formData.nachricht || undefined,
           rueckruf: formData.rueckruf,
           wartungsvertrag: formData.wartungsvertrag,
@@ -171,6 +188,7 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
           plz: "",
           nachricht: "",
           rueckruf: false,
+          lieferung: false,
           wartungsvertrag: false,
           dsgvo: false,
         });
@@ -370,11 +388,19 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
 
           {/* Inzahlungnahme - bei Arbeitsbühnen, Bagger und Teleskoplader */}
           {(type === "arbeitsbuehne" || type === "bagger" || type === "teleskoplader") && (
-            <TradeInSection 
-              value={tradeInData} 
-              onChange={handleTradeInChange} 
-              productType={type === "teleskoplader" ? "bagger" : type}
-            />
+            <>
+              <TradeInSection 
+                value={tradeInData} 
+                onChange={handleTradeInChange} 
+                productType={type === "teleskoplader" ? "bagger" : type}
+              />
+              {(errors.tradeInSeriennummer || errors.tradeInImages) && (
+                <div className="space-y-1">
+                  {errors.tradeInSeriennummer && <p className="text-xs text-destructive">{errors.tradeInSeriennummer}</p>}
+                  {errors.tradeInImages && <p className="text-xs text-destructive">{errors.tradeInImages}</p>}
+                </div>
+              )}
+            </>
           )}
 
           <div>
@@ -395,6 +421,17 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
               onCheckedChange={(v) => handleChange("rueckruf", !!v)}
             />
             <Label htmlFor="rueckruf" className="cursor-pointer">Bitte um Rückruf</Label>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <Checkbox
+              id="lieferung"
+              checked={formData.lieferung}
+              onCheckedChange={(v) => handleChange("lieferung", !!v)}
+            />
+            <Label htmlFor="lieferung" className="cursor-pointer">
+              Lieferung gewünscht
+            </Label>
           </div>
 
           <div className="flex items-center gap-2">
