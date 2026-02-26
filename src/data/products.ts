@@ -25,6 +25,7 @@ import zs1218ertImage from "@/assets/platforms/zs1218ert.jpg";
 import zs0607acwLiImage from "@/assets/platforms/zs0607acw-li.jpg";
 import zt22jeImage from "@/assets/platforms/zt22je-zt26je.jpg";
 import zt58jImage from "@/assets/platforms/zt58j-zt68j.jpg";
+import zt18jeImage from "@/assets/platforms/zt18je.png";
 
 // Teleskoplader-Bilder
 import zth2506Image from "@/assets/telehandlers/zth2506.png";
@@ -1096,8 +1097,9 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: false,
     uvpPrice: 113032.92,
     features: ["Teleskop", "Elektro"],
-    image: "/placeholder.svg",
-    description: "Elektrische Teleskopbühne."
+    image: zt18jeImage,
+    description: "Elektrische Teleskopbühne.",
+    datasheet: "/datasheets/zt18je.pdf"
   },
   {
     id: "zt21je",
@@ -1127,8 +1129,9 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: true,
     uvpPrice: 117810.00,
     features: ["Teleskop", "Elektro", "Lithium-Ionen Akku"],
-    image: "/placeholder.svg",
-    description: "Elektrische Teleskopbühne mit Lithium-Akku."
+    image: zt18jeImage,
+    description: "Elektrische Teleskopbühne mit Lithium-Akku.",
+    datasheet: "/datasheets/zt18je.pdf"
   },
   {
     id: "zt21je-li",
