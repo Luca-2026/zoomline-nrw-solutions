@@ -65,6 +65,7 @@ const BUCKET = "trade-in-images" as const;
 const MIN_IMAGES = 4;
 const MAX_IMAGES = 6;
 const IMAGE_LABELS = ["Vorne", "Hinten", "Links", "Rechts"];
+const SIGNED_URL_EXPIRY = 3600; // 1 hour
 
 function createUploadPath(fileName: string) {
   const ext = fileName.split(".").pop() || "jpg";
@@ -72,21 +73,11 @@ function createUploadPath(fileName: string) {
   return `inquiries/${rand}.${ext}`;
 }
 
-function getBucketPathFromPublicUrl(publicUrl: string): string | null {
-  try {
-    const u = new URL(publicUrl);
-    const marker = `/storage/v1/object/public/${BUCKET}/`;
-    const idx = u.pathname.indexOf(marker);
-    if (idx === -1) return null;
-    return decodeURIComponent(u.pathname.slice(idx + marker.length));
-  } catch {
-    return null;
-  }
-}
-
 export function TradeInSection({ value, onChange, productType = "bagger" }: TradeInSectionProps) {
   const [uploading, setUploading] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
+  // Map storage path -> signed preview URL
+  const [previewUrls, setPreviewUrls] = useState<Record<string, string>>({});
 
   const isArbeitsbuehne = productType === "arbeitsbuehne";
 
@@ -132,7 +123,7 @@ export function TradeInSection({ value, onChange, productType = "bagger" }: Trad
     setUploadError(null);
 
     try {
-      const uploadedUrls: string[] = [];
+      const uploadedPaths: string[] = [];
 
       for (const file of filesToUpload) {
         if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
@@ -157,15 +148,21 @@ export function TradeInSection({ value, onChange, productType = "bagger" }: Trad
           continue;
         }
 
-        const { data: urlData } = supabase.storage
+        // Generate signed URL for preview
+        const { data: signedData } = await supabase.storage
           .from(BUCKET)
-          .getPublicUrl(filePath);
+          .createSignedUrl(filePath, SIGNED_URL_EXPIRY);
 
-        uploadedUrls.push(urlData.publicUrl);
+        if (signedData?.signedUrl) {
+          setPreviewUrls(prev => ({ ...prev, [filePath]: signedData.signedUrl }));
+        }
+
+        uploadedPaths.push(filePath);
       }
 
-      if (uploadedUrls.length > 0) {
-        updateFormField({ imageUrls: [...value.imageUrls, ...uploadedUrls] });
+      if (uploadedPaths.length > 0) {
+        // Store file paths (not URLs) in imageUrls
+        updateFormField({ imageUrls: [...value.imageUrls, ...uploadedPaths] });
       }
     } catch (error) {
       console.error("Upload error:", error);
@@ -178,13 +175,18 @@ export function TradeInSection({ value, onChange, productType = "bagger" }: Trad
 
   const removeImage = useCallback(
     async (index: number) => {
-      const urls = valueRef.current.imageUrls;
-      const url = urls[index];
-      const newUrls = urls.filter((_, i) => i !== index);
-      updateFormField({ imageUrls: newUrls });
+      const paths = valueRef.current.imageUrls;
+      const path = paths[index];
+      const newPaths = paths.filter((_, i) => i !== index);
+      updateFormField({ imageUrls: newPaths });
 
-      const path = url ? getBucketPathFromPublicUrl(url) : null;
       if (!path) return;
+      // Remove preview URL cache
+      setPreviewUrls(prev => {
+        const next = { ...prev };
+        delete next[path];
+        return next;
+      });
       const { error } = await supabase.storage.from(BUCKET).remove([path]);
       if (error) {
         console.warn("Could not remove trade-in image:", error);
@@ -192,6 +194,9 @@ export function TradeInSection({ value, onChange, productType = "bagger" }: Trad
     },
     [updateFormField]
   );
+
+  // Get display URL for a stored path
+  const getDisplayUrl = (path: string) => previewUrls[path] || "";
 
   return (
     <div className="border border-border rounded-lg overflow-hidden">
@@ -414,10 +419,16 @@ export function TradeInSection({ value, onChange, productType = "bagger" }: Trad
             </p>
             <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
               {/* Uploaded Images with labels */}
-              {value.imageUrls.map((url, index) => (
+              {value.imageUrls.map((path, index) => (
                 <div key={index} className="relative">
                   <div className="aspect-square rounded-lg overflow-hidden border border-border bg-muted">
-                    <img src={url} alt={`Bild ${index + 1}`} className="w-full h-full object-cover" />
+                    {getDisplayUrl(path) ? (
+                      <img src={getDisplayUrl(path)} alt={`Bild ${index + 1}`} className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <ImageIcon className="h-8 w-8 text-muted-foreground" />
+                      </div>
+                    )}
                     <button
                       type="button"
                       onClick={() => removeImage(index)}
