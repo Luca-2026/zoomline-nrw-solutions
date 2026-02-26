@@ -330,6 +330,26 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
             </div>
           </div>
 
+          <div>
+            <Label htmlFor="strasse">Straße / Hausnr.</Label>
+            <Input
+              id="strasse"
+              value={formData.strasse}
+              onChange={(e) => handleChange("strasse", e.target.value)}
+              placeholder="z.B. Musterstraße 12"
+            />
+          </div>
+
+          <div>
+            <Label htmlFor="plz">PLZ / Ort</Label>
+            <Input
+              id="plz"
+              value={formData.plz}
+              onChange={(e) => handleChange("plz", e.target.value)}
+              placeholder="z.B. 47807 Krefeld"
+            />
+          </div>
+
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
               <Label htmlFor="email">E-Mail *</Label>
@@ -353,26 +373,6 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
               />
               {errors.telefon && <p className="text-xs text-destructive mt-1">{errors.telefon}</p>}
             </div>
-          </div>
-
-          <div>
-            <Label htmlFor="strasse">Straße / Hausnr.</Label>
-            <Input
-              id="strasse"
-              value={formData.strasse}
-              onChange={(e) => handleChange("strasse", e.target.value)}
-              placeholder="z.B. Musterstraße 12"
-            />
-          </div>
-
-          <div>
-            <Label htmlFor="plz">PLZ / Ort</Label>
-            <Input
-              id="plz"
-              value={formData.plz}
-              onChange={(e) => handleChange("plz", e.target.value)}
-              placeholder="z.B. 47807 Krefeld"
-            />
           </div>
 
           {/* Anbaugeräte - nur bei Bagger */}
