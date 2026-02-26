@@ -25,6 +25,7 @@ import { locations } from "@/data/products";
 const servicePackages = [
   {
     name: "ZL|Care",
+    id: "zl-care",
     subtitle: "Wartungsteile-Paket",
     icon: Package,
     features: [
@@ -36,6 +37,7 @@ const servicePackages = [
   },
   {
     name: "ZL|Pro",
+    id: "zl-pro",
     subtitle: "Inspektionsvertrag",
     icon: Eye,
     popular: true,
@@ -49,6 +51,7 @@ const servicePackages = [
   },
   {
     name: "ZL|Complete",
+    id: "zl-complete",
     subtitle: "Full-Service-Vertrag",
     icon: Wrench,
     features: [
@@ -203,7 +206,7 @@ const Service = () => {
                   variant={pkg.popular ? "default" : "outline"}
                   className="w-full"
                 >
-                  <Link to="/servicevertraege">Details ansehen</Link>
+                  <Link to={`/servicevertraege#${pkg.id}`}>Details ansehen</Link>
                 </Button>
               </div>
             ))}
