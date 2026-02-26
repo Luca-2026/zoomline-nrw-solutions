@@ -31,6 +31,7 @@ import zt42jeImage from "@/assets/platforms/zt42je.png";
 import zt38jeImage from "@/assets/platforms/zt38je.png";
 import zt21jehImage from "@/assets/platforms/zt21jeh.png";
 import zs0607eImage from "@/assets/platforms/zs0607e.png";
+import zs0607acImage from "@/assets/platforms/zs0607ac.png";
 
 // Teleskoplader-Bilder
 import zth2506Image from "@/assets/telehandlers/zth2506.png";
@@ -168,7 +169,7 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: false,
     uvpPrice: 14727.02,
     features: ["AC-Antrieb"],
-    image: "/placeholder.svg",
+    image: zs0607acImage,
     description: "Scherenarbeitsbühne mit AC-Antrieb.",
     datasheet: "/datasheets/scherenarbeitsbuehnen-ac-series.pdf"
   },
