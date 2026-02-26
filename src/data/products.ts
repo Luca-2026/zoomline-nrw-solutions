@@ -37,6 +37,7 @@ import zs0812acImage from "@/assets/platforms/zs0812ac.png";
 import zs1012acImage from "@/assets/platforms/zs1012ac.png";
 import zs1212acImage from "@/assets/platforms/zs1212ac.png";
 import zs1414acImage from "@/assets/platforms/zs1414ac.png";
+import zs0808acLiImage from "@/assets/platforms/zs0808ac-li.png";
 
 // Teleskoplader-Bilder
 import zth2506Image from "@/assets/telehandlers/zth2506.png";
@@ -287,9 +288,9 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: true,
     uvpPrice: 20041.56,
     features: ["AC-Antrieb", "Lithium-Ionen Akku", "10m Arbeitshöhe"],
-    image: "/placeholder.svg",
+    image: zs0808acLiImage,
     description: "Scherenarbeitsbühne mit Lithium-Akku.",
-    datasheet: "/datasheets/scherenarbeitsbuehnen-ac-li.pdf"
+    datasheet: "/datasheets/zs0808ac-li.pdf"
   },
   {
     id: "zs0812ac-li",
