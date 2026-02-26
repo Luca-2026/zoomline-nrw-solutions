@@ -13,12 +13,55 @@ import {
   FileCheck,
   Settings,
   CheckCircle,
-  ArrowRight
+  ArrowRight,
+  Eye,
+  Star
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { locations } from "@/data/products";
+
+const servicePackages = [
+  {
+    name: "ZL|Care",
+    subtitle: "Wartungsteile-Paket",
+    icon: Package,
+    features: [
+      { label: "Wartungsteile", value: "Original Zoomlion", included: true },
+      { label: "Lieferung", value: "just in time", included: true },
+      { label: "Öldiagnose-Set", value: "inklusive", included: true },
+      { label: "Ölversorgung", value: "optional", included: false },
+    ],
+  },
+  {
+    name: "ZL|Pro",
+    subtitle: "Inspektionsvertrag",
+    icon: Eye,
+    popular: true,
+    features: [
+      { label: "Wartungsteile", value: "Original Zoomlion", included: true },
+      { label: "Wartung", value: "inklusive", included: true },
+      { label: "UVV-Prüfung", value: "inklusive", included: true },
+      { label: "Öldiagnose", value: "inklusive", included: true },
+      { label: "Anfahrt", value: "optional", included: false },
+    ],
+  },
+  {
+    name: "ZL|Complete",
+    subtitle: "Full-Service-Vertrag",
+    icon: Wrench,
+    features: [
+      { label: "Wartungsteile", value: "Original Zoomlion", included: true },
+      { label: "Wartung", value: "inklusive", included: true },
+      { label: "Reparaturen", value: "inklusive", included: true },
+      { label: "Ersatzgerät", value: "kostenlos", included: true },
+      { label: "UVV-Prüfung", value: "inklusive", included: true },
+      { label: "Öldiagnose", value: "inklusive", included: true },
+      { label: "Anfahrt", value: "optional", included: false },
+    ],
+  },
+];
 
 const mainServices = [
   { 
@@ -116,11 +159,71 @@ const Service = () => {
         </div>
       </section>
 
+      {/* Serviceverträge – prominent */}
+      <section className="py-16 md:py-24 bg-muted/50">
+        <div className="container mx-auto px-4">
+          <SectionHeading
+            badge="Top-Vorteil"
+            title="Unsere Serviceverträge – Ihr Wettbewerbsvorteil"
+            subtitle="Drei Pakete für maximale Verfügbarkeit bei planbaren Kosten. Beim Full-Service-Vertrag erhalten Sie ein kostenloses Ersatzgerät im Reparaturfall."
+          />
+          <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            {servicePackages.map((pkg) => (
+              <div
+                key={pkg.name}
+                className={`relative p-8 rounded-2xl border bg-card transition-all hover:shadow-lg flex flex-col ${
+                  pkg.popular
+                    ? "border-primary shadow-md ring-1 ring-primary/20"
+                    : "border-border"
+                }`}
+              >
+                {pkg.popular && (
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center gap-1">
+                    <Star className="h-3 w-3" /> Beliebteste Wahl
+                  </div>
+                )}
+                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6">
+                  <pkg.icon className="h-7 w-7 text-primary" />
+                </div>
+                <h3 className="font-heading text-2xl font-bold mb-1">{pkg.name}</h3>
+                <p className="text-sm text-muted-foreground mb-6">{pkg.subtitle}</p>
+                <div className="space-y-3 mb-8 flex-1">
+                  {pkg.features.map((f) => (
+                    <div key={f.label} className="flex items-center justify-between text-sm">
+                      <span className="text-muted-foreground">{f.label}</span>
+                      <span className={`font-medium ${f.included ? "text-primary" : "text-muted-foreground"}`}>
+                        {f.included && <CheckCircle className="inline h-4 w-4 mr-1" />}
+                        {f.value}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                <Button
+                  asChild
+                  variant={pkg.popular ? "default" : "outline"}
+                  className="w-full"
+                >
+                  <Link to="/servicevertraege">Details ansehen</Link>
+                </Button>
+              </div>
+            ))}
+          </div>
+          <div className="text-center mt-10">
+            <Button asChild size="lg" variant="outline">
+              <Link to="/servicevertraege">
+                Alle Details zu unseren Serviceverträgen
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+
       {/* Main Services */}
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
           <SectionHeading
-            title="Unser Leistungsspektrum"
+            title="Weiteres Leistungsspektrum"
             subtitle="Professioneller Service aus einer Hand – für maximale Maschinenverfügbarkeit"
           />
           <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -148,45 +251,8 @@ const Service = () => {
         </div>
       </section>
 
-      {/* Wartungsverträge Highlight */}
-      <section className="py-16 md:py-24 bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <Settings className="h-16 w-16 mx-auto mb-6 opacity-90" />
-            <h2 className="font-heading text-3xl md:text-4xl font-bold mb-6">
-              Wartungsverträge für planbare Kosten
-            </h2>
-            <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
-              Mit einem Wartungsvertrag sichern Sie sich regelmäßige Inspektionen, 
-              bevorzugte Terminvergabe und feste Preise. So bleiben Ihre Maschinen 
-              immer in Top-Zustand – und Sie haben volle Kostenkontrolle.
-            </p>
-            <div className="grid sm:grid-cols-3 gap-6 mb-10">
-              <div className="p-4 rounded-xl bg-white/10">
-                <div className="font-bold mb-1">Planbare Kosten</div>
-                <div className="text-sm opacity-80">Feste monatliche oder jährliche Raten</div>
-              </div>
-              <div className="p-4 rounded-xl bg-white/10">
-                <div className="font-bold mb-1">Bevorzugter Service</div>
-                <div className="text-sm opacity-80">Schnellere Terminvergabe bei Reparaturen</div>
-              </div>
-              <div className="p-4 rounded-xl bg-white/10">
-                <div className="font-bold mb-1">Höhere Lebensdauer</div>
-                <div className="text-sm opacity-80">Regelmäßige Wartung verlängert die Nutzung</div>
-              </div>
-            </div>
-            <Button asChild size="lg" variant="secondary">
-              <Link to="/servicevertraege">
-                Serviceverträge entdecken
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
       {/* Additional Services */}
-      <section className="py-16 md:py-24">
+      <section className="py-16 md:py-24 bg-card">
         <div className="container mx-auto px-4">
           <SectionHeading
             title="Weitere Services"
@@ -196,7 +262,7 @@ const Service = () => {
             {additionalServices.map((s) => (
               <div 
                 key={s.title} 
-                className="p-6 rounded-xl border border-border bg-card text-center hover:border-primary/50 transition-colors"
+                className="p-6 rounded-xl border border-border bg-background text-center hover:border-primary/50 transition-colors"
               >
                 <s.icon className="h-10 w-10 text-primary mx-auto mb-4" />
                 <h3 className="font-heading font-bold mb-2">{s.title}</h3>
