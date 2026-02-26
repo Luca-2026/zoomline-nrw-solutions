@@ -62,6 +62,9 @@ const antriebsartOptions = [
 ];
 
 const BUCKET = "trade-in-images" as const;
+const MIN_IMAGES = 4;
+const MAX_IMAGES = 6;
+const IMAGE_LABELS = ["Vorne", "Hinten", "Links", "Rechts"];
 
 function createUploadPath(fileName: string) {
   const ext = fileName.split(".").pop() || "jpg";
@@ -118,9 +121,9 @@ export function TradeInSection({ value, onChange, productType = "bagger" }: Trad
     const files = e.target.files;
     if (!files || files.length === 0) return;
 
-    const remainingSlots = 3 - value.imageUrls.length;
+    const remainingSlots = MAX_IMAGES - value.imageUrls.length;
     if (remainingSlots <= 0) {
-      setUploadError("Maximal 3 Bilder erlaubt");
+      setUploadError(`Maximal ${MAX_IMAGES} Bilder erlaubt`);
       return;
     }
 
@@ -336,12 +339,13 @@ export function TradeInSection({ value, onChange, productType = "bagger" }: Trad
           {/* Extended Info */}
           <div className="grid sm:grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="ti-seriennummer">Seriennummer</Label>
+              <Label htmlFor="ti-seriennummer">Seriennummer *</Label>
               <Input
                 id="ti-seriennummer"
-                placeholder="Falls bekannt"
+                placeholder="Pflichtangabe"
                 value={value.seriennummer}
                 onChange={(e) => updateFormField({ seriennummer: e.target.value })}
+                required
               />
             </div>
             <div>
@@ -402,55 +406,84 @@ export function TradeInSection({ value, onChange, productType = "bagger" }: Trad
 
           {/* Image Upload */}
           <div>
-            <Label className="mb-2 block">Fotos der {isArbeitsbuehne ? "Arbeitsbühne" : "Maschine"} (max. 3 Bilder)</Label>
-            <div className="grid grid-cols-3 gap-3">
-              {/* Uploaded Images */}
+            <Label className="mb-2 block">
+              Fotos der {isArbeitsbuehne ? "Arbeitsbühne" : "Maschine"} (mind. {MIN_IMAGES}, max. {MAX_IMAGES} Bilder) *
+            </Label>
+            <p className="text-xs text-muted-foreground mb-3">
+              Pflicht: Vorne, Hinten, Links, Rechts. Optional: weitere Bilder (z.B. Typenschild, Schäden).
+            </p>
+            <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
+              {/* Uploaded Images with labels */}
               {value.imageUrls.map((url, index) => (
-                <div key={index} className="relative aspect-square rounded-lg overflow-hidden border border-border bg-muted">
-                  <img src={url} alt={`Bild ${index + 1}`} className="w-full h-full object-cover" />
-                  <button
-                    type="button"
-                    onClick={() => removeImage(index)}
-                    className="absolute top-1 right-1 p-1 rounded-full bg-destructive text-destructive-foreground hover:bg-destructive/90"
-                  >
-                    <X className="h-3 w-3" />
-                  </button>
+                <div key={index} className="relative">
+                  <div className="aspect-square rounded-lg overflow-hidden border border-border bg-muted">
+                    <img src={url} alt={`Bild ${index + 1}`} className="w-full h-full object-cover" />
+                    <button
+                      type="button"
+                      onClick={() => removeImage(index)}
+                      className="absolute top-1 right-1 p-1 rounded-full bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </div>
+                  {index < IMAGE_LABELS.length && (
+                    <span className="block text-xs text-center text-muted-foreground mt-1">{IMAGE_LABELS[index]}</span>
+                  )}
                 </div>
               ))}
 
               {/* Upload Button */}
-              {value.imageUrls.length < 3 && (
-                <label className="aspect-square rounded-lg border-2 border-dashed border-border bg-muted/50 hover:bg-muted cursor-pointer flex flex-col items-center justify-center gap-1 transition-colors">
-                  <input
-                    type="file"
-                    accept="image/jpeg,image/png,image/webp"
-                    multiple
-                    onChange={handleImageUpload}
-                    className="hidden"
-                    disabled={uploading}
-                  />
-                  {uploading ? (
-                    <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
-                  ) : (
-                    <>
-                      <Upload className="h-6 w-6 text-muted-foreground" />
-                      <span className="text-xs text-muted-foreground">Hochladen</span>
-                    </>
+              {value.imageUrls.length < MAX_IMAGES && (
+                <div className="relative">
+                  <label className="aspect-square rounded-lg border-2 border-dashed border-border bg-muted/50 hover:bg-muted cursor-pointer flex flex-col items-center justify-center gap-1 transition-colors">
+                    <input
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp"
+                      multiple
+                      onChange={handleImageUpload}
+                      className="hidden"
+                      disabled={uploading}
+                    />
+                    {uploading ? (
+                      <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+                    ) : (
+                      <>
+                        <Upload className="h-6 w-6 text-muted-foreground" />
+                        <span className="text-xs text-muted-foreground">Hochladen</span>
+                      </>
+                    )}
+                  </label>
+                  {value.imageUrls.length < IMAGE_LABELS.length && (
+                    <span className="block text-xs text-center text-muted-foreground mt-1">
+                      {IMAGE_LABELS[value.imageUrls.length]}
+                    </span>
                   )}
-                </label>
+                </div>
               )}
 
-              {/* Empty Slots */}
-              {value.imageUrls.length < 2 &&
-                Array.from({ length: 2 - value.imageUrls.length }).map((_, i) => (
-                  <div
-                    key={`empty-${i}`}
-                    className="aspect-square rounded-lg border border-dashed border-border bg-muted/30 flex items-center justify-center"
-                  >
-                    <ImageIcon className="h-6 w-6 text-muted-foreground/30" />
-                  </div>
-                ))}
+              {/* Empty Slots - show remaining required slots */}
+              {value.imageUrls.length < MIN_IMAGES - 1 &&
+                Array.from({ length: Math.min(MIN_IMAGES - 1 - value.imageUrls.length, MAX_IMAGES - value.imageUrls.length - 1) }).map((_, i) => {
+                  const slotIndex = value.imageUrls.length + 1 + i;
+                  return (
+                    <div key={`empty-${i}`} className="relative">
+                      <div className="aspect-square rounded-lg border border-dashed border-border bg-muted/30 flex items-center justify-center">
+                        <ImageIcon className="h-6 w-6 text-muted-foreground/30" />
+                      </div>
+                      {slotIndex < IMAGE_LABELS.length && (
+                        <span className="block text-xs text-center text-muted-foreground/50 mt-1">{IMAGE_LABELS[slotIndex]}</span>
+                      )}
+                    </div>
+                  );
+                })}
             </div>
+
+            {value.imageUrls.length < MIN_IMAGES && value.imageUrls.length > 0 && (
+              <div className="mt-2 flex items-center gap-2 text-sm text-amber-600">
+                <AlertCircle className="h-4 w-4" />
+                Noch {MIN_IMAGES - value.imageUrls.length} {MIN_IMAGES - value.imageUrls.length === 1 ? "Bild" : "Bilder"} erforderlich
+              </div>
+            )}
 
             {uploadError && (
               <div className="mt-2 flex items-center gap-2 text-sm text-destructive">
@@ -460,7 +493,7 @@ export function TradeInSection({ value, onChange, productType = "bagger" }: Trad
             )}
 
             <p className="mt-2 text-xs text-muted-foreground">
-              Empfohlen: Vorderansicht, Seitenansicht, Typenschild. JPG, PNG oder WebP, max. 5 MB pro Bild.
+              JPG, PNG oder WebP, max. 5 MB pro Bild.
             </p>
           </div>
         </div>
