@@ -61,6 +61,7 @@ import zx27aeImage from "@/assets/platforms/zx27ae.png";
 import zx23aeImage from "@/assets/platforms/zx23ae.png";
 import zmp04Image from "@/assets/platforms/zmp04.png";
 import zmp06Image from "@/assets/platforms/zmp06.png";
+import zt32jeImage from "@/assets/platforms/zt32je.png";
 
 // Teleskoplader-Bilder
 import zth2506Image from "@/assets/telehandlers/zth2506.png";
@@ -1256,8 +1257,9 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: true,
     uvpPrice: 237257.02,
     features: ["Teleskop", "Elektro", "Lithium-Ionen Akku"],
-    image: "/placeholder.svg",
-    description: "Große elektrische Teleskopbühne."
+    image: zt32jeImage,
+    description: "Große elektrische Teleskopbühne.",
+    datasheet: "/datasheets/zt32je.pdf"
   },
   {
     id: "zt38je",
