@@ -23,7 +23,7 @@ import {
 
 const packages = [
   {
-    name: "Z|Parts+",
+    name: "ZL|Care",
     subtitle: "Wartungsteile-Paket",
     description:
       "Sie erhalten regelmäßig alle benötigten Original-Wartungsteile und -kits – automatisch, rechtzeitig und perfekt abgestimmt auf Ihre Maschine. So führen Sie Inspektionen selbst durch oder lassen uns übernehmen. Inklusive kostenloser Beratung für optimale Maschinenplanung.",
@@ -37,7 +37,7 @@ const packages = [
     highlight: false,
   },
   {
-    name: "Z|Inspect",
+    name: "ZL|Pro",
     subtitle: "Inspektionsvertrag",
     description:
       "Planbare Inspektionskosten in einem festen Vertrag. Arbeitszeit, Anfahrt, Original-Wartungsteile und UVV-Prüfung sind bereits enthalten. So bleiben Ihre Maschinen zuverlässig im Einsatz – ohne Überraschungen bei den Kosten.",
@@ -53,15 +53,16 @@ const packages = [
     highlight: true,
   },
   {
-    name: "Z|Repair",
+    name: "ZL|Complete",
     subtitle: "Full-Service-Vertrag",
     description:
-      "Ihr Rundum-Servicevertrag für Wartung und Reparatur. Neben allen Inspektionen sind auch Reparaturen inklusive – mit Ersatzteilen, Arbeitslohn und Anfahrt. So vermeiden Sie ungeplante Kosten und sichern maximale Maschinenverfügbarkeit.",
+      "Ihr Rundum-Sorglos-Paket für Wartung und Reparatur. Neben allen Inspektionen sind auch Reparaturen inklusive – mit Ersatzteilen, Arbeitslohn und Anfahrt. Im Reparaturfall erhalten Sie kostenlos ein baugleiches oder höherwertiges Ersatzgerät, damit Sie weiterarbeiten können. So vermeiden Sie ungeplante Kosten und Stillstände.",
     icon: Wrench,
     features: [
       { label: "Wartungsteile", value: "Original Zoomlion" },
       { label: "Wartung", value: "inklusive" },
       { label: "Reparaturen", value: "inklusive" },
+      { label: "Ersatzgerät", value: "inklusive" },
       { label: "UVV-Prüfung", value: "inklusive" },
       { label: "Öldiagnose", value: "inklusive" },
       { label: "Ölversorgung", value: "optional" },
