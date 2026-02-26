@@ -55,6 +55,7 @@ import zs1018rtImage from "@/assets/platforms/zs1018rt.png";
 import zs1218rtImage from "@/assets/platforms/zs1218rt.png";
 import zs1023rtImage from "@/assets/platforms/zs1023rt.png";
 import zs1323rtImage from "@/assets/platforms/zs1323rt.png";
+import zs1623rtImage from "@/assets/platforms/zs1623rt.png";
 
 // Teleskoplader-Bilder
 import zth2506Image from "@/assets/telehandlers/zth2506.png";
@@ -822,8 +823,9 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: false,
     uvpPrice: 97363.42,
     features: ["Geländegängig", "Diesel", "18m Arbeitshöhe"],
-    image: "/placeholder.svg",
-    description: "Große Diesel-Geländescherenbühne."
+    image: zs1623rtImage,
+    description: "Große Diesel-Geländescherenbühne.",
+    datasheet: "/datasheets/zs1623rt.pdf"
   },
   // Electric Rough Terrain
   {
