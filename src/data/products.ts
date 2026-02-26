@@ -57,6 +57,7 @@ import zs1023rtImage from "@/assets/platforms/zs1023rt.png";
 import zs1323rtImage from "@/assets/platforms/zs1323rt.png";
 import zs1623rtImage from "@/assets/platforms/zs1623rt.png";
 import zs2023ertImage from "@/assets/platforms/zs2023ert.png";
+import zx27aeImage from "@/assets/platforms/zx27ae.png";
 
 // Teleskoplader-Bilder
 import zth2506Image from "@/assets/telehandlers/zth2506.png";
@@ -1513,8 +1514,9 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: false,
     uvpPrice: 215592.30,
     features: ["Spinnenbühne", "Elektro", "27m Arbeitshöhe"],
-    image: "/placeholder.svg",
-    description: "Große elektrische Spinnenbühne."
+    image: zx27aeImage,
+    description: "Große elektrische Spinnenbühne.",
+    datasheet: "/datasheets/zx27ae.pdf"
   }
 ];
 
