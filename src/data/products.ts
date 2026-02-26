@@ -50,6 +50,7 @@ import zs0808hdImage from "@/assets/platforms/zs0808hd.png";
 import zs1012hdImage from "@/assets/platforms/zs1012hd.png";
 import zs1212hdImage from "@/assets/platforms/zs1212hd.png";
 import zs1414hdImage from "@/assets/platforms/zs1414hd.png";
+import zs1414hdLiImage from "@/assets/platforms/zs1414hd-li.png";
 
 // Teleskoplader-Bilder
 import zth2506Image from "@/assets/telehandlers/zth2506.png";
@@ -688,9 +689,9 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: true,
     uvpPrice: 33393.36,
     features: ["HD-Serie", "Lithium-Ionen Akku"],
-    image: zs1414hdImage,
+    image: zs1414hdLiImage,
     description: "Scherenarbeitsbühne HD-Serie mit Lithium-Akku.",
-    datasheet: "/datasheets/zs1414hd.pdf"
+    datasheet: "/datasheets/zs1414hd-li.pdf"
   },
   // Raupenscherenbühne
   {
