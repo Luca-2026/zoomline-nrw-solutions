@@ -51,6 +51,7 @@ import zs1012hdImage from "@/assets/platforms/zs1012hd.png";
 import zs1212hdImage from "@/assets/platforms/zs1212hd.png";
 import zs1414hdImage from "@/assets/platforms/zs1414hd.png";
 import zs1414hdLiImage from "@/assets/platforms/zs1414hd-li.png";
+import zs1018rtImage from "@/assets/platforms/zs1018rt.png";
 
 // Teleskoplader-Bilder
 import zth2506Image from "@/assets/telehandlers/zth2506.png";
@@ -754,8 +755,9 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: false,
     uvpPrice: 58093.42,
     features: ["Geländegängig", "Diesel", "500kg Tragkraft"],
-    image: "/placeholder.svg",
-    description: "Diesel-Geländescherenbühne."
+    image: zs1018rtImage,
+    description: "Diesel-Geländescherenbühne.",
+    datasheet: "/datasheets/zs1018rt.pdf"
   },
   {
     id: "zs1218rt",
