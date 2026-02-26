@@ -13,6 +13,7 @@ const navigation = [
   { name: "Teleskoplader", href: "/teleskoplader" },
   { name: "Finanzierung", href: "/finanzierung" },
   { name: "Service", href: "/service" },
+  { name: "Serviceverträge", href: "/servicevertraege" },
   { name: "Standorte", href: "/standorte" },
   { name: "Kontakt", href: "/kontakt" },
 ];
