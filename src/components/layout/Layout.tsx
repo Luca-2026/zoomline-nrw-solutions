@@ -2,6 +2,7 @@ import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { CTABar } from "../shared/CTABar";
 import { CookieConsent } from "../shared/CookieConsent";
+import { ChatWidget } from "../chat/ChatWidget";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -16,6 +17,7 @@ export function Layout({ children, showCTABar = true }: LayoutProps) {
       {showCTABar && <CTABar />}
       <Footer />
       <CookieConsent />
+      <ChatWidget />
     </div>
   );
 }
