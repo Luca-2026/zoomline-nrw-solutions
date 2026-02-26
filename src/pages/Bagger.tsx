@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
@@ -12,24 +13,20 @@ const Bagger = () => {
     "description": "Übersicht aller Zoomlion Minibagger und Kompaktbagger zum Kauf in Nordrhein-Westfalen. Von 1,8 bis 25 Tonnen.",
     "numberOfItems": 15,
     "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "ZE18GU Minibagger",
-        "url": "https://www.zoomlion-nrw.de/bagger#ze18gu"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "ZE36GU Minibagger",
-        "url": "https://www.zoomlion-nrw.de/bagger#ze36gu"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "name": "ZE75G Kompaktbagger",
-        "url": "https://www.zoomlion-nrw.de/bagger#ze75g"
-      }
+      { "@type": "ListItem", "position": 1, "name": "ZE18GU Minibagger", "url": "https://www.zoomlion-nrw.de/bagger#ze18gu" },
+      { "@type": "ListItem", "position": 2, "name": "ZE36GU Minibagger", "url": "https://www.zoomlion-nrw.de/bagger#ze36gu" },
+      { "@type": "ListItem", "position": 3, "name": "ZE75G Kompaktbagger", "url": "https://www.zoomlion-nrw.de/bagger#ze75g" }
+    ]
+  };
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Welcher Minibagger eignet sich für den Garten- und Landschaftsbau?", "acceptedAnswer": { "@type": "Answer", "text": "Für GaLaBau-Arbeiten empfehlen wir den ZE18GU (1,8t) oder ZE36GU (3,6t). Diese Modelle sind kompakt, wendig und schonen empfindliche Rasenflächen." } },
+      { "@type": "Question", "name": "Gibt es Elektro-Minibagger bei Zoomlion?", "acceptedAnswer": { "@type": "Answer", "text": "Ja, wir führen Elektro-Minibagger für emissionsfreies und leises Arbeiten." } },
+      { "@type": "Question", "name": "Wie lange ist die Garantie auf einen Zoomlion Minibagger?", "acceptedAnswer": { "@type": "Answer", "text": "Alle Zoomlion Minibagger haben 3 Jahre Garantie oder 3.000 Betriebsstunden." } },
+      { "@type": "Question", "name": "Kann ich meinen alten Bagger in Zahlung geben?", "acceptedAnswer": { "@type": "Answer", "text": "Ja, wir nehmen Ihren Gebrauchtbagger in Zahlung – unabhängig vom Hersteller." } }
     ]
   };
 
@@ -57,9 +54,11 @@ const Bagger = () => {
         <meta property="og:url" content="https://www.zoomlion-nrw.de/bagger" />
         <meta property="og:type" content="website" />
         
-        {/* Structured Data */}
         <script type="application/ld+json">
           {JSON.stringify(productSchema)}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify(faqSchema)}
         </script>
       </Helmet>
 
@@ -102,10 +101,35 @@ const Bagger = () => {
             <h3 className="font-heading text-xl font-bold mt-6 mb-3">Minibagger für jeden Einsatzbereich</h3>
             <p>
               Von kompakten <strong>1,8-Tonnen-Minibaggern</strong> für beengte Baustellen bis hin zu leistungsstarken 
-              <strong>Kompaktbaggern bis 25 Tonnen</strong> für schwere Einsätze im Tiefbau – unser Sortiment deckt 
+              <strong> Kompaktbaggern bis 25 Tonnen</strong> für schwere Einsätze im Tiefbau – unser Sortiment deckt 
               alle Anforderungen ab. Alle Modelle überzeugen durch <strong>deutsche Qualitätsstandards</strong> und 
               ein <strong>hervorragendes Preis-Leistungs-Verhältnis</strong>.
             </p>
+            <p>
+              Für die <Link to="/service" className="text-primary hover:underline font-medium">regelmäßige Wartung Ihres Baggers</Link> bieten wir 
+              maßgeschneiderte <Link to="/servicevertraege" className="text-primary hover:underline font-medium">Serviceverträge</Link> an – 
+              inklusive UVV-Prüfung. Berechnen Sie Ihre monatliche Rate mit unserem <Link to="/finanzierung" className="text-primary hover:underline font-medium">Finanzierungsrechner</Link>.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-12">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <h2 className="font-heading text-2xl font-bold mb-6 text-center">Häufige Fragen zum Minibagger-Kauf</h2>
+          <div className="space-y-4">
+            {[
+              { q: "Welcher Minibagger eignet sich für den Garten- und Landschaftsbau?", a: "Für GaLaBau-Arbeiten empfehlen wir den ZE18GU (1,8t) oder ZE36GU (3,6t). Diese Modelle sind kompakt, wendig und schonen empfindliche Rasenflächen dank geringer Bodenbelastung." },
+              { q: "Gibt es Elektro-Minibagger bei Zoomlion?", a: "Ja, wir führen Elektro-Minibagger für emissionsfreies und leises Arbeiten – ideal für den Einsatz in Innenstädten, Hallen und sensiblen Bereichen." },
+              { q: "Wie lange ist die Garantie auf einen Zoomlion Minibagger?", a: "Alle Zoomlion Minibagger haben 3 Jahre Garantie oder 3.000 Betriebsstunden. Bei einem Servicevertrag profitieren Sie zusätzlich von planbaren Wartungskosten." },
+              { q: "Kann ich meinen alten Bagger in Zahlung geben?", a: "Ja, wir nehmen Ihren Gebrauchtbagger in Zahlung – unabhängig vom Hersteller. Sprechen Sie uns an für eine unverbindliche Bewertung." },
+            ].map((faq) => (
+              <div key={faq.q} className="p-5 rounded-xl border border-border bg-card">
+                <h3 className="font-heading font-bold mb-2">{faq.q}</h3>
+                <p className="text-sm text-muted-foreground">{faq.a}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>

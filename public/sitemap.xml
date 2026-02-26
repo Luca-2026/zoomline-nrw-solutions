@@ -4,7 +4,7 @@
   <!-- Homepage - Höchste Priorität -->
   <url>
     <loc>https://www.zoomlion-nrw.de/</loc>
-    <lastmod>2026-01-23</lastmod>
+    <lastmod>2026-02-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
@@ -12,7 +12,7 @@
   <!-- Produktseiten - Hohe Priorität für Kaufintention -->
   <url>
     <loc>https://www.zoomlion-nrw.de/arbeitsbuehnen</loc>
-    <lastmod>2026-01-23</lastmod>
+    <lastmod>2026-02-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <image:image>
@@ -24,7 +24,7 @@
   
   <url>
     <loc>https://www.zoomlion-nrw.de/bagger</loc>
-    <lastmod>2026-01-23</lastmod>
+    <lastmod>2026-02-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
     <image:image>
@@ -34,7 +34,6 @@
     </image:image>
   </url>
   
-  <!-- Teleskoplader - Produktseite -->
   <url>
     <loc>https://www.zoomlion-nrw.de/teleskoplader</loc>
     <lastmod>2026-02-26</lastmod>
@@ -50,15 +49,31 @@
   <!-- Hot Deals - Aktionsseite -->
   <url>
     <loc>https://www.zoomlion-nrw.de/hot-deals</loc>
-    <lastmod>2026-01-23</lastmod>
+    <lastmod>2026-02-26</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
+  </url>
+  
+  <!-- Service & Wartung - Hohes Suchvolumen -->
+  <url>
+    <loc>https://www.zoomlion-nrw.de/service</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  
+  <!-- Serviceverträge - Wichtiges Conversion-Thema -->
+  <url>
+    <loc>https://www.zoomlion-nrw.de/servicevertraege</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
   </url>
   
   <!-- Finanzierung - Wichtig für Kaufentscheidung -->
   <url>
     <loc>https://www.zoomlion-nrw.de/finanzierung</loc>
-    <lastmod>2026-01-23</lastmod>
+    <lastmod>2026-02-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
@@ -66,23 +81,15 @@
   <!-- Standorte - Lokal SEO -->
   <url>
     <loc>https://www.zoomlion-nrw.de/standorte</loc>
-    <lastmod>2026-01-23</lastmod>
+    <lastmod>2026-02-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
-  </url>
-  
-  <!-- Service - Vertrauensbildung -->
-  <url>
-    <loc>https://www.zoomlion-nrw.de/service</loc>
-    <lastmod>2026-01-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
   
   <!-- Kontakt - Lead-Generierung -->
   <url>
     <loc>https://www.zoomlion-nrw.de/kontakt</loc>
-    <lastmod>2026-01-23</lastmod>
+    <lastmod>2026-02-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -90,7 +97,7 @@
   <!-- FAQ - Long-Tail Keywords -->
   <url>
     <loc>https://www.zoomlion-nrw.de/faq</loc>
-    <lastmod>2026-01-23</lastmod>
+    <lastmod>2026-02-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
@@ -98,22 +105,84 @@
   <!-- Über uns -->
   <url>
     <loc>https://www.zoomlion-nrw.de/ueber-uns</loc>
-    <lastmod>2026-01-23</lastmod>
+    <lastmod>2026-02-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+  
+  <!-- Regionale Stadtseiten - Local SEO -->
+  <url>
+    <loc>https://www.zoomlion-nrw.de/baumaschinen/koeln</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.zoomlion-nrw.de/baumaschinen/duesseldorf</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.zoomlion-nrw.de/baumaschinen/bonn</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.zoomlion-nrw.de/baumaschinen/essen</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.zoomlion-nrw.de/baumaschinen/dortmund</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.zoomlion-nrw.de/baumaschinen/duisburg</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.zoomlion-nrw.de/baumaschinen/krefeld</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.zoomlion-nrw.de/baumaschinen/muelheim</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.zoomlion-nrw.de/baumaschinen/aachen</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.zoomlion-nrw.de/baumaschinen/wuppertal</loc>
+    <lastmod>2026-02-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   
   <!-- Rechtliches -->
   <url>
     <loc>https://www.zoomlion-nrw.de/datenschutz</loc>
-    <lastmod>2026-01-23</lastmod>
+    <lastmod>2026-02-26</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   
   <url>
     <loc>https://www.zoomlion-nrw.de/impressum</loc>
-    <lastmod>2026-01-23</lastmod>
+    <lastmod>2026-02-26</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
