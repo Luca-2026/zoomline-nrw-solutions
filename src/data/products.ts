@@ -47,6 +47,7 @@ import zs1414haImage from "@/assets/platforms/zs1414ha.png";
 import zs1414haLiImage from "@/assets/platforms/zs1414ha-li.png";
 import zs0607hdImage from "@/assets/platforms/zs0607hd.png";
 import zs0808hdImage from "@/assets/platforms/zs0808hd.png";
+import zs1012hdImage from "@/assets/platforms/zs1012hd.png";
 
 // Teleskoplader-Bilder
 import zth2506Image from "@/assets/telehandlers/zth2506.png";
@@ -588,8 +589,9 @@ export const aerialPlatforms: AerialPlatform[] = [
     lithiumBattery: false,
     uvpPrice: 21912.66,
     features: ["HD-Serie"],
-    image: "/placeholder.svg",
-    description: "Scherenarbeitsbühne HD-Serie."
+    image: zs1012hdImage,
+    description: "Scherenarbeitsbühne HD-Serie.",
+    datasheet: "/datasheets/zs1012hd.pdf"
   },
   {
     id: "zs1212hd",
