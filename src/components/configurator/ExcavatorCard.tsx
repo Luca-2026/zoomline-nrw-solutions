@@ -43,7 +43,7 @@ export function ExcavatorCard({ product, onInquiry }: ExcavatorCardProps) {
           <img
             src={product.image}
             alt={`Zoomlion ${product.name} ${product.categoryLabel} kaufen - ${(product.operatingWeight / 1000).toFixed(1)}t Betriebsgewicht, ${product.power} Leistung`}
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            className="absolute inset-0 w-full h-full object-contain p-2 transition-transform duration-300 group-hover:scale-105"
           />
         )}
         <div className="absolute top-3 left-3 flex gap-2">

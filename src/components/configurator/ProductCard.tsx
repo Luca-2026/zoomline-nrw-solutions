@@ -36,7 +36,7 @@ export function ProductCard({ product, onInquiry }: ProductCardProps) {
           <img
             src={product.image}
             alt={`Zoomlion ${product.name} ${product.categoryLabel} kaufen - ${product.workingHeight}m Arbeitshöhe, ${product.driveLabel} Antrieb`}
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            className="absolute inset-0 w-full h-full object-contain p-2 transition-transform duration-300 group-hover:scale-105"
           />
         )}
         <div className="absolute top-3 left-3">
