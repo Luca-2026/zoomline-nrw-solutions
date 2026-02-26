@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2, CheckCircle } from "lucide-react";
@@ -80,11 +81,13 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
     ansprechpartner: "",
     email: "",
     telefon: "",
+    strasse: "",
     plz: "",
     nachricht: "",
     rueckruf: false,
     lieferung: false,
     wartungsvertrag: false,
+    wartungsvertragMonate: "",
     dsgvo: false,
   });
 
@@ -154,8 +157,10 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
           ansprechpartner: formData.ansprechpartner,
           email: formData.email,
           telefon: formData.telefon,
+          strasse: formData.strasse || undefined,
           plz: formData.plz || undefined,
           lieferung: formData.lieferung,
+          wartungsvertragMonate: formData.wartungsvertrag ? formData.wartungsvertragMonate : undefined,
           nachricht: formData.nachricht || undefined,
           rueckruf: formData.rueckruf,
           wartungsvertrag: formData.wartungsvertrag,
@@ -185,11 +190,13 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
           ansprechpartner: "",
           email: "",
           telefon: "",
+          strasse: "",
           plz: "",
           nachricht: "",
           rueckruf: false,
           lieferung: false,
           wartungsvertrag: false,
+          wartungsvertragMonate: "",
           dsgvo: false,
         });
         setSelectedAnbaugeraete([]);
@@ -349,11 +356,22 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
           </div>
 
           <div>
-            <Label htmlFor="plz">PLZ / Einsatzort</Label>
+            <Label htmlFor="strasse">Straße / Hausnr.</Label>
+            <Input
+              id="strasse"
+              value={formData.strasse}
+              onChange={(e) => handleChange("strasse", e.target.value)}
+              placeholder="z.B. Musterstraße 12"
+            />
+          </div>
+
+          <div>
+            <Label htmlFor="plz">PLZ / Ort</Label>
             <Input
               id="plz"
               value={formData.plz}
               onChange={(e) => handleChange("plz", e.target.value)}
+              placeholder="z.B. 47807 Krefeld"
             />
           </div>
 
@@ -434,15 +452,36 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
             </Label>
           </div>
 
-          <div className="flex items-center gap-2">
-            <Checkbox
-              id="wartungsvertrag"
-              checked={formData.wartungsvertrag}
-              onCheckedChange={(v) => handleChange("wartungsvertrag", !!v)}
-            />
-            <Label htmlFor="wartungsvertrag" className="cursor-pointer">
-              Wartungsvertrag gewünscht
-            </Label>
+          <div className="space-y-2">
+            <div className="flex items-center gap-2">
+              <Checkbox
+                id="wartungsvertrag"
+                checked={formData.wartungsvertrag}
+                onCheckedChange={(v) => {
+                  handleChange("wartungsvertrag", !!v);
+                  if (!v) handleChange("wartungsvertragMonate", "");
+                }}
+              />
+              <Label htmlFor="wartungsvertrag" className="cursor-pointer">
+                Wartungsvertrag gewünscht
+              </Label>
+            </div>
+            {formData.wartungsvertrag && (
+              <div className="ml-6">
+                <Label htmlFor="wartungsvertragMonate" className="text-sm">Laufzeit</Label>
+                <Select value={formData.wartungsvertragMonate} onValueChange={(v) => handleChange("wartungsvertragMonate", v)}>
+                  <SelectTrigger id="wartungsvertragMonate" className="w-48">
+                    <SelectValue placeholder="Laufzeit wählen..." />
+                  </SelectTrigger>
+                  <SelectContent className="bg-card border border-border z-50">
+                    <SelectItem value="12">12 Monate</SelectItem>
+                    <SelectItem value="24">24 Monate</SelectItem>
+                    <SelectItem value="36">36 Monate</SelectItem>
+                    <SelectItem value="48">48 Monate</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
           </div>
 
           <div className="flex items-start gap-2">
