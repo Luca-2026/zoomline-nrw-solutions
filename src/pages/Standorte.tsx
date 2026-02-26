@@ -1,9 +1,11 @@
 import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { locations } from "@/data/products";
-import { Phone, Mail, Building2 } from "lucide-react";
+import { Phone, Mail, Building2, ArrowRight } from "lucide-react";
+import { staedte } from "@/pages/StadtSeite";
 import bonnImage from "@/assets/locations/bonn.webp";
 import krefeldImage from "@/assets/locations/krefeld.jpg";
 
@@ -125,6 +127,25 @@ const Standorte = () => {
               <li><strong>Standort Krefeld:</strong> Düsseldorf, Duisburg, Mönchengladbach, Neuss, Niederrhein</li>
               <li><strong>Standort Mülheim:</strong> Essen, Dortmund, Bochum, Oberhausen, gesamtes Ruhrgebiet</li>
             </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Städte-Links für interne Verlinkung */}
+      <section className="py-12">
+        <div className="container mx-auto px-4 max-w-5xl">
+          <h2 className="font-heading text-2xl font-bold mb-6 text-center">Baumaschinen kaufen in Ihrer Stadt</h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+            {Object.values(staedte).map((city) => (
+              <Link
+                key={city.slug}
+                to={`/baumaschinen/${city.slug}`}
+                className="group flex items-center justify-between p-3 rounded-lg border border-border bg-card hover:border-primary/30 hover:shadow-sm transition-all text-sm font-medium"
+              >
+                {city.name}
+                <ArrowRight className="h-3.5 w-3.5 text-muted-foreground group-hover:text-primary transition-colors" />
+              </Link>
+            ))}
           </div>
         </div>
       </section>
