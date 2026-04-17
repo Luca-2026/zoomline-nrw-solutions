@@ -8,7 +8,7 @@ import iconTeleskoplader from "@/assets/icons/icon-teleskoplader.svg";
 
 export function HeroSection() {
   return (
-    <section className="relative overflow-hidden min-h-[600px] bg-secondary lg:min-h-[calc(100vh-4rem)]">
+    <section className="relative overflow-hidden min-h-[calc(100vh-4rem)] bg-secondary">
       {/* Hero Background Image - Critical LCP Element */}
       <div className="absolute inset-0">
         <img 
