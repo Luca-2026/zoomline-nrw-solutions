@@ -6,6 +6,18 @@ Options -Indexes -MultiViews
   RewriteEngine On
   RewriteBase /
 
+  # ----------------------------------------------------------
+  # Canonical Host: Erzwinge https:// + www.
+  # Verhindert "Canonical points to different page"-Fehler.
+  # ----------------------------------------------------------
+  # http -> https (alle Hosts)
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^ https://www.zoomlion-nrw.de%{REQUEST_URI} [L,R=301]
+
+  # non-www -> www
+  RewriteCond %{HTTP_HOST} ^zoomlion-nrw\.de$ [NC]
+  RewriteRule ^ https://www.zoomlion-nrw.de%{REQUEST_URI} [L,R=301]
+
   # index.html nicht erneut umschreiben
   RewriteRule ^index\.html$ - [L]
 
