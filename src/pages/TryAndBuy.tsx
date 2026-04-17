@@ -5,7 +5,7 @@ import { useRef } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, ArrowRight, Wrench, Euro, Shield, Truck, Sparkles } from "lucide-react";
-import tryAndBuyImage from "@/assets/try-and-buy.png";
+import { AnimatedExcavator } from "@/components/shared/AnimatedExcavator";
 
 const benefits = [
   {
