@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { Layout } from "@/components/layout/Layout";
+import { SocialMeta } from "@/components/shared/SocialMeta";
 
 const Impressum = () => {
   const orgJsonLd = {

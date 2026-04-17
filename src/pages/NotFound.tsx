@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Home, ArrowLeft, Phone, Search } from "lucide-react";
+import { SocialMeta } from "@/components/shared/SocialMeta";
 
 const NotFound = () => {
   const location = useLocation();

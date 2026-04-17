@@ -7,6 +7,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Helmet } from "react-helmet-async";
+import { SocialMeta } from "@/components/shared/SocialMeta";
 
 const faqData = [
   {

@@ -6,6 +6,7 @@ import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, ArrowRight, Wrench, Euro, Shield, Truck, Sparkles } from "lucide-react";
 import { AnimatedExcavator } from "@/components/shared/AnimatedExcavator";
+import { SocialMeta } from "@/components/shared/SocialMeta";
 
 const benefits = [
   {
@@ -77,10 +78,13 @@ const TryAndBuy = () => {
         <title>Try & Buy – Baumaschine testen, Miete wird voll angerechnet | Zoomlion NRW</title>
         <meta name="description" content="Try & Buy bei Zoomlion NRW: Bagger, Arbeitsbühne oder Teleskoplader risikolos testen ✓ 100 % der Testmiete wird auf den Kaufpreis angerechnet ✓ Made in EU." />
         <link rel="canonical" href="https://www.zoomlion-nrw.de/try-and-buy" />
-        <meta property="og:title" content="Try & Buy – Baumaschine testen statt blind kaufen | Zoomlion NRW" />
-        <meta property="og:description" content="Testen Sie Bagger, Arbeitsbühnen & Teleskoplader im echten Einsatz. Die komplette Miete wird beim Kauf angerechnet." />
         <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
       </Helmet>
+      <SocialMeta
+        title="Try & Buy – Baumaschine testen statt blind kaufen | Zoomlion NRW"
+        description="Testen Sie Bagger, Arbeitsbühnen & Teleskoplader im echten Einsatz. Die komplette Miete wird beim Kauf angerechnet."
+        url="https://www.zoomlion-nrw.de/try-and-buy"
+      />
 
       {/* Hero with parallax */}
       <section ref={heroRef} className="relative overflow-hidden bg-secondary min-h-[calc(100vh-4rem)] flex items-center">
