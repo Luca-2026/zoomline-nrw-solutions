@@ -8,6 +8,7 @@ import { HelmetProvider } from "react-helmet-async";
 
 // Eagerly load the index page for fast initial load
 import Index from "./pages/Index";
+import { TryAndBuyModal } from "./components/shared/TryAndBuyModal";
 
 // Lazy load all other pages for code-splitting
 const Arbeitsbuehnen = lazy(() => import("./pages/Arbeitsbuehnen"));
@@ -25,6 +26,7 @@ const Impressum = lazy(() => import("./pages/Impressum"));
 const FAQ = lazy(() => import("./pages/FAQ"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const StadtSeite = lazy(() => import("./pages/StadtSeite"));
+const TryAndBuy = lazy(() => import("./pages/TryAndBuy"));
 
 const queryClient = new QueryClient();
 
@@ -45,6 +47,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <TryAndBuyModal />
           <Suspense fallback={<PageLoader />}>
             <Routes>
               <Route path="/" element={<Index />} />
@@ -62,6 +65,7 @@ const App = () => (
               <Route path="/impressum" element={<Impressum />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/baumaschinen/:stadt" element={<StadtSeite />} />
+              <Route path="/try-and-buy" element={<TryAndBuy />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>

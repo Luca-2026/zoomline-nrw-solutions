@@ -69,6 +69,14 @@
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
+
+  <!-- Try & Buy - Conversion-Asset -->
+  <url>
+    <loc>https://www.zoomlion-nrw.de/try-and-buy</loc>
+    <lastmod>2026-04-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
   
   <!-- Finanzierung - Wichtig für Kaufentscheidung -->
   <url>

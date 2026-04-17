@@ -75,6 +75,14 @@ export function Footer() {
               </li>
               <li>
                 <Link
+                  to="/try-and-buy"
+                  className="text-secondary-foreground/80 hover:text-primary transition-colors"
+                >
+                  Try & Buy
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/standorte"
                   className="text-secondary-foreground/80 hover:text-primary transition-colors"
                 >
