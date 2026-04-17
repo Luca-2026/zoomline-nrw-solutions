@@ -9,6 +9,7 @@ import { HelmetProvider } from "react-helmet-async";
 // Eagerly load the index page for fast initial load
 import Index from "./pages/Index";
 import { TryAndBuyModal } from "./components/shared/TryAndBuyModal";
+import { ScrollToTop } from "./components/shared/ScrollToTop";
 
 // Lazy load all other pages for code-splitting
 const Arbeitsbuehnen = lazy(() => import("./pages/Arbeitsbuehnen"));
@@ -47,6 +48,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
+          <ScrollToTop />
           <TryAndBuyModal />
           <Suspense fallback={<PageLoader />}>
             <Routes>
