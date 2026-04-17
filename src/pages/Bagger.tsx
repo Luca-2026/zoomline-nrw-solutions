@@ -71,6 +71,7 @@ const Bagger = () => {
             ]} 
           />
           <SectionHeading
+            as="h1"
             badge="Minibagger kaufen"
             title="Minibagger & Kompaktbagger kaufen in NRW"
             subtitle="Zoomlion Bagger von 1,8 bis 25 Tonnen – filtern, vergleichen, anfragen"

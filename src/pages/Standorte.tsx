@@ -51,8 +51,9 @@ const Standorte = () => {
             ]} 
           />
           <SectionHeading
+            as="h1"
             badge="Standorte"
-            title="3 Standorte in Nordrhein-Westfalen"
+            title="Zoomlion Standorte in NRW – Bonn, Krefeld & Mülheim"
             subtitle="Beratung, Ersatzteile & Service immer in Ihrer Nähe – Minibagger & Arbeitsbühnen kaufen"
           />
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">

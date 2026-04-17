@@ -62,8 +62,9 @@ const Kontakt = () => {
             ]} 
           />
           <SectionHeading
+            as="h1"
             badge="Kontakt"
-            title="Jetzt Angebot anfragen"
+            title="Minibagger & Arbeitsbühne anfragen – Kontakt Zoomlion NRW"
             subtitle="Wir melden uns kurzfristig mit Empfehlung, Verfügbarkeit und Preis"
           />
           <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">

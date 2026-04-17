@@ -127,8 +127,9 @@ const FAQ = () => {
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
           <SectionHeading
+            as="h1"
             badge="FAQ"
-            title="Häufig gestellte Fragen"
+            title="Häufig gestellte Fragen zu Minibaggern & Arbeitsbühnen"
             subtitle="Alles, was Sie über Zoomlion Arbeitsbühnen und Bagger wissen müssen"
           />
 

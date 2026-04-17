@@ -92,8 +92,9 @@ const Finanzierung = () => {
             ]} 
           />
           <SectionHeading
+            as="h1"
             badge="Finanzierung"
-            title="Finanzierungsrechner"
+            title="Minibagger & Arbeitsbühne finanzieren – Online-Rechner"
             subtitle="Berechnen Sie Ihre monatliche Rate – schnell, transparent und unverbindlich"
           />
 

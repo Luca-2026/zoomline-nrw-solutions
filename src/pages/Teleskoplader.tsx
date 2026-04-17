@@ -117,6 +117,7 @@ const Teleskoplader = () => {
             ]} 
           />
           <SectionHeading
+            as="h1"
             badge="Teleskoplader kaufen"
             title="Teleskoplader kaufen in NRW"
             subtitle="Zoomlion Telehandler – drehbar & starr – filtern, vergleichen, anfragen"
