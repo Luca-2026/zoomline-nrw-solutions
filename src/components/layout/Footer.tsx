@@ -239,6 +239,14 @@ export function Footer() {
               { name: "Mülheim", slug: "muelheim" },
               { name: "Aachen", slug: "aachen" },
               { name: "Wuppertal", slug: "wuppertal" },
+              { name: "Mönchengladbach", slug: "moenchengladbach" },
+              { name: "Münster", slug: "muenster" },
+              { name: "Bielefeld", slug: "bielefeld" },
+              { name: "Bochum", slug: "bochum" },
+              { name: "Leverkusen", slug: "leverkusen" },
+              { name: "Solingen", slug: "solingen" },
+              { name: "Oberhausen", slug: "oberhausen" },
+              { name: "Gelsenkirchen", slug: "gelsenkirchen" },
             ].map((city) => (
               <Link
                 key={city.slug}
