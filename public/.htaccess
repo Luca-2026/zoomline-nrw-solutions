@@ -15,7 +15,12 @@ Options -Indexes -MultiViews
   RewriteCond %{REQUEST_FILENAME} -l
   RewriteRule ^ - [L]
 
-  # Deep-Links der SPA immer auf index.html
+  # Prerendered Routen: /bagger -> /bagger/index.html (etc.)
+  # Pruefe explizit, ob ein gleichnamiges Verzeichnis mit index.html existiert
+  RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f
+  RewriteRule ^([^/]+(?:/[^/]+)*)/?$ /$1/index.html [L]
+
+  # Restliche Deep-Links der SPA auf root index.html (Fallback)
   RewriteRule ^.*$ /index.html [L]
 </IfModule>
 
