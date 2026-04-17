@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { Layout } from "@/components/layout/Layout";
+import { SocialMeta } from "@/components/shared/SocialMeta";
 
 const Datenschutz = () => (
   <Layout>
@@ -9,6 +10,11 @@ const Datenschutz = () => (
       <meta name="robots" content="index, follow" />
       <link rel="canonical" href="https://www.zoomlion-nrw.de/datenschutz" />
     </Helmet>
+    <SocialMeta
+      title="Datenschutzerklärung – Zoomlion NRW"
+      description="Datenschutzerklärung gemäß DSGVO der SLT Technology Group GmbH & Co. KG."
+      url="https://www.zoomlion-nrw.de/datenschutz"
+    />
     <section className="py-16 md:py-24">
       <div className="container mx-auto px-4 max-w-3xl">
         <div className="mb-8 lg:mb-12 text-center">

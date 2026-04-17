@@ -4,6 +4,7 @@ import { Layout } from "@/components/layout/Layout";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { TelehandlerConfigurator } from "@/components/configurator/TelehandlerConfigurator";
+import { SocialMeta } from "@/components/shared/SocialMeta";
 
 const Teleskoplader = () => {
   const productSchema = {
@@ -105,11 +106,7 @@ const Teleskoplader = () => {
         />
         <link rel="canonical" href="https://www.zoomlion-nrw.de/teleskoplader" />
         
-        {/* Open Graph */}
-        <meta property="og:title" content="Teleskoplader kaufen NRW – Telehandler bis 25 m | Drehbar & starr" />
-        <meta property="og:description" content="Teleskoplader kaufen in NRW. Starre & Dreh-Telehandler bis 24,8 m, 4×4 Allrad, 3 Jahre Garantie." />
-        <meta property="og:url" content="https://www.zoomlion-nrw.de/teleskoplader" />
-        <meta property="og:type" content="website" />
+        {/* Open Graph & Twitter Card via SocialMeta below */}
         
         {/* Structured Data */}
         <script type="application/ld+json">
@@ -119,6 +116,11 @@ const Teleskoplader = () => {
           {JSON.stringify(productOfferSchema)}
         </script>
       </Helmet>
+      <SocialMeta
+        title="Teleskoplader kaufen NRW – Telehandler bis 25 m | Drehbar & starr"
+        description="Teleskoplader kaufen in NRW. Starre & Dreh-Telehandler bis 24,8 m, 4×4 Allrad, 3 Jahre Garantie."
+        url="https://www.zoomlion-nrw.de/teleskoplader"
+      />
 
       <section className="py-12 md:py-16">
         <div className="container mx-auto px-4">

@@ -9,6 +9,7 @@ import { ServiceTeaser } from "@/components/home/ServiceTeaser";
 import { ComparisonSection } from "@/components/home/ComparisonSection";
 import { LocationsTeaser } from "@/components/home/LocationsTeaser";
 import { ContactTeaser } from "@/components/home/ContactTeaser";
+import { SocialMeta } from "@/components/shared/SocialMeta";
 
 const Index = () => {
   const orgJsonLd = {
@@ -60,13 +61,14 @@ const Index = () => {
           content="Minibagger kaufen, Bagger kaufen, Arbeitsbühne kaufen, Hebebühne kaufen, Teleskoplader kaufen NRW, Minibagger kaufen NRW, Kompaktbagger kaufen, Scherenarbeitsbühne kaufen, Baumaschinen kaufen NRW, Telehandler kaufen, Minibagger Köln, Minibagger Düsseldorf"
         />
         <link rel="canonical" href="https://www.zoomlion-nrw.de/" />
-        <meta property="og:title" content="Minibagger & Arbeitsbühne kaufen NRW – Bagger & Teleskoplader vom Händler" />
-        <meta property="og:description" content="Minibagger, Bagger, Arbeitsbühnen & Teleskoplader kaufen in NRW. 3 Standorte, 3 Jahre Garantie, Finanzierung möglich, Made in EU." />
-        <meta property="og:url" content="https://www.zoomlion-nrw.de/" />
-        <meta property="og:type" content="website" />
         <script type="application/ld+json">{JSON.stringify(orgJsonLd)}</script>
         <script type="application/ld+json">{JSON.stringify(websiteJsonLd)}</script>
       </Helmet>
+      <SocialMeta
+        title="Minibagger & Arbeitsbühne kaufen NRW – Bagger & Teleskoplader vom Händler"
+        description="Minibagger, Bagger, Arbeitsbühnen & Teleskoplader kaufen in NRW. 3 Standorte, 3 Jahre Garantie, Finanzierung möglich, Made in EU."
+        url="https://www.zoomlion-nrw.de/"
+      />
       <HeroSection />
       <USPSection />
       <HotDealsSection />

@@ -3,6 +3,7 @@ import { Link, useParams, Navigate } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
+import { SocialMeta } from "@/components/shared/SocialMeta";
 import { TrustBadges } from "@/components/shared/TrustBadges";
 import { Button } from "@/components/ui/button";
 import {
@@ -509,16 +510,17 @@ const StadtSeite = () => {
         />
         <link rel="canonical" href={`https://www.zoomlion-nrw.de/baumaschinen/${data.slug}`} />
 
-        <meta property="og:title" content={data.metaTitle} />
-        <meta property="og:description" content={data.metaDescription} />
-        <meta property="og:url" content={`https://www.zoomlion-nrw.de/baumaschinen/${data.slug}`} />
-        <meta property="og:type" content="website" />
-        <meta property="og:locale" content="de_DE" />
+        {/* Open Graph & Twitter Card via SocialMeta below */}
 
         <script type="application/ld+json">{JSON.stringify(localBusinessSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
+      <SocialMeta
+        title={data.metaTitle}
+        description={data.metaDescription}
+        url={`https://www.zoomlion-nrw.de/baumaschinen/${data.slug}`}
+      />
 
       {/* Hero */}
       <section className="py-12 md:py-16">

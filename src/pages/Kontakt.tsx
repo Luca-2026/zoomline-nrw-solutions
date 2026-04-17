@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Phone, Mail } from "lucide-react";
 import { TrustBadges } from "@/components/shared/TrustBadges";
 import benediktImage from "@/assets/benedikt-noechel.jpg";
+import { SocialMeta } from "@/components/shared/SocialMeta";
 
 const Kontakt = () => {
   const contactSchema = {
@@ -44,14 +45,17 @@ const Kontakt = () => {
         />
         <link rel="canonical" href="https://www.zoomlion-nrw.de/kontakt" />
         
-        <meta property="og:title" content="Kontakt – Zoomlion NRW" />
-        <meta property="og:description" content="Jetzt unverbindliches Angebot für Minibagger oder Arbeitsbühnen anfragen." />
-        <meta property="og:url" content="https://www.zoomlion-nrw.de/kontakt" />
+        {/* Open Graph & Twitter Card via SocialMeta below */}
         
         <script type="application/ld+json">
           {JSON.stringify(contactSchema)}
         </script>
       </Helmet>
+      <SocialMeta
+        title="Kontakt – Zoomlion NRW"
+        description="Jetzt unverbindliches Angebot für Minibagger oder Arbeitsbühnen anfragen."
+        url="https://www.zoomlion-nrw.de/kontakt"
+      />
 
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">

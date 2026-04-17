@@ -3,6 +3,7 @@ import { Layout } from "@/components/layout/Layout";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { TrustBadges } from "@/components/shared/TrustBadges";
+import { SocialMeta } from "@/components/shared/SocialMeta";
 
 const UeberUns = () => {
   const aboutSchema = {
@@ -38,14 +39,17 @@ const UeberUns = () => {
         />
         <link rel="canonical" href="https://www.zoomlion-nrw.de/ueber-uns" />
         
-        <meta property="og:title" content="Über Zoomlion NRW – Ihr Baumaschinen-Partner" />
-        <meta property="og:description" content="Exklusiver Zoomlion Fachhändler in NRW mit 3 Standorten und erfahrenem Team." />
-        <meta property="og:url" content="https://www.zoomlion-nrw.de/ueber-uns" />
+        {/* Open Graph & Twitter Card via SocialMeta below */}
         
         <script type="application/ld+json">
           {JSON.stringify(aboutSchema)}
         </script>
       </Helmet>
+      <SocialMeta
+        title="Über Zoomlion NRW – Ihr Baumaschinen-Partner"
+        description="Exklusiver Zoomlion Fachhändler in NRW mit 3 Standorten und erfahrenem Team."
+        url="https://www.zoomlion-nrw.de/ueber-uns"
+      />
 
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4 max-w-4xl">

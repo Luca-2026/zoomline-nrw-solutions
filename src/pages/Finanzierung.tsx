@@ -8,6 +8,7 @@ import { InquiryModal } from "@/components/configurator/InquiryModal";
 import { TrustBadges } from "@/components/shared/TrustBadges";
 import { Card, CardContent } from "@/components/ui/card";
 import { CheckCircle, Calculator, Clock, Shield, Percent } from "lucide-react";
+import { SocialMeta } from "@/components/shared/SocialMeta";
 
 const Finanzierung = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -105,11 +106,14 @@ const Finanzierung = () => {
         />
         <link rel="canonical" href="https://www.zoomlion-nrw.de/finanzierung" />
         
-        <meta property="og:title" content="Baumaschinen finanzieren – Zoomlion Finanzierungsrechner" />
-        <meta property="og:description" content="Berechnen Sie Ihre monatliche Rate für Minibagger und Arbeitsbühnen. Flexible B2B-Konditionen." />
-        <meta property="og:url" content="https://www.zoomlion-nrw.de/finanzierung" />
+        {/* Open Graph & Twitter Card via SocialMeta below */}
         <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
       </Helmet>
+      <SocialMeta
+        title="Baumaschinen finanzieren – Zoomlion Finanzierungsrechner"
+        description="Berechnen Sie Ihre monatliche Rate für Minibagger und Arbeitsbühnen. Flexible B2B-Konditionen."
+        url="https://www.zoomlion-nrw.de/finanzierung"
+      />
 
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">

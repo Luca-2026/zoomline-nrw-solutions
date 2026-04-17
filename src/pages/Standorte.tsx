@@ -8,6 +8,7 @@ import { Phone, Mail, Building2, ArrowRight } from "lucide-react";
 import { staedte } from "@/pages/StadtSeite";
 import bonnImage from "@/assets/locations/bonn.webp";
 import krefeldImage from "@/assets/locations/krefeld.jpg";
+import { SocialMeta } from "@/components/shared/SocialMeta";
 
 // Mapping von Standort-IDs zu Bildern
 const locationImages: Record<string, string | null> = {
@@ -72,11 +73,14 @@ const Standorte = () => {
         />
         <link rel="canonical" href="https://www.zoomlion-nrw.de/standorte" />
         
-        <meta property="og:title" content="3 Standorte in NRW – Zoomlion Minibagger & Arbeitsbühnen" />
-        <meta property="og:description" content="Beratung, Service und Ersatzteile immer in Ihrer Nähe. 3 Standorte in Nordrhein-Westfalen." />
-        <meta property="og:url" content="https://www.zoomlion-nrw.de/standorte" />
+        {/* Open Graph & Twitter Card via SocialMeta below */}
         <script type="application/ld+json">{JSON.stringify(itemListJsonLd)}</script>
       </Helmet>
+      <SocialMeta
+        title="3 Standorte in NRW – Zoomlion Minibagger & Arbeitsbühnen"
+        description="Beratung, Service und Ersatzteile immer in Ihrer Nähe. 3 Standorte in Nordrhein-Westfalen."
+        url="https://www.zoomlion-nrw.de/standorte"
+      />
 
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">

@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { locations } from "@/data/products";
+import { SocialMeta } from "@/components/shared/SocialMeta";
 
 const servicePackages = [
   {
@@ -168,13 +169,15 @@ const Service = () => {
         <meta name="description" content="Baumaschinen Service in NRW ➤ Wartung, Reparatur & UVV-Prüfung für Arbeitsbühnen, Bagger & Teleskoplader ✓ Ersatzteile vor Ort ✓ Serviceverträge ✓ 3 Standorte. Jetzt Serviceanfrage stellen!" />
         <meta name="keywords" content="Baumaschinen Wartung NRW, UVV-Prüfung Arbeitsbühnen, Baumaschinen Reparatur, Servicevertrag Baumaschinen, Wartung Arbeitsbühne, Baumaschinen Service Krefeld, Baumaschinen Service Bonn, Ersatzteile Arbeitsbühne, Zoomlion Service" />
         <link rel="canonical" href="https://www.zoomlion-nrw.de/service" />
-        <meta property="og:title" content="Baumaschinen Wartung & Service NRW | Zoomlion" />
-        <meta property="og:description" content="Professioneller Service für Arbeitsbühnen, Bagger & Teleskoplader: Wartung, UVV-Prüfung, Reparatur und Serviceverträge an 3 Standorten in NRW." />
-        <meta property="og:url" content="https://www.zoomlion-nrw.de/service" />
-        <meta property="og:type" content="website" />
+        {/* Open Graph & Twitter Card via SocialMeta below */}
         <script type="application/ld+json">{JSON.stringify(serviceSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
+      <SocialMeta
+        title="Baumaschinen Wartung & Service NRW | Zoomlion"
+        description="Professioneller Service für Arbeitsbühnen, Bagger & Teleskoplader: Wartung, UVV-Prüfung, Reparatur und Serviceverträge an 3 Standorten in NRW."
+        url="https://www.zoomlion-nrw.de/service"
+      />
 
       {/* Hero Section */}
       <section className="relative py-16 md:py-24 bg-gradient-to-br from-primary/5 via-background to-secondary/5">

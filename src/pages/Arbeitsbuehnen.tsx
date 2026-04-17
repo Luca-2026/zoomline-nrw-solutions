@@ -4,6 +4,7 @@ import { Layout } from "@/components/layout/Layout";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { PlatformConfigurator } from "@/components/configurator/PlatformConfigurator";
+import { SocialMeta } from "@/components/shared/SocialMeta";
 
 const Arbeitsbuehnen = () => {
   const productSchema = {
@@ -48,11 +49,7 @@ const Arbeitsbuehnen = () => {
         />
         <link rel="canonical" href="https://www.zoomlion-nrw.de/arbeitsbuehnen" />
         
-        {/* Open Graph */}
-        <meta property="og:title" content="Arbeitsbühne kaufen NRW – Hebebühne, Scherenbühne & Steiger neu" />
-        <meta property="og:description" content="Arbeitsbühnen kaufen in NRW. Scherenbühnen, Teleskopbühnen bis 68 m, Elektro/Diesel/Hybrid – 3 Jahre Garantie." />
-        <meta property="og:url" content="https://www.zoomlion-nrw.de/arbeitsbuehnen" />
-        <meta property="og:type" content="website" />
+        {/* Open Graph & Twitter Card via SocialMeta below */}
         
         <script type="application/ld+json">
           {JSON.stringify(productSchema)}
@@ -61,6 +58,11 @@ const Arbeitsbuehnen = () => {
           {JSON.stringify(faqSchema)}
         </script>
       </Helmet>
+      <SocialMeta
+        title="Arbeitsbühne kaufen NRW – Hebebühne, Scherenbühne & Steiger neu"
+        description="Arbeitsbühnen kaufen in NRW. Scherenbühnen, Teleskopbühnen bis 68 m, Elektro/Diesel/Hybrid – 3 Jahre Garantie."
+        url="https://www.zoomlion-nrw.de/arbeitsbuehnen"
+      />
 
       <section className="py-12 md:py-16">
         <div className="container mx-auto px-4">
