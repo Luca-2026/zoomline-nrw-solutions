@@ -78,24 +78,24 @@ const Teleskoplader = () => {
   return (
     <Layout>
       <Helmet>
-        <title>Teleskoplader kaufen NRW | Zoomlion Telehandler ✓ 3 Jahre Garantie</title>
+        <title>Teleskoplader kaufen NRW – Telehandler bis 25 m | Drehbar & starr</title>
         <meta 
           name="title" 
-          content="Teleskoplader kaufen NRW | Zoomlion Telehandler ✓ 3 Jahre Garantie" 
+          content="Teleskoplader kaufen NRW – Telehandler bis 25 m | Drehbar & starr" 
         />
         <meta 
           name="description" 
-          content="Teleskoplader kaufen in NRW ➤ Zoomlion Telehandler bis 24,8m Arbeitshöhe ✓ Drehbar & starr ✓ 3 Jahre Garantie ✓ 4×4 Allrad ✓ Finanzierung möglich ✓ Ersatzteile vor Ort. Jetzt Angebot anfordern!" 
+          content="Teleskoplader kaufen in NRW ➤ Starre & Dreh-Telehandler bis 24,8 m Arbeitshöhe ✓ 4×4 Allrad ✓ 3 Jahre Garantie ✓ Finanzierung ✓ Anbaugeräte ✓ Made in EU. Jetzt Angebot anfordern!" 
         />
         <meta 
           name="keywords" 
-          content="Teleskoplader kaufen NRW, Teleskoplader kaufen Nordrhein-Westfalen, Telehandler kaufen, Drehteleskoplader kaufen, Teleskoplader kaufen Köln, Teleskoplader kaufen Düsseldorf, Teleskoplader kaufen Bonn, Zoomlion Teleskoplader, Teleskoplader neu kaufen, Teleskoplader finanzieren NRW, Teleskoplader Allrad, Radlader kaufen NRW, Baumaschinen kaufen NRW" 
+          content="Teleskoplader kaufen, Teleskoplader kaufen NRW, Telehandler kaufen, Telehandler kaufen NRW, Drehteleskoplader kaufen, Teleskoplader neu, Teleskoplader Allrad, Teleskoplader Landwirtschaft, Teleskoplader Bau, Teleskoplader Köln, Teleskoplader Düsseldorf, Teleskoplader Bonn, Teleskoplader finanzieren, Radlader Alternative" 
         />
         <link rel="canonical" href="https://www.zoomlion-nrw.de/teleskoplader" />
         
         {/* Open Graph */}
-        <meta property="og:title" content="Teleskoplader kaufen NRW | Zoomlion Telehandler" />
-        <meta property="og:description" content="Teleskoplader kaufen in NRW beim exklusiven Zoomlion Fachhändler. Drehbar und starr, bis 24,8m Arbeitshöhe, mit 3 Jahren Garantie." />
+        <meta property="og:title" content="Teleskoplader kaufen NRW – Telehandler bis 25 m | Drehbar & starr" />
+        <meta property="og:description" content="Teleskoplader kaufen in NRW. Starre & Dreh-Telehandler bis 24,8 m, 4×4 Allrad, 3 Jahre Garantie." />
         <meta property="og:url" content="https://www.zoomlion-nrw.de/teleskoplader" />
         <meta property="og:type" content="website" />
         

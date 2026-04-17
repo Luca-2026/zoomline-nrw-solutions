@@ -33,24 +33,24 @@ const Bagger = () => {
   return (
     <Layout>
       <Helmet>
-        <title>Minibagger kaufen NRW | Zoomlion Kompaktbagger ✓ 3 Jahre Garantie</title>
+        <title>Minibagger kaufen NRW – Bagger 1,8–25t neu | Sofort verfügbar</title>
         <meta 
           name="title" 
-          content="Minibagger kaufen NRW | Zoomlion Kompaktbagger ✓ 3 Jahre Garantie" 
+          content="Minibagger kaufen NRW – Bagger 1,8–25t neu | Sofort verfügbar" 
         />
         <meta 
           name="description" 
-          content="Minibagger kaufen in NRW ➤ Zoomlion Mini- & Kompaktbagger 1,8-25t ✓ 3 Jahre Garantie ✓ Elektro & Diesel ✓ Finanzierung möglich ✓ Ersatzteile vor Ort. Jetzt Angebot anfordern!" 
+          content="Minibagger & Kompaktbagger kaufen in NRW ➤ Neu von 1,8 bis 25 t ✓ Diesel & Elektro ✓ 3 Jahre Garantie ✓ Finanzierung ✓ Inzahlungnahme ✓ Ersatzteile vor Ort. Jetzt unverbindliches Angebot anfordern!" 
         />
         <meta 
           name="keywords" 
-          content="Minibagger kaufen NRW, Minibagger kaufen Köln, Minibagger kaufen Düsseldorf, Kompaktbagger kaufen, Elektro Minibagger kaufen, Kettenbagger kaufen NRW, Bagger kaufen Nordrhein-Westfalen, Zoomlion Minibagger, Minibagger neu kaufen, Bagger finanzieren NRW" 
+          content="Minibagger kaufen, Minibagger kaufen NRW, Bagger kaufen NRW, Kompaktbagger kaufen, Minibagger neu, Mini Bagger kaufen, Elektro Minibagger kaufen, Kettenbagger kaufen, Minibagger 1.8t kaufen, Minibagger 3t kaufen, Minibagger 5t kaufen, Minibagger Köln, Minibagger Düsseldorf, Minibagger Bonn, Minibagger Essen, Minibagger Dortmund, Bagger finanzieren NRW" 
         />
         <link rel="canonical" href="https://www.zoomlion-nrw.de/bagger" />
         
         {/* Open Graph */}
-        <meta property="og:title" content="Minibagger kaufen NRW | Zoomlion Kompaktbagger" />
-        <meta property="og:description" content="Minibagger kaufen in NRW beim exklusiven Zoomlion Fachhändler. Von 1,8 bis 25 Tonnen, mit 3 Jahren Garantie." />
+        <meta property="og:title" content="Minibagger kaufen NRW – Bagger 1,8–25t neu | Sofort verfügbar" />
+        <meta property="og:description" content="Minibagger & Kompaktbagger neu kaufen in NRW. Diesel & Elektro, 3 Jahre Garantie, Finanzierung möglich." />
         <meta property="og:url" content="https://www.zoomlion-nrw.de/bagger" />
         <meta property="og:type" content="website" />
         
