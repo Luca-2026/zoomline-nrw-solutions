@@ -54,11 +54,10 @@ function HotDealCard({ deal }: { deal: HotDeal }) {
 
         {/* Price */}
         <div className="mb-4 p-3 rounded-lg bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20">
-          <p className="text-xs text-muted-foreground">Aktionspreis ab</p>
+          <p className="text-xs text-muted-foreground">Aktionspreis</p>
           <p className="font-heading text-2xl font-bold text-primary">
-            {formatPrice(deal.dealPrice)}
+            Auf Anfrage
           </p>
-          <p className="text-xs text-muted-foreground">(zzgl. USt.)</p>
         </div>
 
         {/* Key Specs */}
