@@ -16,36 +16,59 @@ const Teleskoplader = () => {
       {
         "@type": "ListItem",
         "position": 1,
-        "name": "ZTH2506 Teleskoplader",
-        "url": "https://www.zoomlion-nrw.de/teleskoplader#zth2506"
+        "item": {
+          "@type": "Product",
+          "name": "Zoomlion ZTH2506 Teleskoplader",
+          "url": "https://www.zoomlion-nrw.de/teleskoplader#zth2506",
+          "brand": { "@type": "Brand", "name": "Zoomlion" }
+        }
       },
       {
         "@type": "ListItem",
         "position": 2,
-        "name": "ZTH3507 Teleskoplader",
-        "url": "https://www.zoomlion-nrw.de/teleskoplader#zth3507"
+        "item": {
+          "@type": "Product",
+          "name": "Zoomlion ZTH3507 Teleskoplader",
+          "url": "https://www.zoomlion-nrw.de/teleskoplader#zth3507",
+          "brand": { "@type": "Brand", "name": "Zoomlion" }
+        }
       },
       {
         "@type": "ListItem",
         "position": 3,
-        "name": "ZTH3513 Teleskoplader",
-        "url": "https://www.zoomlion-nrw.de/teleskoplader#zth3513"
+        "item": {
+          "@type": "Product",
+          "name": "Zoomlion ZTH3513 Teleskoplader",
+          "url": "https://www.zoomlion-nrw.de/teleskoplader#zth3513",
+          "brand": { "@type": "Brand", "name": "Zoomlion" }
+        }
       },
       {
         "@type": "ListItem",
         "position": 4,
-        "name": "ZTH4518R Drehteleskoplader",
-        "url": "https://www.zoomlion-nrw.de/teleskoplader#zth4518r"
+        "item": {
+          "@type": "Product",
+          "name": "Zoomlion ZTH4518R Drehteleskoplader",
+          "url": "https://www.zoomlion-nrw.de/teleskoplader#zth4518r",
+          "brand": { "@type": "Brand", "name": "Zoomlion" }
+        }
       },
       {
         "@type": "ListItem",
         "position": 5,
-        "name": "ZTH4525R Drehteleskoplader",
-        "url": "https://www.zoomlion-nrw.de/teleskoplader#zth4525r"
+        "item": {
+          "@type": "Product",
+          "name": "Zoomlion ZTH4525R Drehteleskoplader",
+          "url": "https://www.zoomlion-nrw.de/teleskoplader#zth4525r",
+          "brand": { "@type": "Brand", "name": "Zoomlion" }
+        }
       }
     ]
   };
 
+  // Note: Product/AggregateOffer requires lowPrice (and highPrice) for Google Rich Results.
+  // Since prices are "auf Anfrage" / per quote, we omit the offers entirely to avoid
+  // a "Missing field 'lowPrice'" error. The Product remains valid without offers.
   const productOfferSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -61,18 +84,7 @@ const Teleskoplader = () => {
       "@type": "Organization",
       "name": "Zoomlion Heavy Industry Science & Technology Co., Ltd."
     },
-    "category": "Teleskoplader",
-    "offers": {
-      "@type": "AggregateOffer",
-      "priceCurrency": "EUR",
-      "availability": "https://schema.org/InStock",
-      "offerCount": "5",
-      "seller": {
-        "@type": "Organization",
-        "name": "Zoomlion NRW",
-        "@id": "https://www.zoomlion-nrw.de/#organization"
-      }
-    }
+    "category": "Teleskoplader"
   };
 
   return (
