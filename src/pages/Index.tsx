@@ -9,6 +9,7 @@ import { ServiceTeaser } from "@/components/home/ServiceTeaser";
 import { ComparisonSection } from "@/components/home/ComparisonSection";
 import { LocationsTeaser } from "@/components/home/LocationsTeaser";
 import { ContactTeaser } from "@/components/home/ContactTeaser";
+import { SocialMeta } from "@/components/shared/SocialMeta";
 
 const Index = () => {
   const orgJsonLd = {
