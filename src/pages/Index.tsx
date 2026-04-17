@@ -31,9 +31,9 @@ const Index = () => {
         <meta property="og:type" content="website" />
       </Helmet>
       <HeroSection />
+      <USPSection />
       <HotDealsSection />
       <ProductCategories />
-      <USPSection />
       <FinancingTeaser />
       <ServiceTeaser />
       <ComparisonSection />
