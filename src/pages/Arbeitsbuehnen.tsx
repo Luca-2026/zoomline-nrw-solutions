@@ -4,6 +4,7 @@ import { Layout } from "@/components/layout/Layout";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { PlatformConfigurator } from "@/components/configurator/PlatformConfigurator";
+import { SocialMeta } from "@/components/shared/SocialMeta";
 
 const Arbeitsbuehnen = () => {
   const productSchema = {

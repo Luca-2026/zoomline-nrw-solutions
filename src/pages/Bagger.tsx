@@ -4,6 +4,7 @@ import { Layout } from "@/components/layout/Layout";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { ExcavatorConfigurator } from "@/components/configurator/ExcavatorConfigurator";
+import { SocialMeta } from "@/components/shared/SocialMeta";
 
 const Bagger = () => {
   const productSchema = {
