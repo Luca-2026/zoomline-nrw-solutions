@@ -37,6 +37,11 @@ const Impressum = () => {
       <link rel="canonical" href="https://www.zoomlion-nrw.de/impressum" />
       <script type="application/ld+json">{JSON.stringify(orgJsonLd)}</script>
     </Helmet>
+    <SocialMeta
+      title="Impressum – SLT Technology Group GmbH & Co. KG | Zoomlion NRW"
+      description="Impressum von Zoomlion NRW – SLT Technology Group GmbH & Co. KG, Anrather Straße 291, 47807 Krefeld."
+      url="https://www.zoomlion-nrw.de/impressum"
+    />
     <section className="py-16 md:py-24">
       <div className="container mx-auto px-4 max-w-3xl">
         <div className="mb-8 lg:mb-12 text-center">
