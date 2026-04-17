@@ -206,6 +206,27 @@ async function writeRouteHtml(route, template) {
   return outPath;
 }
 
+// ---- Sitemap-Generierung (Trailing-Slash, konsistent zu Canonicals + Apache 301)
+function buildSitemap(routes) {
+  const today = new Date().toISOString().slice(0, 10);
+  const urls = routes
+    .map((r) => {
+      const { priority, changefreq } = sitemapMeta(r.path);
+      return `  <url>
+    <loc>${canonicalUrl(r.path)}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>${changefreq}</changefreq>
+    <priority>${priority}</priority>
+  </url>`;
+    })
+    .join("\n");
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls}
+</urlset>
+`;
+}
+
 // ---- Main
 async function main() {
   if (!existsSync(distIndexPath)) {
@@ -230,6 +251,9 @@ async function main() {
     count++;
     console.log(`  ✓ ${route.path.padEnd(35)} → ${out.replace(projectRoot + "/", "")}`);
   }
+
+  await writeFile(sitemapPath, buildSitemap(allRoutes), "utf8");
+  console.log(`[prerender] sitemap.xml geschrieben (${allRoutes.length} URLs, Trailing-Slash).`);
 
   console.log(`[prerender] Fertig: ${count} Seiten geschrieben.`);
 }
