@@ -124,6 +124,11 @@ const FAQ = () => {
           {JSON.stringify(faqSchema)}
         </script>
       </Helmet>
+      <SocialMeta
+        title="FAQ – Häufige Fragen zu Zoomlion Baumaschinen"
+        description="Häufig gestellte Fragen zu Zoomlion Arbeitsbühnen und Baggern. Kauf, Service, Garantie und Ersatzteile bei Ihrem Fachhändler in NRW."
+        url="https://www.zoomlion-nrw.de/faq"
+      />
 
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
