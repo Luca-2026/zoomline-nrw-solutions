@@ -32,6 +32,26 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const projectRoot = resolve(__dirname, "..");
 const distDir = join(projectRoot, "dist");
 const distIndexPath = join(distDir, "index.html");
+const sitemapPath = join(distDir, "sitemap.xml");
+
+// Priority + changefreq pro Pfad für sitemap.xml
+function sitemapMeta(path) {
+  if (path === "/") return { priority: "1.0", changefreq: "weekly" };
+  if (path === "/hot-deals") return { priority: "0.9", changefreq: "daily" };
+  if (path.startsWith("/baumaschinen/")) return { priority: "0.7", changefreq: "monthly" };
+  if (["/bagger", "/arbeitsbuehnen", "/teleskoplader"].includes(path))
+    return { priority: "0.95", changefreq: "weekly" };
+  if (["/try-and-buy", "/service"].includes(path))
+    return { priority: "0.9", changefreq: "monthly" };
+  if (["/servicevertraege", "/finanzierung", "/standorte"].includes(path))
+    return { priority: "0.85", changefreq: "monthly" };
+  if (path === "/kontakt") return { priority: "0.8", changefreq: "monthly" };
+  if (path === "/faq") return { priority: "0.75", changefreq: "monthly" };
+  if (path === "/ueber-uns") return { priority: "0.6", changefreq: "monthly" };
+  if (["/datenschutz", "/impressum"].includes(path))
+    return { priority: "0.3", changefreq: "yearly" };
+  return { priority: "0.7", changefreq: "monthly" };
+}
 
 // ---- HTML-Helfer
 const escapeHtml = (str) =>
