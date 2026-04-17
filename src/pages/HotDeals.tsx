@@ -70,11 +70,10 @@ function HotDealDetailCard({ deal, onInquiry }: { deal: HotDeal; onInquiry: () =
 
           {/* Price */}
           <div className="mb-6 p-4 rounded-xl bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20">
-            <p className="text-sm text-muted-foreground">Aktionspreis ab nur</p>
+            <p className="text-sm text-muted-foreground">Aktionspreis</p>
             <p className="font-heading text-3xl md:text-4xl font-bold text-primary">
-              {formatPrice(deal.dealPrice)}
+              Auf Anfrage
             </p>
-            <p className="text-sm text-muted-foreground">(zzgl. USt.)</p>
           </div>
 
           {/* All Specs */}
@@ -133,7 +132,7 @@ export default function HotDeals() {
     setSelectedDeal(deal);
     setFormData((prev) => ({
       ...prev,
-      message: `Ich interessiere mich für das Hot Deal Angebot: ${deal.name} (${deal.typeLabel}) zum Aktionspreis von ${formatPrice(deal.dealPrice)} zzgl. USt.`,
+      message: `Ich interessiere mich für das Hot Deal Angebot: ${deal.name} (${deal.typeLabel}). Bitte senden Sie mir den Aktionspreis zu.`,
     }));
     setModalOpen(true);
   };
@@ -163,7 +162,7 @@ export default function HotDeals() {
           filters: {
             dealName: selectedDeal?.name,
             dealType: selectedDeal?.typeLabel,
-            dealPrice: selectedDeal ? formatPrice(selectedDeal.dealPrice) : "",
+            dealPrice: "Auf Anfrage",
           },
           wartungsvertrag: formData.wartungsvertrag,
           financing: financingData.financingRequested ? {
@@ -367,11 +366,10 @@ export default function HotDeals() {
                 <>
                   <span className="font-semibold text-foreground">{selectedDeal.name}</span>
                   {" – "}
-                  {selectedDeal.typeLabel} zum Aktionspreis von{" "}
+                  {selectedDeal.typeLabel} –{" "}
                   <span className="font-semibold text-primary">
-                    {formatPrice(selectedDeal.dealPrice)}
-                  </span>{" "}
-                  (zzgl. USt.)
+                    Aktionspreis auf Anfrage
+                  </span>
                 </>
               )}
             </DialogDescription>
