@@ -50,11 +50,11 @@ const Index = () => {
   return (
     <Layout showCTABar={false}>
       <Helmet>
-        <title>Minibagger & Arbeitsbühne kaufen NRW – Bagger, Hebebühne & Teleskoplader</title>
-        <meta name="title" content="Minibagger & Arbeitsbühne kaufen NRW – Bagger, Hebebühne & Teleskoplader" />
+        <title>Minibagger & Arbeitsbühne kaufen NRW – Bagger & Teleskoplader</title>
+        <meta name="title" content="Minibagger & Arbeitsbühne kaufen NRW – Bagger & Teleskoplader" />
         <meta
           name="description"
-          content="Minibagger, Arbeitsbühne, Bagger & Teleskoplader kaufen in NRW ➤ Direkt vom Fachhändler ✓ 3 Jahre Garantie ✓ 3 Standorte (Bonn, Krefeld, Mülheim) ✓ Finanzierung ✓ Made in EU. Jetzt unverbindlich Angebot anfordern!"
+          content="Minibagger, Arbeitsbühne, Bagger & Teleskoplader kaufen in NRW ✓ 3 Jahre Garantie ✓ 3 Standorte ✓ Finanzierung ✓ Made in EU."
         />
         <meta
           name="keywords"

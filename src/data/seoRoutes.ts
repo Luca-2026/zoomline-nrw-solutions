@@ -28,9 +28,9 @@ export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.jpg`;
 export const seoRoutes: SeoRoute[] = [
   {
     path: "/",
-    title: "Minibagger & Arbeitsbühne kaufen NRW – Bagger, Hebebühne & Teleskoplader",
+    title: "Minibagger & Arbeitsbühne kaufen NRW – Bagger & Teleskoplader",
     description:
-      "Minibagger, Arbeitsbühne, Bagger & Teleskoplader kaufen in NRW ➤ Direkt vom Fachhändler ✓ 3 Jahre Garantie ✓ 3 Standorte (Bonn, Krefeld, Mülheim) ✓ Finanzierung ✓ Made in EU. Jetzt unverbindlich Angebot anfordern!",
+      "Minibagger, Arbeitsbühne, Bagger & Teleskoplader kaufen in NRW ✓ 3 Jahre Garantie ✓ 3 Standorte ✓ Finanzierung ✓ Made in EU.",
     h1: "Zoomlion NRW – Minibagger, Arbeitsbühnen & Teleskoplader kaufen",
     intro: [
       "Willkommen bei Zoomlion NRW – Ihrem exklusiven Fachhändler für Zoomlion Baumaschinen in Nordrhein-Westfalen. Wir verkaufen Minibagger, Kompaktbagger, Scherenarbeitsbühnen, Gelenk- und Teleskoparbeitsbühnen sowie Teleskoplader Made in EU.",
