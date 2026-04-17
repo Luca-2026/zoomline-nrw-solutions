@@ -76,9 +76,12 @@ function upsertHeadTag(html, regex, replacement) {
 
 function buildSeoBlock({ h1, intro }) {
   const paragraphs = intro.map((p) => `<p>${escapeHtml(p)}</p>`).join("");
-  // Wird nach Hydration von React (main.tsx) entfernt. Inline-Styles
-  // sorgen dafür, dass User es kurz sehen, falls JS langsam lädt.
-  return `<div id="seo-prerender" style="position:absolute;left:-9999px;top:0;width:1px;height:1px;overflow:hidden;" aria-hidden="true"><h1>${escapeHtml(
+  // Sichtbarer Initial-Paint-Block fuer Crawler ohne JS und fuer den
+  // ersten Frame vor React-Hydration. KEIN Cloaking (kein -9999px,
+  // kein aria-hidden, kein display:none) - Inhalt entspricht 1:1 dem,
+  // was die hydratisierte React-App rendert. main.tsx entfernt den
+  // Block direkt nach dem ersten Render, damit kein doppelter H1 bleibt.
+  return `<div id="seo-prerender" class="seo-prerender-block"><h1>${escapeHtml(
     h1,
   )}</h1>${paragraphs}</div>`;
 }

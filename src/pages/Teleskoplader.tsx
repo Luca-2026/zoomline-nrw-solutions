@@ -7,85 +7,44 @@ import { TelehandlerConfigurator } from "@/components/configurator/TelehandlerCo
 import { SocialMeta } from "@/components/shared/SocialMeta";
 
 const Teleskoplader = () => {
-  const productSchema = {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": "Zoomlion Teleskoplader kaufen NRW",
-    "description": "Übersicht aller Zoomlion Teleskoplader zum Kauf in Nordrhein-Westfalen. Drehbare und nicht rotierende Modelle bis 24,8 m Arbeitshöhe.",
-    "numberOfItems": 5,
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "item": {
-          "@type": "Product",
-          "name": "Zoomlion ZTH2506 Teleskoplader",
-          "url": "https://www.zoomlion-nrw.de/teleskoplader#zth2506",
-          "brand": { "@type": "Brand", "name": "Zoomlion" }
-        }
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "item": {
-          "@type": "Product",
-          "name": "Zoomlion ZTH3507 Teleskoplader",
-          "url": "https://www.zoomlion-nrw.de/teleskoplader#zth3507",
-          "brand": { "@type": "Brand", "name": "Zoomlion" }
-        }
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "item": {
-          "@type": "Product",
-          "name": "Zoomlion ZTH3513 Teleskoplader",
-          "url": "https://www.zoomlion-nrw.de/teleskoplader#zth3513",
-          "brand": { "@type": "Brand", "name": "Zoomlion" }
-        }
-      },
-      {
-        "@type": "ListItem",
-        "position": 4,
-        "item": {
-          "@type": "Product",
-          "name": "Zoomlion ZTH4518R Drehteleskoplader",
-          "url": "https://www.zoomlion-nrw.de/teleskoplader#zth4518r",
-          "brand": { "@type": "Brand", "name": "Zoomlion" }
-        }
-      },
-      {
-        "@type": "ListItem",
-        "position": 5,
-        "item": {
-          "@type": "Product",
-          "name": "Zoomlion ZTH4525R Drehteleskoplader",
-          "url": "https://www.zoomlion-nrw.de/teleskoplader#zth4525r",
-          "brand": { "@type": "Brand", "name": "Zoomlion" }
-        }
-      }
-    ]
-  };
+  const telehandlerModels = [
+    { name: "Zoomlion ZTH2506 Teleskoplader", image: "https://www.zoomlion-nrw.de/telehandlers/zth2506.png", anchor: "zth2506" },
+    { name: "Zoomlion ZTH3507 Teleskoplader", image: "https://www.zoomlion-nrw.de/telehandlers/zth3507.png", anchor: "zth3507" },
+    { name: "Zoomlion ZTH3513 Teleskoplader", image: "https://www.zoomlion-nrw.de/telehandlers/zth3513.png", anchor: "zth3513" },
+    { name: "Zoomlion ZTH4518R Drehteleskoplader", image: "https://www.zoomlion-nrw.de/telehandlers/zth4518r.png", anchor: "zth4518r" },
+    { name: "Zoomlion ZTH4525R Drehteleskoplader", image: "https://www.zoomlion-nrw.de/telehandlers/zth4525r.png", anchor: "zth4525r" },
+  ];
 
-  // Note: Product/AggregateOffer requires lowPrice (and highPrice) for Google Rich Results.
-  // Since prices are "auf Anfrage" / per quote, we omit the offers entirely to avoid
-  // a "Missing field 'lowPrice'" error. The Product remains valid without offers.
-  const productOfferSchema = {
+  const collectionPageSchema = {
     "@context": "https://schema.org",
-    "@type": "Product",
-    "@id": "https://www.zoomlion-nrw.de/teleskoplader#product",
-    "name": "Zoomlion Teleskoplader",
-    "description": "Zoomlion Teleskoplader kaufen in NRW. Drehbare und nicht rotierende Modelle mit bis zu 4.500 kg Hubkraft und 24,8 m Arbeitshöhe. 3 Jahre Garantie.",
-    "image": "https://www.zoomlion-nrw.de/telehandlers/zth4525r.png",
-    "brand": {
-      "@type": "Brand",
-      "name": "Zoomlion"
-    },
-    "manufacturer": {
-      "@type": "Organization",
-      "name": "Zoomlion Heavy Industry Science & Technology Co., Ltd."
-    },
-    "category": "Teleskoplader"
+    "@type": "CollectionPage",
+    "@id": "https://www.zoomlion-nrw.de/teleskoplader/",
+    "name": "Zoomlion Teleskoplader kaufen in NRW",
+    "description": "Übersicht aller Zoomlion Teleskoplader zum Kauf in Nordrhein-Westfalen. Drehbare und nicht rotierende Modelle bis 24,8 m Arbeitshöhe.",
+    "url": "https://www.zoomlion-nrw.de/teleskoplader/",
+    "inLanguage": "de-DE",
+    "isPartOf": { "@id": "https://www.zoomlion-nrw.de/#website" },
+    "mainEntity": {
+      "@type": "ItemList",
+      "numberOfItems": telehandlerModels.length,
+      "itemListElement": telehandlerModels.map((m, i) => ({
+        "@type": "ListItem",
+        "position": i + 1,
+        "item": {
+          "@type": "Product",
+          "name": m.name,
+          "image": m.image,
+          "url": `https://www.zoomlion-nrw.de/teleskoplader/#${m.anchor}`,
+          "brand": { "@type": "Brand", "name": "Zoomlion" },
+          "offers": {
+            "@type": "Offer",
+            "availability": "https://schema.org/InStock",
+            "priceCurrency": "EUR",
+            "seller": { "@type": "Organization", "name": "Zoomlion NRW" }
+          }
+        }
+      }))
+    }
   };
 
   return (
@@ -104,16 +63,13 @@ const Teleskoplader = () => {
           name="keywords" 
           content="Teleskoplader kaufen, Teleskoplader kaufen NRW, Telehandler kaufen, Telehandler kaufen NRW, Drehteleskoplader kaufen, Teleskoplader neu, Teleskoplader Allrad, Teleskoplader Landwirtschaft, Teleskoplader Bau, Teleskoplader Köln, Teleskoplader Düsseldorf, Teleskoplader Bonn, Teleskoplader finanzieren, Radlader Alternative" 
         />
-        <link rel="canonical" href="https://www.zoomlion-nrw.de/teleskoplader" />
+        <link rel="canonical" href="https://www.zoomlion-nrw.de/teleskoplader/" />
         
         {/* Open Graph & Twitter Card via SocialMeta below */}
         
         {/* Structured Data */}
         <script type="application/ld+json">
-          {JSON.stringify(productSchema)}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify(productOfferSchema)}
+          {JSON.stringify(collectionPageSchema)}
         </script>
       </Helmet>
       <SocialMeta

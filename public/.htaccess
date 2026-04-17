@@ -27,26 +27,50 @@ Options -Indexes -MultiViews
 # Fallback falls Rewrite-Regeln beim Host eingeschraenkt sind
 ErrorDocument 404 /index.html
 
-# Caching fuer statische Assets
+# ============================================================
+# Caching-Strategie (Core Web Vitals optimiert)
+# ============================================================
+
 <IfModule mod_expires.c>
   ExpiresActive On
-  ExpiresByType image/png "access plus 1 month"
-  ExpiresByType image/jpeg "access plus 1 month"
-  ExpiresByType image/webp "access plus 1 month"
-  ExpiresByType image/svg+xml "access plus 1 month"
-  ExpiresByType text/css "access plus 1 week"
-  ExpiresByType application/javascript "access plus 1 week"
-  ExpiresByType application/pdf "access plus 1 month"
 </IfModule>
 
 <IfModule mod_headers.c>
-  # HTML nicht aggressiv cachen
+  # ----------------------------------------------------------
+  # 1) HTML (prerendered Routen + SPA-Fallback)
+  #    Kurzes Browser-Caching, langes CDN-Caching, SWR fuer
+  #    sofortige Auslieferung waehrend Revalidate im Hintergrund.
+  # ----------------------------------------------------------
   <FilesMatch "\.(html)$">
-    Header set Cache-Control "no-cache, no-store, must-revalidate"
+    Header set Cache-Control "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400"
+    Header unset Pragma
+    Header unset Expires
   </FilesMatch>
 
-  # Statische Assets lange cachen
-  <FilesMatch "\.(js|css|png|jpg|jpeg|webp|svg|ico|pdf)$">
-    Header set Cache-Control "public, max-age=2592000, immutable"
+  # ----------------------------------------------------------
+  # 2) Hashed Build-Assets (Vite -> /assets/*-[hash].{js,css})
+  #    Unveraenderlich, 1 Jahr cachen.
+  # ----------------------------------------------------------
+  <FilesMatch "\.(js|mjs|css|woff|woff2|ttf|otf|eot)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
   </FilesMatch>
+
+  # ----------------------------------------------------------
+  # 3) Bilder & PDFs (Produktbilder, OG-Image, Datenblaetter)
+  #    Ebenfalls langlebig, immutable.
+  # ----------------------------------------------------------
+  <FilesMatch "\.(png|jpg|jpeg|webp|avif|gif|svg|ico|pdf)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # ----------------------------------------------------------
+  # 4) Sitemap & robots.txt - moderates Caching
+  # ----------------------------------------------------------
+  <FilesMatch "(sitemap\.xml|robots\.txt)$">
+    Header set Cache-Control "public, max-age=3600"
+  </FilesMatch>
+
+  # Sicherheits-Header (klein gehalten, SEO-neutral)
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
