@@ -101,73 +101,77 @@ export function AnimatedExcavator({ className }: { className?: string }) {
         <path d="M 158 158 L 165 158 L 152 195 L 148 195 Z" fill="white" opacity="0.25" />
       </motion.g>
 
-      {/* Arm assembly — animated dig cycle */}
+      {/* Arm assembly — gently swings up and down as one piece */}
       <motion.g
-        style={{ originX: "230px", originY: "175px" }}
-        animate={{ rotate: [-5, 8, -5] }}
+        style={{ transformOrigin: "232px 178px", transformBox: "fill-box" } as any}
+        animate={{ rotate: [-8, 6, -8] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
       >
-        {/* Boom (upper arm) - pivot at body */}
-        <rect
-          x="225"
-          y="100"
-          width="22"
-          height="90"
-          rx="6"
-          fill="url(#armGrad)"
-          stroke="hsl(72 50% 35%)"
-          strokeWidth="1.5"
-          transform="rotate(35 236 175)"
+        {/* Boom (upper arm) — angled from body up to elbow */}
+        <line
+          x1="232"
+          y1="178"
+          x2="295"
+          y2="115"
+          stroke="url(#armGrad)"
+          strokeWidth="20"
+          strokeLinecap="round"
         />
+        <line
+          x1="232"
+          y1="178"
+          x2="295"
+          y2="115"
+          stroke="hsl(72 50% 35%)"
+          strokeWidth="20"
+          strokeLinecap="round"
+          fill="none"
+          opacity="0.0"
+        />
+
         {/* Pivot bolt at body */}
-        <circle cx="232" cy="178" r="6" fill="hsl(210 20% 22%)" />
+        <circle cx="232" cy="178" r="7" fill="hsl(210 20% 22%)" />
         <circle cx="232" cy="178" r="2.5" fill="hsl(72 62% 55%)" />
 
-        {/* Stick (forearm) + bucket — secondary motion */}
+        {/* Stick (forearm) — from elbow down to bucket */}
+        <line
+          x1="295"
+          y1="115"
+          x2="335"
+          y2="190"
+          stroke="url(#armGrad)"
+          strokeWidth="16"
+          strokeLinecap="round"
+        />
+
+        {/* Elbow joint */}
+        <circle cx="295" cy="115" r="6" fill="hsl(210 20% 22%)" />
+        <circle cx="295" cy="115" r="2" fill="hsl(72 62% 55%)" />
+
+        {/* Bucket — small wrist motion at stick tip */}
         <motion.g
-          style={{ originX: "295px", originY: "115px" }}
-          animate={{ rotate: [10, -15, 10] }}
+          style={{ transformOrigin: "335px 190px", transformBox: "fill-box" } as any}
+          animate={{ rotate: [-10, 15, -10] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
         >
-          {/* Stick */}
-          <rect
-            x="288"
-            y="105"
-            width="18"
-            height="80"
-            rx="5"
-            fill="url(#armGrad)"
-            stroke="hsl(72 50% 35%)"
-            strokeWidth="1.5"
-            transform="rotate(45 297 145)"
-          />
-          {/* Joint bolt */}
-          <circle cx="297" cy="118" r="5" fill="hsl(210 20% 22%)" />
-          <circle cx="297" cy="118" r="2" fill="hsl(72 62% 55%)" />
-
-          {/* Bucket */}
-          <motion.g
-            style={{ originX: "335px", originY: "180px" }}
-            animate={{ rotate: [-15, 25, -15] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          >
             <path
-              d="M 320 175 L 360 175 L 365 200 L 350 215 L 325 215 L 318 200 Z"
+              d="M 318 188 L 352 188 L 358 210 L 345 224 L 325 224 L 314 210 Z"
               fill="url(#bodyGrad)"
               stroke="hsl(72 50% 35%)"
               strokeWidth="1.5"
+              strokeLinejoin="round"
             />
             {/* Bucket teeth */}
             <path
-              d="M 325 215 L 327 222 L 332 215 M 335 215 L 337 222 L 342 215 M 345 215 L 347 222 L 352 215"
+              d="M 325 224 L 327 230 L 332 224 M 333 224 L 335 230 L 340 224 M 341 224 L 343 230 L 348 224"
               fill="hsl(210 20% 22%)"
               stroke="hsl(210 20% 22%)"
               strokeWidth="2"
               strokeLinejoin="round"
             />
             {/* Bucket joint */}
-            <circle cx="333" cy="178" r="4" fill="hsl(210 20% 22%)" />
-          </motion.g>
+            <circle cx="335" cy="190" r="5" fill="hsl(210 20% 22%)" />
+            <circle cx="335" cy="190" r="1.8" fill="hsl(72 62% 55%)" />
         </motion.g>
       </motion.g>
 
