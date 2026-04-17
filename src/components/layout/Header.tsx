@@ -27,6 +27,7 @@ const navigation: NavItem[] = [
     children: [
       { name: "Service & Wartung", href: "/service", desc: "Reparatur, UVV-Prüfung & Ersatzteile" },
       { name: "Serviceverträge", href: "/servicevertraege", desc: "ZL|Care, ZL|Pro & ZL|Complete" },
+      { name: "Try & Buy", href: "/try-and-buy", desc: "Erst testen, dann kaufen – Miete wird angerechnet" },
       { name: "Finanzierung", href: "/finanzierung", desc: "Leasing & Ratenkauf" },
     ],
   },
