@@ -13,9 +13,9 @@ const Bagger = () => {
     "description": "Übersicht aller Zoomlion Minibagger und Kompaktbagger zum Kauf in Nordrhein-Westfalen. Von 1,8 bis 25 Tonnen.",
     "numberOfItems": 15,
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "ZE18GU Minibagger", "url": "https://www.zoomlion-nrw.de/bagger#ze18gu" },
-      { "@type": "ListItem", "position": 2, "name": "ZE36GU Minibagger", "url": "https://www.zoomlion-nrw.de/bagger#ze36gu" },
-      { "@type": "ListItem", "position": 3, "name": "ZE75G Kompaktbagger", "url": "https://www.zoomlion-nrw.de/bagger#ze75g" }
+      { "@type": "ListItem", "position": 1, "item": { "@type": "Product", "name": "Zoomlion ZE18GU Minibagger", "url": "https://www.zoomlion-nrw.de/bagger#ze18gu", "brand": { "@type": "Brand", "name": "Zoomlion" } } },
+      { "@type": "ListItem", "position": 2, "item": { "@type": "Product", "name": "Zoomlion ZE36GU Minibagger", "url": "https://www.zoomlion-nrw.de/bagger#ze36gu", "brand": { "@type": "Brand", "name": "Zoomlion" } } },
+      { "@type": "ListItem", "position": 3, "item": { "@type": "Product", "name": "Zoomlion ZE75G Kompaktbagger", "url": "https://www.zoomlion-nrw.de/bagger#ze75g", "brand": { "@type": "Brand", "name": "Zoomlion" } } }
     ]
   };
 
