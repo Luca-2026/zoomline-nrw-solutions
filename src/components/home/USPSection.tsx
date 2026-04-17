@@ -10,12 +10,12 @@ const usps = [
   {
     icon: Factory,
     title: "Made in EU",
-    description: "Produktion in Ungarn – europäische Qualitätsstandards, kurze Lieferwege, EU-Konformität"
+    description: "Produktion in Ungarn und Europazentrale in Waldlaubersheim (Deutschland) – europäische Qualitätsstandards, kurze Lieferwege, EU-Konformität"
   },
   {
     icon: TrendingDown,
     title: "Bestes Preis-Leistungs-Verhältnis",
-    description: "Hochwertige Technik und Ausstattung zu attraktiven Anschaffungskosten"
+    description: "Etablierter White-Label-Hersteller für viele bekannte Arbeitsbühnen-Marken in Deutschland und Europa – jetzt erstmals unter eigener Marke Zoomlion exklusiv über SLT verfügbar"
   },
   {
     icon: Award,
