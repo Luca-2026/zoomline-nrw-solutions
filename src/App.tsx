@@ -46,8 +46,8 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <TryAndBuyModal />
         <BrowserRouter>
+          <TryAndBuyModal />
           <Suspense fallback={<PageLoader />}>
             <Routes>
               <Route path="/" element={<Index />} />
