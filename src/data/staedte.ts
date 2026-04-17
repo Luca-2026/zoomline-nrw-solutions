@@ -3,7 +3,7 @@
  * damit Build-Skripte (scripts/prerender.ts) sie ohne React/JSX-Imports laden können.
  */
 
-interface StadtData {
+export interface StadtData {
   name: string;
   slug: string;
   region: string;
