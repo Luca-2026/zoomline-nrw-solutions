@@ -11,6 +11,33 @@ import { LocationsTeaser } from "@/components/home/LocationsTeaser";
 import { ContactTeaser } from "@/components/home/ContactTeaser";
 
 const Index = () => {
+  const orgJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Zoomlion NRW",
+    legalName: "SLT Technology Group GmbH & Co. KG",
+    url: "https://www.zoomlion-nrw.de",
+    logo: "https://www.zoomlion-nrw.de/favicon.png",
+    email: "verkauf@zoomlion-nrw.de",
+    telephone: "+49-2151-4179904",
+    sameAs: [],
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Anrather Straße 291",
+      postalCode: "47807",
+      addressLocality: "Krefeld",
+      addressCountry: "DE"
+    },
+    areaServed: { "@type": "AdministrativeArea", name: "Nordrhein-Westfalen" }
+  };
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Zoomlion NRW",
+    url: "https://www.zoomlion-nrw.de",
+    inLanguage: "de-DE",
+    publisher: { "@type": "Organization", name: "SLT Technology Group GmbH & Co. KG" }
+  };
   return (
     <Layout showCTABar={false}>
       <Helmet>
@@ -29,6 +56,8 @@ const Index = () => {
         <meta property="og:description" content="Minibagger, Bagger, Arbeitsbühnen & Teleskoplader kaufen in NRW. 3 Standorte, 3 Jahre Garantie, Finanzierung möglich, Made in EU." />
         <meta property="og:url" content="https://www.zoomlion-nrw.de/" />
         <meta property="og:type" content="website" />
+        <script type="application/ld+json">{JSON.stringify(orgJsonLd)}</script>
+        <script type="application/ld+json">{JSON.stringify(websiteJsonLd)}</script>
       </Helmet>
       <HeroSection />
       <USPSection />

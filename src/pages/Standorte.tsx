@@ -19,6 +19,27 @@ const locationImages: Record<string, string | null> = {
 const EMAIL = "verkauf@zoomlion-nrw.de";
 
 const Standorte = () => {
+  const itemListJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: locations.map((loc, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      item: {
+        "@type": "LocalBusiness",
+        name: `Zoomlion NRW – ${loc.name}`,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: loc.address,
+          addressLocality: loc.city,
+          addressCountry: "DE"
+        },
+        telephone: loc.phone || undefined,
+        email: EMAIL,
+        url: "https://www.zoomlion-nrw.de/standorte"
+      }
+    }))
+  };
   return (
     <Layout>
       <Helmet>
@@ -40,6 +61,7 @@ const Standorte = () => {
         <meta property="og:title" content="3 Standorte in NRW – Zoomlion Minibagger & Arbeitsbühnen" />
         <meta property="og:description" content="Beratung, Service und Ersatzteile immer in Ihrer Nähe. 3 Standorte in Nordrhein-Westfalen." />
         <meta property="og:url" content="https://www.zoomlion-nrw.de/standorte" />
+        <script type="application/ld+json">{JSON.stringify(itemListJsonLd)}</script>
       </Helmet>
 
       <section className="py-16 md:py-24">
