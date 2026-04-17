@@ -73,9 +73,7 @@ const Standorte = () => {
         />
         <link rel="canonical" href="https://www.zoomlion-nrw.de/standorte" />
         
-        <meta property="og:title" content="3 Standorte in NRW – Zoomlion Minibagger & Arbeitsbühnen" />
-        <meta property="og:description" content="Beratung, Service und Ersatzteile immer in Ihrer Nähe. 3 Standorte in Nordrhein-Westfalen." />
-        <meta property="og:url" content="https://www.zoomlion-nrw.de/standorte" />
+        {/* Open Graph & Twitter Card via SocialMeta below */}
         <script type="application/ld+json">{JSON.stringify(itemListJsonLd)}</script>
       </Helmet>
       <SocialMeta
