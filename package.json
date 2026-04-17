@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/prerender.mjs",
-    "build:dev": "vite build --mode development && node scripts/prerender.mjs",
+    "build": "vite build && tsx scripts/prerender.ts",
+    "build:dev": "vite build --mode development && tsx scripts/prerender.ts",
     "build:no-prerender": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
