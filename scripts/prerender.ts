@@ -32,6 +32,26 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const projectRoot = resolve(__dirname, "..");
 const distDir = join(projectRoot, "dist");
 const distIndexPath = join(distDir, "index.html");
+const sitemapPath = join(distDir, "sitemap.xml");
+
+// Priority + changefreq pro Pfad für sitemap.xml
+function sitemapMeta(path) {
+  if (path === "/") return { priority: "1.0", changefreq: "weekly" };
+  if (path === "/hot-deals") return { priority: "0.9", changefreq: "daily" };
+  if (path.startsWith("/baumaschinen/")) return { priority: "0.7", changefreq: "monthly" };
+  if (["/bagger", "/arbeitsbuehnen", "/teleskoplader"].includes(path))
+    return { priority: "0.95", changefreq: "weekly" };
+  if (["/try-and-buy", "/service"].includes(path))
+    return { priority: "0.9", changefreq: "monthly" };
+  if (["/servicevertraege", "/finanzierung", "/standorte"].includes(path))
+    return { priority: "0.85", changefreq: "monthly" };
+  if (path === "/kontakt") return { priority: "0.8", changefreq: "monthly" };
+  if (path === "/faq") return { priority: "0.75", changefreq: "monthly" };
+  if (path === "/ueber-uns") return { priority: "0.6", changefreq: "monthly" };
+  if (["/datenschutz", "/impressum"].includes(path))
+    return { priority: "0.3", changefreq: "yearly" };
+  return { priority: "0.7", changefreq: "monthly" };
+}
 
 // ---- HTML-Helfer
 const escapeHtml = (str) =>
@@ -63,9 +83,19 @@ function buildSeoBlock({ h1, intro }) {
   )}</h1>${paragraphs}</div>`;
 }
 
+/**
+ * Kanonische URL inkl. Trailing-Slash (außer Root).
+ * Apache liefert /bagger via 301 nach /bagger/ – Canonical muss konsistent sein.
+ */
+function canonicalUrl(path) {
+  if (path === "/") return `${SITE_URL}/`;
+  const withSlash = path.endsWith("/") ? path : `${path}/`;
+  return `${SITE_URL}${withSlash}`;
+}
+
 function applySeoToHtml(template, route) {
   const { path, title, description, h1, intro } = route;
-  const url = `${SITE_URL}${path === "/" ? "/" : path}`;
+  const url = canonicalUrl(path);
   const escTitle = escapeAttr(title);
   const escDesc = escapeAttr(description);
 
@@ -176,6 +206,27 @@ async function writeRouteHtml(route, template) {
   return outPath;
 }
 
+// ---- Sitemap-Generierung (Trailing-Slash, konsistent zu Canonicals + Apache 301)
+function buildSitemap(routes) {
+  const today = new Date().toISOString().slice(0, 10);
+  const urls = routes
+    .map((r) => {
+      const { priority, changefreq } = sitemapMeta(r.path);
+      return `  <url>
+    <loc>${canonicalUrl(r.path)}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>${changefreq}</changefreq>
+    <priority>${priority}</priority>
+  </url>`;
+    })
+    .join("\n");
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls}
+</urlset>
+`;
+}
+
 // ---- Main
 async function main() {
   if (!existsSync(distIndexPath)) {
@@ -200,6 +251,9 @@ async function main() {
     count++;
     console.log(`  ✓ ${route.path.padEnd(35)} → ${out.replace(projectRoot + "/", "")}`);
   }
+
+  await writeFile(sitemapPath, buildSitemap(allRoutes), "utf8");
+  console.log(`[prerender] sitemap.xml geschrieben (${allRoutes.length} URLs, Trailing-Slash).`);
 
   console.log(`[prerender] Fertig: ${count} Seiten geschrieben.`);
 }
