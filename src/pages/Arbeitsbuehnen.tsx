@@ -7,17 +7,42 @@ import { PlatformConfigurator } from "@/components/configurator/PlatformConfigur
 import { SocialMeta } from "@/components/shared/SocialMeta";
 
 const Arbeitsbuehnen = () => {
-  const productSchema = {
+  const platformCategories = [
+    { name: "Zoomlion Scherenarbeitsbühnen", image: "https://www.zoomlion-nrw.de/platforms/scheren.png", anchor: "scheren" },
+    { name: "Zoomlion Gelenkteleskopbühnen", image: "https://www.zoomlion-nrw.de/platforms/gelenk.png", anchor: "gelenk" },
+    { name: "Zoomlion Teleskopbühnen", image: "https://www.zoomlion-nrw.de/platforms/teleskop.png", anchor: "teleskop" },
+  ];
+
+  const collectionPageSchema = {
     "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": "Zoomlion Arbeitsbühnen kaufen NRW",
-    "description": "Übersicht aller Zoomlion Arbeitsbühnen zum Kauf in Nordrhein-Westfalen. Scheren-, Gelenk- und Teleskopbühnen bis 68m.",
-    "numberOfItems": 50,
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "item": { "@type": "Product", "name": "Zoomlion Scherenarbeitsbühnen", "url": "https://www.zoomlion-nrw.de/arbeitsbuehnen#scheren", "brand": { "@type": "Brand", "name": "Zoomlion" } } },
-      { "@type": "ListItem", "position": 2, "item": { "@type": "Product", "name": "Zoomlion Gelenkteleskopbühnen", "url": "https://www.zoomlion-nrw.de/arbeitsbuehnen#gelenk", "brand": { "@type": "Brand", "name": "Zoomlion" } } },
-      { "@type": "ListItem", "position": 3, "item": { "@type": "Product", "name": "Zoomlion Teleskopbühnen", "url": "https://www.zoomlion-nrw.de/arbeitsbuehnen#teleskop", "brand": { "@type": "Brand", "name": "Zoomlion" } } }
-    ]
+    "@type": "CollectionPage",
+    "@id": "https://www.zoomlion-nrw.de/arbeitsbuehnen/",
+    "name": "Zoomlion Arbeitsbühnen kaufen in NRW",
+    "description": "Übersicht aller Zoomlion Arbeitsbühnen zum Kauf in Nordrhein-Westfalen. Scheren-, Gelenk- und Teleskopbühnen bis 68m Arbeitshöhe.",
+    "url": "https://www.zoomlion-nrw.de/arbeitsbuehnen/",
+    "inLanguage": "de-DE",
+    "isPartOf": { "@id": "https://www.zoomlion-nrw.de/#website" },
+    "mainEntity": {
+      "@type": "ItemList",
+      "numberOfItems": platformCategories.length,
+      "itemListElement": platformCategories.map((m, i) => ({
+        "@type": "ListItem",
+        "position": i + 1,
+        "item": {
+          "@type": "Product",
+          "name": m.name,
+          "image": m.image,
+          "url": `https://www.zoomlion-nrw.de/arbeitsbuehnen/#${m.anchor}`,
+          "brand": { "@type": "Brand", "name": "Zoomlion" },
+          "offers": {
+            "@type": "Offer",
+            "availability": "https://schema.org/InStock",
+            "priceCurrency": "EUR",
+            "seller": { "@type": "Organization", "name": "Zoomlion NRW" }
+          }
+        }
+      }))
+    }
   };
 
   const faqSchema = {
@@ -47,12 +72,12 @@ const Arbeitsbuehnen = () => {
           name="keywords" 
           content="Arbeitsbühne kaufen, Arbeitsbühne kaufen NRW, Scherenarbeitsbühne kaufen, Hubarbeitsbühne kaufen, Hebebühne kaufen, Teleskopbühne kaufen, Gelenkbühne kaufen, Steiger kaufen NRW, Elektro Arbeitsbühne kaufen, Arbeitsbühne neu, Arbeitsbühne Köln, Arbeitsbühne Düsseldorf, Arbeitsbühne Bonn, Arbeitsbühne finanzieren" 
         />
-        <link rel="canonical" href="https://www.zoomlion-nrw.de/arbeitsbuehnen" />
+        <link rel="canonical" href="https://www.zoomlion-nrw.de/arbeitsbuehnen/" />
         
         {/* Open Graph & Twitter Card via SocialMeta below */}
         
         <script type="application/ld+json">
-          {JSON.stringify(productSchema)}
+          {JSON.stringify(collectionPageSchema)}
         </script>
         <script type="application/ld+json">
           {JSON.stringify(faqSchema)}

@@ -7,17 +7,42 @@ import { ExcavatorConfigurator } from "@/components/configurator/ExcavatorConfig
 import { SocialMeta } from "@/components/shared/SocialMeta";
 
 const Bagger = () => {
-  const productSchema = {
+  const baggerModels = [
+    { name: "Zoomlion ZE18GU Minibagger", image: "https://www.zoomlion-nrw.de/excavators/ze18gu.png", anchor: "ze18gu" },
+    { name: "Zoomlion ZE36GU Minibagger", image: "https://www.zoomlion-nrw.de/excavators/ze36gu.png", anchor: "ze36gu" },
+    { name: "Zoomlion ZE75G Kompaktbagger", image: "https://www.zoomlion-nrw.de/excavators/ze75g.png", anchor: "ze75g" },
+  ];
+
+  const collectionPageSchema = {
     "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": "Zoomlion Minibagger & Kompaktbagger kaufen NRW",
-    "description": "Übersicht aller Zoomlion Minibagger und Kompaktbagger zum Kauf in Nordrhein-Westfalen. Von 1,8 bis 25 Tonnen.",
-    "numberOfItems": 15,
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "item": { "@type": "Product", "name": "Zoomlion ZE18GU Minibagger", "url": "https://www.zoomlion-nrw.de/bagger#ze18gu", "brand": { "@type": "Brand", "name": "Zoomlion" } } },
-      { "@type": "ListItem", "position": 2, "item": { "@type": "Product", "name": "Zoomlion ZE36GU Minibagger", "url": "https://www.zoomlion-nrw.de/bagger#ze36gu", "brand": { "@type": "Brand", "name": "Zoomlion" } } },
-      { "@type": "ListItem", "position": 3, "item": { "@type": "Product", "name": "Zoomlion ZE75G Kompaktbagger", "url": "https://www.zoomlion-nrw.de/bagger#ze75g", "brand": { "@type": "Brand", "name": "Zoomlion" } } }
-    ]
+    "@type": "CollectionPage",
+    "@id": "https://www.zoomlion-nrw.de/bagger/",
+    "name": "Zoomlion Minibagger & Kompaktbagger kaufen in NRW",
+    "description": "Übersicht aller Zoomlion Minibagger und Kompaktbagger zum Kauf in Nordrhein-Westfalen. Von 1,8 bis 25 Tonnen, Diesel oder Elektro, mit 3 Jahren Garantie.",
+    "url": "https://www.zoomlion-nrw.de/bagger/",
+    "inLanguage": "de-DE",
+    "isPartOf": { "@id": "https://www.zoomlion-nrw.de/#website" },
+    "mainEntity": {
+      "@type": "ItemList",
+      "numberOfItems": baggerModels.length,
+      "itemListElement": baggerModels.map((m, i) => ({
+        "@type": "ListItem",
+        "position": i + 1,
+        "item": {
+          "@type": "Product",
+          "name": m.name,
+          "image": m.image,
+          "url": `https://www.zoomlion-nrw.de/bagger/#${m.anchor}`,
+          "brand": { "@type": "Brand", "name": "Zoomlion" },
+          "offers": {
+            "@type": "Offer",
+            "availability": "https://schema.org/InStock",
+            "priceCurrency": "EUR",
+            "seller": { "@type": "Organization", "name": "Zoomlion NRW" }
+          }
+        }
+      }))
+    }
   };
 
   const faqSchema = {
@@ -47,12 +72,12 @@ const Bagger = () => {
           name="keywords" 
           content="Minibagger kaufen, Minibagger kaufen NRW, Bagger kaufen NRW, Kompaktbagger kaufen, Minibagger neu, Mini Bagger kaufen, Elektro Minibagger kaufen, Kettenbagger kaufen, Minibagger 1.8t kaufen, Minibagger 3t kaufen, Minibagger 5t kaufen, Minibagger Köln, Minibagger Düsseldorf, Minibagger Bonn, Minibagger Essen, Minibagger Dortmund, Bagger finanzieren NRW" 
         />
-        <link rel="canonical" href="https://www.zoomlion-nrw.de/bagger" />
+        <link rel="canonical" href="https://www.zoomlion-nrw.de/bagger/" />
         
         {/* Open Graph & Twitter Card via SocialMeta below */}
         
         <script type="application/ld+json">
-          {JSON.stringify(productSchema)}
+          {JSON.stringify(collectionPageSchema)}
         </script>
         <script type="application/ld+json">
           {JSON.stringify(faqSchema)}
