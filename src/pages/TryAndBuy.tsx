@@ -83,7 +83,7 @@ const TryAndBuy = () => {
       </Helmet>
 
       {/* Hero with parallax */}
-      <section ref={heroRef} className="relative overflow-hidden bg-secondary min-h-[90vh] flex items-center">
+      <section ref={heroRef} className="relative overflow-hidden bg-secondary min-h-[calc(100vh-4rem)] flex items-center">
         {/* Animated gradient orbs */}
         <motion.div
           className="absolute top-1/4 -left-32 h-96 w-96 rounded-full bg-primary/20 blur-3xl"
