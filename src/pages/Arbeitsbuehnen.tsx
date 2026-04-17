@@ -33,24 +33,24 @@ const Arbeitsbuehnen = () => {
   return (
     <Layout>
       <Helmet>
-        <title>Arbeitsbühne kaufen NRW | Zoomlion Hebebühnen ✓ 3 Jahre Garantie</title>
+        <title>Arbeitsbühne kaufen NRW – Hebebühne, Scherenbühne & Steiger neu</title>
         <meta 
           name="title" 
-          content="Arbeitsbühne kaufen NRW | Zoomlion Hebebühnen ✓ 3 Jahre Garantie" 
+          content="Arbeitsbühne kaufen NRW – Hebebühne, Scherenbühne & Steiger neu" 
         />
         <meta 
           name="description" 
-          content="Arbeitsbühne kaufen in NRW ➤ Zoomlion Scheren-, Gelenk- & Teleskopbühnen ✓ 3 Jahre Garantie ✓ Elektrisch, Diesel & Hybrid ✓ Bis 68m Arbeitshöhe ✓ Finanzierung möglich. Jetzt anfragen!" 
+          content="Arbeitsbühne kaufen in NRW ➤ Scherenarbeitsbühnen, Gelenk- & Teleskopbühnen ✓ Bis 68 m Arbeitshöhe ✓ Elektro, Diesel & Hybrid ✓ 3 Jahre Garantie ✓ Finanzierung ✓ Made in EU. Jetzt Angebot anfordern!" 
         />
         <meta 
           name="keywords" 
-          content="Arbeitsbühne kaufen NRW, Scherenarbeitsbühne kaufen, Hubarbeitsbühne kaufen NRW, Hebebühne kaufen, Teleskopbühne kaufen, Gelenkbühne kaufen, Steiger kaufen NRW, Arbeitsbühne kaufen Köln, Arbeitsbühne kaufen Düsseldorf, Arbeitsbühne finanzieren, Zoomlion Arbeitsbühne" 
+          content="Arbeitsbühne kaufen, Arbeitsbühne kaufen NRW, Scherenarbeitsbühne kaufen, Hubarbeitsbühne kaufen, Hebebühne kaufen, Teleskopbühne kaufen, Gelenkbühne kaufen, Steiger kaufen NRW, Elektro Arbeitsbühne kaufen, Arbeitsbühne neu, Arbeitsbühne Köln, Arbeitsbühne Düsseldorf, Arbeitsbühne Bonn, Arbeitsbühne finanzieren" 
         />
         <link rel="canonical" href="https://www.zoomlion-nrw.de/arbeitsbuehnen" />
         
         {/* Open Graph */}
-        <meta property="og:title" content="Arbeitsbühne kaufen NRW | Zoomlion Hebebühnen" />
-        <meta property="og:description" content="Arbeitsbühnen kaufen in NRW beim exklusiven Zoomlion Fachhändler. Scherenarbeitsbühnen, Teleskopbühnen bis 68m, mit 3 Jahren Garantie." />
+        <meta property="og:title" content="Arbeitsbühne kaufen NRW – Hebebühne, Scherenbühne & Steiger neu" />
+        <meta property="og:description" content="Arbeitsbühnen kaufen in NRW. Scherenbühnen, Teleskopbühnen bis 68 m, Elektro/Diesel/Hybrid – 3 Jahre Garantie." />
         <meta property="og:url" content="https://www.zoomlion-nrw.de/arbeitsbuehnen" />
         <meta property="og:type" content="website" />
         
