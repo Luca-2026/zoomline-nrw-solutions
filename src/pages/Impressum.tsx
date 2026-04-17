@@ -1,15 +1,46 @@
+import { Helmet } from "react-helmet-async";
 import { Layout } from "@/components/layout/Layout";
-import { SectionHeading } from "@/components/shared/SectionHeading";
 
-const Impressum = () => (
+const Impressum = () => {
+  const orgJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "SLT Technology Group GmbH & Co. KG",
+    alternateName: "Zoomlion NRW",
+    url: "https://www.zoomlion-nrw.de",
+    email: "verkauf@zoomlion-nrw.de",
+    telephone: "+49-2151-4179902",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Anrather Straße 291",
+      postalCode: "47807",
+      addressLocality: "Krefeld",
+      addressCountry: "DE"
+    },
+  };
+
+  return (
   <Layout>
+    <Helmet>
+      <title>Impressum – SLT Technology Group GmbH & Co. KG | Zoomlion NRW</title>
+      <meta name="description" content="Impressum von Zoomlion NRW – SLT Technology Group GmbH & Co. KG, Anrather Straße 291, 47807 Krefeld. Geschäftsführer, Handelsregister und Kontaktdaten." />
+      <meta name="robots" content="index, follow" />
+      <link rel="canonical" href="https://www.zoomlion-nrw.de/impressum" />
+      <script type="application/ld+json">{JSON.stringify(orgJsonLd)}</script>
+    </Helmet>
     <section className="py-16 md:py-24">
       <div className="container mx-auto px-4 max-w-3xl">
-        <SectionHeading
-          badge="Rechtliches"
-          title="Impressum"
-          subtitle="Angaben gemäß § 5 TMG"
-        />
+        <div className="mb-8 lg:mb-12 text-center">
+          <span className="inline-block mb-3 px-3 py-1 text-xs font-medium uppercase tracking-wider text-primary bg-accent rounded-full">
+            Rechtliches
+          </span>
+          <h1 className="font-heading text-2xl md:text-3xl lg:text-4xl font-bold text-foreground">
+            Impressum
+          </h1>
+          <p className="mt-3 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+            Angaben gemäß § 5 TMG
+          </p>
+        </div>
         
         <div className="prose prose-lg max-w-none">
           <div className="bg-card border border-border rounded-xl p-6 mb-8">
