@@ -6,6 +6,8 @@ interface SectionHeadingProps {
   badge?: string;
   align?: "left" | "center";
   className?: string;
+  /** Heading level for the title. Defaults to h2. Use h1 for the page's main heading. */
+  as?: "h1" | "h2" | "h3";
 }
 
 export function SectionHeading({
@@ -13,8 +15,10 @@ export function SectionHeading({
   subtitle,
   badge,
   align = "center",
-  className
+  className,
+  as = "h2",
 }: SectionHeadingProps) {
+  const Heading = as;
   return (
     <div
       className={cn(
@@ -28,9 +32,9 @@ export function SectionHeading({
           {badge}
         </span>
       )}
-      <h2 className="font-heading text-2xl md:text-3xl lg:text-4xl font-bold text-foreground animate-fade-in-up opacity-0" style={{ animationDelay: '0.1s' }}>
+      <Heading className="font-heading text-2xl md:text-3xl lg:text-4xl font-bold text-foreground animate-fade-in-up opacity-0" style={{ animationDelay: '0.1s' }}>
         {title}
-      </h2>
+      </Heading>
       {subtitle && (
         <p className="mt-3 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto animate-fade-in-up opacity-0" style={{ animationDelay: '0.2s' }}>
           {subtitle}

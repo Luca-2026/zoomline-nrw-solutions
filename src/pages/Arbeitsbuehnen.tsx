@@ -71,6 +71,7 @@ const Arbeitsbuehnen = () => {
             ]} 
           />
           <SectionHeading
+            as="h1"
             badge="Arbeitsbühnen kaufen"
             title="Arbeitsbühnen kaufen in NRW"
             subtitle="Zoomlion Scheren-, Gelenk- und Teleskopbühnen – filtern, vergleichen, anfragen"

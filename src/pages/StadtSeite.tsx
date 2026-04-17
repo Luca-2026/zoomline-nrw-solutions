@@ -514,6 +514,7 @@ const StadtSeite = () => {
             ]}
           />
           <SectionHeading
+            as="h1"
             badge={`Baumaschinen ${data.name}`}
             title={`Minibagger, Arbeitsbühne & Teleskoplader kaufen in ${data.name}`}
             subtitle={`Made in EU – 3 Jahre Garantie – Lieferung & Einweisung in ${data.name} und Umgebung`}

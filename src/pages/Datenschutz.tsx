@@ -1,15 +1,27 @@
+import { Helmet } from "react-helmet-async";
 import { Layout } from "@/components/layout/Layout";
-import { SectionHeading } from "@/components/shared/SectionHeading";
 
 const Datenschutz = () => (
   <Layout>
+    <Helmet>
+      <title>Datenschutzerklärung – Zoomlion NRW | SLT Technology Group</title>
+      <meta name="description" content="Datenschutzerklärung von Zoomlion NRW – Informationen zur Verarbeitung Ihrer personenbezogenen Daten gemäß DSGVO durch die SLT Technology Group GmbH & Co. KG." />
+      <meta name="robots" content="index, follow" />
+      <link rel="canonical" href="https://www.zoomlion-nrw.de/datenschutz" />
+    </Helmet>
     <section className="py-16 md:py-24">
       <div className="container mx-auto px-4 max-w-3xl">
-        <SectionHeading
-          badge="Rechtliches"
-          title="Datenschutzerklärung"
-          subtitle="Informationen zum Schutz Ihrer personenbezogenen Daten"
-        />
+        <div className="mb-8 lg:mb-12 text-center">
+          <span className="inline-block mb-3 px-3 py-1 text-xs font-medium uppercase tracking-wider text-primary bg-accent rounded-full">
+            Rechtliches
+          </span>
+          <h1 className="font-heading text-2xl md:text-3xl lg:text-4xl font-bold text-foreground">
+            Datenschutzerklärung
+          </h1>
+          <p className="mt-3 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
+            Informationen zum Schutz Ihrer personenbezogenen Daten
+          </p>
+        </div>
         
         <div className="prose prose-lg max-w-none">
           {/* 1. Verantwortlicher */}

@@ -60,6 +60,33 @@ const Finanzierung = () => {
     }
   ];
 
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "Welche Voraussetzungen gibt es für eine Finanzierung?",
+        acceptedAnswer: { "@type": "Answer", text: "Als B2B-Partner benötigen wir einen Handelsregistereintrag oder Gewerbeschein, die letzten zwei Jahresabschlüsse und eine positive Bonität." }
+      },
+      {
+        "@type": "Question",
+        name: "Kann ich die Laufzeit individuell anpassen?",
+        acceptedAnswer: { "@type": "Answer", text: "Ja, neben den Standardlaufzeiten können wir bei vielen Finanzierungspartnern auch individuelle Laufzeiten vereinbaren." }
+      },
+      {
+        "@type": "Question",
+        name: "Was passiert am Ende der Laufzeit?",
+        acceptedAnswer: { "@type": "Answer", text: "Bei einer Ballonfinanzierung zahlen Sie die Schlussrate. Alternativ kann diese refinanziert oder die Maschine zurückgegeben werden." }
+      },
+      {
+        "@type": "Question",
+        name: "Sind Sondertilgungen möglich?",
+        acceptedAnswer: { "@type": "Answer", text: "Je nach Finanzierungspartner sind Sondertilgungen möglich. Details besprechen wir gerne persönlich mit Ihnen." }
+      }
+    ]
+  };
+
   return (
     <Layout>
       <Helmet>
@@ -81,6 +108,7 @@ const Finanzierung = () => {
         <meta property="og:title" content="Baumaschinen finanzieren – Zoomlion Finanzierungsrechner" />
         <meta property="og:description" content="Berechnen Sie Ihre monatliche Rate für Minibagger und Arbeitsbühnen. Flexible B2B-Konditionen." />
         <meta property="og:url" content="https://www.zoomlion-nrw.de/finanzierung" />
+        <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
       </Helmet>
 
       <section className="py-16 md:py-24">
@@ -92,8 +120,9 @@ const Finanzierung = () => {
             ]} 
           />
           <SectionHeading
+            as="h1"
             badge="Finanzierung"
-            title="Finanzierungsrechner"
+            title="Minibagger & Arbeitsbühne finanzieren – Online-Rechner"
             subtitle="Berechnen Sie Ihre monatliche Rate – schnell, transparent und unverbindlich"
           />
 

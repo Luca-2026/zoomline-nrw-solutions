@@ -56,6 +56,7 @@ const UeberUns = () => {
             ]} 
           />
           <SectionHeading
+            as="h1"
             badge="Über uns"
             title="Zoomlion NRW – Ihr Partner für Baumaschinen"
             subtitle="Exklusiver Fachhändler für Zoomlion Minibagger und Arbeitsbühnen in Nordrhein-Westfalen"
