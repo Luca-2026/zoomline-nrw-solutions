@@ -14,18 +14,25 @@ const Index = () => {
   const orgJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": "https://www.zoomlion-nrw.de/#organization",
     name: "Zoomlion NRW",
     legalName: "SLT Technology Group GmbH & Co. KG",
     url: "https://www.zoomlion-nrw.de",
-    logo: "https://www.zoomlion-nrw.de/favicon.png",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://www.zoomlion-nrw.de/logo-512.png",
+      width: 512,
+      height: 512,
+    },
+    image: "https://www.zoomlion-nrw.de/og-image.jpg",
     email: "verkauf@zoomlion-nrw.de",
     telephone: "+49-2151-4179904",
-    sameAs: [],
     address: {
       "@type": "PostalAddress",
       streetAddress: "Anrather Straße 291",
       postalCode: "47807",
       addressLocality: "Krefeld",
+      addressRegion: "NRW",
       addressCountry: "DE"
     },
     areaServed: { "@type": "AdministrativeArea", name: "Nordrhein-Westfalen" }
@@ -33,10 +40,11 @@ const Index = () => {
   const websiteJsonLd = {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": "https://www.zoomlion-nrw.de/#website",
     name: "Zoomlion NRW",
     url: "https://www.zoomlion-nrw.de",
     inLanguage: "de-DE",
-    publisher: { "@type": "Organization", name: "SLT Technology Group GmbH & Co. KG" }
+    publisher: { "@id": "https://www.zoomlion-nrw.de/#organization" }
   };
   return (
     <Layout showCTABar={false}>

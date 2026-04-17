@@ -39,17 +39,25 @@ export function Breadcrumbs({ items, className = "" }: BreadcrumbsProps) {
   ];
 
   // Generate JSON-LD structured data
+  // For the last (current) crumb, use the canonical pathname so 'item' is always set.
+  const currentUrl = `https://www.zoomlion-nrw.de${location.pathname === "/" ? "" : location.pathname}`;
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    "itemListElement": breadcrumbItems.map((item, index) => ({
-      "@type": "ListItem",
-      "position": index + 1,
-      "name": item.label,
-      "item": item.href 
+    "itemListElement": breadcrumbItems.map((item, index) => {
+      const isLast = index === breadcrumbItems.length - 1;
+      const url = item.href
         ? `https://www.zoomlion-nrw.de${item.href === "/" ? "" : item.href}`
-        : undefined,
-    })),
+        : isLast
+          ? currentUrl
+          : undefined;
+      return {
+        "@type": "ListItem",
+        "position": index + 1,
+        "name": item.label,
+        ...(url ? { item: url } : {}),
+      };
+    }),
   };
 
   return (

@@ -19,26 +19,40 @@ const locationImages: Record<string, string | null> = {
 const EMAIL = "verkauf@zoomlion-nrw.de";
 
 const Standorte = () => {
+  // LocalBusiness coordinates per location (for Google Rich Results)
+  const locationGeo: Record<string, { lat: number; lng: number; postalCode: string; image: string }> = {
+    bonn: { lat: 50.6703, lng: 7.1503, postalCode: "53179", image: "https://www.zoomlion-nrw.de/og-image.jpg" },
+    krefeld: { lat: 51.3127, lng: 6.5853, postalCode: "47807", image: "https://www.zoomlion-nrw.de/og-image.jpg" },
+    muelheim: { lat: 51.4275, lng: 6.8826, postalCode: "45478", image: "https://www.zoomlion-nrw.de/og-image.jpg" },
+  };
+
   const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    itemListElement: locations.map((loc, i) => ({
-      "@type": "ListItem",
-      position: i + 1,
-      item: {
+    itemListElement: locations.map((loc, i) => {
+      const geo = locationGeo[loc.id];
+      const business: Record<string, unknown> = {
         "@type": "LocalBusiness",
+        "@id": `https://www.zoomlion-nrw.de/standorte#${loc.id}`,
         name: `Zoomlion NRW – ${loc.name}`,
+        image: geo?.image ?? "https://www.zoomlion-nrw.de/og-image.jpg",
         address: {
           "@type": "PostalAddress",
           streetAddress: loc.address,
-          addressLocality: loc.city,
-          addressCountry: "DE"
+          postalCode: geo?.postalCode,
+          addressLocality: loc.city.replace(/^\d+\s*/, ""),
+          addressRegion: "NRW",
+          addressCountry: "DE",
         },
-        telephone: loc.phone || undefined,
         email: EMAIL,
-        url: "https://www.zoomlion-nrw.de/standorte"
-      }
-    }))
+        url: `https://www.zoomlion-nrw.de/standorte#${loc.id}`,
+        priceRange: "€€",
+        areaServed: { "@type": "AdministrativeArea", name: "Nordrhein-Westfalen" },
+      };
+      if (loc.phone) business.telephone = `+49-${loc.phone.replace(/\D/g, "").replace(/^0/, "")}`;
+      if (geo) business.geo = { "@type": "GeoCoordinates", latitude: geo.lat, longitude: geo.lng };
+      return { "@type": "ListItem", position: i + 1, item: business };
+    })
   };
   return (
     <Layout>

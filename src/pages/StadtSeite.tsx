@@ -374,6 +374,14 @@ const StadtSeite = () => {
     return <Navigate to="/standorte" replace />;
   }
 
+  const standortAddresses: Record<string, { street: string; postalCode: string; city: string; phone: string }> = {
+    Bonn: { street: "Drachenburgstraße 8", postalCode: "53179", city: "Bonn", phone: "+49-228-50466061" },
+    Krefeld: { street: "Anrather Straße 291", postalCode: "47807", city: "Krefeld", phone: "+49-2151-4179904" },
+    "Mülheim a. d. Ruhr": { street: "Ruhrorter Straße", postalCode: "45478", city: "Mülheim an der Ruhr", phone: "+49-2151-4179904" },
+  };
+  const standortKey = data.standort && standortAddresses[data.standort] ? data.standort : "Krefeld";
+  const standortInfo = standortAddresses[standortKey];
+
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
@@ -381,9 +389,18 @@ const StadtSeite = () => {
     name: `Zoomlion NRW – Baumaschinen kaufen in ${data.name}`,
     description: `Minibagger, Arbeitsbühne, Bagger und Teleskoplader kaufen in ${data.name}. Exklusiver Zoomlion Fachhändler in NRW.`,
     url: `https://www.zoomlion-nrw.de/baumaschinen/${data.slug}`,
-    telephone: data.standort === "Bonn" ? "+49-228-50466061" : "+49-2151-4179904",
+    telephone: standortInfo.phone,
+    email: "verkauf@zoomlion-nrw.de",
     image: "https://www.zoomlion-nrw.de/og-image.jpg",
     priceRange: "€€€",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: standortInfo.street,
+      postalCode: standortInfo.postalCode,
+      addressLocality: standortInfo.city,
+      addressRegion: "NRW",
+      addressCountry: "DE",
+    },
     areaServed: [
       {
         "@type": "City",
