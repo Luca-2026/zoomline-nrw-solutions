@@ -20,6 +20,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { FinancingSection } from "@/components/financing/FinancingSection";
 import type { FinancingRequestData } from "@/lib/financing";
+import { SocialMeta } from "@/components/shared/SocialMeta";
 
 const formatPrice = (price: number) => {
   return new Intl.NumberFormat("de-DE", {
@@ -250,14 +251,17 @@ export default function HotDeals() {
         />
         <link rel="canonical" href="https://www.zoomlion-nrw.de/hot-deals" />
         
-        <meta property="og:title" content="Hot Deals – Baumaschinen Sonderangebote NRW" />
-        <meta property="og:description" content="Limitierte Sonderangebote für Minibagger und Arbeitsbühnen. Jetzt zu Bestpreisen kaufen!" />
-        <meta property="og:url" content="https://www.zoomlion-nrw.de/hot-deals" />
+        {/* Open Graph & Twitter Card via SocialMeta below */}
         
         <script type="application/ld+json">
           {JSON.stringify(dealsSchema)}
         </script>
       </Helmet>
+      <SocialMeta
+        title="Hot Deals – Baumaschinen Sonderangebote NRW"
+        description="Limitierte Sonderangebote für Minibagger und Arbeitsbühnen. Jetzt zu Bestpreisen kaufen!"
+        url="https://www.zoomlion-nrw.de/hot-deals"
+      />
 
       {/* Hero */}
       <section className="py-12 md:py-20 bg-gradient-to-b from-destructive/10 to-background">

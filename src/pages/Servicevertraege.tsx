@@ -166,11 +166,14 @@ const Servicevertraege = () => {
         />
         <meta name="keywords" content="Servicevertrag Baumaschinen, Wartungsvertrag Arbeitsbühne, Wartungsvertrag Bagger, UVV-Prüfung Arbeitsbühnen, Baumaschinen Wartung NRW, Servicevertrag Teleskoplader, Full-Service Baumaschinen, Inspektionsvertrag Baumaschinen" />
         <link rel="canonical" href="https://www.zoomlion-nrw.de/servicevertraege" />
-        <meta property="og:title" content="Servicevertrag Baumaschinen NRW | Zoomlion" />
-        <meta property="og:description" content="Maßgeschneiderte Serviceverträge für Arbeitsbühnen, Bagger & Teleskoplader. UVV-Prüfung, Wartung und Reparatur aus einer Hand." />
-        <meta property="og:url" content="https://www.zoomlion-nrw.de/servicevertraege" />
+        {/* Open Graph & Twitter Card via SocialMeta below */}
         <script type="application/ld+json">{JSON.stringify(schema)}</script>
       </Helmet>
+      <SocialMeta
+        title="Servicevertrag Baumaschinen NRW | Zoomlion"
+        description="Maßgeschneiderte Serviceverträge für Arbeitsbühnen, Bagger & Teleskoplader. UVV-Prüfung, Wartung und Reparatur aus einer Hand."
+        url="https://www.zoomlion-nrw.de/servicevertraege"
+      />
 
       {/* Hero */}
       <section className="relative py-16 md:py-24 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
