@@ -40,6 +40,11 @@ const NotFound = () => {
           {JSON.stringify(notFoundSchema)}
         </script>
       </Helmet>
+      <SocialMeta
+        title="Seite nicht gefunden (404) | Zoomlion NRW"
+        description="Die angeforderte Seite wurde leider nicht gefunden. Besuchen Sie unsere Startseite für Minibagger & Arbeitsbühnen in NRW."
+        url={`https://www.zoomlion-nrw.de${location.pathname}`}
+      />
 
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
