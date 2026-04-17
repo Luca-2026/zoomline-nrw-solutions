@@ -63,9 +63,19 @@ function buildSeoBlock({ h1, intro }) {
   )}</h1>${paragraphs}</div>`;
 }
 
+/**
+ * Kanonische URL inkl. Trailing-Slash (außer Root).
+ * Apache liefert /bagger via 301 nach /bagger/ – Canonical muss konsistent sein.
+ */
+function canonicalUrl(path) {
+  if (path === "/") return `${SITE_URL}/`;
+  const withSlash = path.endsWith("/") ? path : `${path}/`;
+  return `${SITE_URL}${withSlash}`;
+}
+
 function applySeoToHtml(template, route) {
   const { path, title, description, h1, intro } = route;
-  const url = `${SITE_URL}${path === "/" ? "/" : path}`;
+  const url = canonicalUrl(path);
   const escTitle = escapeAttr(title);
   const escDesc = escapeAttr(description);
 
