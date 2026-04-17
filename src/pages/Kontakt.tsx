@@ -130,7 +130,6 @@ const Kontakt = () => {
 
               <TrustBadges variant="compact" />
             </div>
-            </div>
           </div>
         </div>
       </section>
