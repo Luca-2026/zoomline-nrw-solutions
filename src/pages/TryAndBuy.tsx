@@ -155,17 +155,14 @@ const TryAndBuy = () => {
               transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
               className="hidden lg:flex justify-center relative"
             >
-              <div className="absolute inset-0 bg-primary/20 blur-3xl rounded-full" />
-              <motion.img
-                src={tryAndBuyImage}
-                alt="Try & Buy – Bagger testen und kaufen"
-                className="relative max-w-md w-full drop-shadow-2xl"
-                width={768}
-                height={768}
-                loading="lazy"
-                animate={{ y: [0, -16, 0] }}
+              <div className="absolute inset-0 bg-primary/25 blur-3xl rounded-full" />
+              <motion.div
+                className="relative max-w-lg w-full drop-shadow-2xl"
+                animate={{ y: [0, -14, 0] }}
                 transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              />
+              >
+                <AnimatedExcavator className="w-full h-auto" />
+              </motion.div>
             </motion.div>
           </div>
         </motion.div>
