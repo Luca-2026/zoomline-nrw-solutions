@@ -13,9 +13,9 @@ const Arbeitsbuehnen = () => {
     "description": "Übersicht aller Zoomlion Arbeitsbühnen zum Kauf in Nordrhein-Westfalen. Scheren-, Gelenk- und Teleskopbühnen bis 68m.",
     "numberOfItems": 50,
     "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Scherenarbeitsbühnen", "url": "https://www.zoomlion-nrw.de/arbeitsbuehnen#scheren" },
-      { "@type": "ListItem", "position": 2, "name": "Gelenkteleskopbühnen", "url": "https://www.zoomlion-nrw.de/arbeitsbuehnen#gelenk" },
-      { "@type": "ListItem", "position": 3, "name": "Teleskopbühnen", "url": "https://www.zoomlion-nrw.de/arbeitsbuehnen#teleskop" }
+      { "@type": "ListItem", "position": 1, "item": { "@type": "Product", "name": "Zoomlion Scherenarbeitsbühnen", "url": "https://www.zoomlion-nrw.de/arbeitsbuehnen#scheren", "brand": { "@type": "Brand", "name": "Zoomlion" } } },
+      { "@type": "ListItem", "position": 2, "item": { "@type": "Product", "name": "Zoomlion Gelenkteleskopbühnen", "url": "https://www.zoomlion-nrw.de/arbeitsbuehnen#gelenk", "brand": { "@type": "Brand", "name": "Zoomlion" } } },
+      { "@type": "ListItem", "position": 3, "item": { "@type": "Product", "name": "Zoomlion Teleskopbühnen", "url": "https://www.zoomlion-nrw.de/arbeitsbuehnen#teleskop", "brand": { "@type": "Brand", "name": "Zoomlion" } } }
     ]
   };
 
