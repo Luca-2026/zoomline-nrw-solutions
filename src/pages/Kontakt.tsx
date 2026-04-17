@@ -110,8 +110,8 @@ const Kontakt = () => {
                   <a href="tel:02151-4179904" className="flex items-center gap-3 text-foreground hover:text-primary">
                     <Phone className="h-5 w-5 text-primary" /> 02151 4179904
                   </a>
-                  <a href="mailto:info@zoomlion-nrw.de" className="flex items-center gap-3 text-foreground hover:text-primary text-sm">
-                    <Mail className="h-5 w-5 text-primary" /> info@zoomlion-nrw.de
+                  <a href="mailto:verkauf@zoomlion-nrw.de" className="flex items-center gap-3 text-foreground hover:text-primary text-sm">
+                    <Mail className="h-5 w-5 text-primary" /> verkauf@zoomlion-nrw.de
                   </a>
                 </div>
               </div>
