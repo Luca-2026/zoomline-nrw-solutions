@@ -7,8 +7,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { Phone } from "lucide-react";
+import { Phone, Mail } from "lucide-react";
 import { TrustBadges } from "@/components/shared/TrustBadges";
+import benediktImage from "@/assets/benedikt-noechel.jpg";
 
 const Kontakt = () => {
   const contactSchema = {
@@ -87,10 +88,36 @@ const Kontakt = () => {
             </div>
             <div className="space-y-6">
               <div className="p-6 rounded-xl border border-border bg-card">
-                <h3 className="font-heading font-bold mb-4">Direktkontakt</h3>
+                <h3 className="font-heading font-bold mb-4">Ihr persönlicher Ansprechpartner</h3>
+                <div className="flex items-center gap-4 mb-4">
+                  <img
+                    src={benediktImage}
+                    alt="Benedikt Nöchel – Vertrieb & Beratung Zoomlion NRW"
+                    width={80}
+                    height={80}
+                    className="h-20 w-20 rounded-full object-cover ring-2 ring-primary/20 shrink-0"
+                    loading="lazy"
+                  />
+                  <div>
+                    <p className="font-heading font-bold text-foreground">Benedikt Nöchel</p>
+                    <p className="text-sm text-muted-foreground">Vertrieb & Beratung</p>
+                  </div>
+                </div>
                 <p className="text-sm text-muted-foreground mb-4">
-                  Sie möchten lieber direkt mit uns sprechen? Rufen Sie uns an – wir beraten Sie gerne zu Minibaggern und Arbeitsbühnen!
+                  Sprechen Sie mich direkt an – ich berate Sie gerne persönlich zu Minibaggern, Arbeitsbühnen und Teleskopladern.
                 </p>
+                <div className="space-y-3">
+                  <a href="tel:02151-4179904" className="flex items-center gap-3 text-foreground hover:text-primary">
+                    <Phone className="h-5 w-5 text-primary" /> 02151 4179904
+                  </a>
+                  <a href="mailto:info@zoomlion-nrw.de" className="flex items-center gap-3 text-foreground hover:text-primary text-sm">
+                    <Mail className="h-5 w-5 text-primary" /> info@zoomlion-nrw.de
+                  </a>
+                </div>
+              </div>
+
+              <div className="p-6 rounded-xl border border-border bg-card">
+                <h3 className="font-heading font-bold mb-4">Direktkontakt Standorte</h3>
                 <div className="space-y-3">
                   <a href="tel:022850466061" className="flex items-center gap-3 text-foreground hover:text-primary">
                     <Phone className="h-5 w-5 text-primary" /> Bonn: 0228 50466061
@@ -100,6 +127,7 @@ const Kontakt = () => {
                   </a>
                 </div>
               </div>
+
               <TrustBadges variant="compact" />
             </div>
           </div>
