@@ -49,11 +49,7 @@ const Bagger = () => {
         />
         <link rel="canonical" href="https://www.zoomlion-nrw.de/bagger" />
         
-        {/* Open Graph */}
-        <meta property="og:title" content="Minibagger kaufen NRW – Bagger 1,8–25t neu | Sofort verfügbar" />
-        <meta property="og:description" content="Minibagger & Kompaktbagger neu kaufen in NRW. Diesel & Elektro, 3 Jahre Garantie, Finanzierung möglich." />
-        <meta property="og:url" content="https://www.zoomlion-nrw.de/bagger" />
-        <meta property="og:type" content="website" />
+        {/* Open Graph & Twitter Card via SocialMeta below */}
         
         <script type="application/ld+json">
           {JSON.stringify(productSchema)}
@@ -62,6 +58,11 @@ const Bagger = () => {
           {JSON.stringify(faqSchema)}
         </script>
       </Helmet>
+      <SocialMeta
+        title="Minibagger kaufen NRW – Bagger 1,8–25t neu | Sofort verfügbar"
+        description="Minibagger & Kompaktbagger neu kaufen in NRW. Diesel & Elektro, 3 Jahre Garantie, Finanzierung möglich."
+        url="https://www.zoomlion-nrw.de/bagger"
+      />
 
       <section className="py-12 md:py-16">
         <div className="container mx-auto px-4">
