@@ -49,11 +49,11 @@ export function USPSection() {
           subtitle="Einer der weltweit größten Baumaschinenhersteller – jetzt mit exklusivem Fachhändler in NRW"
         />
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr">
           {usps.map((usp, index) => (
             <div
               key={usp.title}
-              className="group relative p-6 rounded-xl border border-border bg-card transition-all duration-300 hover:shadow-lg hover:border-primary/30 hover:-translate-y-1 animate-fade-in-up opacity-0"
+              className="group relative h-full flex flex-col p-6 rounded-xl border border-border bg-card transition-all duration-300 hover:shadow-lg hover:border-primary/30 hover:-translate-y-1 animate-fade-in-up opacity-0"
               style={{ animationDelay: `${0.1 + index * 0.1}s` }}
             >
               <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent text-primary mb-4 transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-110">
