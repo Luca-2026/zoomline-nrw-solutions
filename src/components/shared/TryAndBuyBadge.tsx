@@ -5,7 +5,7 @@ export function TryAndBuyBadge() {
   return (
     <Link
       to="/try-and-buy"
-      className="hidden lg:flex absolute right-6 xl:right-10 top-32 xl:top-36 z-20 group"
+      className="hidden lg:flex absolute right-6 xl:right-10 top-44 xl:top-52 z-20 group"
       aria-label="Try & Buy Angebot ansehen"
     >
       <div className="relative">
