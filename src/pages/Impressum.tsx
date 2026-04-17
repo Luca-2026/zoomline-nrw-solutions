@@ -5,9 +5,16 @@ const Impressum = () => {
   const orgJsonLd = {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": "https://www.zoomlion-nrw.de/#organization",
     name: "SLT Technology Group GmbH & Co. KG",
     alternateName: "Zoomlion NRW",
     url: "https://www.zoomlion-nrw.de",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://www.zoomlion-nrw.de/logo-512.png",
+      width: 512,
+      height: 512,
+    },
     email: "verkauf@zoomlion-nrw.de",
     telephone: "+49-2151-4179902",
     address: {
@@ -15,6 +22,7 @@ const Impressum = () => {
       streetAddress: "Anrather Straße 291",
       postalCode: "47807",
       addressLocality: "Krefeld",
+      addressRegion: "NRW",
       addressCountry: "DE"
     },
   };
