@@ -5,6 +5,7 @@ import heroGrafik from "@/assets/hero-grafik.jpg";
 import iconArbeitsbuehne from "@/assets/icons/icon-arbeitsbuehne.png";
 import iconBagger from "@/assets/icons/icon-bagger.png";
 import iconTeleskoplader from "@/assets/icons/icon-teleskoplader.svg";
+import { TryAndBuyBadge } from "@/components/shared/TryAndBuyBadge";
 
 export function HeroSection() {
   return (
@@ -23,6 +24,8 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-r from-secondary/95 via-secondary/80 to-secondary/40" />
         <div className="absolute inset-0 bg-gradient-to-t from-secondary/60 via-transparent to-transparent" />
       </div>
+
+      <TryAndBuyBadge />
 
       <div className="container relative mx-auto px-4 py-16 md:py-24 lg:py-32">
         <div className="max-w-2xl">
