@@ -20,27 +20,18 @@
  * JavaScript sofort vollwertige, routen-individuelle HTML-Köpfe + Hauptinhalt.
  */
 
-import { readFile, writeFile, mkdir, cp } from "node:fs/promises";
+import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { existsSync } from "node:fs";
-import { fileURLToPath, pathToFileURL } from "node:url";
+import { fileURLToPath } from "node:url";
 import { dirname, join, resolve } from "node:path";
-import { register } from "node:module";
+
+import { seoRoutes, SITE_URL, DEFAULT_OG_IMAGE } from "../src/data/seoRoutes";
+import { staedte } from "../src/pages/StadtSeite";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const projectRoot = resolve(__dirname, "..");
 const distDir = join(projectRoot, "dist");
 const distIndexPath = join(distDir, "index.html");
-
-// ---- TS-Loader registrieren, damit wir StadtSeite.tsx & seoRoutes.ts laden können
-register("tsx/esm", pathToFileURL("./"));
-
-// ---- Daten laden
-const { seoRoutes, SITE_URL, DEFAULT_OG_IMAGE } = await import(
-  pathToFileURL(join(projectRoot, "src/data/seoRoutes.ts")).href
-);
-const { staedte } = await import(
-  pathToFileURL(join(projectRoot, "src/pages/StadtSeite.tsx")).href
-);
 
 // ---- HTML-Helfer
 const escapeHtml = (str) =>
