@@ -284,8 +284,12 @@ async function main() {
     console.log(`  ✓ ${route.path.padEnd(35)} → ${out.replace(projectRoot + "/", "")}`);
   }
 
-  const sitemapRoutes = allRoutes.filter((r) => !r.excludeFromSitemap);
-  await writeFile(sitemapPath, buildSitemap(allRoutes), "utf8");
+  // /teleskoplader hat noch keine eigenen Detailseiten -> nicht in Sitemap
+  const TEMP_NOINDEX_PATHS = new Set<string>(["/teleskoplader"]);
+  const sitemapRoutes = allRoutes.filter(
+    (r) => !r.excludeFromSitemap && !TEMP_NOINDEX_PATHS.has(r.path),
+  );
+  await writeFile(sitemapPath, buildSitemap(sitemapRoutes), "utf8");
   console.log(
     `[prerender] sitemap.xml geschrieben (${sitemapRoutes.length} indexierbare URLs, ${allRoutes.length - sitemapRoutes.length} ausgeschlossen).`,
   );
