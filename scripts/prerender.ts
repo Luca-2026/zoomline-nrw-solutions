@@ -45,6 +45,7 @@ function sitemapMeta(path) {
     return { priority: "0.9", changefreq: "monthly" };
   if (["/servicevertraege", "/finanzierung", "/standorte"].includes(path))
     return { priority: "0.85", changefreq: "monthly" };
+  if (path.startsWith("/standorte/")) return { priority: "0.9", changefreq: "monthly" };
   if (path === "/kontakt") return { priority: "0.8", changefreq: "monthly" };
   if (path === "/faq") return { priority: "0.75", changefreq: "monthly" };
   if (path === "/ueber-uns") return { priority: "0.6", changefreq: "monthly" };

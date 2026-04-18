@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
+import { Button } from "@/components/ui/button";
 import { locations } from "@/data/products";
-import { Phone, Mail, Building2, ArrowRight } from "lucide-react";
+import { STANDORTE } from "@/data/standorte";
+import { Phone, Mail, Building2, ArrowRight, Clock, MapPin } from "lucide-react";
 import { staedte } from "@/pages/StadtSeite";
 import bonnImage from "@/assets/locations/bonn.webp";
 import krefeldImage from "@/assets/locations/krefeld.jpg";
@@ -17,6 +19,13 @@ const locationImages: Record<string, string | null> = {
   muelheim: null,
 };
 
+// Slug-Mapping zur Detailseite (locations[].id entspricht 1:1 Standort-Slug)
+const detailSlug: Record<string, "bonn" | "krefeld" | "muelheim"> = {
+  bonn: "bonn",
+  krefeld: "krefeld",
+  muelheim: "muelheim",
+};
+
 const EMAIL = "verkauf@zoomlion-nrw.de";
 
 const Standorte = () => {
@@ -27,58 +36,64 @@ const Standorte = () => {
     muelheim: { lat: 51.4275, lng: 6.8826, postalCode: "45478", image: "https://www.zoomlion-nrw.de/og-image.jpg" },
   };
 
+  // ItemList referenziert die dedizierten Standort-Detailseiten via @id.
+  // Die vollständigen LocalBusiness-Definitionen leben auf /standorte/[slug].
   const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
     itemListElement: locations.map((loc, i) => {
-      const geo = locationGeo[loc.id];
-      const business: Record<string, unknown> = {
-        "@type": "LocalBusiness",
-        "@id": `https://www.zoomlion-nrw.de/standorte#${loc.id}`,
-        name: `Zoomlion NRW – ${loc.name}`,
-        image: geo?.image ?? "https://www.zoomlion-nrw.de/og-image.jpg",
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: loc.address,
-          postalCode: geo?.postalCode,
-          addressLocality: loc.city.replace(/^\d+\s*/, ""),
-          addressRegion: "NRW",
-          addressCountry: "DE",
+      const slug = detailSlug[loc.id];
+      const detailUrl = `https://www.zoomlion-nrw.de/standorte/${slug}`;
+      const s = STANDORTE[slug];
+      return {
+        "@type": "ListItem",
+        position: i + 1,
+        url: detailUrl,
+        item: {
+          "@type": "AutomotiveBusiness",
+          "@id": `${detailUrl}#localbusiness`,
+          name: `Zoomlion NRW – ${s.name}`,
+          url: detailUrl,
+          telephone: s.phone,
+          email: s.email,
+          image: "https://www.zoomlion-nrw.de/og-image.jpg",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: s.street,
+            postalCode: s.postalCode,
+            addressLocality: s.city,
+            addressRegion: "NW",
+            addressCountry: "DE",
+          },
+          geo: { "@type": "GeoCoordinates", latitude: s.lat, longitude: s.lng },
         },
-        email: EMAIL,
-        url: `https://www.zoomlion-nrw.de/standorte#${loc.id}`,
-        priceRange: "€€",
-        areaServed: { "@type": "AdministrativeArea", name: "Nordrhein-Westfalen" },
       };
-      if (loc.phone) business.telephone = `+49-${loc.phone.replace(/\D/g, "").replace(/^0/, "")}`;
-      if (geo) business.geo = { "@type": "GeoCoordinates", latitude: geo.lat, longitude: geo.lng };
-      return { "@type": "ListItem", position: i + 1, item: business };
-    })
+    }),
   };
   return (
     <Layout>
       <Helmet>
-        <title>Standorte NRW – Minibagger & Arbeitsbühnen kaufen | Bonn, Krefeld, Mülheim</title>
-        <meta 
-          name="title" 
-          content="Standorte NRW – Minibagger & Arbeitsbühnen kaufen | Bonn, Krefeld, Mülheim" 
+        <title>Unsere 3 Standorte in NRW – Zoomlion Händler Bonn, Krefeld & Mülheim</title>
+        <meta
+          name="title"
+          content="Unsere 3 Standorte in NRW – Zoomlion Händler Bonn, Krefeld & Mülheim"
         />
-        <meta 
-          name="description" 
-          content="3 Standorte in NRW für Minibagger & Arbeitsbühnen ➤ Bonn ✓ Krefeld ✓ Mülheim/Ruhrgebiet ✓ Ersatzteile vor Ort ✓ Service & Beratung. Finden Sie Ihren nächsten Zoomlion Händler!" 
+        <meta
+          name="description"
+          content="Zoomlion Fachhändler mit 3 Standorten in Nordrhein-Westfalen: Krefeld (Hauptsitz), Bonn und Mülheim an der Ruhr. Probefahrt, Beratung und Service vor Ort."
         />
-        <meta 
-          name="keywords" 
-          content="Zoomlion Händler NRW, Baumaschinen Bonn, Baumaschinen Krefeld, Baumaschinen Ruhrgebiet, Minibagger Händler Köln, Arbeitsbühnen Händler Düsseldorf, Baumaschinen Service NRW, Zoomlion Deutschland" 
+        <meta
+          name="keywords"
+          content="Zoomlion Händler NRW, Baumaschinen Bonn, Baumaschinen Krefeld, Baumaschinen Ruhrgebiet, Minibagger Händler Köln, Arbeitsbühnen Händler Düsseldorf, Baumaschinen Service NRW, Zoomlion Deutschland"
         />
         <link rel="canonical" href="https://www.zoomlion-nrw.de/standorte" />
-        
+
         {/* Open Graph & Twitter Card via SocialMeta below */}
         <script type="application/ld+json">{JSON.stringify(itemListJsonLd)}</script>
       </Helmet>
       <SocialMeta
-        title="3 Standorte in NRW – Zoomlion Minibagger & Arbeitsbühnen"
-        description="Beratung, Service und Ersatzteile immer in Ihrer Nähe. 3 Standorte in Nordrhein-Westfalen."
+        title="Unsere 3 Standorte in NRW – Zoomlion Händler Bonn, Krefeld & Mülheim"
+        description="Zoomlion Fachhändler mit 3 Standorten in NRW: Krefeld (Hauptsitz), Bonn und Mülheim an der Ruhr."
         url="https://www.zoomlion-nrw.de/standorte"
       />
 
@@ -99,15 +114,20 @@ const Standorte = () => {
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {locations.map((loc) => {
               const locationImage = locationImages[loc.id];
-              
+              const slug = detailSlug[loc.id];
+              const s = STANDORTE[slug];
+
               return (
-                <div key={loc.id} className="group rounded-xl border border-border bg-card overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-primary/30">
+                <article
+                  key={loc.id}
+                  className="group flex flex-col rounded-xl border border-border bg-card overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-primary/30"
+                >
                   {/* Location Image */}
                   <div className="aspect-video bg-muted relative overflow-hidden">
                     {locationImage ? (
                       <img
                         src={locationImage}
-                        alt={`Zoomlion Händler ${loc.name} - Minibagger und Arbeitsbühnen kaufen in ${loc.city}`}
+                        alt={`Zoomlion Händler ${s.name} - Minibagger und Arbeitsbühnen kaufen in ${s.city}`}
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                         loading="lazy"
                       />
@@ -121,31 +141,47 @@ const Standorte = () => {
                       </div>
                     )}
                   </div>
-                  
-                  <div className="p-6">
-                    <h3 className="font-heading text-xl font-bold mb-2">{loc.name}</h3>
-                    <p className="text-muted-foreground">{loc.address}</p>
-                    <p className="text-muted-foreground mb-4">{loc.city}</p>
-                    
-                    <div className="space-y-2">
-                      {loc.showPhone && loc.phone && (
-                        <a 
-                          href={`tel:${loc.phone.replace(/\s/g, "")}`} 
-                          className="flex items-center gap-2 text-primary font-medium hover:underline"
-                        >
-                          <Phone className="h-4 w-4" /> {loc.phone}
-                        </a>
-                      )}
-                      
-                      <a 
-                        href={`mailto:${EMAIL}`} 
-                        className="flex items-center gap-2 text-primary font-medium hover:underline"
+
+                  <div className="p-6 flex flex-col flex-1">
+                    <h2 className="font-heading text-xl font-bold mb-2">
+                      <Link to={`/standorte/${slug}`} className="hover:text-primary transition-colors">
+                        {s.name}
+                      </Link>
+                    </h2>
+                    <p className="text-muted-foreground text-sm flex items-start gap-2 mb-1">
+                      <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0 text-primary" />
+                      <span>
+                        {s.street}, {s.postalCode} {s.city}
+                      </span>
+                    </p>
+                    <p className="text-muted-foreground text-sm flex items-start gap-2 mb-4">
+                      <Clock className="h-4 w-4 mt-0.5 flex-shrink-0 text-primary" />
+                      {s.hours}
+                    </p>
+
+                    <div className="space-y-2 mb-6">
+                      <a
+                        href={`tel:${s.phone}`}
+                        className="flex items-center gap-2 text-primary font-medium hover:underline text-sm"
                       >
-                        <Mail className="h-4 w-4" /> {EMAIL}
+                        <Phone className="h-4 w-4" /> {s.phoneDisplay}
+                      </a>
+                      <a
+                        href={`mailto:${s.email}`}
+                        className="flex items-center gap-2 text-primary font-medium hover:underline text-sm"
+                      >
+                        <Mail className="h-4 w-4" /> {s.email}
                       </a>
                     </div>
+
+                    <Button asChild className="mt-auto w-full">
+                      <Link to={`/standorte/${slug}`}>
+                        Details ansehen
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </Link>
+                    </Button>
                   </div>
-                </div>
+                </article>
               );
             })}
           </div>

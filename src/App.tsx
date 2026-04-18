@@ -28,6 +28,9 @@ const FAQ = lazy(() => import("./pages/FAQ"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const StadtSeite = lazy(() => import("./pages/StadtSeite"));
 const TryAndBuy = lazy(() => import("./pages/TryAndBuy"));
+const StandortKrefeld = lazy(() => import("./pages/StandortKrefeld"));
+const StandortBonn = lazy(() => import("./pages/StandortBonn"));
+const StandortMuelheim = lazy(() => import("./pages/StandortMuelheim"));
 
 const queryClient = new QueryClient();
 
@@ -60,6 +63,9 @@ const App = () => (
               <Route path="/service" element={<Service />} />
               <Route path="/servicevertraege" element={<Servicevertraege />} />
               <Route path="/standorte" element={<Standorte />} />
+              <Route path="/standorte/krefeld" element={<StandortKrefeld />} />
+              <Route path="/standorte/bonn" element={<StandortBonn />} />
+              <Route path="/standorte/muelheim" element={<StandortMuelheim />} />
               <Route path="/ueber-uns" element={<UeberUns />} />
               <Route path="/kontakt" element={<Kontakt />} />
               <Route path="/finanzierung" element={<Finanzierung />} />

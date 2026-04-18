@@ -133,13 +133,13 @@ export function Footer() {
               <li className="flex items-start gap-2">
                 <MapPin className="h-4 w-4 mt-0.5 shrink-0 text-primary" />
                 <div>
-                  <span className="block text-secondary-foreground/80">
-                    Bonn
-                  </span>
-                  <a
-                    href="tel:0228-50466061"
-                    className="text-primary hover:underline"
+                  <Link
+                    to="/standorte/bonn"
+                    className="block text-secondary-foreground/80 hover:text-primary transition-colors font-medium"
                   >
+                    Bonn
+                  </Link>
+                  <a href="tel:+4922850466061" className="text-primary hover:underline">
                     0228 50466061
                   </a>
                 </div>
@@ -147,22 +147,25 @@ export function Footer() {
               <li className="flex items-start gap-2">
                 <MapPin className="h-4 w-4 mt-0.5 shrink-0 text-primary" />
                 <div>
-                  <span className="block text-secondary-foreground/80">
-                    Krefeld
-                  </span>
-                  <a
-                    href="tel:02151-4179904"
-                    className="text-primary hover:underline"
+                  <Link
+                    to="/standorte/krefeld"
+                    className="block text-secondary-foreground/80 hover:text-primary transition-colors font-medium"
                   >
+                    Krefeld
+                  </Link>
+                  <a href="tel:+4921514179904" className="text-primary hover:underline">
                     02151 4179904
                   </a>
                 </div>
               </li>
               <li className="flex items-start gap-2">
                 <MapPin className="h-4 w-4 mt-0.5 shrink-0 text-primary" />
-                <span className="text-secondary-foreground/80">
+                <Link
+                  to="/standorte/muelheim"
+                  className="text-secondary-foreground/80 hover:text-primary transition-colors font-medium"
+                >
                   Mülheim a. d. Ruhr
-                </span>
+                </Link>
               </li>
             </ul>
           </div>

@@ -181,4 +181,37 @@ export const seoRoutes: SeoRoute[] = [
       "Mit unserem Try & Buy Programm testen Sie Ihre Zoomlion Wunschmaschine in der Praxis, bevor Sie kaufen. Vereinbaren Sie eine Probefahrt oder einen Test-Einsatz auf Ihrer Baustelle und überzeugen Sie sich selbst.",
     ],
   },
+  {
+    path: "/standorte/krefeld",
+    title: "Zoomlion Händler Krefeld – SLT Technology Group Hauptsitz",
+    description:
+      "Zoomlion Hauptsitz NRW in Krefeld: Minibagger, Arbeitsbühnen & Teleskoplader kaufen. Probefahrt, Ersatzteile, Werkstatt & persönliche Beratung am Showroom.",
+    h1: "Zoomlion Händler Krefeld – Ihr Hauptsitz für Baumaschinen in NRW",
+    intro: [
+      "Willkommen am Hauptsitz der SLT Technology Group GmbH & Co. KG in Krefeld. Als exklusiver Zoomlion-Fachhändler für Nordrhein-Westfalen finden Sie bei uns das vollständige Zoomlion-Sortiment – vom 1,8-Tonnen-Minibagger bis zum Drehteleskoplader.",
+      "Auf unserem Ausstellungshof können Sie Maschinen Probe fahren, technische Details persönlich mit unserem Team besprechen und Ersatzteile direkt vor Ort mitnehmen. Anrather Straße 291, 47807 Krefeld – Telefon 02151 4179904.",
+    ],
+  },
+  {
+    path: "/standorte/bonn",
+    title: "Zoomlion Händler Bonn – SLT Technology Group Standort Bonn",
+    description:
+      "Zoomlion Minibagger, Arbeitsbühnen & Teleskoplader in Bonn kaufen. Probefahrt, persönliche Beratung und Ersatzteile an unserem Standort Bonn.",
+    h1: "Zoomlion Händler Bonn – Ihr Zoomlion-Standort im Rheinland",
+    intro: [
+      "Unser Standort Bonn bedient als Zoomlion-Fachhändler den gesamten Raum Bonn, Rhein-Sieg-Kreis und die nördliche Eifel. Von Bonn aus erreichen Sie in unter einer Stunde Köln, Koblenz sowie Aachen.",
+      "Drachenburgstraße 8, 53179 Bonn – Telefon 0228 50466061. Vereinbaren Sie gerne einen Termin zur Probefahrt oder kommen Sie während unserer Öffnungszeiten auf unseren Hof.",
+    ],
+  },
+  {
+    path: "/standorte/muelheim",
+    title: "Zoomlion Händler Mülheim an der Ruhr – SLT Technology Group",
+    description:
+      "Zoomlion Minibagger, Arbeitsbühnen & Teleskoplader in Mülheim an der Ruhr. Probefahrt, Ersatzteile und Werkstatt im Herzen des Ruhrgebiets.",
+    h1: "Zoomlion Händler Mülheim an der Ruhr – Ihr Partner im Ruhrgebiet",
+    intro: [
+      "Unser Standort Mülheim an der Ruhr liegt zentral im Herzen des Ruhrgebiets – direkt zwischen Duisburg, Essen und Oberhausen. Von hier aus betreuen wir Bauunternehmen, Garten- und Landschaftsbauer sowie Tiefbauer im gesamten Ruhrgebiet.",
+      "Ruhrorter Straße, 45478 Mülheim an der Ruhr. Telefonische Beratung über unsere Hotline am Hauptsitz Krefeld: 02151 4179904.",
+    ],
+  },
 ];
