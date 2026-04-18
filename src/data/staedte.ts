@@ -591,7 +591,7 @@ export const staedte: Record<string, StadtData> = {
     distanceKm: 90,
     lat: 50.7753,
     lng: 6.0839,
-    seoTier: "noindex",
+    seoTier: "excluded",
   },
   wuppertal: {
     name: "Wuppertal",
@@ -610,7 +610,7 @@ export const staedte: Record<string, StadtData> = {
     distanceKm: 60,
     lat: 51.2562,
     lng: 7.1508,
-    seoTier: "noindex",
+    seoTier: "excluded",
   },
 
   // ============================================================
