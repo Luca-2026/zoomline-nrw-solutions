@@ -34,7 +34,7 @@ export const STANDORTE: Record<"bonn" | "krefeld" | "muelheim", StandortInfo> = 
     street: "Drachenburgstraße 8",
     postalCode: "53179",
     city: "Bonn",
-    phone: "+49228504660 61",
+    phone: "+4922850466061",
     phoneDisplay: "0228 50466061",
     email: "verkauf@zoomlion-nrw.de",
     hours: "Mo–Fr 08:00–17:00",
