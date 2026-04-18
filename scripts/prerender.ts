@@ -27,6 +27,7 @@ import { dirname, join, resolve } from "node:path";
 
 import { allSeoRoutes as seoRoutes, SITE_URL, DEFAULT_OG_IMAGE } from "../src/data/seoRoutes";
 import { staedte } from "../src/data/staedte";
+import { PRODUCT_PAGES } from "../src/data/productPages";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const projectRoot = resolve(__dirname, "..");
@@ -240,22 +241,64 @@ async function writeRouteHtml(route, template) {
 }
 
 // ---- Sitemap-Generierung (Trailing-Slash, konsistent zu Canonicals + Apache 301)
+// Bild-Mapping: Produkt-Detailseiten + Kategorie-Übersichten bekommen einen
+// image:image-Block, damit Google Bilder die Maschinenfotos zuordnen kann.
+function buildImageMap() {
+  const map = new Map<string, { loc: string; title: string; caption: string }>();
+  // Produktseiten: ein Bild pro Detailseite
+  for (const p of PRODUCT_PAGES) {
+    map.set(`/${p.category}/${p.slug}`, {
+      loc: `${SITE_URL}${p.imagePublicPath}`,
+      title: p.name,
+      caption: p.tagline,
+    });
+  }
+  // Kategorie-Übersichten: stellvertretend ein Hero-Bild
+  const baggerHero = PRODUCT_PAGES.find((p) => p.category === "bagger");
+  if (baggerHero) {
+    map.set("/bagger", {
+      loc: `${SITE_URL}${baggerHero.imagePublicPath}`,
+      title: "Zoomlion Minibagger & Kompaktbagger kaufen in NRW",
+      caption: "Zoomlion Minibagger und Kompaktbagger – Übersicht aller Modelle.",
+    });
+  }
+  const platformHero = PRODUCT_PAGES.find((p) => p.category === "arbeitsbuehnen");
+  if (platformHero) {
+    map.set("/arbeitsbuehnen", {
+      loc: `${SITE_URL}${platformHero.imagePublicPath}`,
+      title: "Zoomlion Arbeitsbühnen kaufen in NRW",
+      caption: "Zoomlion Scheren-, Gelenk- & Teleskoparbeitsbühnen – Übersicht.",
+    });
+  }
+  return map;
+}
+
 function buildSitemap(routes) {
   const today = new Date().toISOString().slice(0, 10);
+  const imageMap = buildImageMap();
   const urls = routes
     .filter((r) => !r.excludeFromSitemap)
     .map((r) => {
       const { priority, changefreq } = sitemapMeta(r.path);
+      const img = imageMap.get(r.path);
+      const imageBlock = img
+        ? `\n    <image:image>
+      <image:loc>${img.loc}</image:loc>
+      <image:title>${escapeHtml(img.title)}</image:title>
+      <image:caption>${escapeHtml(img.caption)}</image:caption>
+    </image:image>`
+        : "";
       return `  <url>
     <loc>${canonicalUrl(r.path)}</loc>
     <lastmod>${today}</lastmod>
     <changefreq>${changefreq}</changefreq>
-    <priority>${priority}</priority>
+    <priority>${priority}</priority>${imageBlock}
   </url>`;
     })
     .join("\n");
   return `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${urls}
 </urlset>
 `;
@@ -286,11 +329,10 @@ async function main() {
     console.log(`  ✓ ${route.path.padEnd(35)} → ${out.replace(projectRoot + "/", "")}`);
   }
 
-  // /teleskoplader hat noch keine eigenen Detailseiten -> nicht in Sitemap
-  const TEMP_NOINDEX_PATHS = new Set<string>(["/teleskoplader"]);
-  const sitemapRoutes = allRoutes.filter(
-    (r) => !r.excludeFromSitemap && !TEMP_NOINDEX_PATHS.has(r.path),
-  );
+  // Sitemap: alle Routen außer den als 'excluded' markierten (Stadt-Tier).
+  // /teleskoplader bleibt in der Sitemap (Google darf URL kennen);
+  // das noindex-Meta in der HTML steuert die Indexierung selbst.
+  const sitemapRoutes = allRoutes.filter((r) => !r.excludeFromSitemap);
   await writeFile(sitemapPath, buildSitemap(sitemapRoutes), "utf8");
   console.log(
     `[prerender] sitemap.xml geschrieben (${sitemapRoutes.length} indexierbare URLs, ${allRoutes.length - sitemapRoutes.length} ausgeschlossen).`,
