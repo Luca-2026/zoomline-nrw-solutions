@@ -281,21 +281,6 @@ function resolveRouteSchemas(path: string): Record<string, unknown>[] {
   return buildGenericSchemas(normalized, "Zoomlion NRW");
 }
 
-function injectSchemas(html: string, route: { path: string }): number {
-  const schemas = resolveRouteSchemas(route.path);
-  if (schemas.length === 0) return 0;
-  const schemaHtml = schemas
-    .map(
-      (s) =>
-        `<script type="application/ld+json">\n${JSON.stringify(s, null, 2).replace(
-          /<\/script/gi,
-          "<\\/script",
-        )}\n</script>`,
-    )
-    .join("\n");
-  return schemas.length;
-}
-
 async function writeRouteHtml(route, template) {
   let html = applySeoToHtml(template, route);
 
