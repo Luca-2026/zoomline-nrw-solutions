@@ -36,58 +36,64 @@ const Standorte = () => {
     muelheim: { lat: 51.4275, lng: 6.8826, postalCode: "45478", image: "https://www.zoomlion-nrw.de/og-image.jpg" },
   };
 
+  // ItemList referenziert die dedizierten Standort-Detailseiten via @id.
+  // Die vollständigen LocalBusiness-Definitionen leben auf /standorte/[slug].
   const itemListJsonLd = {
     "@context": "https://schema.org",
     "@type": "ItemList",
     itemListElement: locations.map((loc, i) => {
-      const geo = locationGeo[loc.id];
-      const business: Record<string, unknown> = {
-        "@type": "LocalBusiness",
-        "@id": `https://www.zoomlion-nrw.de/standorte#${loc.id}`,
-        name: `Zoomlion NRW – ${loc.name}`,
-        image: geo?.image ?? "https://www.zoomlion-nrw.de/og-image.jpg",
-        address: {
-          "@type": "PostalAddress",
-          streetAddress: loc.address,
-          postalCode: geo?.postalCode,
-          addressLocality: loc.city.replace(/^\d+\s*/, ""),
-          addressRegion: "NRW",
-          addressCountry: "DE",
+      const slug = detailSlug[loc.id];
+      const detailUrl = `https://www.zoomlion-nrw.de/standorte/${slug}`;
+      const s = STANDORTE[slug];
+      return {
+        "@type": "ListItem",
+        position: i + 1,
+        url: detailUrl,
+        item: {
+          "@type": "AutomotiveBusiness",
+          "@id": `${detailUrl}#localbusiness`,
+          name: `Zoomlion NRW – ${s.name}`,
+          url: detailUrl,
+          telephone: s.phone,
+          email: s.email,
+          image: "https://www.zoomlion-nrw.de/og-image.jpg",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: s.street,
+            postalCode: s.postalCode,
+            addressLocality: s.city,
+            addressRegion: "NW",
+            addressCountry: "DE",
+          },
+          geo: { "@type": "GeoCoordinates", latitude: s.lat, longitude: s.lng },
         },
-        email: EMAIL,
-        url: `https://www.zoomlion-nrw.de/standorte#${loc.id}`,
-        priceRange: "€€",
-        areaServed: { "@type": "AdministrativeArea", name: "Nordrhein-Westfalen" },
       };
-      if (loc.phone) business.telephone = `+49-${loc.phone.replace(/\D/g, "").replace(/^0/, "")}`;
-      if (geo) business.geo = { "@type": "GeoCoordinates", latitude: geo.lat, longitude: geo.lng };
-      return { "@type": "ListItem", position: i + 1, item: business };
-    })
+    }),
   };
   return (
     <Layout>
       <Helmet>
-        <title>Standorte NRW – Minibagger & Arbeitsbühnen kaufen | Bonn, Krefeld, Mülheim</title>
-        <meta 
-          name="title" 
-          content="Standorte NRW – Minibagger & Arbeitsbühnen kaufen | Bonn, Krefeld, Mülheim" 
+        <title>Unsere 3 Standorte in NRW – Zoomlion Händler Bonn, Krefeld & Mülheim</title>
+        <meta
+          name="title"
+          content="Unsere 3 Standorte in NRW – Zoomlion Händler Bonn, Krefeld & Mülheim"
         />
-        <meta 
-          name="description" 
-          content="3 Standorte in NRW für Minibagger & Arbeitsbühnen ➤ Bonn ✓ Krefeld ✓ Mülheim/Ruhrgebiet ✓ Ersatzteile vor Ort ✓ Service & Beratung. Finden Sie Ihren nächsten Zoomlion Händler!" 
+        <meta
+          name="description"
+          content="Zoomlion Fachhändler mit 3 Standorten in Nordrhein-Westfalen: Krefeld (Hauptsitz), Bonn und Mülheim an der Ruhr. Probefahrt, Beratung und Service vor Ort."
         />
-        <meta 
-          name="keywords" 
-          content="Zoomlion Händler NRW, Baumaschinen Bonn, Baumaschinen Krefeld, Baumaschinen Ruhrgebiet, Minibagger Händler Köln, Arbeitsbühnen Händler Düsseldorf, Baumaschinen Service NRW, Zoomlion Deutschland" 
+        <meta
+          name="keywords"
+          content="Zoomlion Händler NRW, Baumaschinen Bonn, Baumaschinen Krefeld, Baumaschinen Ruhrgebiet, Minibagger Händler Köln, Arbeitsbühnen Händler Düsseldorf, Baumaschinen Service NRW, Zoomlion Deutschland"
         />
         <link rel="canonical" href="https://www.zoomlion-nrw.de/standorte" />
-        
+
         {/* Open Graph & Twitter Card via SocialMeta below */}
         <script type="application/ld+json">{JSON.stringify(itemListJsonLd)}</script>
       </Helmet>
       <SocialMeta
-        title="3 Standorte in NRW – Zoomlion Minibagger & Arbeitsbühnen"
-        description="Beratung, Service und Ersatzteile immer in Ihrer Nähe. 3 Standorte in Nordrhein-Westfalen."
+        title="Unsere 3 Standorte in NRW – Zoomlion Händler Bonn, Krefeld & Mülheim"
+        description="Zoomlion Fachhändler mit 3 Standorten in NRW: Krefeld (Hauptsitz), Bonn und Mülheim an der Ruhr."
         url="https://www.zoomlion-nrw.de/standorte"
       />
 
