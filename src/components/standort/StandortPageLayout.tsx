@@ -58,7 +58,11 @@ export function StandortPageLayout({
   const canonical = `https://www.zoomlion-nrw.de/standorte/${standort.slug}`;
   const standortAddress = `${standort.street}, ${standort.postalCode} ${standort.city}`;
   const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(standortAddress)}`;
-  const mapImageUrl = `https://staticmap.openstreetmap.de/staticmap.php?center=${standort.lat},${standort.lng}&zoom=14&size=800x400&maptype=mapnik&markers=${standort.lat},${standort.lng},lightblue1`;
+  // OSM embed (kein API-Key, DSGVO-freundlich, kein Cookie-Consent nötig).
+  // bbox ca. ±0.01° um den Standort = ~2 km Radius.
+  const d = 0.01;
+  const bbox = `${standort.lng - d}%2C${standort.lat - d}%2C${standort.lng + d}%2C${standort.lat + d}`;
+  const osmEmbedUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${standort.lat}%2C${standort.lng}`;
 
   const localBusinessJsonLd = {
     "@context": "https://schema.org",
@@ -191,26 +195,25 @@ export function StandortPageLayout({
             className="mb-12 rounded-2xl border border-border bg-card overflow-hidden"
           >
             <div className="grid md:grid-cols-2">
-              <a
-                href={googleMapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative aspect-[2/1] md:aspect-auto md:min-h-[320px] block group"
-                aria-label={`Standort ${standort.name} in Google Maps öffnen`}
-              >
-                <img
-                  src={mapImageUrl}
-                  alt={`Karte: Standort Zoomlion NRW ${standort.name}, ${standortAddress}`}
+              <div className="relative aspect-[2/1] md:aspect-auto md:min-h-[320px] bg-muted">
+                <iframe
+                  src={osmEmbedUrl}
+                  title={`Karte: Standort Zoomlion NRW ${standort.name}, ${standortAddress}`}
                   loading="lazy"
-                  width={800}
-                  height={400}
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="absolute inset-0 w-full h-full border-0"
+                  referrerPolicy="no-referrer-when-downgrade"
                 />
-                <span className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-full bg-background/90 px-3 py-1.5 text-xs font-medium shadow-sm backdrop-blur group-hover:bg-background transition-colors">
+                <a
+                  href={googleMapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-full bg-background/95 px-3 py-1.5 text-xs font-medium shadow-md hover:bg-background transition-colors"
+                  aria-label={`Standort ${standort.name} in Google Maps öffnen`}
+                >
                   <MapIcon className="h-3.5 w-3.5" />
                   In Google Maps öffnen
-                </span>
-              </a>
+                </a>
+              </div>
 
               <div className="p-6 md:p-8">
                 <h2 id="anfahrt-heading" className="font-heading text-2xl font-bold mb-4">

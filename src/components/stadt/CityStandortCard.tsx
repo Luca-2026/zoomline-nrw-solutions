@@ -36,7 +36,10 @@ export function CityStandortCard({
   standort,
 }: CityStandortCardProps) {
   const standortAddress = `${standort.street}, ${standort.postalCode} ${standort.city}`;
-  const mapImageUrl = `https://staticmap.openstreetmap.de/staticmap.php?bbox=${osmBbox}&size=640x320&maptype=mapnik&markers=${standort.lat},${standort.lng},lightblue1`;
+  // OSM embed via openstreetmap.org (kein API-Key, DSGVO-freundlich, kein Cookie-Consent nötig).
+  // staticmap.openstreetmap.de ist regelmäßig down - daher iframe-Variante.
+  const [lonMin, latMin, lonMax, latMax] = osmBbox.split(",");
+  const osmEmbedUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${lonMin}%2C${latMin}%2C${lonMax}%2C${latMax}&layer=mapnik&marker=${standort.lat}%2C${standort.lng}`;
   const googleMapsRouteUrl = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(
     cityName + ", Deutschland",
   )}&destination=${encodeURIComponent(standortAddress)}`;
@@ -48,27 +51,26 @@ export function CityStandortCard({
       className="mb-12 rounded-2xl border border-border bg-card overflow-hidden"
     >
       <div className="grid md:grid-cols-2">
-        {/* Statische OSM-Karte – DSGVO-freundlich, kein Tracking */}
-        <a
-          href={googleMapsRouteUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="relative aspect-[2/1] md:aspect-auto md:min-h-[240px] block group"
-          aria-label={`Route von ${cityName} zum Standort ${standort.name} in Google Maps öffnen`}
-        >
-          <img
-            src={mapImageUrl}
-            alt={`Karte: Standort Zoomlion NRW – ${standort.name} (${standortAddress})`}
+        {/* OSM-iframe – DSGVO-freundlich, kein Tracking */}
+        <div className="relative aspect-[2/1] md:aspect-auto md:min-h-[240px] bg-muted">
+          <iframe
+            src={osmEmbedUrl}
+            title={`Karte: Standort Zoomlion NRW – ${standort.name} (${standortAddress})`}
             loading="lazy"
-            width={640}
-            height={320}
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full border-0"
+            referrerPolicy="no-referrer-when-downgrade"
           />
-          <span className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-full bg-background/90 px-3 py-1.5 text-xs font-medium shadow-sm backdrop-blur group-hover:bg-background transition-colors">
+          <a
+            href={googleMapsRouteUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 rounded-full bg-background/95 px-3 py-1.5 text-xs font-medium shadow-md hover:bg-background transition-colors"
+            aria-label={`Route von ${cityName} zum Standort ${standort.name} in Google Maps öffnen`}
+          >
             <MapIcon className="h-3.5 w-3.5" />
             In Google Maps öffnen
-          </span>
-        </a>
+          </a>
+        </div>
 
         {/* Standort-Infos */}
         <div className="p-6 md:p-8">
