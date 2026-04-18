@@ -1,13 +1,9 @@
 // Produkt-Detailseiten (Single Source of Truth pro Modell)
 // Hinweis: Diese Datei ergänzt src/data/products.ts (Katalog/Konfigurator)
 // und liefert die ausführlichen Detail-Inhalte mit Datenblatt-PDF & JSON-LD.
-
-import ze20gImage from "@/assets/hot-deals/ze20g.png";
-import ze27guImage from "@/assets/hot-deals/ze27gu.jpg";
-import ze55guImage from "@/assets/hot-deals/ze55gu.png";
-import zs0607acLiImage from "@/assets/hot-deals/zs0607ac-li.png";
-import zs1012acLiImage from "@/assets/hot-deals/zs1012ac-li.png";
-import zmp09jImage from "@/assets/hot-deals/zmp09j.png";
+// WICHTIG: Bilder bewusst NICHT hier importieren, sondern in productImages.ts.
+// Grund: Diese Datei wird vom Prerender-Skript (tsx/Node) gelesen und kann
+// keine .png/.jpg-Module laden.
 
 export type ProductCategory = "bagger" | "arbeitsbuehnen";
 
@@ -34,9 +30,8 @@ export interface ProductPage {
   name: string;
   alternateNames: string[];
   tagline: string;
-  /** Importiertes Bild-Asset (aus src/assets) */
-  image: string;
-  /** Public-URL für Schema/Sitemap (absolute path beginnend mit /) */
+  /** Public-URL für Schema/Sitemap (absolute path beginnend mit /) – auch
+   *  als Fallback-`<img src>` nutzbar, wenn kein Asset-Mapping vorliegt. */
   imagePublicPath: string;
   datasheetPdf: string;
   description: string[];
@@ -60,7 +55,6 @@ export const PRODUCT_PAGES: ProductPage[] = [
     alternateNames: ["Zoomlion ZE20G", "ZE20G Minibagger", "Zoomlion 2-Tonnen-Bagger"],
     tagline:
       "Der kompakte 2-Tonnen-Minibagger mit variabler Fahrwerksbreite – ideal für engen Einsatz in GaLaBau, Tiefbau und Innenabbruch.",
-    image: ze20gImage,
     imagePublicPath: "/excavators/ze20g.png",
     datasheetPdf: "/datenblaetter/zoomlion-ze20g-datenblatt.pdf",
     description: [
@@ -152,7 +146,6 @@ export const PRODUCT_PAGES: ProductPage[] = [
     alternateNames: ["Zoomlion ZE27GU", "ZE27GU Kurzheckbagger", "Zoomlion 2,5-Tonnen-Minibagger"],
     tagline:
       "Der vielseitige Kurzheck-Minibagger mit Null-Schwenk, Load-Sensing-Hydraulik und elektrischem Proportional-Joystick – Zoomlions Bestseller in der 2,5-t-Klasse.",
-    image: ze27guImage,
     imagePublicPath: "/excavators/ze27gu.jpg",
     datasheetPdf: "/datenblaetter/zoomlion-ze27gu-datenblatt.pdf",
     description: [
@@ -266,7 +259,6 @@ export const PRODUCT_PAGES: ProductPage[] = [
     alternateNames: ["Zoomlion ZE55GU", "ZE55GU Kettenbagger", "Zoomlion 5,5-Tonnen-Kompaktbagger"],
     tagline:
       "Der 5,8-Tonnen-Kompaktbagger mit Kurzheck-Design, Kubota V2607 Dieselmotor und über 6 Metern Grabreichweite – die Profiklasse für Tiefbau und Abbruch.",
-    image: ze55guImage,
     imagePublicPath: "/excavators/ze55gu.png",
     datasheetPdf: "/datenblaetter/zoomlion-ze55gu-datenblatt.pdf",
     description: [
@@ -358,7 +350,6 @@ export const PRODUCT_PAGES: ProductPage[] = [
     alternateNames: ["Zoomlion ZS0607AC-Li", "ZS0607 AC Lithium", "Zoomlion Scherenbühne 7,8 m"],
     tagline:
       "Kompakte Elektro-Scherenbühne mit Lithium-Ionen-Akku und indoor 7,8 m Arbeitshöhe – leise, emissionsfrei, durch Standardtüren transportierbar.",
-    image: zs0607acLiImage,
     imagePublicPath: "/platforms/zs0607ac-li.png",
     datasheetPdf: "/datenblaetter/zoomlion-zs0607ac-li-datenblatt.pdf",
     description: [
@@ -462,7 +453,6 @@ export const PRODUCT_PAGES: ProductPage[] = [
     alternateNames: ["Zoomlion ZS1012AC-Li", "ZS1012 AC Lithium", "Zoomlion Scherenbühne 11,8 m"],
     tagline:
       "Elektro-Scherenbühne mit Lithium-Ionen-Akku und 11,8 m Arbeitshöhe – für mittelhohe Industrie-, Lager- und Logistikeinsätze.",
-    image: zs1012acLiImage,
     imagePublicPath: "/platforms/zs1012ac-li.png",
     datasheetPdf: "/datenblaetter/zoomlion-zs1012ac-li-datenblatt.pdf",
     description: [
@@ -565,7 +555,6 @@ export const PRODUCT_PAGES: ProductPage[] = [
     alternateNames: ["Zoomlion ZMP09J", "ZMP09 J", "Zoomlion Senkrechtbühne 11 m"],
     tagline:
       "Die kompakte Teleskopmastbühne mit 11,2 m Arbeitshöhe, Null-Heckausladung und Gabelstapler-Taschen – ideal für enge Innenräume mit hoher Reichweite.",
-    image: zmp09jImage,
     imagePublicPath: "/platforms/zmp09j.png",
     datasheetPdf: "/datenblaetter/zoomlion-zmp09j-datenblatt.pdf",
     description: [

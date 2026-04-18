@@ -17,6 +17,7 @@ import {
   getProductPageBySlug,
   getProductPagesByCategory,
 } from "@/data/productPages";
+import { getProductImage } from "@/data/productImages";
 import { SITE_URL } from "@/data/seoRoutes";
 
 interface ProductPageProps {
@@ -189,7 +190,7 @@ export default function ProductPage({ category }: ProductPageProps) {
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <div className="rounded-xl bg-muted/40 p-6 flex items-center justify-center">
             <img
-              src={product.image}
+              src={getProductImage(product.slug) ?? product.imagePublicPath}
               alt={`${product.name} – ${product.typeLabel}`}
               className="max-h-[420px] w-auto object-contain"
               loading="eager"
@@ -320,7 +321,7 @@ export default function ProductPage({ category }: ProductPageProps) {
                 <Link to={`${categoryParentPath[r.category]}/${r.slug}`}>
                   <div className="bg-muted/40 p-4 flex items-center justify-center h-40">
                     <img
-                      src={r.image}
+                      src={getProductImage(r.slug) ?? r.imagePublicPath}
                       alt={r.name}
                       className="max-h-32 w-auto object-contain"
                       loading="lazy"

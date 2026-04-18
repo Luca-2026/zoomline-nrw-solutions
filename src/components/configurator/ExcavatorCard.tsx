@@ -1,6 +1,8 @@
-import { ArrowRight, Download } from "lucide-react";
+import { ArrowRight, Download, Info } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { type Excavator } from "@/data/products";
+import { getProductPageRoute } from "@/data/productPageLinks";
 import iconBagger from "@/assets/icons/icon-bagger.png";
 
 interface ExcavatorCardProps {
@@ -108,14 +110,30 @@ export function ExcavatorCard({ product, onInquiry }: ExcavatorCardProps) {
             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
           </Button>
           
-          {product.datasheet && (
-            <Button asChild variant="outline" size="sm" className="w-full">
-              <a href={product.datasheet} target="_blank" rel="noopener noreferrer" download>
-                <Download className="mr-2 h-4 w-4" />
-                Datenblatt herunterladen
-              </a>
-            </Button>
-          )}
+        {(() => {
+          const detailRoute = getProductPageRoute(product.name);
+          if (detailRoute) {
+            return (
+              <Button asChild variant="outline" size="sm" className="w-full">
+                <Link to={detailRoute}>
+                  <Info className="mr-2 h-4 w-4" />
+                  Details &amp; Datenblatt ansehen
+                </Link>
+              </Button>
+            );
+          }
+          if (product.datasheet) {
+            return (
+              <Button asChild variant="outline" size="sm" className="w-full">
+                <a href={product.datasheet} target="_blank" rel="noopener noreferrer" download>
+                  <Download className="mr-2 h-4 w-4" />
+                  Datenblatt herunterladen
+                </a>
+              </Button>
+            );
+          }
+          return null;
+        })()}
         </div>
       </div>
     </div>
