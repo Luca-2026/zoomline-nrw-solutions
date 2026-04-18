@@ -87,9 +87,6 @@ const Standorte = () => {
           content="Zoomlion Händler NRW, Baumaschinen Bonn, Baumaschinen Krefeld, Baumaschinen Ruhrgebiet, Minibagger Händler Köln, Arbeitsbühnen Händler Düsseldorf, Baumaschinen Service NRW, Zoomlion Deutschland"
         />
         <link rel="canonical" href="https://www.zoomlion-nrw.de/standorte" />
-
-        {/* Open Graph & Twitter Card via SocialMeta below */}
-        <script type="application/ld+json">{JSON.stringify(itemListJsonLd)}</script>
       </Helmet>
       <SocialMeta
         title="Unsere 3 Standorte in NRW – Zoomlion Händler Bonn, Krefeld & Mülheim"

@@ -139,15 +139,6 @@ export default function ProductPage({ category }: ProductPageProps) {
         <title>{title}</title>
         <meta name="description" content={description} />
         <link rel="canonical" href={url} />
-        <script type="application/ld+json">
-          {JSON.stringify(buildProductSchema(product, url))}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify(buildFaqSchema(product))}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify(buildBreadcrumbSchema(product, url))}
-        </script>
       </Helmet>
       <SocialMeta
         title={title}

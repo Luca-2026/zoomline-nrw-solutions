@@ -136,8 +136,6 @@ export function StandortPageLayout({
         <meta name="title" content={metaTitle} />
         <meta name="description" content={metaDescription} />
         <link rel="canonical" href={canonical} />
-        <script type="application/ld+json">{JSON.stringify(localBusinessJsonLd)}</script>
-        <script type="application/ld+json">{JSON.stringify(breadcrumbJsonLd)}</script>
       </Helmet>
       <SocialMeta title={metaTitle} description={metaDescription} url={canonical} image={schemaImageUrl} />
 

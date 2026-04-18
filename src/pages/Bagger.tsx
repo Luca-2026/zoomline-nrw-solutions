@@ -81,15 +81,6 @@ const Bagger = () => {
           content="Minibagger kaufen, Minibagger kaufen NRW, Bagger kaufen NRW, Kompaktbagger kaufen, Minibagger neu, Mini Bagger kaufen, Kettenbagger kaufen, ZE20G kaufen, ZE27GU kaufen, ZE55GU kaufen, Minibagger 2t kaufen, Minibagger 2,5t kaufen, Minibagger 5,8t kaufen, Minibagger Köln, Minibagger Düsseldorf, Minibagger Bonn, Minibagger Essen, Minibagger Dortmund, Bagger finanzieren NRW" 
         />
         <link rel="canonical" href="https://www.zoomlion-nrw.de/bagger/" />
-        
-        {/* Open Graph & Twitter Card via SocialMeta below */}
-        
-        <script type="application/ld+json">
-          {JSON.stringify(collectionPageSchema)}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify(faqSchema)}
-        </script>
       </Helmet>
       <SocialMeta
         title="Minibagger kaufen NRW – ZE20G, ZE27GU & ZE55GU | Zoomlion NRW"

@@ -121,10 +121,6 @@ const StadtSeite = () => {
           content={`Minibagger kaufen ${data.name}, Bagger kaufen ${data.name}, Arbeitsbühne kaufen ${data.name}, Hebebühne kaufen ${data.name}, Teleskoplader kaufen ${data.name}, Baumaschinen kaufen ${data.name}, Baumaschinen ${data.name}, Bagger ${data.name}, Telehandler ${data.name}`}
         />
         <link rel="canonical" href={`https://www.zoomlion-nrw.de/baumaschinen/${data.slug}`} />
-
-        <script type="application/ld+json">{JSON.stringify(serviceSchema)}</script>
-        <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
-        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
       <SocialMeta
         title={data.metaTitle}
