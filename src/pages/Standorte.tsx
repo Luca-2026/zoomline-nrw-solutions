@@ -3,8 +3,10 @@ import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
+import { Button } from "@/components/ui/button";
 import { locations } from "@/data/products";
-import { Phone, Mail, Building2, ArrowRight } from "lucide-react";
+import { STANDORTE } from "@/data/standorte";
+import { Phone, Mail, Building2, ArrowRight, Clock, MapPin } from "lucide-react";
 import { staedte } from "@/pages/StadtSeite";
 import bonnImage from "@/assets/locations/bonn.webp";
 import krefeldImage from "@/assets/locations/krefeld.jpg";
@@ -15,6 +17,13 @@ const locationImages: Record<string, string | null> = {
   bonn: bonnImage,
   krefeld: krefeldImage,
   muelheim: null,
+};
+
+// Slug-Mapping zur Detailseite (locations[].id entspricht 1:1 Standort-Slug)
+const detailSlug: Record<string, "bonn" | "krefeld" | "muelheim"> = {
+  bonn: "bonn",
+  krefeld: "krefeld",
+  muelheim: "muelheim",
 };
 
 const EMAIL = "verkauf@zoomlion-nrw.de";
