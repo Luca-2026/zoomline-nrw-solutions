@@ -31,6 +31,7 @@ const TryAndBuy = lazy(() => import("./pages/TryAndBuy"));
 const StandortKrefeld = lazy(() => import("./pages/StandortKrefeld"));
 const StandortBonn = lazy(() => import("./pages/StandortBonn"));
 const StandortMuelheim = lazy(() => import("./pages/StandortMuelheim"));
+const ProductPage = lazy(() => import("./pages/ProductPage"));
 
 const queryClient = new QueryClient();
 
@@ -58,6 +59,8 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/arbeitsbuehnen" element={<Arbeitsbuehnen />} />
               <Route path="/bagger" element={<Bagger />} />
+              <Route path="/bagger/:slug" element={<ProductPage category="bagger" />} />
+              <Route path="/arbeitsbuehnen/:slug" element={<ProductPage category="arbeitsbuehnen" />} />
               <Route path="/teleskoplader" element={<Teleskoplader />} />
               <Route path="/hot-deals" element={<HotDeals />} />
               <Route path="/service" element={<Service />} />

@@ -233,6 +233,31 @@ export function Footer() {
           </div>
         </div>
 
+        {/* Maschinen-Detailseiten */}
+        <div className="border-t border-secondary-foreground/10 mt-8 pt-6">
+          <h3 className="font-heading text-xs font-semibold mb-3 text-secondary-foreground/60">
+            Maschinen
+          </h3>
+          <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs">
+            {[
+              { name: "Zoomlion ZE20G Minibagger", path: "/bagger/ze20g" },
+              { name: "Zoomlion ZE27GU Minibagger", path: "/bagger/ze27gu" },
+              { name: "Zoomlion ZE55GU Kompaktbagger", path: "/bagger/ze55gu" },
+              { name: "Zoomlion ZS0607AC-Li Scherenbühne", path: "/arbeitsbuehnen/zs0607ac-li" },
+              { name: "Zoomlion ZS1012AC-Li Scherenbühne", path: "/arbeitsbuehnen/zs1012ac-li" },
+              { name: "Zoomlion ZMP09J Teleskopmastbühne", path: "/arbeitsbuehnen/zmp09j" },
+            ].map((m) => (
+              <Link
+                key={m.path}
+                to={m.path}
+                className="text-secondary-foreground/60 hover:text-primary transition-colors py-1"
+              >
+                {m.name}
+              </Link>
+            ))}
+          </div>
+        </div>
+
         {/* Regionale Seiten */}
         <div className="border-t border-secondary-foreground/10 mt-8 pt-6">
           <h3 className="font-heading text-xs font-semibold mb-3 text-secondary-foreground/60">

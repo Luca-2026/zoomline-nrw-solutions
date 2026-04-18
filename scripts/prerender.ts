@@ -25,7 +25,7 @@ import { existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join, resolve } from "node:path";
 
-import { seoRoutes, SITE_URL, DEFAULT_OG_IMAGE } from "../src/data/seoRoutes";
+import { allSeoRoutes as seoRoutes, SITE_URL, DEFAULT_OG_IMAGE } from "../src/data/seoRoutes";
 import { staedte } from "../src/data/staedte";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -46,6 +46,8 @@ function sitemapMeta(path) {
   if (["/servicevertraege", "/finanzierung", "/standorte"].includes(path))
     return { priority: "0.85", changefreq: "monthly" };
   if (path.startsWith("/standorte/")) return { priority: "0.9", changefreq: "monthly" };
+  if (path.startsWith("/bagger/") || path.startsWith("/arbeitsbuehnen/"))
+    return { priority: "0.85", changefreq: "monthly" };
   if (path === "/kontakt") return { priority: "0.8", changefreq: "monthly" };
   if (path === "/faq") return { priority: "0.75", changefreq: "monthly" };
   if (path === "/ueber-uns") return { priority: "0.6", changefreq: "monthly" };
