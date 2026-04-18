@@ -236,8 +236,70 @@ function stadtToRoute(stadt) {
   };
 }
 
+// ---- Route → JSON-LD Schemas Mapping
+function resolveRouteSchemas(path: string): Record<string, unknown>[] {
+  const normalized = path.endsWith("/") && path !== "/" ? path.slice(0, -1) : path;
+
+  // Produktseiten /bagger/{slug} oder /arbeitsbuehnen/{slug}
+  const productMatch = normalized.match(/^\/(bagger|arbeitsbuehnen)\/([a-z0-9-]+)$/);
+  if (productMatch) {
+    const [, category, slug] = productMatch;
+    const product = PRODUCT_PAGES.find((p) => p.slug === slug && p.category === category);
+    if (product) return buildProductSchemas(product);
+  }
+
+  // Kategorieseiten
+  if (normalized === "/bagger" || normalized === "/arbeitsbuehnen" || normalized === "/teleskoplader") {
+    const category = normalized.slice(1) as "bagger" | "arbeitsbuehnen" | "teleskoplader";
+    return buildCategorySchemas(category);
+  }
+
+  // Einzelne Standortseiten
+  const standortMatch = normalized.match(/^\/standorte\/([a-z-]+)$/);
+  if (standortMatch) {
+    const slug = standortMatch[1] as "bonn" | "krefeld" | "muelheim";
+    const standort = STANDORTE[slug];
+    if (standort) return buildStandortSchemas(standort);
+  }
+
+  // Standorte Übersicht
+  if (normalized === "/standorte") return buildStandorteIndexSchemas();
+
+  // Stadt-Landingpages
+  const stadtMatch = normalized.match(/^\/baumaschinen\/([a-z-]+)$/);
+  if (stadtMatch) {
+    const stadt = (Object.values(staedte) as Array<{ slug: string }>).find(
+      (s) => s.slug === stadtMatch[1],
+    );
+    if (stadt) return buildStadtSchemas(stadt as never);
+  }
+
+  // Startseite: Organization + WebSite kommen schon global aus index.html
+  if (normalized === "/") return buildHomeSchemas();
+
+  // Fallback: generischer Breadcrumb
+  return buildGenericSchemas(normalized, "Zoomlion NRW");
+}
+
 async function writeRouteHtml(route, template) {
-  const html = applySeoToHtml(template, route);
+  let html = applySeoToHtml(template, route);
+
+  // Route-spezifische JSON-LD Schemas vor </head> einfügen
+  const schemas = resolveRouteSchemas(route.path);
+  if (schemas.length > 0) {
+    const schemaHtml = schemas
+      .map(
+        (s) =>
+          `    <script type="application/ld+json">\n${JSON.stringify(s, null, 2).replace(
+            /<\/script/gi,
+            "<\\/script",
+          )}\n    </script>`,
+      )
+      .join("\n");
+    html = html.replace(/<\/head>/i, `${schemaHtml}\n  </head>`);
+  }
+  console.log(`    ↳ injected ${schemas.length} route-specific schemas`);
+
   let outPath;
   if (route.path === "/") {
     // Root index.html überschreiben
