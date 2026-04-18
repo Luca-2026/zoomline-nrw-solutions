@@ -475,7 +475,7 @@ export default function HotDeals() {
               />
               <Label htmlFor="privacy" className="text-sm leading-relaxed">
                 Ich habe die{" "}
-                <Link to="/datenschutz" className="text-primary hover:underline" target="_blank">
+                <Link to="/datenschutz" className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">
                   Datenschutzbestimmungen
                 </Link>{" "}
                 gelesen und akzeptiere diese. *

@@ -519,7 +519,7 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
             />
             <div>
               <Label htmlFor="dsgvo" className="cursor-pointer text-sm">
-                Ich stimme der Verarbeitung meiner Daten gemäß <a href="/datenschutz" target="_blank" className="text-primary underline">Datenschutzerklärung</a> zu *
+                Ich stimme der Verarbeitung meiner Daten gemäß <a href="/datenschutz" target="_blank" rel="noopener noreferrer" className="text-primary underline">Datenschutzerklärung</a> zu *
               </Label>
               {errors.dsgvo && <p className="text-xs text-destructive mt-1">{errors.dsgvo}</p>}
             </div>
