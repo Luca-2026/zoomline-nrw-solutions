@@ -64,61 +64,7 @@ export function StandortPageLayout({
   const bbox = `${standort.lng - d}%2C${standort.lat - d}%2C${standort.lng + d}%2C${standort.lat + d}`;
   const osmEmbedUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${standort.lat}%2C${standort.lng}`;
 
-  const localBusinessJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "AutomotiveBusiness",
-    "@id": `${canonical}#localbusiness`,
-    name: `Zoomlion NRW – SLT Technology Group ${standort.name}`,
-    alternateName: `Zoomlion Händler ${standort.name}`,
-    description: metaDescription,
-    url: canonical,
-    telephone: standort.phone,
-    email: standort.email,
-    image: schemaImageUrl,
-    priceRange: "€€€",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: standort.street,
-      postalCode: standort.postalCode,
-      addressLocality: standort.city,
-      addressRegion: "NW",
-      addressCountry: "DE",
-    },
-    geo: {
-      "@type": "GeoCoordinates",
-      latitude: standort.lat,
-      longitude: standort.lng,
-    },
-    openingHoursSpecification: [
-      {
-        "@type": "OpeningHoursSpecification",
-        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-        opens: "08:00",
-        closes: "17:00",
-      },
-    ],
-    areaServed: areaServed.map((city) => ({ "@type": "City", name: city })),
-    parentOrganization: {
-      "@type": "Organization",
-      name: "SLT Technology Group GmbH & Co. KG",
-      url: "https://www.zoomlion-nrw.de",
-    },
-    makesOffer: [
-      { "@type": "Offer", itemOffered: { "@type": "Product", name: "Zoomlion Minibagger" } },
-      { "@type": "Offer", itemOffered: { "@type": "Product", name: "Zoomlion Arbeitsbühnen" } },
-      { "@type": "Offer", itemOffered: { "@type": "Product", name: "Zoomlion Teleskoplader" } },
-    ],
-  };
-
-  const breadcrumbJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Startseite", item: "https://www.zoomlion-nrw.de/" },
-      { "@type": "ListItem", position: 2, name: "Standorte", item: "https://www.zoomlion-nrw.de/standorte" },
-      { "@type": "ListItem", position: 3, name: standort.name, item: canonical },
-    ],
-  };
+  // JSON-LD wird zentral vom Prerender-Skript injiziert.
 
   const usps = [
     "Ausstellungshof mit Zoomlion-Maschinen vor Ort",
