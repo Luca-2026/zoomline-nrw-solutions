@@ -180,6 +180,7 @@ export const seoRoutes: SeoRoute[] = [
     intro: [
       "Mit unserem Try & Buy Programm testen Sie Ihre Zoomlion Wunschmaschine in der Praxis, bevor Sie kaufen. Vereinbaren Sie eine Probefahrt oder einen Test-Einsatz auf Ihrer Baustelle und überzeugen Sie sich selbst.",
     ],
+  },
   {
     path: "/standorte/krefeld",
     title: "Zoomlion Händler Krefeld – SLT Technology Group Hauptsitz",
