@@ -70,6 +70,7 @@ export const staedte: Record<string, StadtData> = {
     distanceKm: 30,
     lat: 50.9375,
     lng: 6.9603,
+    seoTier: "index",
   },
   duesseldorf: {
     name: "Düsseldorf",
@@ -88,6 +89,7 @@ export const staedte: Record<string, StadtData> = {
     distanceKm: 25,
     lat: 51.2277,
     lng: 6.7735,
+    seoTier: "index",
   },
   bonn: {
     name: "Bonn",
@@ -106,6 +108,7 @@ export const staedte: Record<string, StadtData> = {
     distanceKm: 0,
     lat: 50.7374,
     lng: 7.0982,
+    seoTier: "index",
   },
   essen: {
     name: "Essen",
@@ -124,6 +127,7 @@ export const staedte: Record<string, StadtData> = {
     distanceKm: 15,
     lat: 51.4556,
     lng: 7.0116,
+    seoTier: "noindex",
   },
   dortmund: {
     name: "Dortmund",
@@ -142,6 +146,7 @@ export const staedte: Record<string, StadtData> = {
     distanceKm: 50,
     lat: 51.5136,
     lng: 7.4653,
+    seoTier: "noindex",
   },
   duisburg: {
     name: "Duisburg",
@@ -160,6 +165,7 @@ export const staedte: Record<string, StadtData> = {
     distanceKm: 25,
     lat: 51.4344,
     lng: 6.7623,
+    seoTier: "noindex",
   },
   krefeld: {
     name: "Krefeld",
@@ -178,6 +184,7 @@ export const staedte: Record<string, StadtData> = {
     distanceKm: 0,
     lat: 51.3388,
     lng: 6.5853,
+    seoTier: "index",
   },
   muelheim: {
     name: "Mülheim an der Ruhr",
@@ -196,6 +203,7 @@ export const staedte: Record<string, StadtData> = {
     distanceKm: 0,
     lat: 51.4268,
     lng: 6.8826,
+    seoTier: "index",
   },
   aachen: {
     name: "Aachen",
@@ -214,6 +222,7 @@ export const staedte: Record<string, StadtData> = {
     distanceKm: 90,
     lat: 50.7753,
     lng: 6.0839,
+    seoTier: "noindex",
   },
   wuppertal: {
     name: "Wuppertal",
@@ -232,6 +241,7 @@ export const staedte: Record<string, StadtData> = {
     distanceKm: 60,
     lat: 51.2562,
     lng: 7.1508,
+    seoTier: "noindex",
   },
   // === Neue Städte ===
   moenchengladbach: {
@@ -251,6 +261,7 @@ export const staedte: Record<string, StadtData> = {
     distanceKm: 25,
     lat: 51.1805,
     lng: 6.4428,
+    seoTier: "excluded",
   },
   muenster: {
     name: "Münster",
@@ -269,6 +280,7 @@ export const staedte: Record<string, StadtData> = {
     distanceKm: 100,
     lat: 51.9607,
     lng: 7.6261,
+    seoTier: "excluded",
   },
   bielefeld: {
     name: "Bielefeld",
@@ -287,6 +299,7 @@ export const staedte: Record<string, StadtData> = {
     distanceKm: 130,
     lat: 52.0302,
     lng: 8.5325,
+    seoTier: "excluded",
   },
   bochum: {
     name: "Bochum",
@@ -305,6 +318,7 @@ export const staedte: Record<string, StadtData> = {
     distanceKm: 25,
     lat: 51.4818,
     lng: 7.2162,
+    seoTier: "excluded",
   },
   leverkusen: {
     name: "Leverkusen",
@@ -323,6 +337,7 @@ export const staedte: Record<string, StadtData> = {
     distanceKm: 40,
     lat: 51.0459,
     lng: 7.0192,
+    seoTier: "excluded",
   },
   solingen: {
     name: "Solingen",
@@ -341,6 +356,7 @@ export const staedte: Record<string, StadtData> = {
     distanceKm: 55,
     lat: 51.1657,
     lng: 7.0673,
+    seoTier: "excluded",
   },
   oberhausen: {
     name: "Oberhausen",
@@ -359,6 +375,7 @@ export const staedte: Record<string, StadtData> = {
     distanceKm: 10,
     lat: 51.4963,
     lng: 6.8631,
+    seoTier: "excluded",
   },
   gelsenkirchen: {
     name: "Gelsenkirchen",
@@ -377,5 +394,6 @@ export const staedte: Record<string, StadtData> = {
     distanceKm: 25,
     lat: 51.5177,
     lng: 7.0857,
+    seoTier: "excluded",
   },
 };
