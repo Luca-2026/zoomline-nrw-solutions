@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { LazyImage } from "@/components/shared/LazyImage";
 import { hotDeals, type HotDeal } from "@/data/hotDeals";
+import { getProductPageRoute } from "@/data/productPageLinks";
 
 const formatPrice = (price: number) => {
   return new Intl.NumberFormat("de-DE", {
@@ -71,8 +72,8 @@ function HotDealCard({ deal }: { deal: HotDeal }) {
         </div>
 
         <Button asChild className="w-full group/btn">
-          <Link to="/hot-deals">
-            Jetzt sichern
+          <Link to={getProductPageRoute(deal.id) ?? "/hot-deals"}>
+            Details &amp; Datenblatt
             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
           </Link>
         </Button>

@@ -5,6 +5,7 @@ import { Flame, Shovel, ChevronsUp, ArrowRight, Phone, Mail } from "lucide-react
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { hotDeals, type HotDeal } from "@/data/hotDeals";
+import { getProductPageRoute } from "@/data/productPageLinks";
 import {
   Dialog,
   DialogContent,
