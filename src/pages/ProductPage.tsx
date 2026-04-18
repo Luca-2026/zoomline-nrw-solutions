@@ -117,7 +117,7 @@ export default function ProductPage({ category }: ProductPageProps) {
   }
 
   const url = `${SITE_URL}${categoryParentPath[category]}/${product.slug}/`;
-  const title = `${product.name} kaufen – ${product.typeLabel} | Zoomlion NRW`.slice(0, 70);
+  const title = `${product.name} kaufen | Zoomlion NRW`;
   const description = `${product.tagline} Exklusiver Zoomlion-Fachhändler in NRW, 3 Jahre Garantie, Probefahrt in Bonn, Krefeld & Mülheim.`.slice(
     0,
     160,
@@ -296,6 +296,17 @@ export default function ProductPage({ category }: ProductPageProps) {
             </AccordionItem>
           ))}
         </Accordion>
+        <p className="mt-6 text-sm text-muted-foreground">
+          Vollständige technische Daten im offiziellen Zoomlion-Datenblatt:{" "}
+          <a
+            href={product.datasheetPdf}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary underline hover:no-underline"
+          >
+            PDF herunterladen
+          </a>
+        </p>
       </section>
 
       {/* FAQ */}
