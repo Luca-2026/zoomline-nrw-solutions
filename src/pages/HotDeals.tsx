@@ -104,6 +104,19 @@ function HotDealDetailCard({ deal, onInquiry }: { deal: HotDeal; onInquiry: () =
               </a>
             </Button>
           </div>
+          {(() => {
+            const detailRoute = getProductPageRoute(deal.id);
+            if (!detailRoute) return null;
+            return (
+              <Link
+                to={detailRoute}
+                className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
+              >
+                Zur Produktseite mit Datenblatt &amp; allen Specs
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            );
+          })()}
         </div>
       </div>
     </div>
