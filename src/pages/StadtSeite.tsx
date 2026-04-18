@@ -16,6 +16,7 @@ import {
   Truck,
   Shield,
   CheckCircle2,
+  ExternalLink,
 } from "lucide-react";
 
 export { staedte, type StadtData } from "@/data/staedte";
@@ -327,6 +328,40 @@ const StadtSeite = () => {
                 ))}
               </div>
             </div>
+
+            {/* Hinweis: Vermietung über Schwesterunternehmen SLT Rental */}
+            <aside
+              aria-labelledby="rental-hint"
+              className="mb-12 p-6 rounded-xl border border-primary/20 bg-primary/5"
+            >
+              <h2 id="rental-hint" className="font-heading text-xl font-bold mb-2">
+                Sie möchten eine Maschine in {data.name} mieten statt kaufen?
+              </h2>
+              <p className="text-sm text-muted-foreground mb-4">
+                Auf zoomlion-nrw.de geht es ausschließlich um den Verkauf von Zoomlion
+                Neumaschinen. Für die klassische Vermietung von Baumaschinen und Arbeitsbühnen
+                ist unser Schwesterunternehmen <strong>SLT Rental</strong> zuständig – ebenfalls
+                mit Standorten in NRW und persönlicher Beratung. Eine kostenfreie{" "}
+                <strong>Try &amp; Buy-Testmiete</strong> Ihrer Wunschmaschine vor dem Kauf bieten
+                wir Ihnen selbstverständlich auch direkt über uns an.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Button asChild variant="outline" size="sm">
+                  <a
+                    href="https://www.slt-rental.de"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2"
+                  >
+                    Zur Vermietung auf slt-rental.de
+                    <ExternalLink className="h-4 w-4" />
+                  </a>
+                </Button>
+                <Button asChild variant="ghost" size="sm">
+                  <Link to="/try-and-buy">Try &amp; Buy-Testmiete</Link>
+                </Button>
+              </div>
+            </aside>
 
             {/* Stadtspezifische FAQ */}
             <div className="mb-12">
