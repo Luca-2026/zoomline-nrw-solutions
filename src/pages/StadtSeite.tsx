@@ -159,6 +159,14 @@ const StadtSeite = () => {
         <meta name="title" content={data.metaTitle} />
         <meta name="description" content={data.metaDescription} />
         <meta
+          name="robots"
+          content={
+            (data.seoTier ?? "noindex") === "index"
+              ? "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+              : "noindex, follow"
+          }
+        />
+        <meta
           name="keywords"
           content={`Minibagger kaufen ${data.name}, Bagger kaufen ${data.name}, Arbeitsbühne kaufen ${data.name}, Hebebühne kaufen ${data.name}, Teleskoplader kaufen ${data.name}, Baumaschinen kaufen ${data.name}, Baumaschinen ${data.name}, Bagger ${data.name}, Telehandler ${data.name}`}
         />

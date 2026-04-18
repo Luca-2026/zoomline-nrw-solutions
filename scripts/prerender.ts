@@ -125,6 +125,16 @@ function applySeoToHtml(template, route) {
     `<link rel="canonical" href="${escapeAttr(url)}" />`,
   );
 
+  // robots: per-Route override (z. B. Thin-Content-Stadtseiten auf noindex,follow)
+  const robotsContent = route.noindex
+    ? "noindex, follow"
+    : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
+  html = upsertHeadTag(
+    html,
+    /<meta\s+name=["']robots["'][^>]*>/i,
+    `<meta name="robots" content="${escapeAttr(robotsContent)}" />`,
+  );
+
   // OG Tags
   const ogTags = [
     ["og:type", "website"],
@@ -175,11 +185,15 @@ function applySeoToHtml(template, route) {
 }
 
 function stadtToRoute(stadt) {
+  // Default: "noindex" für Stadtseiten ohne expliziten Tier (Sicherheits-Default).
+  const tier = stadt.seoTier ?? "noindex";
   return {
     path: `/baumaschinen/${stadt.slug}`,
     title: stadt.metaTitle,
     description: stadt.metaDescription,
     h1: `Baumaschinen kaufen in ${stadt.name} – Minibagger, Arbeitsbühnen & Teleskoplader`,
+    noindex: tier !== "index",
+    excludeFromSitemap: tier === "excluded",
     intro: [
       stadt.description,
       stadt.longDescription,
@@ -213,6 +227,7 @@ async function writeRouteHtml(route, template) {
 function buildSitemap(routes) {
   const today = new Date().toISOString().slice(0, 10);
   const urls = routes
+    .filter((r) => !r.excludeFromSitemap)
     .map((r) => {
       const { priority, changefreq } = sitemapMeta(r.path);
       return `  <url>
@@ -255,8 +270,11 @@ async function main() {
     console.log(`  ✓ ${route.path.padEnd(35)} → ${out.replace(projectRoot + "/", "")}`);
   }
 
+  const sitemapRoutes = allRoutes.filter((r) => !r.excludeFromSitemap);
   await writeFile(sitemapPath, buildSitemap(allRoutes), "utf8");
-  console.log(`[prerender] sitemap.xml geschrieben (${allRoutes.length} URLs, Trailing-Slash).`);
+  console.log(
+    `[prerender] sitemap.xml geschrieben (${sitemapRoutes.length} indexierbare URLs, ${allRoutes.length - sitemapRoutes.length} ausgeschlossen).`,
+  );
 
   console.log(`[prerender] Fertig: ${count} Seiten geschrieben.`);
 }
