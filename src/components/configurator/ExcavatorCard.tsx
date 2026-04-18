@@ -134,11 +134,7 @@ export function ExcavatorCard({ product, onInquiry }: ExcavatorCardProps) {
           }
           return null;
         })()}
-      </div>
-    </div>
-  </div>
-  );
-}
+        </div>
       </div>
     </div>
   );
