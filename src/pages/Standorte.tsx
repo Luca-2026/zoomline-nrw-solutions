@@ -114,15 +114,20 @@ const Standorte = () => {
           <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {locations.map((loc) => {
               const locationImage = locationImages[loc.id];
-              
+              const slug = detailSlug[loc.id];
+              const s = STANDORTE[slug];
+
               return (
-                <div key={loc.id} className="group rounded-xl border border-border bg-card overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-primary/30">
+                <article
+                  key={loc.id}
+                  className="group flex flex-col rounded-xl border border-border bg-card overflow-hidden transition-all duration-300 hover:shadow-lg hover:border-primary/30"
+                >
                   {/* Location Image */}
                   <div className="aspect-video bg-muted relative overflow-hidden">
                     {locationImage ? (
                       <img
                         src={locationImage}
-                        alt={`Zoomlion Händler ${loc.name} - Minibagger und Arbeitsbühnen kaufen in ${loc.city}`}
+                        alt={`Zoomlion Händler ${s.name} - Minibagger und Arbeitsbühnen kaufen in ${s.city}`}
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                         loading="lazy"
                       />
@@ -136,31 +141,47 @@ const Standorte = () => {
                       </div>
                     )}
                   </div>
-                  
-                  <div className="p-6">
-                    <h3 className="font-heading text-xl font-bold mb-2">{loc.name}</h3>
-                    <p className="text-muted-foreground">{loc.address}</p>
-                    <p className="text-muted-foreground mb-4">{loc.city}</p>
-                    
-                    <div className="space-y-2">
-                      {loc.showPhone && loc.phone && (
-                        <a 
-                          href={`tel:${loc.phone.replace(/\s/g, "")}`} 
-                          className="flex items-center gap-2 text-primary font-medium hover:underline"
-                        >
-                          <Phone className="h-4 w-4" /> {loc.phone}
-                        </a>
-                      )}
-                      
-                      <a 
-                        href={`mailto:${EMAIL}`} 
-                        className="flex items-center gap-2 text-primary font-medium hover:underline"
+
+                  <div className="p-6 flex flex-col flex-1">
+                    <h2 className="font-heading text-xl font-bold mb-2">
+                      <Link to={`/standorte/${slug}`} className="hover:text-primary transition-colors">
+                        {s.name}
+                      </Link>
+                    </h2>
+                    <p className="text-muted-foreground text-sm flex items-start gap-2 mb-1">
+                      <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0 text-primary" />
+                      <span>
+                        {s.street}, {s.postalCode} {s.city}
+                      </span>
+                    </p>
+                    <p className="text-muted-foreground text-sm flex items-start gap-2 mb-4">
+                      <Clock className="h-4 w-4 mt-0.5 flex-shrink-0 text-primary" />
+                      {s.hours}
+                    </p>
+
+                    <div className="space-y-2 mb-6">
+                      <a
+                        href={`tel:${s.phone}`}
+                        className="flex items-center gap-2 text-primary font-medium hover:underline text-sm"
                       >
-                        <Mail className="h-4 w-4" /> {EMAIL}
+                        <Phone className="h-4 w-4" /> {s.phoneDisplay}
+                      </a>
+                      <a
+                        href={`mailto:${s.email}`}
+                        className="flex items-center gap-2 text-primary font-medium hover:underline text-sm"
+                      >
+                        <Mail className="h-4 w-4" /> {s.email}
                       </a>
                     </div>
+
+                    <Button asChild className="mt-auto w-full">
+                      <Link to={`/standorte/${slug}`}>
+                        Details ansehen
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </Link>
+                    </Button>
                   </div>
-                </div>
+                </article>
               );
             })}
           </div>
