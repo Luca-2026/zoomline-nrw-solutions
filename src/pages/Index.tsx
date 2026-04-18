@@ -11,6 +11,10 @@ import { LocationsTeaser } from "@/components/home/LocationsTeaser";
 import { ContactTeaser } from "@/components/home/ContactTeaser";
 import { SocialMeta } from "@/components/shared/SocialMeta";
 
+// JSON-LD (Organization + WebSite + ItemList) wird zentral vom Prerender-Skript
+// injiziert (scripts/prerender.ts).
+
+
 const Index = () => {
   const orgJsonLd = {
     "@context": "https://schema.org",

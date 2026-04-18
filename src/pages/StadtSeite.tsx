@@ -35,53 +35,13 @@ const StadtSeite = () => {
   const isIndexable = seoTier === "index";
   const cityContent = data.cityContent;
 
-  // ----- JSON-LD ------------------------------------------------------------
-  // Service-Schema (statt LocalBusiness): Stadt ist Liefergebiet, NICHT Standort.
-  // LocalBusiness gehört nur auf /standorte (siehe index.html und /standorte-Seite).
-  const serviceSchema = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    serviceType: "Baumaschinenverkauf",
-    name: `Zoomlion Baumaschinen kaufen in ${data.name}`,
-    description: `Verkauf, Lieferung und Service von Zoomlion Minibaggern, Arbeitsbühnen und Teleskopladern in ${data.name} und Umgebung.`,
-    url: `https://www.zoomlion-nrw.de/baumaschinen/${data.slug}`,
-    areaServed: {
-      "@type": "City",
-      name: data.name,
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: data.name,
-        addressRegion: "Nordrhein-Westfalen",
-        addressCountry: "DE",
-      },
-    },
-    // Provider verweist nur per @id auf den realen Standort (AutomotiveBusiness),
-    // KEIN eigenständiges LocalBusiness auf der Stadt-URL (kein physischer Standort hier).
-    provider: {
-      "@id": `https://www.zoomlion-nrw.de/standorte/${standort.slug}#localbusiness`,
-    },
-  };
-
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Start", item: "https://www.zoomlion-nrw.de/" },
-      { "@type": "ListItem", position: 2, name: "Standorte", item: "https://www.zoomlion-nrw.de/standorte" },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: data.name,
-        item: `https://www.zoomlion-nrw.de/baumaschinen/${data.slug}`,
-      },
-    ],
-  };
-
-  // FAQ: bevorzugt stadtspezifisch (cityContent.faq), Fallback auf generisch.
+  // JSON-LD (Service + Breadcrumb + FAQPage) wird zentral vom Prerender-Skript
+  // (scripts/prerender.ts) injiziert. Hier nur noch FAQ-Daten für die
+  // sichtbare Accordion-Section.
   const faqEntries = cityContent?.faq ?? [
     {
       question: `Kann ich einen Minibagger in ${data.name} kaufen?`,
-      answer: `Ja, wir liefern Zoomlion Minibagger von 1,8 bis 25 Tonnen direkt nach ${data.name}. Beratung und Probefahrt am Standort ${standort.name}.`,
+      answer: `Ja, wir liefern Zoomlion Minibagger von 2 bis 5,8 Tonnen direkt nach ${data.name}. Beratung und Probefahrt am Standort ${standort.name}.`,
     },
     {
       question: `Wie lange dauert die Lieferung einer Arbeitsbühne nach ${data.name}?`,
@@ -92,15 +52,6 @@ const StadtSeite = () => {
       answer: `Ja – Service, UVV-Prüfung und Ersatzteile organisieren wir vom nächstgelegenen Standort ${standort.name} aus, oft auch mit mobilem Service direkt vor Ort.`,
     },
   ];
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqEntries.map((f) => ({
-      "@type": "Question",
-      name: f.question,
-      acceptedAnswer: { "@type": "Answer", text: f.answer },
-    })),
-  };
 
   return (
     <Layout>
