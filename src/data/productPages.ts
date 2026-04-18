@@ -1,13 +1,9 @@
 // Produkt-Detailseiten (Single Source of Truth pro Modell)
 // Hinweis: Diese Datei ergänzt src/data/products.ts (Katalog/Konfigurator)
 // und liefert die ausführlichen Detail-Inhalte mit Datenblatt-PDF & JSON-LD.
-
-import ze20gImage from "@/assets/hot-deals/ze20g.png";
-import ze27guImage from "@/assets/hot-deals/ze27gu.jpg";
-import ze55guImage from "@/assets/hot-deals/ze55gu.png";
-import zs0607acLiImage from "@/assets/hot-deals/zs0607ac-li.png";
-import zs1012acLiImage from "@/assets/hot-deals/zs1012ac-li.png";
-import zmp09jImage from "@/assets/hot-deals/zmp09j.png";
+// WICHTIG: Bilder bewusst NICHT hier importieren, sondern in productImages.ts.
+// Grund: Diese Datei wird vom Prerender-Skript (tsx/Node) gelesen und kann
+// keine .png/.jpg-Module laden.
 
 export type ProductCategory = "bagger" | "arbeitsbuehnen";
 
