@@ -187,24 +187,35 @@ function applySeoToHtml(template, route) {
 function stadtToRoute(stadt) {
   // Default: "noindex" für Stadtseiten ohne expliziten Tier (Sicherheits-Default).
   const tier = stadt.seoTier ?? "noindex";
+  const cc = stadt.cityContent;
+
+  // SEO-Block-Intro: bevorzugt vollen Unique-Content (cityContent.intro), sonst
+  // Fallback auf description+longDescription. Erweitert um Standort/Liefergebiet.
+  const intro = cc
+    ? [
+        cc.intro,
+        `Anfahrt: ${cc.routeFromCenter}${cc.driveTimeMinutes > 0 ? ` (ca. ${cc.driveTimeMinutes} Minuten)` : ""}. Lieferung in ${stadt.name} (PLZ ${cc.plzRange}) und in den Nachbarstädten ${stadt.nearbyAreas.slice(0, 5).join(", ")}.`,
+      ]
+    : [
+        stadt.description,
+        stadt.longDescription,
+        stadt.standort
+          ? `Beliefert vom Standort ${stadt.standort}${
+              stadt.distanceKm && stadt.distanceKm > 0
+                ? ` (ca. ${stadt.distanceKm} km Entfernung)`
+                : ""
+            }. Auch in den umliegenden Orten ${stadt.nearbyAreas.slice(0, 5).join(", ")} liefern wir Zoomlion Baumaschinen.`
+          : `Auch in den umliegenden Orten ${stadt.nearbyAreas.slice(0, 5).join(", ")} liefern wir Zoomlion Baumaschinen.`,
+      ];
+
   return {
     path: `/baumaschinen/${stadt.slug}`,
     title: stadt.metaTitle,
     description: stadt.metaDescription,
-    h1: `Baumaschinen kaufen in ${stadt.name} – Minibagger, Arbeitsbühnen & Teleskoplader`,
+    h1: `Zoomlion Baumaschinen in ${stadt.name} kaufen – Minibagger, Arbeitsbühnen & Teleskoplader`,
     noindex: tier !== "index",
     excludeFromSitemap: tier === "excluded",
-    intro: [
-      stadt.description,
-      stadt.longDescription,
-      stadt.standort
-        ? `Beliefert vom Standort ${stadt.standort}${
-            stadt.distanceKm && stadt.distanceKm > 0
-              ? ` (ca. ${stadt.distanceKm} km Entfernung)`
-              : ""
-          }. Auch in den umliegenden Orten ${stadt.nearbyAreas.slice(0, 5).join(", ")} liefern wir Zoomlion Baumaschinen.`
-        : `Auch in den umliegenden Orten ${stadt.nearbyAreas.slice(0, 5).join(", ")} liefern wir Zoomlion Baumaschinen.`,
-    ],
+    intro,
   };
 }
 
