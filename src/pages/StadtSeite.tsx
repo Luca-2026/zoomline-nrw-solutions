@@ -6,14 +6,14 @@ import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { SocialMeta } from "@/components/shared/SocialMeta";
 import { TrustBadges } from "@/components/shared/TrustBadges";
 import { Button } from "@/components/ui/button";
+import { CityStandortCard } from "@/components/stadt/CityStandortCard";
+import { CityReferences } from "@/components/stadt/CityReferences";
+import { resolveStandort } from "@/data/standorte";
 import {
   ArrowRight,
-  MapPin,
-  Phone,
   Wrench,
   Factory,
   Truck,
-  Clock,
   Shield,
   CheckCircle2,
 } from "lucide-react";
@@ -29,80 +29,44 @@ const StadtSeite = () => {
     return <Navigate to="/standorte" replace />;
   }
 
-  const standortAddresses: Record<string, { street: string; postalCode: string; city: string; phone: string }> = {
-    Bonn: { street: "Drachenburgstraße 8", postalCode: "53179", city: "Bonn", phone: "+49-228-50466061" },
-    Krefeld: { street: "Anrather Straße 291", postalCode: "47807", city: "Krefeld", phone: "+49-2151-4179904" },
-    "Mülheim a. d. Ruhr": { street: "Ruhrorter Straße", postalCode: "45478", city: "Mülheim an der Ruhr", phone: "+49-2151-4179904" },
-  };
-  const standortKey = data.standort && standortAddresses[data.standort] ? data.standort : "Krefeld";
-  const standortInfo = standortAddresses[standortKey];
+  const standort = resolveStandort(data.standort);
+  const seoTier = data.seoTier ?? "noindex";
+  const isIndexable = seoTier === "index";
+  const cityContent = data.cityContent;
 
-  const localBusinessSchema = {
+  // ----- JSON-LD ------------------------------------------------------------
+  // Service-Schema (statt LocalBusiness): Stadt ist Liefergebiet, NICHT Standort.
+  // LocalBusiness gehört nur auf /standorte (siehe index.html und /standorte-Seite).
+  const serviceSchema = {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "@id": `https://www.zoomlion-nrw.de/baumaschinen/${data.slug}#business`,
-    name: `Zoomlion NRW – Baumaschinen kaufen in ${data.name}`,
-    description: `Minibagger, Arbeitsbühne, Bagger und Teleskoplader kaufen in ${data.name}. Exklusiver Zoomlion Fachhändler in NRW.`,
+    "@type": "Service",
+    serviceType: "Baumaschinenverkauf",
+    name: `Zoomlion Baumaschinen kaufen in ${data.name}`,
+    description: `Verkauf, Lieferung und Service von Zoomlion Minibaggern, Arbeitsbühnen und Teleskopladern in ${data.name} und Umgebung.`,
     url: `https://www.zoomlion-nrw.de/baumaschinen/${data.slug}`,
-    telephone: standortInfo.phone,
-    email: "verkauf@zoomlion-nrw.de",
-    image: "https://www.zoomlion-nrw.de/og-image.jpg",
-    priceRange: "€€€",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: standortInfo.street,
-      postalCode: standortInfo.postalCode,
-      addressLocality: standortInfo.city,
-      addressRegion: "NRW",
-      addressCountry: "DE",
-    },
-    areaServed: [
-      {
-        "@type": "City",
-        name: data.name,
-        containedInPlace: { "@type": "State", name: "Nordrhein-Westfalen" },
+    areaServed: {
+      "@type": "City",
+      name: data.name,
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: data.name,
+        addressRegion: "Nordrhein-Westfalen",
+        addressCountry: "DE",
       },
-      ...data.nearbyAreas.map((area) => ({ "@type": "City", name: area })),
-    ],
-    ...(data.lat && data.lng
-      ? {
-          geo: {
-            "@type": "GeoCoordinates",
-            latitude: data.lat,
-            longitude: data.lng,
-          },
-        }
-      : {}),
-    brand: { "@type": "Brand", name: "Zoomlion" },
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: `Baumaschinen in ${data.name}`,
-      itemListElement: [
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Product",
-            name: `Minibagger kaufen ${data.name}`,
-            category: "Minibagger",
-          },
-        },
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Product",
-            name: `Arbeitsbühne kaufen ${data.name}`,
-            category: "Arbeitsbühne",
-          },
-        },
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Product",
-            name: `Teleskoplader kaufen ${data.name}`,
-            category: "Teleskoplader",
-          },
-        },
-      ],
+    },
+    provider: {
+      "@type": "LocalBusiness",
+      name: `Zoomlion NRW – ${standort.name}`,
+      "@id": `https://www.zoomlion-nrw.de/standorte#${standort.slug}`,
+      telephone: standort.phone,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: standort.street,
+        postalCode: standort.postalCode,
+        addressLocality: standort.city,
+        addressRegion: "Nordrhein-Westfalen",
+        addressCountry: "DE",
+      },
     },
   };
 
@@ -121,35 +85,29 @@ const StadtSeite = () => {
     ],
   };
 
+  // FAQ: bevorzugt stadtspezifisch (cityContent.faq), Fallback auf generisch.
+  const faqEntries = cityContent?.faq ?? [
+    {
+      question: `Kann ich einen Minibagger in ${data.name} kaufen?`,
+      answer: `Ja, wir liefern Zoomlion Minibagger von 1,8 bis 25 Tonnen direkt nach ${data.name}. Beratung und Probefahrt am Standort ${standort.name}.`,
+    },
+    {
+      question: `Wie lange dauert die Lieferung einer Arbeitsbühne nach ${data.name}?`,
+      answer: `Lagerware liefern wir typischerweise innerhalb von 5–10 Werktagen nach ${data.name}. Bei individuellen Konfigurationen sprechen wir die Lieferzeit ab.`,
+    },
+    {
+      question: `Gibt es Service & Ersatzteile in ${data.name}?`,
+      answer: `Ja – Service, UVV-Prüfung und Ersatzteile organisieren wir vom nächstgelegenen Standort ${standort.name} aus, oft auch mit mobilem Service direkt vor Ort.`,
+    },
+  ];
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: `Kann ich einen Minibagger in ${data.name} kaufen?`,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: `Ja, wir liefern Zoomlion Minibagger von 1,8 bis 25 Tonnen direkt nach ${data.name}. Beratung und Probefahrt am Standort ${data.standort ?? "Krefeld"}.`,
-        },
-      },
-      {
-        "@type": "Question",
-        name: `Wie lange dauert die Lieferung einer Arbeitsbühne nach ${data.name}?`,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: `Lagerware liefern wir typischerweise innerhalb von 5–10 Werktagen nach ${data.name}. Bei individuellen Konfigurationen sprechen wir die Lieferzeit ab.`,
-        },
-      },
-      {
-        "@type": "Question",
-        name: `Gibt es Service & Ersatzteile in ${data.name}?`,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: `Ja – Service, UVV-Prüfung und Ersatzteile organisieren wir vom nächstgelegenen Standort ${data.standort ?? "Krefeld"} aus, oft auch mit mobilem Service direkt vor Ort.`,
-        },
-      },
-    ],
+    mainEntity: faqEntries.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer },
+    })),
   };
 
   return (
@@ -161,7 +119,7 @@ const StadtSeite = () => {
         <meta
           name="robots"
           content={
-            (data.seoTier ?? "noindex") === "index"
+            isIndexable
               ? "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
               : "noindex, follow"
           }
@@ -172,9 +130,7 @@ const StadtSeite = () => {
         />
         <link rel="canonical" href={`https://www.zoomlion-nrw.de/baumaschinen/${data.slug}`} />
 
-        {/* Open Graph & Twitter Card via SocialMeta below */}
-
-        <script type="application/ld+json">{JSON.stringify(localBusinessSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(serviceSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
       </Helmet>
@@ -184,7 +140,6 @@ const StadtSeite = () => {
         url={`https://www.zoomlion-nrw.de/baumaschinen/${data.slug}`}
       />
 
-      {/* Hero */}
       <section className="py-12 md:py-16">
         <div className="container mx-auto px-4">
           <Breadcrumbs
@@ -194,55 +149,85 @@ const StadtSeite = () => {
               { label: data.name },
             ]}
           />
+
+          {/* HERO – exakter H1-Wortlaut laut SEO-Prompt */}
           <SectionHeading
             as="h1"
             badge={`Baumaschinen ${data.name}`}
-            title={`Minibagger, Arbeitsbühne & Teleskoplader kaufen in ${data.name}`}
+            title={`Zoomlion Baumaschinen in ${data.name} kaufen – Minibagger, Arbeitsbühnen & Teleskoplader`}
             subtitle={`Made in EU – 3 Jahre Garantie – Lieferung & Einweisung in ${data.name} und Umgebung`}
           />
 
           <div className="max-w-4xl mx-auto">
-            <div className="prose prose-lg max-w-none mb-8">
-              <p className="text-lg">{data.description}</p>
-              <p>{data.longDescription}</p>
+            {/* Stadt-spezifischer Intro-Absatz (≥150 Wörter) */}
+            <div className="prose prose-lg max-w-none mb-10">
+              {cityContent ? (
+                <p className="text-lg leading-relaxed">{cityContent.intro}</p>
+              ) : (
+                <>
+                  <p className="text-lg">{data.description}</p>
+                  <p>{data.longDescription}</p>
+                </>
+              )}
             </div>
 
-            {/* Standort-Hinweis */}
-            {data.standort && (
-              <div className="mb-8 p-5 rounded-xl border border-primary/20 bg-primary/5 flex items-start gap-3">
-                <MapPin className="h-6 w-6 text-primary mt-0.5 flex-shrink-0" />
-                <div>
-                  <p className="font-semibold text-foreground">
-                    {data.distanceKm === 0
-                      ? `Standort direkt in ${data.name}`
-                      : `Nächster Standort: ${data.standort}${data.distanceKm ? ` (ca. ${data.distanceKm} km)` : ""}`}
-                  </p>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    Persönliche Beratung, Maschinenbesichtigung, Probefahrt und schnelle Ersatzteilversorgung.
-                  </p>
-                  <div className="mt-3 flex flex-wrap gap-3">
-                    <Button asChild size="sm">
-                      <Link to="/kontakt">
-                        Termin vereinbaren <ArrowRight className="ml-2 h-4 w-4" />
-                      </Link>
-                    </Button>
-                    <Button asChild size="sm" variant="outline">
-                      <a href="tel:02151-4179904">
-                        <Phone className="mr-2 h-4 w-4" /> 02151 4179904
-                      </a>
-                    </Button>
-                  </div>
-                </div>
-              </div>
+            {/* Standort-Karte mit OSM-Bild + CTAs */}
+            {cityContent && (
+              <CityStandortCard
+                cityName={data.name}
+                osmBbox={cityContent.osmBbox}
+                routeDescription={cityContent.routeFromCenter}
+                driveTimeMinutes={cityContent.driveTimeMinutes}
+                distanceKm={data.distanceKm ?? 0}
+                standort={standort}
+              />
             )}
 
-            {/* Produkt-Links */}
+            {/* Empfohlene Maschinen für diese Stadt */}
+            {cityContent && cityContent.recommendedProducts.length > 0 && (
+              <section aria-labelledby="city-products" className="mb-12">
+                <h2 id="city-products" className="font-heading text-2xl font-bold mb-2">
+                  Top-Maschinen für {data.name}
+                </h2>
+                <p className="text-muted-foreground mb-6 text-sm">
+                  Unsere Empfehlung für die typischen Anwendungen in {data.name} und Umgebung:
+                </p>
+                <div className="grid sm:grid-cols-3 gap-4">
+                  {cityContent.recommendedProducts.map((product) => (
+                    <Link
+                      key={product.name}
+                      to={product.link}
+                      className="group p-5 rounded-xl border border-border bg-card hover:shadow-lg hover:border-primary/30 hover:-translate-y-1 transition-all duration-300"
+                    >
+                      <p className="text-xs font-medium text-primary uppercase tracking-wide mb-1">
+                        {product.category}
+                      </p>
+                      <h3 className="font-heading font-bold text-base mb-2 leading-snug">
+                        {product.name}
+                      </h3>
+                      <p className="text-sm text-muted-foreground mb-3">{product.reason}</p>
+                      <span className="text-primary text-sm font-medium flex items-center gap-1">
+                        Details ansehen
+                        <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            )}
+
+            {/* Generische Branchen-Referenzen mit PLZ */}
+            {cityContent && (
+              <CityReferences cityName={data.name} references={cityContent.references} />
+            )}
+
+            {/* Allgemeine Produkt-Kategorien (führt in die Hauptseiten) */}
             <div className="grid sm:grid-cols-3 gap-4 mb-12">
               <Link
                 to="/bagger"
                 className="group p-6 rounded-xl border border-border bg-card hover:shadow-lg hover:border-primary/30 hover:-translate-y-1 transition-all duration-300"
               >
-                <h3 className="font-heading font-bold text-lg mb-2">Minibagger kaufen in {data.name}</h3>
+                <h3 className="font-heading font-bold text-lg mb-2">Alle Minibagger</h3>
                 <p className="text-sm text-muted-foreground mb-3">Mini- & Kompaktbagger 1,8–25 t</p>
                 <span className="text-primary text-sm font-medium flex items-center gap-1">
                   Modelle ansehen <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -252,7 +237,7 @@ const StadtSeite = () => {
                 to="/arbeitsbuehnen"
                 className="group p-6 rounded-xl border border-border bg-card hover:shadow-lg hover:border-primary/30 hover:-translate-y-1 transition-all duration-300"
               >
-                <h3 className="font-heading font-bold text-lg mb-2">Arbeitsbühne kaufen in {data.name}</h3>
+                <h3 className="font-heading font-bold text-lg mb-2">Alle Arbeitsbühnen</h3>
                 <p className="text-sm text-muted-foreground mb-3">Scheren-, Gelenk- & Teleskopbühnen</p>
                 <span className="text-primary text-sm font-medium flex items-center gap-1">
                   Modelle ansehen <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -262,7 +247,7 @@ const StadtSeite = () => {
                 to="/teleskoplader"
                 className="group p-6 rounded-xl border border-border bg-card hover:shadow-lg hover:border-primary/30 hover:-translate-y-1 transition-all duration-300"
               >
-                <h3 className="font-heading font-bold text-lg mb-2">Teleskoplader kaufen in {data.name}</h3>
+                <h3 className="font-heading font-bold text-lg mb-2">Alle Teleskoplader</h3>
                 <p className="text-sm text-muted-foreground mb-3">Starr & drehbar bis 24,8 m</p>
                 <span className="text-primary text-sm font-medium flex items-center gap-1">
                   Modelle ansehen <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -298,66 +283,10 @@ const StadtSeite = () => {
                 <div>
                   <p className="font-medium">Service & Ersatzteile</p>
                   <p className="text-sm text-muted-foreground">
-                    Schnelle Verfügbarkeit über Standort {data.standort ?? "Krefeld"}
+                    Schnelle Verfügbarkeit über Standort {standort.name}
                   </p>
                 </div>
               </div>
-            </div>
-
-            {/* CTA */}
-            <div className="text-center mb-12">
-              <Button asChild size="lg" className="group">
-                <Link to="/kontakt">
-                  Jetzt unverbindliches Angebot für {data.name} anfragen
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </Button>
-            </div>
-
-            {/* SEO Content – Produktblöcke */}
-            <div className="space-y-8 mb-12">
-              <article>
-                <h2 className="font-heading text-2xl font-bold mb-3">Minibagger kaufen in {data.name}</h2>
-                <p className="text-muted-foreground mb-3">
-                  Bauunternehmen und GaLaBauer in {data.name} setzen auf <strong>Zoomlion Minibagger</strong> –
-                  vom 1,8-Tonnen-Modell für die enge Innenstadt bis zum 25-Tonnen-Kompaktbagger für den Tiefbau.
-                  Alle Modelle gibt es als Diesel- oder Elektro-Variante. Für emissionsfreie Baustellen in {data.name}{" "}
-                  empfehlen wir unsere <strong>Elektro-Minibagger</strong>.
-                </p>
-                <ul className="text-sm text-muted-foreground list-disc pl-5 space-y-1">
-                  <li>Minibagger 1,8 t – ideal für GaLaBau und enge Höfe in {data.name}</li>
-                  <li>Minibagger 3–5 t – Allrounder für Wohnungsbau und Sanierung</li>
-                  <li>Kompaktbagger 8–25 t – für Tiefbau, Abbruch und Industrie</li>
-                </ul>
-              </article>
-
-              <article>
-                <h2 className="font-heading text-2xl font-bold mb-3">Arbeitsbühne kaufen in {data.name}</h2>
-                <p className="text-muted-foreground mb-3">
-                  Für Fassadenarbeiten, Hallenbau und Innenstadtbaustellen in {data.name} bieten wir das komplette Spektrum
-                  an <strong>Hebebühnen, Scherenarbeitsbühnen und Teleskopbühnen</strong> – elektrisch, Diesel oder Hybrid,
-                  bis 68 m Arbeitshöhe. Alle Maschinen sind CE- und EU-konform.
-                </p>
-                <ul className="text-sm text-muted-foreground list-disc pl-5 space-y-1">
-                  <li>Scherenarbeitsbühnen – Indoor (elektrisch) & Outdoor (Diesel/Hybrid)</li>
-                  <li>Gelenkteleskopbühnen – flexibel über Hindernisse hinweg</li>
-                  <li>Teleskopbühnen bis 68 m – für Hochhäuser und Industrieanlagen in {data.name}</li>
-                </ul>
-              </article>
-
-              <article>
-                <h2 className="font-heading text-2xl font-bold mb-3">Teleskoplader kaufen in {data.name}</h2>
-                <p className="text-muted-foreground mb-3">
-                  Vom <strong>starren Telehandler</strong> bis zum <strong>360°-Drehteleskoplader</strong> – unsere Zoomlion
-                  Teleskoplader sind perfekt für Bau, Hallenlogistik und Landwirtschaft in {data.name}. Mit 4×4-Allrad
-                  meistern sie auch unbefestigte Baustellen problemlos.
-                </p>
-                <ul className="text-sm text-muted-foreground list-disc pl-5 space-y-1">
-                  <li>Starre Telehandler – wirtschaftlicher Materialtransport</li>
-                  <li>Drehteleskoplader bis 24,8 m Arbeitshöhe – maximale Flexibilität</li>
-                  <li>Optionale Anbaugeräte: Hebebühne, Schaufel, Ausleger</li>
-                </ul>
-              </article>
             </div>
 
             {/* Branchen */}
@@ -384,7 +313,8 @@ const StadtSeite = () => {
                 Liefergebiet rund um {data.name}
               </h2>
               <p className="text-muted-foreground mb-4">
-                Neben {data.name} beliefern wir auch die umliegenden Städte und Gemeinden in der Region {data.region}:
+                Neben {data.name}{cityContent ? ` (PLZ ${cityContent.plzRange})` : ""} beliefern wir
+                auch die umliegenden Städte und Gemeinden in der Region {data.region}:
               </p>
               <div className="flex flex-wrap gap-2">
                 {data.nearbyAreas.map((area) => (
@@ -392,47 +322,24 @@ const StadtSeite = () => {
                     key={area}
                     className="inline-flex items-center gap-2 rounded-full bg-muted px-3 py-1.5 text-sm text-foreground/80"
                   >
-                    <MapPin className="h-3.5 w-3.5 text-primary" />
                     {area}
                   </span>
                 ))}
               </div>
             </div>
 
-            {/* FAQ */}
+            {/* Stadtspezifische FAQ */}
             <div className="mb-12">
               <h2 className="font-heading text-2xl font-bold mb-6">
                 Häufige Fragen zum Baumaschinen-Kauf in {data.name}
               </h2>
               <div className="space-y-4">
-                <div className="p-5 rounded-xl border border-border bg-card">
-                  <h3 className="font-heading font-bold mb-2">
-                    Kann ich einen Minibagger in {data.name} kaufen?
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Ja. Wir liefern Zoomlion Minibagger von 1,8 bis 25 Tonnen direkt nach {data.name}. Beratung,
-                    Besichtigung und Probefahrt erfolgen am Standort {data.standort ?? "Krefeld"}.
-                  </p>
-                </div>
-                <div className="p-5 rounded-xl border border-border bg-card">
-                  <h3 className="font-heading font-bold mb-2 flex items-center gap-2">
-                    <Clock className="h-4 w-4 text-primary" />
-                    Wie schnell wird nach {data.name} geliefert?
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Lagerware liefern wir in der Regel innerhalb von 5–10 Werktagen. Bei individuellen Konfigurationen
-                    stimmen wir die Lieferzeit persönlich mit Ihnen ab.
-                  </p>
-                </div>
-                <div className="p-5 rounded-xl border border-border bg-card">
-                  <h3 className="font-heading font-bold mb-2">
-                    Gibt es Service, UVV-Prüfung und Ersatzteile in {data.name}?
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    Service, UVV-Prüfung nach DGUV und Ersatzteile organisieren wir vom Standort{" "}
-                    {data.standort ?? "Krefeld"} aus – auf Wunsch auch mit mobilem Service direkt bei Ihnen.
-                  </p>
-                </div>
+                {faqEntries.map((faq) => (
+                  <div key={faq.question} className="p-5 rounded-xl border border-border bg-card">
+                    <h3 className="font-heading font-bold mb-2">{faq.question}</h3>
+                    <p className="text-sm text-muted-foreground">{faq.answer}</p>
+                  </div>
+                ))}
                 <div className="p-5 rounded-xl border border-border bg-card">
                   <h3 className="font-heading font-bold mb-2">
                     Bieten Sie Finanzierung oder Leasing in {data.name} an?
@@ -446,6 +353,16 @@ const StadtSeite = () => {
                   </p>
                 </div>
               </div>
+            </div>
+
+            {/* Final-CTA */}
+            <div className="text-center mb-12">
+              <Button asChild size="lg" className="group">
+                <Link to="/kontakt">
+                  Jetzt unverbindliches Angebot für {data.name} anfragen
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Link>
+              </Button>
             </div>
 
             <TrustBadges />
