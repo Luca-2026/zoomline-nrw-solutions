@@ -55,19 +55,10 @@ const StadtSeite = () => {
         addressCountry: "DE",
       },
     },
+    // Provider verweist nur per @id auf den realen Standort (AutomotiveBusiness),
+    // KEIN eigenständiges LocalBusiness auf der Stadt-URL (kein physischer Standort hier).
     provider: {
-      "@type": "LocalBusiness",
-      name: `Zoomlion NRW – ${standort.name}`,
-      "@id": `https://www.zoomlion-nrw.de/standorte#${standort.slug}`,
-      telephone: standort.phone,
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: standort.street,
-        postalCode: standort.postalCode,
-        addressLocality: standort.city,
-        addressRegion: "Nordrhein-Westfalen",
-        addressCountry: "DE",
-      },
+      "@id": `https://www.zoomlion-nrw.de/standorte/${standort.slug}#localbusiness`,
     },
   };
 
