@@ -224,11 +224,17 @@ import { PRODUCT_PAGES } from "./productPages";
 
 export const productRoutes: SeoRoute[] = PRODUCT_PAGES.map((p) => ({
   path: `/${p.category}/${p.slug}`,
-  title: `${p.name} kaufen – ${p.typeLabel} | Zoomlion NRW`.slice(0, 70),
+  title: `${p.name} kaufen | Zoomlion NRW`,
   description:
     `${p.tagline} Exklusiver Zoomlion-Fachhändler in NRW, 3 Jahre Garantie, Probefahrt in Bonn, Krefeld & Mülheim.`.slice(0, 160),
   h1: `${p.name} kaufen`,
-  intro: [p.tagline, p.description[0]],
+  // intro[2] enthält einen statischen Datenblatt-Link, der bereits im
+  // Prerender-HTML (vor JS-Hydration) für Crawler sichtbar ist.
+  intro: [
+    p.tagline,
+    p.description[0],
+    `Datenblatt als PDF: ${SITE_URL}${p.datasheetPdf}`,
+  ],
 }));
 
 // Komplette Liste für Prerender (statisch + Produktseiten)
