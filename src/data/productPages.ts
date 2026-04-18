@@ -30,9 +30,8 @@ export interface ProductPage {
   name: string;
   alternateNames: string[];
   tagline: string;
-  /** Importiertes Bild-Asset (aus src/assets) */
-  image: string;
-  /** Public-URL für Schema/Sitemap (absolute path beginnend mit /) */
+  /** Public-URL für Schema/Sitemap (absolute path beginnend mit /) – auch
+   *  als Fallback-`<img src>` nutzbar, wenn kein Asset-Mapping vorliegt. */
   imagePublicPath: string;
   datasheetPdf: string;
   description: string[];

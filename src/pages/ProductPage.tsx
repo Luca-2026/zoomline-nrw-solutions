@@ -17,6 +17,7 @@ import {
   getProductPageBySlug,
   getProductPagesByCategory,
 } from "@/data/productPages";
+import { getProductImage } from "@/data/productImages";
 import { SITE_URL } from "@/data/seoRoutes";
 
 interface ProductPageProps {
