@@ -5,44 +5,52 @@ import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { PlatformConfigurator } from "@/components/configurator/PlatformConfigurator";
 import { SocialMeta } from "@/components/shared/SocialMeta";
+import { getProductPagesByCategory } from "@/data/productPages";
+import { SITE_URL } from "@/data/seoRoutes";
 
 const Arbeitsbuehnen = () => {
-  const platformCategories = [
-    { name: "Zoomlion Scherenarbeitsbühnen", image: "https://www.zoomlion-nrw.de/platforms/scheren.png", anchor: "scheren" },
-    { name: "Zoomlion Gelenkteleskopbühnen", image: "https://www.zoomlion-nrw.de/platforms/gelenk.png", anchor: "gelenk" },
-    { name: "Zoomlion Teleskopbühnen", image: "https://www.zoomlion-nrw.de/platforms/teleskop.png", anchor: "teleskop" },
-  ];
+  // ItemList aus realen Detailseiten (PRODUCT_PAGES) – korrekte Deep-Links
+  const platformPages = getProductPagesByCategory("arbeitsbuehnen");
 
   const collectionPageSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "@id": "https://www.zoomlion-nrw.de/arbeitsbuehnen/",
+    "@id": `${SITE_URL}/arbeitsbuehnen/`,
     "name": "Zoomlion Arbeitsbühnen kaufen in NRW",
-    "description": "Übersicht aller Zoomlion Arbeitsbühnen zum Kauf in Nordrhein-Westfalen. Scheren-, Gelenk- und Teleskopbühnen bis 68m Arbeitshöhe.",
-    "url": "https://www.zoomlion-nrw.de/arbeitsbuehnen/",
+    "description":
+      "Übersicht aller Zoomlion Arbeitsbühnen zum Kauf in Nordrhein-Westfalen. Scheren-, Gelenk- und Teleskopbühnen bis 68m Arbeitshöhe.",
+    "url": `${SITE_URL}/arbeitsbuehnen/`,
     "inLanguage": "de-DE",
-    "isPartOf": { "@id": "https://www.zoomlion-nrw.de/#website" },
+    "isPartOf": { "@id": `${SITE_URL}/#website` },
     "mainEntity": {
       "@type": "ItemList",
-      "numberOfItems": platformCategories.length,
-      "itemListElement": platformCategories.map((m, i) => ({
+      "numberOfItems": platformPages.length,
+      "itemListElement": platformPages.map((p, i) => ({
         "@type": "ListItem",
         "position": i + 1,
+        "url": `${SITE_URL}/arbeitsbuehnen/${p.slug}/`,
         "item": {
           "@type": "Product",
-          "name": m.name,
-          "image": m.image,
-          "url": `https://www.zoomlion-nrw.de/arbeitsbuehnen/#${m.anchor}`,
+          "@id": `${SITE_URL}/arbeitsbuehnen/${p.slug}/#product`,
+          "name": p.name,
+          "image": `${SITE_URL}${p.imagePublicPath}`,
+          "url": `${SITE_URL}/arbeitsbuehnen/${p.slug}/`,
           "brand": { "@type": "Brand", "name": "Zoomlion" },
+          "category": p.categoryLabel,
           "offers": {
             "@type": "Offer",
+            "url": `${SITE_URL}/arbeitsbuehnen/${p.slug}/`,
             "availability": "https://schema.org/InStock",
             "priceCurrency": "EUR",
-            "seller": { "@type": "Organization", "name": "Zoomlion NRW" }
-          }
-        }
-      }))
-    }
+            "itemCondition": "https://schema.org/NewCondition",
+            "seller": {
+              "@type": "AutomotiveBusiness",
+              "@id": `${SITE_URL}/standorte/krefeld#localbusiness`,
+            },
+          },
+        },
+      })),
+    },
   };
 
   const faqSchema = {
