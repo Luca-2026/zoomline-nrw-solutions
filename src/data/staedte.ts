@@ -3,6 +3,18 @@
  * damit Build-Skripte (scripts/prerender.ts) sie ohne React/JSX-Imports laden können.
  */
 
+/**
+ * SEO-Indexierungs-Tier pro Stadtseite.
+ *
+ * - "index"     → in Sitemap, ohne <meta robots noindex>. Nur für Seiten mit
+ *                 ausreichend einzigartigem Content (Tier 1).
+ * - "noindex"   → bleibt in Sitemap, bekommt aber <meta robots="noindex,follow">,
+ *                 bis Content unique genug ist (Tier 2 – Übergangsphase).
+ * - "excluded"  → KEINE Sitemap-Aufnahme + <meta robots="noindex,follow">.
+ *                 Reine Doorway-Pages mit hohem Penalty-Risiko (Tier 3).
+ */
+export type SeoTier = "index" | "noindex" | "excluded";
+
 export interface StadtData {
   name: string;
   slug: string;
@@ -22,7 +34,23 @@ export interface StadtData {
   /** Geo-Koordinaten für LocalBusiness Schema */
   lat?: number;
   lng?: number;
+  /** SEO-Indexierungs-Tier (default: "noindex" – sicherer Fallback gegen Thin Content) */
+  seoTier?: SeoTier;
 }
+
+/**
+ * Tier-Map auf Basis des Audits (Boilerplate ≥75 % bei allen Nicht-Köln-Seiten):
+ *
+ * Tier 1 ("index"):     koeln, duesseldorf, bonn, krefeld, muelheim
+ *                       → Top-Suchvolumen + eigene Standorte. Content muss
+ *                         schrittweise erweitert werden, bleibt aber sichtbar.
+ * Tier 2 ("noindex"):   essen, dortmund, duisburg, wuppertal, aachen
+ *                       → Großstädte mit Potenzial. Crawler folgen Links,
+ *                         Seiten werden vorübergehend nicht indexiert.
+ * Tier 3 ("excluded"):  alle übrigen 8 Städte
+ *                       → Reine Doorway-Pages, sofort raus aus dem Index +
+ *                         aus der Sitemap, bis echter Unique Content existiert.
+ */
 
 export const staedte: Record<string, StadtData> = {
   koeln: {
