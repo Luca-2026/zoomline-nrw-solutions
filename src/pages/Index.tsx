@@ -11,6 +11,10 @@ import { LocationsTeaser } from "@/components/home/LocationsTeaser";
 import { ContactTeaser } from "@/components/home/ContactTeaser";
 import { SocialMeta } from "@/components/shared/SocialMeta";
 
+// JSON-LD (Organization + WebSite + ItemList) wird zentral vom Prerender-Skript
+// injiziert (scripts/prerender.ts).
+
+
 const Index = () => {
   const orgJsonLd = {
     "@context": "https://schema.org",
@@ -61,8 +65,6 @@ const Index = () => {
           content="Minibagger kaufen, Bagger kaufen, Arbeitsbühne kaufen, Hebebühne kaufen, Teleskoplader kaufen NRW, Minibagger kaufen NRW, Kompaktbagger kaufen, Scherenarbeitsbühne kaufen, Baumaschinen kaufen NRW, Telehandler kaufen, Minibagger Köln, Minibagger Düsseldorf"
         />
         <link rel="canonical" href="https://www.zoomlion-nrw.de/" />
-        <script type="application/ld+json">{JSON.stringify(orgJsonLd)}</script>
-        <script type="application/ld+json">{JSON.stringify(websiteJsonLd)}</script>
       </Helmet>
       <SocialMeta
         title="Minibagger & Arbeitsbühne kaufen NRW – Bagger & Teleskoplader vom Händler"

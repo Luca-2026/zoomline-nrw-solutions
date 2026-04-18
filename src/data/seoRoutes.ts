@@ -40,24 +40,24 @@ export const seoRoutes: SeoRoute[] = [
   },
   {
     path: "/bagger",
-    title: "Minibagger kaufen NRW – Zoomlion Bagger 1,8 t bis 25 t neu",
+    title: "Minibagger kaufen NRW – ZE20G, ZE27GU & ZE55GU | Zoomlion",
     description:
-      "Zoomlion Minibagger & Kompaktbagger kaufen in NRW ➤ 1,8 bis 25 Tonnen ✓ Elektro & Diesel ✓ 3 Jahre Garantie ✓ Made in EU ✓ Finanzierung ✓ Lieferung. Jetzt Angebot anfragen!",
+      "Zoomlion Minibagger kaufen in NRW ➤ ZE20G (2 t), ZE27GU (2,5 t Kurzheck) & ZE55GU (5,8 t) ✓ Kubota-Diesel EU Stage V ✓ 3 Jahre Garantie ✓ Finanzierung ✓ Made in EU.",
     h1: "Zoomlion Minibagger & Kompaktbagger kaufen in NRW",
     intro: [
-      "Zoomlion Bagger sind robuste, EU-produzierte Baumaschinen für GaLaBau, Tiefbau, Hochbau und Industrie. Unser Sortiment reicht vom kompakten 1,8-Tonnen-Minibagger bis zum 25-Tonnen-Kettenbagger – als Diesel- oder vollelektrische Variante.",
+      "Zoomlion Bagger sind robuste, EU-produzierte Baumaschinen für GaLaBau, Tiefbau, Hochbau und Industrie. Unser Sortiment reicht vom kompakten 2-Tonnen-Minibagger ZE20G über den 2,5-Tonnen-Kurzheckbagger ZE27GU bis zum 5,8-Tonnen-Kompaktbagger ZE55GU – alle mit bewährten Kubota-Dieselmotoren in EU Stage V.",
       "Alle Modelle erhalten Sie als Neumaschine mit 3 Jahren Garantie, optionaler Finanzierung und Lieferung in ganz Nordrhein-Westfalen. Konfigurieren Sie Ihren Wunsch-Bagger online oder fordern Sie ein individuelles Angebot an.",
     ],
   },
   {
     path: "/arbeitsbuehnen",
-    title: "Arbeitsbühne kaufen NRW – Scheren-, Gelenk- & Teleskopbühnen",
+    title: "Arbeitsbühne kaufen NRW – Scherenbühnen & Mastbühne | Zoomlion",
     description:
-      "Zoomlion Arbeitsbühnen kaufen in NRW ➤ Scheren-, Gelenk- & Teleskoparbeitsbühnen bis 68 m ✓ Elektrisch, Diesel oder Hybrid ✓ 3 Jahre Garantie ✓ Made in EU. Jetzt Angebot anfragen!",
-    h1: "Zoomlion Arbeitsbühnen kaufen – Scherenbühnen, Gelenk- & Teleskopbühnen",
+      "Zoomlion Arbeitsbühnen kaufen in NRW ➤ Elektro-Scherenarbeitsbühnen 7,8–15,7 m & Teleskopmastbühne ZMP09J (11,2 m) ✓ CE-zertifiziert ✓ 3 Jahre Garantie ✓ Made in EU.",
+    h1: "Zoomlion Arbeitsbühnen kaufen – Scherenbühnen & Teleskopmastbühne",
     intro: [
-      "Ob Scherenarbeitsbühne für die Halle, Gelenkteleskopbühne für die Fassadenarbeit oder Teleskopbühne bis 68 m Arbeitshöhe – Zoomlion Arbeitsbühnen sind die wirtschaftliche Alternative zu Premium-Marken bei vollwertiger EU-Qualität.",
-      "Wir liefern Hubarbeitsbühnen elektrisch, dieselbetrieben oder als Hybridversion in ganz NRW. Inklusive Einweisung, optionalem Servicevertrag und 3 Jahren Garantie auf alle Neumaschinen.",
+      "Ob Scherenarbeitsbühne für die Halle (7,8 bis 15,7 m Arbeitshöhe, elektrisch mit Lithium-Akku) oder Teleskopmastbühne ZMP09J für enge Innenräume (11,2 m Arbeitshöhe) – Zoomlion Arbeitsbühnen sind die wirtschaftliche Alternative zu Premium-Marken bei vollwertiger EU-Qualität.",
+      "Wir liefern Hubarbeitsbühnen elektrisch in ganz NRW – inklusive Einweisung, optionalem Servicevertrag und 3 Jahren Garantie auf alle Neumaschinen.",
     ],
   },
   {

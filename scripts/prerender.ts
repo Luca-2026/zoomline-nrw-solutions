@@ -28,6 +28,16 @@ import { dirname, join, resolve } from "node:path";
 import { allSeoRoutes as seoRoutes, SITE_URL, DEFAULT_OG_IMAGE } from "../src/data/seoRoutes";
 import { staedte } from "../src/data/staedte";
 import { PRODUCT_PAGES } from "../src/data/productPages";
+import { STANDORTE } from "../src/data/standorte";
+import {
+  buildProductSchemas,
+  buildCategorySchemas,
+  buildStandortSchemas,
+  buildStandorteIndexSchemas,
+  buildStadtSchemas,
+  buildHomeSchemas,
+  buildGenericSchemas,
+} from "../src/data/schemas";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const projectRoot = resolve(__dirname, "..");
@@ -222,6 +232,7 @@ function stadtToRoute(stadt) {
     noindex: tier !== "index",
     excludeFromSitemap: tier === "excluded",
     intro,
+    _stadt: stadt,
   };
 }
 

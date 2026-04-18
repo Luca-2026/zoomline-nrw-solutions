@@ -26,50 +26,8 @@ const detailSlug: Record<string, "bonn" | "krefeld" | "muelheim"> = {
   muelheim: "muelheim",
 };
 
-const EMAIL = "verkauf@zoomlion-nrw.de";
-
 const Standorte = () => {
-  // LocalBusiness coordinates per location (for Google Rich Results)
-  const locationGeo: Record<string, { lat: number; lng: number; postalCode: string; image: string }> = {
-    bonn: { lat: 50.6703, lng: 7.1503, postalCode: "53179", image: "https://www.zoomlion-nrw.de/og-image.jpg" },
-    krefeld: { lat: 51.3127, lng: 6.5853, postalCode: "47807", image: "https://www.zoomlion-nrw.de/og-image.jpg" },
-    muelheim: { lat: 51.4275, lng: 6.8826, postalCode: "45478", image: "https://www.zoomlion-nrw.de/og-image.jpg" },
-  };
-
-  // ItemList referenziert die dedizierten Standort-Detailseiten via @id.
-  // Die vollständigen LocalBusiness-Definitionen leben auf /standorte/[slug].
-  const itemListJsonLd = {
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    itemListElement: locations.map((loc, i) => {
-      const slug = detailSlug[loc.id];
-      const detailUrl = `https://www.zoomlion-nrw.de/standorte/${slug}`;
-      const s = STANDORTE[slug];
-      return {
-        "@type": "ListItem",
-        position: i + 1,
-        url: detailUrl,
-        item: {
-          "@type": "AutomotiveBusiness",
-          "@id": `${detailUrl}#localbusiness`,
-          name: `Zoomlion NRW – ${s.name}`,
-          url: detailUrl,
-          telephone: s.phone,
-          email: s.email,
-          image: "https://www.zoomlion-nrw.de/og-image.jpg",
-          address: {
-            "@type": "PostalAddress",
-            streetAddress: s.street,
-            postalCode: s.postalCode,
-            addressLocality: s.city,
-            addressRegion: "NW",
-            addressCountry: "DE",
-          },
-          geo: { "@type": "GeoCoordinates", latitude: s.lat, longitude: s.lng },
-        },
-      };
-    }),
-  };
+  // JSON-LD wird zentral vom Prerender-Skript injiziert.
   return (
     <Layout>
       <Helmet>
@@ -87,9 +45,6 @@ const Standorte = () => {
           content="Zoomlion Händler NRW, Baumaschinen Bonn, Baumaschinen Krefeld, Baumaschinen Ruhrgebiet, Minibagger Händler Köln, Arbeitsbühnen Händler Düsseldorf, Baumaschinen Service NRW, Zoomlion Deutschland"
         />
         <link rel="canonical" href="https://www.zoomlion-nrw.de/standorte" />
-
-        {/* Open Graph & Twitter Card via SocialMeta below */}
-        <script type="application/ld+json">{JSON.stringify(itemListJsonLd)}</script>
       </Helmet>
       <SocialMeta
         title="Unsere 3 Standorte in NRW – Zoomlion Händler Bonn, Krefeld & Mülheim"

@@ -81,15 +81,6 @@ const Arbeitsbuehnen = () => {
           content="Arbeitsbühne kaufen, Arbeitsbühne kaufen NRW, Scherenarbeitsbühne kaufen, Hubarbeitsbühne kaufen, Hebebühne kaufen, Mastbühne kaufen, Teleskopmastbühne kaufen, Elektro Arbeitsbühne kaufen, Arbeitsbühne neu, Arbeitsbühne Köln, Arbeitsbühne Düsseldorf, Arbeitsbühne Bonn, Arbeitsbühne finanzieren, ZS0607AC-LI, ZS1012AC-LI, ZMP09J" 
         />
         <link rel="canonical" href="https://www.zoomlion-nrw.de/arbeitsbuehnen/" />
-        
-        {/* Open Graph & Twitter Card via SocialMeta below */}
-        
-        <script type="application/ld+json">
-          {JSON.stringify(collectionPageSchema)}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify(faqSchema)}
-        </script>
       </Helmet>
       <SocialMeta
         title="Arbeitsbühne kaufen NRW – Scherenbühne & Mastbühne neu | Zoomlion NRW"

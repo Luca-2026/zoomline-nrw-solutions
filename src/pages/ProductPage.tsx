@@ -34,79 +34,7 @@ const categoryParentLabel: Record<ProductCategory, string> = {
   arbeitsbuehnen: "Arbeitsbühnen",
 };
 
-function buildProductSchema(product: ProductPageType, url: string) {
-  const additionalProperty = product.specGroups
-    .flatMap((g) => g.specs)
-    .filter((s) => s.schemaName && s.schemaValue !== undefined)
-    .map((s) => ({
-      "@type": "PropertyValue",
-      name: s.schemaName,
-      value: s.schemaValue,
-      ...(s.schemaUnit ? { unitCode: s.schemaUnit } : {}),
-    }));
-
-  return {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "@id": `${url}#product`,
-    name: product.name,
-    alternateName: product.alternateNames,
-    description: product.description.join(" "),
-    image: [`${SITE_URL}${product.imagePublicPath}`],
-    sku: product.slug.toUpperCase(),
-    mpn: product.slug.toUpperCase(),
-    category: product.categoryLabel,
-    brand: { "@type": "Brand", name: "Zoomlion" },
-    manufacturer: {
-      "@type": "Organization",
-      name: "Zoomlion Heavy Industry Science & Technology Co., Ltd.",
-      url: "https://en.zoomlion.com/",
-    },
-    countryOfOrigin: product.countryOfOrigin,
-    additionalProperty,
-    offers: {
-      "@type": "Offer",
-      url,
-      priceCurrency: "EUR",
-      ...(product.priceFrom ? { price: product.priceFrom } : {}),
-      availability: "https://schema.org/InStock",
-      itemCondition: "https://schema.org/NewCondition",
-      seller: {
-        "@type": "AutomotiveBusiness",
-        "@id": `${SITE_URL}/standorte/krefeld#localbusiness`,
-      },
-    },
-  };
-}
-
-function buildFaqSchema(product: ProductPageType) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: product.faq.map((f) => ({
-      "@type": "Question",
-      name: f.question,
-      acceptedAnswer: { "@type": "Answer", text: f.answer },
-    })),
-  };
-}
-
-function buildBreadcrumbSchema(product: ProductPageType, url: string) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Start", item: `${SITE_URL}/` },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: categoryParentLabel[product.category],
-        item: `${SITE_URL}${categoryParentPath[product.category]}/`,
-      },
-      { "@type": "ListItem", position: 3, name: product.name, item: url },
-    ],
-  };
-}
+// JSON-LD wird zentral vom Prerender-Skript (scripts/prerender.ts) injiziert.
 
 export default function ProductPage({ category }: ProductPageProps) {
   const { slug } = useParams<{ slug: string }>();
@@ -139,15 +67,6 @@ export default function ProductPage({ category }: ProductPageProps) {
         <title>{title}</title>
         <meta name="description" content={description} />
         <link rel="canonical" href={url} />
-        <script type="application/ld+json">
-          {JSON.stringify(buildProductSchema(product, url))}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify(buildFaqSchema(product))}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify(buildBreadcrumbSchema(product, url))}
-        </script>
       </Helmet>
       <SocialMeta
         title={title}
