@@ -58,7 +58,11 @@ export function StandortPageLayout({
   const canonical = `https://www.zoomlion-nrw.de/standorte/${standort.slug}`;
   const standortAddress = `${standort.street}, ${standort.postalCode} ${standort.city}`;
   const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(standortAddress)}`;
-  const mapImageUrl = `https://staticmap.openstreetmap.de/staticmap.php?center=${standort.lat},${standort.lng}&zoom=14&size=800x400&maptype=mapnik&markers=${standort.lat},${standort.lng},lightblue1`;
+  // OSM embed (kein API-Key, DSGVO-freundlich, kein Cookie-Consent nötig).
+  // bbox ca. ±0.01° um den Standort = ~2 km Radius.
+  const d = 0.01;
+  const bbox = `${standort.lng - d}%2C${standort.lat - d}%2C${standort.lng + d}%2C${standort.lat + d}`;
+  const osmEmbedUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${standort.lat}%2C${standort.lng}`;
 
   const localBusinessJsonLd = {
     "@context": "https://schema.org",
