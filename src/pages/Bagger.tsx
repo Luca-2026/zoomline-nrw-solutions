@@ -18,7 +18,7 @@ const Bagger = () => {
     "@id": `${SITE_URL}/bagger/`,
     "name": "Zoomlion Minibagger & Kompaktbagger kaufen in NRW",
     "description":
-      "Übersicht aller Zoomlion Minibagger und Kompaktbagger zum Kauf in Nordrhein-Westfalen. Von 1,8 bis 25 Tonnen, Diesel oder Elektro, mit 3 Jahren Garantie.",
+      "Übersicht der Zoomlion Minibagger zum Kauf in Nordrhein-Westfalen: ZE20G (2 t), ZE27GU (2,5 t Kurzheck) und ZE55GU (5,8 t Kompaktbagger) mit Kubota-Dieselmotor in EU Stage V und 3 Jahren Garantie.",
     "url": `${SITE_URL}/bagger/`,
     "inLanguage": "de-DE",
     "isPartOf": { "@id": `${SITE_URL}/#website` },
@@ -57,8 +57,8 @@ const Bagger = () => {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-      { "@type": "Question", "name": "Welcher Minibagger eignet sich für den Garten- und Landschaftsbau?", "acceptedAnswer": { "@type": "Answer", "text": "Für GaLaBau-Arbeiten empfehlen wir den ZE18GU (1,8t) oder ZE36GU (3,6t). Diese Modelle sind kompakt, wendig und schonen empfindliche Rasenflächen." } },
-      { "@type": "Question", "name": "Gibt es Elektro-Minibagger bei Zoomlion?", "acceptedAnswer": { "@type": "Answer", "text": "Ja, wir führen Elektro-Minibagger für emissionsfreies und leises Arbeiten." } },
+      { "@type": "Question", "name": "Welcher Minibagger eignet sich für den Garten- und Landschaftsbau?", "acceptedAnswer": { "@type": "Answer", "text": "Für GaLaBau-Arbeiten empfehlen wir den ZE20G (2 t) oder den ZE27GU (2,5 t Kurzheck). Beide Modelle sind kompakt, wendig und schonen empfindliche Rasenflächen." } },
+      { "@type": "Question", "name": "Welche Antriebsart haben die Zoomlion Minibagger?", "acceptedAnswer": { "@type": "Answer", "text": "Alle aktuell angebotenen Zoomlion Minibagger (ZE20G, ZE27GU, ZE55GU) sind mit bewährten Kubota-Dieselmotoren in EU Stage V ausgestattet." } },
       { "@type": "Question", "name": "Wie lange ist die Garantie auf einen Zoomlion Minibagger?", "acceptedAnswer": { "@type": "Answer", "text": "Alle Zoomlion Minibagger haben 3 Jahre Garantie oder 3.000 Betriebsstunden." } },
       { "@type": "Question", "name": "Kann ich meinen alten Bagger in Zahlung geben?", "acceptedAnswer": { "@type": "Answer", "text": "Ja, wir nehmen Ihren Gebrauchtbagger in Zahlung – unabhängig vom Hersteller." } }
     ]
@@ -67,18 +67,18 @@ const Bagger = () => {
   return (
     <Layout>
       <Helmet>
-        <title>Minibagger kaufen NRW – Bagger 1,8–25t neu | Sofort verfügbar</title>
+        <title>Minibagger kaufen NRW – ZE20G, ZE27GU & ZE55GU | Zoomlion NRW</title>
         <meta 
           name="title" 
-          content="Minibagger kaufen NRW – Bagger 1,8–25t neu | Sofort verfügbar" 
+          content="Minibagger kaufen NRW – ZE20G, ZE27GU & ZE55GU | Zoomlion NRW" 
         />
         <meta 
           name="description" 
-          content="Minibagger & Kompaktbagger kaufen in NRW ➤ Neu von 1,8 bis 25 t ✓ Diesel & Elektro ✓ 3 Jahre Garantie ✓ Finanzierung ✓ Inzahlungnahme ✓ Ersatzteile vor Ort. Jetzt unverbindliches Angebot anfordern!" 
+          content="Zoomlion Minibagger kaufen in NRW ➤ ZE20G (2 t), ZE27GU (2,5 t Kurzheck) & ZE55GU (5,8 t) ✓ Kubota-Diesel EU Stage V ✓ 3 Jahre Garantie ✓ Finanzierung ✓ Inzahlungnahme. Jetzt Angebot anfordern!" 
         />
         <meta 
           name="keywords" 
-          content="Minibagger kaufen, Minibagger kaufen NRW, Bagger kaufen NRW, Kompaktbagger kaufen, Minibagger neu, Mini Bagger kaufen, Elektro Minibagger kaufen, Kettenbagger kaufen, Minibagger 1.8t kaufen, Minibagger 3t kaufen, Minibagger 5t kaufen, Minibagger Köln, Minibagger Düsseldorf, Minibagger Bonn, Minibagger Essen, Minibagger Dortmund, Bagger finanzieren NRW" 
+          content="Minibagger kaufen, Minibagger kaufen NRW, Bagger kaufen NRW, Kompaktbagger kaufen, Minibagger neu, Mini Bagger kaufen, Kettenbagger kaufen, ZE20G kaufen, ZE27GU kaufen, ZE55GU kaufen, Minibagger 2t kaufen, Minibagger 2,5t kaufen, Minibagger 5,8t kaufen, Minibagger Köln, Minibagger Düsseldorf, Minibagger Bonn, Minibagger Essen, Minibagger Dortmund, Bagger finanzieren NRW" 
         />
         <link rel="canonical" href="https://www.zoomlion-nrw.de/bagger/" />
         
@@ -92,8 +92,8 @@ const Bagger = () => {
         </script>
       </Helmet>
       <SocialMeta
-        title="Minibagger kaufen NRW – Bagger 1,8–25t neu | Sofort verfügbar"
-        description="Minibagger & Kompaktbagger neu kaufen in NRW. Diesel & Elektro, 3 Jahre Garantie, Finanzierung möglich."
+        title="Minibagger kaufen NRW – ZE20G, ZE27GU & ZE55GU | Zoomlion NRW"
+        description="Zoomlion Minibagger neu kaufen in NRW: ZE20G, ZE27GU & ZE55GU mit Kubota-Diesel EU Stage V – 3 Jahre Garantie."
         url="https://www.zoomlion-nrw.de/bagger"
       />
 
@@ -109,7 +109,7 @@ const Bagger = () => {
             as="h1"
             badge="Minibagger kaufen"
             title="Minibagger & Kompaktbagger kaufen in NRW"
-            subtitle="Zoomlion Bagger von 1,8 bis 25 Tonnen – filtern, vergleichen, anfragen"
+            subtitle="Zoomlion ZE20G, ZE27GU & ZE55GU – filtern, vergleichen, anfragen"
           />
           <ExcavatorConfigurator />
         </div>
@@ -121,10 +121,10 @@ const Bagger = () => {
           <div className="prose prose-lg max-w-none">
             <h2 className="font-heading text-2xl font-bold mb-4">Minibagger kaufen in Nordrhein-Westfalen</h2>
             <p>
-              Als exklusiver <strong>Zoomlion Fachhändler in NRW</strong> bieten wir Ihnen ein umfangreiches Sortiment 
-              an Minibaggern und Kompaktbaggern. Ob für den <strong>GaLaBau</strong>, <strong>Tiefbau</strong>, 
-              <strong>Abbrucharbeiten</strong> oder den universellen Einsatz – bei uns finden Sie den passenden Bagger 
-              für Ihre Anforderungen.
+              Als exklusiver <strong>Zoomlion Fachhändler in NRW</strong> bieten wir Ihnen unser sofort verfügbares 
+              Minibagger-Sortiment für <strong>GaLaBau</strong>, <strong>Tiefbau</strong>, leichte 
+              <strong>Abbrucharbeiten</strong> und den universellen Einsatz – mit kurzen Lieferzeiten ab unseren 
+              Standorten in Krefeld, Bonn und Mülheim an der Ruhr.
             </p>
             <h3 className="font-heading text-xl font-bold mt-6 mb-3">Vorteile beim Minibagger-Kauf bei Zoomlion NRW</h3>
             <ul>
@@ -132,14 +132,14 @@ const Bagger = () => {
               <li><strong>Ersatzteile vor Ort</strong> an allen 3 Standorten in NRW</li>
               <li><strong>Flexible Finanzierung</strong> mit attraktiven Konditionen</li>
               <li><strong>Inzahlungnahme</strong> Ihrer Gebrauchtmaschine möglich</li>
-              <li><strong>Elektro-Minibagger</strong> für emissionsfreies Arbeiten verfügbar</li>
+              <li><strong>Bewährter Kubota-Dieselmotor</strong> in EU Stage V – sparsam und langlebig</li>
             </ul>
             <h3 className="font-heading text-xl font-bold mt-6 mb-3">Minibagger für jeden Einsatzbereich</h3>
             <p>
-              Von kompakten <strong>1,8-Tonnen-Minibaggern</strong> für beengte Baustellen bis hin zu leistungsstarken 
-              <strong> Kompaktbaggern bis 25 Tonnen</strong> für schwere Einsätze im Tiefbau – unser Sortiment deckt 
-              alle Anforderungen ab. Alle Modelle überzeugen durch <strong>deutsche Qualitätsstandards</strong> und 
-              ein <strong>hervorragendes Preis-Leistungs-Verhältnis</strong>.
+              Unser Sortiment reicht vom kompakten <strong>2-Tonnen-Minibagger ZE20G</strong> über den 
+              <strong> 2,5-Tonnen-Kurzheckbagger ZE27GU</strong> bis zum <strong>5,8-Tonnen-Kompaktbagger ZE55GU</strong> – 
+              alle mit bewährten <strong>Kubota-Dieselmotoren in EU Stage V</strong>. Damit decken wir Einsätze von 
+              beengten innerstädtischen Baustellen bis zu mittleren Tiefbau- und Erdarbeiten zuverlässig ab.
             </p>
             <p>
               Für die <Link to="/service" className="text-primary hover:underline font-medium">regelmäßige Wartung Ihres Baggers</Link> bieten wir 
@@ -156,8 +156,8 @@ const Bagger = () => {
           <h2 className="font-heading text-2xl font-bold mb-6 text-center">Häufige Fragen zum Minibagger-Kauf</h2>
           <div className="space-y-4">
             {[
-              { q: "Welcher Minibagger eignet sich für den Garten- und Landschaftsbau?", a: "Für GaLaBau-Arbeiten empfehlen wir den ZE18GU (1,8t) oder ZE36GU (3,6t). Diese Modelle sind kompakt, wendig und schonen empfindliche Rasenflächen dank geringer Bodenbelastung." },
-              { q: "Gibt es Elektro-Minibagger bei Zoomlion?", a: "Ja, wir führen Elektro-Minibagger für emissionsfreies und leises Arbeiten – ideal für den Einsatz in Innenstädten, Hallen und sensiblen Bereichen." },
+              { q: "Welcher Minibagger eignet sich für den Garten- und Landschaftsbau?", a: "Für GaLaBau-Arbeiten empfehlen wir den ZE20G (2 t) oder den ZE27GU (2,5 t Kurzheck). Beide Modelle sind kompakt, wendig und schonen empfindliche Rasenflächen dank geringer Bodenbelastung." },
+              { q: "Welche Antriebsart haben die Zoomlion Minibagger?", a: "Alle aktuell angebotenen Zoomlion Minibagger (ZE20G, ZE27GU, ZE55GU) sind mit bewährten Kubota-Dieselmotoren in EU Stage V ausgestattet – sparsam, langlebig und EU-konform." },
               { q: "Wie lange ist die Garantie auf einen Zoomlion Minibagger?", a: "Alle Zoomlion Minibagger haben 3 Jahre Garantie oder 3.000 Betriebsstunden. Bei einem Servicevertrag profitieren Sie zusätzlich von planbaren Wartungskosten." },
               { q: "Kann ich meinen alten Bagger in Zahlung geben?", a: "Ja, wir nehmen Ihren Gebrauchtbagger in Zahlung – unabhängig vom Hersteller. Sprechen Sie uns an für eine unverbindliche Bewertung." },
             ].map((faq) => (
