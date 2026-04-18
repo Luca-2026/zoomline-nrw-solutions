@@ -15,6 +15,55 @@
  */
 export type SeoTier = "index" | "noindex" | "excluded";
 
+/**
+ * Generische Branchen-Referenz mit PLZ-Range (statt echter Kundennamen).
+ */
+export interface CityReference {
+  branche: string;
+  plzRange: string;
+}
+
+/**
+ * Drei stadtspezifische FAQ-Einträge (überschreiben das generische FAQ-Schema).
+ */
+export interface CityFaqItem {
+  question: string;
+  answer: string;
+}
+
+/**
+ * Empfohlenes Produkt pro Stadt (kuratiert nach typischen Anwendungsfällen).
+ * `link` zeigt auf die Kategorie-Seite mit Anker.
+ */
+export interface CityRecommendedProduct {
+  name: string;
+  category: string;
+  reason: string;
+  link: string;
+}
+
+/**
+ * Kompletter Unique-Content-Block pro Stadt (≥500 Wörter).
+ */
+export interface CityContent {
+  /** 150–200 Wörter, ein zusammenhängender Absatz mit Standort/Autobahn/Großprojekten */
+  intro: string;
+  /** PLZ-Range der Stadt (z. B. "50667–51149") */
+  plzRange: string;
+  /** Beschreibung der Anfahrt vom Stadtzentrum zum nächsten Standort */
+  routeFromCenter: string;
+  /** Fahrzeit in Minuten zum nächsten Standort */
+  driveTimeMinutes: number;
+  /** OSM-Bounding-Box "lonMin,latMin,lonMax,latMax" für statische Karte */
+  osmBbox: string;
+  /** 3–5 Branchen-Referenzen mit PLZ */
+  references: CityReference[];
+  /** Genau 3 für die Stadt besonders relevante Maschinen */
+  recommendedProducts: CityRecommendedProduct[];
+  /** 3 stadtspezifische FAQs */
+  faq: CityFaqItem[];
+}
+
 export interface StadtData {
   name: string;
   slug: string;
@@ -36,21 +85,74 @@ export interface StadtData {
   lng?: number;
   /** SEO-Indexierungs-Tier (default: "noindex" – sicherer Fallback gegen Thin Content) */
   seoTier?: SeoTier;
+  /** Unique-Content-Block (Tier 1 Pflicht). Fehlt → Seite zeigt Legacy-Content. */
+  cityContent?: CityContent;
 }
 
-/**
- * Tier-Map auf Basis des Audits (Boilerplate ≥75 % bei allen Nicht-Köln-Seiten):
- *
- * Tier 1 ("index"):     koeln, duesseldorf, bonn, krefeld, muelheim
- *                       → Top-Suchvolumen + eigene Standorte. Content muss
- *                         schrittweise erweitert werden, bleibt aber sichtbar.
- * Tier 2 ("noindex"):   essen, dortmund, duisburg, wuppertal, aachen
- *                       → Großstädte mit Potenzial. Crawler folgen Links,
- *                         Seiten werden vorübergehend nicht indexiert.
- * Tier 3 ("excluded"):  alle übrigen 8 Städte
- *                       → Reine Doorway-Pages, sofort raus aus dem Index +
- *                         aus der Sitemap, bis echter Unique Content existiert.
- */
+// ---- Wiederverwendbare Produkt-Empfehlungen ---------------------------------
+
+const PROD_ZE18GU: CityRecommendedProduct = {
+  name: "Zoomlion ZE18GU Minibagger (1,8 t)",
+  category: "Minibagger",
+  reason: "Ideal für enge Innenstadt- und GaLaBau-Baustellen, passt durch jede Hofeinfahrt.",
+  link: "/bagger#ze18gu",
+};
+const PROD_ZE27GU: CityRecommendedProduct = {
+  name: "Zoomlion ZE27GU Minibagger (2,7 t)",
+  category: "Minibagger",
+  reason: "Allrounder für Wohnungsbau, Sanierung und kleinere Tiefbau-Projekte.",
+  link: "/bagger#ze27gu",
+};
+const PROD_ZE55GU: CityRecommendedProduct = {
+  name: "Zoomlion ZE55GU Kompaktbagger (5,5 t)",
+  category: "Minibagger",
+  reason: "Robuster Kompaktbagger für Erschließungen und mittlere Tiefbauprojekte.",
+  link: "/bagger#ze55gu",
+};
+const PROD_ZE135G: CityRecommendedProduct = {
+  name: "Zoomlion ZE135G (13,5 t)",
+  category: "Mobilbagger",
+  reason: "Wirtschaftlicher Allrounder für Tiefbau, Konversion und Industrieprojekte.",
+  link: "/bagger#ze135g",
+};
+const PROD_ZE210GLC: CityRecommendedProduct = {
+  name: "Zoomlion ZE210GLC (21 t)",
+  category: "Mobilbagger",
+  reason: "Leistungsstarker Bagger für Industriebaustellen, Hafen- und Logistikflächen.",
+  link: "/bagger#ze210glc",
+};
+const PROD_ZS0607: CityRecommendedProduct = {
+  name: "Zoomlion ZS0607AC-LI Scherenarbeitsbühne (Indoor)",
+  category: "Arbeitsbühne",
+  reason: "Lithium-elektrisch, leise und emissionsfrei – perfekt für Innenausbau.",
+  link: "/arbeitsbuehnen#zs0607ac-li",
+};
+const PROD_ZS1218ERT: CityRecommendedProduct = {
+  name: "Zoomlion ZS1218ERT Rough-Terrain-Schere",
+  category: "Arbeitsbühne",
+  reason: "Geländegängige Scherenbühne für Außenfassaden und Hallenbau.",
+  link: "/arbeitsbuehnen#zs1218ert",
+};
+const PROD_ZT22JE: CityRecommendedProduct = {
+  name: "Zoomlion ZT22JE Gelenkteleskopbühne",
+  category: "Arbeitsbühne",
+  reason: "Flexibel über Hindernisse hinweg – ideal für Fassaden- und Industriearbeiten.",
+  link: "/arbeitsbuehnen#zt22je",
+};
+const PROD_ZT58J: CityRecommendedProduct = {
+  name: "Zoomlion ZT58J Teleskopbühne (58 m)",
+  category: "Arbeitsbühne",
+  reason: "Große Reichweite für Hochhäuser, Brückenarbeiten und Industrieanlagen.",
+  link: "/arbeitsbuehnen#zt58j",
+};
+const PROD_TELEHANDLER: CityRecommendedProduct = {
+  name: "Zoomlion ZTH4525 Teleskoplader",
+  category: "Teleskoplader",
+  reason: "Vielseitig für Bau, Hallenlogistik und Landwirtschaft – mit 4×4-Allrad.",
+  link: "/teleskoplader#zth4525",
+};
+
+// ---- Stadt-Daten ------------------------------------------------------------
 
 export const staedte: Record<string, StadtData> = {
   koeln: {
@@ -71,7 +173,40 @@ export const staedte: Record<string, StadtData> = {
     lat: 50.9375,
     lng: 6.9603,
     seoTier: "index",
+    cityContent: {
+      intro:
+        "Köln ist mit über einer Million Einwohnern die größte Baustelle Nordrhein-Westfalens. Vom MesseCity-Quartier in Deutz über die laufende Modernisierung des Hauptbahnhofs bis hin zum mehrjährigen Ausbau der Stadtbahn-Linien U1, U4 und U5 entstehen ständig neue Bauprojekte. Auch das Rheinufer wird in Deutz, Mülheim und Riehl umfassend neu gestaltet, und in den Veedeln Ehrenfeld, Sülz und Nippes laufen unzählige Wohnungsbau- und Sanierungsprojekte. Unser nächster Standort in Bonn liegt nur rund 30 km südlich – über die A555 und die A559 sind wir in etwa 35 Minuten am Kölner Stadtrand. Zoomlion Minibagger werden in Köln vor allem für GaLaBau, Hofneuanlagen und enge Innenstadtbaustellen eingesetzt; Scherenarbeitsbühnen kommen bei Fassadensanierungen in den Gründerzeitvierteln zum Zug. Für die Großprojekte am Rhein sind unsere Mobilbagger und 360°-Drehteleskoplader die richtige Wahl.",
+      plzRange: "50667–51149",
+      routeFromCenter: "Köln-Innenstadt → A555 / A59 → Standort Bonn",
+      driveTimeMinutes: 35,
+      osmBbox: "6.80,50.86,7.10,51.02",
+      references: [
+        { branche: "Tiefbauunternehmen im Großraum Köln", plzRange: "50667–50859" },
+        { branche: "GaLaBau-Betriebe Veedel & Vororte", plzRange: "50937–51149" },
+        { branche: "Fassaden- und Sanierungsbetriebe Innenstadt", plzRange: "50670–50825" },
+        { branche: "Industrie- und Logistikbetriebe rechtsrheinisch", plzRange: "51063–51109" },
+      ],
+      recommendedProducts: [PROD_ZE18GU, PROD_ZS0607, PROD_TELEHANDLER],
+      faq: [
+        {
+          question: "Wo kann ich in Köln einen Zoomlion Minibagger kaufen?",
+          answer:
+            "Sie kaufen Ihren Zoomlion Minibagger über unseren Standort in Bonn, der nur ca. 30 km südlich von Köln liegt. Sie können die Maschinen vor Ort besichtigen, eine Probefahrt machen und werden direkt vom Vertrieb beraten. Die Auslieferung nach Köln erfolgt komplett mit Einweisung.",
+        },
+        {
+          question: "Lohnt sich die Anfahrt von Köln zum Standort in Bonn?",
+          answer:
+            "Ja – Sie sind in rund 35 Minuten über die A555 oder A59 am Standort Bonn. Probefahrt, Beratung und Maschinenübergabe lassen sich problemlos in einem Vormittag erledigen. Alternativ liefern wir die Maschine direkt zu Ihnen nach Köln.",
+        },
+        {
+          question: "Bieten Sie in Köln auch Lieferung der Maschinen an?",
+          answer:
+            "Ja, wir liefern Zoomlion Baumaschinen direkt zu Ihrer Baustelle in Köln und in alle Veedel inklusive Einweisung. Auch der Service und die UVV-Prüfung erfolgen vor Ort oder über unseren Standort Bonn.",
+        },
+      ],
+    },
   },
+
   duesseldorf: {
     name: "Düsseldorf",
     slug: "duesseldorf",
@@ -90,7 +225,40 @@ export const staedte: Record<string, StadtData> = {
     lat: 51.2277,
     lng: 6.7735,
     seoTier: "index",
+    cityContent: {
+      intro:
+        "Düsseldorf ist Landeshauptstadt, Finanzplatz und eine der wirtschaftsstärksten Städte Deutschlands – entsprechend hoch ist die Bau-Aktivität. Im Medienhafen, am Flughafen, im Quartier Le Quartier Central und in Bilk entstehen ständig neue Büro-, Wohn- und Hotelprojekte. Hinzu kommen Großprojekte wie die Erweiterung des Flughafens Düsseldorf, der U-Bahn-Ausbau der Wehrhahn-Linie und die laufenden Sanierungen historischer Fassaden in der Altstadt und in Oberkassel. Unser nächster Standort in Krefeld liegt nur rund 25 km westlich – über die A57 sind wir in etwa 25 Minuten in der Düsseldorfer Innenstadt. Für die enge Innenstadt empfehlen wir kompakte Minibagger, für den Medienhafen und Hallenbau sind Teleskoplader und Gelenkteleskopbühnen die richtige Wahl. Auch für Bauunternehmen aus Neuss, Meerbusch und Ratingen sind wir die naheliegende Adresse beim Maschinenkauf.",
+      plzRange: "40210–40629",
+      routeFromCenter: "Düsseldorf-Innenstadt → A57 → Standort Krefeld",
+      driveTimeMinutes: 25,
+      osmBbox: "6.70,51.16,6.90,51.30",
+      references: [
+        { branche: "Hochbauunternehmen Düsseldorf-Nord", plzRange: "40468–40629" },
+        { branche: "Fassaden- und Innenausbaubetriebe Altstadt/Bilk", plzRange: "40210–40225" },
+        { branche: "Hallen- und Gewerbebauer Flughafen-Region", plzRange: "40472–40880" },
+        { branche: "GaLaBau-Betriebe Düsseldorf-Süd & Hilden", plzRange: "40589–40724" },
+      ],
+      recommendedProducts: [PROD_ZE27GU, PROD_ZT22JE, PROD_TELEHANDLER],
+      faq: [
+        {
+          question: "Wo kann ich in Düsseldorf einen Zoomlion Minibagger kaufen?",
+          answer:
+            "Sie kaufen Ihren Zoomlion Minibagger über unseren Hauptstandort Krefeld, ca. 25 km westlich von Düsseldorf. Dort steht der komplette Showroom inklusive Werkstatt und Ersatzteillager – Probefahrt und Übergabe erfolgen vor Ort. Die Auslieferung nach Düsseldorf organisieren wir auf Wunsch direkt.",
+        },
+        {
+          question: "Lohnt sich die Anfahrt von Düsseldorf zum Standort in Krefeld?",
+          answer:
+            "Absolut – über die A57 sind Sie in rund 25 Minuten am Standort. Probefahrt, Beratung und Vertragsabschluss schaffen Sie locker in einem halben Vormittag. Wir koordinieren den Termin so, dass die Maschine direkt im Anschluss vorgeführt werden kann.",
+        },
+        {
+          question: "Bieten Sie in Düsseldorf auch Lieferung der Maschinen an?",
+          answer:
+            "Ja, wir liefern Zoomlion Baumaschinen direkt zu Ihrer Baustelle in Düsseldorf, im Medienhafen, am Flughafen oder in den Stadtteilen Bilk, Oberkassel und Pempelfort – inklusive Einweisung. Service und UVV-Prüfung übernimmt unser Standort Krefeld.",
+        },
+      ],
+    },
   },
+
   bonn: {
     name: "Bonn",
     slug: "bonn",
@@ -109,7 +277,40 @@ export const staedte: Record<string, StadtData> = {
     lat: 50.7374,
     lng: 7.0982,
     seoTier: "index",
+    cityContent: {
+      intro:
+        "In Bonn sind wir mit unserem Standort an der Drachenburgstraße direkt vor Ort – ideal für Bauunternehmen und GaLaBauer aus der gesamten Region. Bonn entwickelt sich seit dem Wegzug der Regierungsfunktionen kontinuierlich zur UN- und Wissenschaftsstadt: Im ehemaligen Regierungsviertel laufen die Sanierungen des World Conference Center und des Post-Towers, in Beuel und Bad Godesberg entstehen neue Wohnquartiere, und im Siebengebirge sind anspruchsvolle GaLaBau-Projekte an Hanglagen Standard. Vom Standort Bonn aus liefern wir Zoomlion Baumaschinen direkt nach Beuel, Bad Godesberg, Hardtberg und in die umliegenden Gemeinden Königswinter, Sankt Augustin, Siegburg und Bornheim. Probefahrt, Beratung und sofortige Verfügbarkeit von Ersatzteilen sind die zentralen Vorteile unseres Standorts. Auch Köln im Norden erreichen wir über die A555 in unter 35 Minuten – viele Kölner Bauunternehmen nutzen daher den Standort Bonn.",
+      plzRange: "53111–53229",
+      routeFromCenter: "Standort direkt in Bonn (Drachenburgstraße 8, 53179 Bonn)",
+      driveTimeMinutes: 0,
+      osmBbox: "7.00,50.65,7.20,50.80",
+      references: [
+        { branche: "Denkmalsanierer & Spezialbau Innenstadt", plzRange: "53111–53127" },
+        { branche: "GaLaBau-Betriebe Bad Godesberg & Siebengebirge", plzRange: "53173–53229" },
+        { branche: "Wohnungsbauunternehmen Beuel & Hardtberg", plzRange: "53121–53229" },
+        { branche: "Tiefbau- und Erdbauunternehmen Rhein-Sieg-Kreis", plzRange: "53721–53842" },
+      ],
+      recommendedProducts: [PROD_ZE18GU, PROD_ZT22JE, PROD_ZE55GU],
+      faq: [
+        {
+          question: "Wo kann ich in Bonn einen Zoomlion Minibagger kaufen?",
+          answer:
+            "Direkt bei uns am Standort Bonn, Drachenburgstraße 8, 53179 Bonn. Wir haben Minibagger, Arbeitsbühnen und Teleskoplader sofort verfügbar – Probefahrt jederzeit nach Terminabsprache.",
+        },
+        {
+          question: "Bieten Sie in Bonn Service und Ersatzteile vor Ort an?",
+          answer:
+            "Ja, am Standort Bonn finden Sie nicht nur den Verkauf, sondern auch direkten Zugang zu Service, Ersatzteilen und UVV-Prüfung über unsere Werkstatt am Standort Krefeld. Mobile Service-Einsätze in Bonn und im Rhein-Sieg-Kreis sind kurzfristig möglich.",
+        },
+        {
+          question: "Bieten Sie in Bonn auch Lieferung der Maschinen an?",
+          answer:
+            "Ja – wir liefern Zoomlion Baumaschinen vom Standort Bonn direkt zu Ihrer Baustelle in Bonn, Beuel, Bad Godesberg sowie in die umliegenden Städte Siegburg, Sankt Augustin, Königswinter und Bad Honnef.",
+        },
+      ],
+    },
   },
+
   essen: {
     name: "Essen",
     slug: "essen",
@@ -127,8 +328,41 @@ export const staedte: Record<string, StadtData> = {
     distanceKm: 15,
     lat: 51.4556,
     lng: 7.0116,
-    seoTier: "noindex",
+    seoTier: "index",
+    cityContent: {
+      intro:
+        "Essen hat sich mit dem Strukturwandel vom Bergbau-Standort zur Dienstleistungs- und Wissenschaftsmetropole entwickelt – und ist heute eine der baulich aktivsten Städte des Ruhrgebiets. Mit dem UNESCO-Welterbe Zeche Zollverein, dem Universitätsviertel rund um die Universität Duisburg-Essen, dem Folkwang-Quartier und der Konversion alter Industrieflächen in Altenessen, Schonnebeck und Bergeborbeck entstehen ständig neue Wohn-, Bildungs- und Gewerbeflächen. Auch der Krupp-Park und die Grüne Mitte sind Beispiele für laufende Bau-Aktivität. Unser nächster Standort in Mülheim an der Ruhr liegt nur rund 15 km westlich – über die A40 sind wir in etwa 15 Minuten in der Essener Innenstadt. Für die Stadt sind unsere Mobilbagger der 13–21-Tonnen-Klasse besonders gefragt, ergänzt durch Gelenkteleskopbühnen für Fassadensanierung und Hallenbau. In den südlichen Stadtteilen Werden und Kettwig sind kompakte Minibagger für GaLaBau ein Verkaufsschlager.",
+      plzRange: "45127–45359",
+      routeFromCenter: "Essen-Innenstadt → A40 / A52 → Standort Mülheim a. d. Ruhr",
+      driveTimeMinutes: 15,
+      osmBbox: "6.90,51.36,7.15,51.50",
+      references: [
+        { branche: "Industriebau- & Konversions-Spezialisten Innenstadt/Nord", plzRange: "45127–45359" },
+        { branche: "GaLaBau-Betriebe Essen-Süd (Werden, Kettwig)", plzRange: "45219–45239" },
+        { branche: "Wohnungsbauer Altenessen & Schonnebeck", plzRange: "45326–45357" },
+        { branche: "Abbruch- & Recyclingbetriebe Ruhrgebiet-West", plzRange: "45141–45356" },
+      ],
+      recommendedProducts: [PROD_ZE135G, PROD_ZT22JE, PROD_TELEHANDLER],
+      faq: [
+        {
+          question: "Wo kann ich in Essen einen Zoomlion Minibagger kaufen?",
+          answer:
+            "Sie kaufen Ihren Zoomlion Minibagger über unseren Standort in Mülheim an der Ruhr, nur ca. 15 km von Essen entfernt. Dort sehen Sie die Maschinen live, machen eine Probefahrt und werden direkt beraten. Lieferung nach Essen organisieren wir mit Einweisung.",
+        },
+        {
+          question: "Lohnt sich die Anfahrt von Essen zum Standort in Mülheim?",
+          answer:
+            "Ja – über die A40 sind Sie in 15 Minuten am Standort. Beratung, Probefahrt und Übergabe sind locker an einem Vormittag möglich. Wer es eilig hat, bekommt die Maschine direkt im Anschluss zur Baustelle in Essen geliefert.",
+        },
+        {
+          question: "Bieten Sie in Essen auch Lieferung der Maschinen an?",
+          answer:
+            "Ja, wir liefern Zoomlion Baumaschinen vom Standort Mülheim direkt nach Essen-Werden, Kettwig, Steele, Altenessen und in alle weiteren Stadtteile – inklusive Einweisung und mit kurzfristigem Service vor Ort.",
+        },
+      ],
+    },
   },
+
   dortmund: {
     name: "Dortmund",
     slug: "dortmund",
@@ -146,8 +380,41 @@ export const staedte: Record<string, StadtData> = {
     distanceKm: 50,
     lat: 51.5136,
     lng: 7.4653,
-    seoTier: "noindex",
+    seoTier: "index",
+    cityContent: {
+      intro:
+        "Dortmund ist die größte Stadt Westfalens und mit Phoenix-See, dem Technologiepark, dem Dortmunder Hafen und der laufenden Aufwertung der Nordstadt eines der wachstumsstärksten Bau-Standorte des Ruhrgebiets. Auch der Stadtkronenbereich rund um den Hauptbahnhof, die Konversionen in Hörde und der Ausbau der Westfalenhütte erzeugen kontinuierliche Nachfrage nach Bau- und Hubmaschinen. Hinzu kommen typische Großprojekte aus Logistik, Industrie und Wohnungsbau in Aplerbeck, Mengede und Brackel. Unser nächster Standort in Mülheim an der Ruhr liegt rund 50 km westlich – über die A40 erreichen wir Dortmund in etwa 40 Minuten. Für die Hafen- und Industrieflächen sind unsere 21-Tonnen-Mobilbagger und Teleskoplader die typischen Arbeitstiere; im Wohnungsbau und GaLaBau dominieren kompakte Mini- und Kompaktbagger. Auch für Hagen, Unna, Lünen, Witten und Schwerte sind wir die naheliegende Adresse.",
+      plzRange: "44135–44388",
+      routeFromCenter: "Dortmund-Innenstadt → A40 → Standort Mülheim a. d. Ruhr",
+      driveTimeMinutes: 40,
+      osmBbox: "7.35,51.45,7.60,51.58",
+      references: [
+        { branche: "Industriebau & Hafen-Logistik Hafen/Nordstadt", plzRange: "44135–44147" },
+        { branche: "Wohnungsbauer Hörde & Aplerbeck", plzRange: "44263–44319" },
+        { branche: "GaLaBau-Betriebe Brackel & Mengede", plzRange: "44329–44388" },
+        { branche: "Tiefbauunternehmen Kreis Unna & Hagen", plzRange: "58093–59425" },
+      ],
+      recommendedProducts: [PROD_ZE210GLC, PROD_TELEHANDLER, PROD_ZT58J],
+      faq: [
+        {
+          question: "Wo kann ich in Dortmund einen Zoomlion Bagger kaufen?",
+          answer:
+            "Sie kaufen Ihre Zoomlion Maschinen über unseren Standort Mülheim an der Ruhr (ca. 50 km / 40 min via A40). Dort steht der Showroom für Probefahrt und Beratung. Die Auslieferung nach Dortmund organisieren wir komplett mit Einweisung.",
+        },
+        {
+          question: "Lohnt sich die Anfahrt von Dortmund zum Standort in Mülheim?",
+          answer:
+            "Für eine Probefahrt definitiv – über die A40 erreichen Sie den Standort in rund 40 Minuten. Wer es eiliger hat: Wir liefern die Maschine inklusive Einweisung direkt nach Dortmund. Service und UVV-Prüfung organisieren wir auf Wunsch ebenfalls vor Ort.",
+        },
+        {
+          question: "Bieten Sie in Dortmund auch Lieferung der Maschinen an?",
+          answer:
+            "Ja, wir liefern Zoomlion Baumaschinen direkt nach Dortmund-Hörde, Aplerbeck, Mengede, Brackel sowie in den gesamten Kreis Unna, nach Hagen, Unna, Lünen und Schwerte – inklusive Einweisung.",
+        },
+      ],
+    },
   },
+
   duisburg: {
     name: "Duisburg",
     slug: "duisburg",
@@ -165,8 +432,41 @@ export const staedte: Record<string, StadtData> = {
     distanceKm: 25,
     lat: 51.4344,
     lng: 6.7623,
-    seoTier: "noindex",
+    seoTier: "index",
+    cityContent: {
+      intro:
+        "Duisburg beherbergt mit dem Duisburger Hafen den größten Binnenhafen Europas und ist gleichzeitig einer der wichtigsten Stahlstandorte Deutschlands. Auf den Logport-Flächen in Rheinhausen und Walsum entstehen kontinuierlich neue Logistikhallen, in Hochfeld und Marxloh laufen umfangreiche Wohnungsbau- und Quartierssanierungen, und die Konversion ehemaliger Industrieflächen wie der Bahn-Werkstätten in Wedau ist ein Dauer-Großprojekt. Unser nächster Standort in Krefeld liegt nur rund 25 km südlich – über die A57 erreichen wir Duisburg in etwa 20 Minuten. Zusätzlich versorgt unser Standort Mülheim an der Ruhr (ca. 15 km östlich) das östliche Stadtgebiet. Für die Hafen- und Industrieflächen sind unsere 21-Tonnen-Mobilbagger und Teleskoplader Standard, in den Wohnquartieren dominieren kompakte Minibagger und Scherenarbeitsbühnen. Auch Bauunternehmen aus Moers, Oberhausen, Dinslaken und Rheinberg nutzen die kurzen Wege zu unseren beiden Standorten.",
+      plzRange: "47051–47279",
+      routeFromCenter: "Duisburg-Innenstadt → A57 → Standort Krefeld (alt.: A40 → Mülheim)",
+      driveTimeMinutes: 20,
+      osmBbox: "6.65,51.38,6.85,51.50",
+      references: [
+        { branche: "Logistik- & Hallenbauer Logport/Rheinhausen", plzRange: "47228–47239" },
+        { branche: "Industrie- & Stahlbau-Spezialisten Hüttenheim/Walsum", plzRange: "47179–47259" },
+        { branche: "Wohnungsbauer Hochfeld, Marxloh & Meiderich", plzRange: "47053–47169" },
+        { branche: "Tiefbau- & Erdbauunternehmen Niederrhein", plzRange: "47443–47506" },
+      ],
+      recommendedProducts: [PROD_ZE210GLC, PROD_TELEHANDLER, PROD_ZS1218ERT],
+      faq: [
+        {
+          question: "Wo kann ich in Duisburg einen Zoomlion Bagger kaufen?",
+          answer:
+            "Sie kaufen Ihre Zoomlion Maschinen wahlweise über unseren Hauptstandort Krefeld (ca. 25 km, 20 min via A57) oder über den Standort Mülheim an der Ruhr (ca. 15 km östlich). Beide Standorte beraten Sie gleichermaßen für Duisburg.",
+        },
+        {
+          question: "Lohnt sich die Anfahrt von Duisburg zum Standort in Krefeld?",
+          answer:
+            "Ja – Sie sind über die A57 in rund 20 Minuten am Hauptstandort Krefeld mit Showroom, Werkstatt und Ersatzteillager. Probefahrt und Beratung schaffen Sie an einem Vormittag.",
+        },
+        {
+          question: "Bieten Sie in Duisburg auch Lieferung der Maschinen an?",
+          answer:
+            "Ja, wir liefern Zoomlion Baumaschinen direkt nach Duisburg-Logport, Rheinhausen, Hochfeld, Walsum, Marxloh sowie in die umliegenden Städte Moers, Oberhausen und Dinslaken – inklusive Einweisung.",
+        },
+      ],
+    },
   },
+
   krefeld: {
     name: "Krefeld",
     slug: "krefeld",
@@ -185,7 +485,40 @@ export const staedte: Record<string, StadtData> = {
     lat: 51.3388,
     lng: 6.5853,
     seoTier: "index",
+    cityContent: {
+      intro:
+        "Krefeld ist unser Hauptstandort. An der Anrather Straße 291 finden Sie den kompletten Zoomlion-Showroom mit Minibaggern, Arbeitsbühnen, Teleskopladern und einer eigenen Werkstatt mit Ersatzteillager. Krefeld selbst ist mit der Seidenindustrie-Tradition, dem Hafen Krefeld und neuen Wohnquartieren wie Fischeln und Hüls baulich aktiv – hinzu kommen Großprojekte rund um den Krefelder Stadtmittebereich und die Modernisierung des ÖPNV. Vom Standort aus erreichen wir die wichtigen Bau-Standorte am Niederrhein in unter 30 Minuten: Mönchengladbach, Viersen, Düsseldorf, Duisburg, Neuss, Willich und Tönisvorst. Für die typischen GaLaBau- und Wohnungsbau-Anwendungen am Niederrhein empfehlen wir kompakte Minibagger der 1,8–5,5-Tonnen-Klasse; für Hafen- und Industrieflächen unsere Mobilbagger und Teleskoplader. Service, UVV-Prüfung und mobiler Notdienst sind direkt vom Hauptstandort organisiert.",
+      plzRange: "47798–47929",
+      routeFromCenter: "Standort direkt in Krefeld (Anrather Straße 291, 47807 Krefeld)",
+      driveTimeMinutes: 0,
+      osmBbox: "6.50,51.28,6.70,51.40",
+      references: [
+        { branche: "GaLaBau- und Wohnungsbau-Betriebe Krefeld & Niederrhein", plzRange: "47798–47929" },
+        { branche: "Industriebau Hafen Krefeld / Uerdingen", plzRange: "47829–47839" },
+        { branche: "Logistik- & Hallenbauer Willich/Tönisvorst", plzRange: "47877–47918" },
+        { branche: "Tiefbauunternehmen Mönchengladbach & Viersen", plzRange: "41061–41748" },
+      ],
+      recommendedProducts: [PROD_ZE27GU, PROD_ZE55GU, PROD_TELEHANDLER],
+      faq: [
+        {
+          question: "Wo kann ich in Krefeld einen Zoomlion Minibagger kaufen?",
+          answer:
+            "Direkt bei uns am Hauptstandort Krefeld, Anrather Straße 291. Der komplette Showroom inklusive Werkstatt und Ersatzteillager steht Ihnen für Probefahrt, Beratung und sofortige Übergabe zur Verfügung.",
+        },
+        {
+          question: "Bieten Sie in Krefeld auch UVV-Prüfung und Werkstatt-Service an?",
+          answer:
+            "Ja – am Standort Krefeld haben wir eine eigene Werkstatt mit Sachkundigen-Personal für UVV-Prüfungen, Wartung und Reparatur aller Zoomlion Maschinen. Auch mobile Service-Einsätze am Niederrhein sind kurzfristig möglich.",
+        },
+        {
+          question: "Bieten Sie in Krefeld auch Lieferung der Maschinen an?",
+          answer:
+            "Ja, wir liefern Zoomlion Baumaschinen direkt zu Ihrer Baustelle in Krefeld, Hüls, Fischeln, Uerdingen sowie nach Mönchengladbach, Viersen, Willich und Tönisvorst – inklusive Einweisung.",
+        },
+      ],
+    },
   },
+
   muelheim: {
     name: "Mülheim an der Ruhr",
     slug: "muelheim",
@@ -204,7 +537,43 @@ export const staedte: Record<string, StadtData> = {
     lat: 51.4268,
     lng: 6.8826,
     seoTier: "index",
+    cityContent: {
+      intro:
+        "In Mülheim an der Ruhr sind wir mit unserem Standort an der Ruhrorter Straße direkt im westlichen Ruhrgebiet präsent – nur wenige Minuten von Essen, Oberhausen, Duisburg und Ratingen entfernt. Mülheim selbst ist mit der Hochschule Ruhr West, dem Innovationsquartier am Hauptbahnhof und der Aufwertung des Ruhrbogens (Ringlokschuppen, MüGa-Gelände) ein eigenständig wachsender Bau-Standort. Hinzu kommen Wohnungsbau in Heißen und Speldorf sowie Industrieprojekte rund um die Ruhrau. Vom Standort aus erreichen wir das gesamte westliche Ruhrgebiet in unter 30 Minuten: Essen-Innenstadt in 15 Minuten über die A40, Duisburg in 15 Minuten über die A40, Oberhausen direkt nebenan und Ratingen in 20 Minuten über die A52. Hier können Sie Zoomlion Minibagger, Arbeitsbühnen und Teleskoplader live besichtigen, eine Probefahrt machen und sich beraten lassen. Service und Ersatzteile organisieren wir kurzfristig über unsere Werkstatt am Standort Krefeld.",
+      plzRange: "45468–45481",
+      routeFromCenter: "Standort direkt in Mülheim a. d. Ruhr (Ruhrorter Straße, 45478 Mülheim)",
+      driveTimeMinutes: 0,
+      osmBbox: "6.80,51.38,7.00,51.50",
+      references: [
+        { branche: "Wohnungsbau Speldorf, Heißen & Saarn", plzRange: "45468–45481" },
+        { branche: "Industriebau & Hallenbauer Ruhrau/Styrum", plzRange: "45478–45479" },
+        { branche: "GaLaBau-Betriebe Mülheim & Ratingen", plzRange: "40878–45481" },
+        { branche: "Tiefbauunternehmen Essen-West & Oberhausen", plzRange: "45355–46147" },
+      ],
+      recommendedProducts: [PROD_ZE55GU, PROD_TELEHANDLER, PROD_ZT22JE],
+      faq: [
+        {
+          question: "Wo kann ich in Mülheim an der Ruhr einen Zoomlion Bagger kaufen?",
+          answer:
+            "Direkt bei uns am Standort Mülheim, Ruhrorter Straße, 45478 Mülheim. Sie können Minibagger, Arbeitsbühnen und Teleskoplader live besichtigen, eine Probefahrt machen und sich vor Ort beraten lassen.",
+        },
+        {
+          question: "Bieten Sie in Mülheim auch Service und Ersatzteile vor Ort an?",
+          answer:
+            "Ja – am Standort Mülheim erfolgt die Beratung und Übergabe vor Ort, Werkstatt-Service und UVV-Prüfungen werden über unseren Hauptstandort Krefeld koordiniert. Mobile Service-Einsätze in Mülheim, Essen und Oberhausen sind kurzfristig möglich.",
+        },
+        {
+          question: "Bieten Sie in Mülheim auch Lieferung der Maschinen an?",
+          answer:
+            "Ja, wir liefern Zoomlion Baumaschinen vom Standort Mülheim direkt nach Speldorf, Heißen, Saarn und Styrum sowie in die Nachbarstädte Essen, Oberhausen, Duisburg und Ratingen – inklusive Einweisung.",
+        },
+      ],
+    },
   },
+
+  // ============================================================
+  // Tier 2 (noindex,follow) – Großstädte ohne Unique-Content
+  // ============================================================
   aachen: {
     name: "Aachen",
     slug: "aachen",
@@ -243,7 +612,10 @@ export const staedte: Record<string, StadtData> = {
     lng: 7.1508,
     seoTier: "noindex",
   },
-  // === Neue Städte ===
+
+  // ============================================================
+  // Tier 3 (excluded) – kein Unique-Content, raus aus Sitemap
+  // ============================================================
   moenchengladbach: {
     name: "Mönchengladbach",
     slug: "moenchengladbach",
