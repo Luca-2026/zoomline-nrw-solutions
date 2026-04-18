@@ -6,17 +6,54 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import tryAndBuyImage from "@/assets/try-and-buy.png";
 
 const STORAGE_KEY = "try-and-buy-popup-seen";
+const COOKIE_CONSENT_KEY = "zoomlion_cookie_consent";
 
 export function TryAndBuyModal() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const seen = localStorage.getItem(STORAGE_KEY);
-    if (!seen) {
-      const t = setTimeout(() => setOpen(true), 2500);
-      return () => clearTimeout(t);
+    if (localStorage.getItem(STORAGE_KEY)) return;
+
+    let timeoutId: number | undefined;
+
+    const scheduleOpen = () => {
+      // 1,2 s nach Cookie-Consent sanft einblenden
+      timeoutId = window.setTimeout(() => setOpen(true), 1200);
+    };
+
+    // Nur anzeigen, wenn Cookie-Consent bereits getroffen wurde –
+    // sonst überlagern sich Cookie-Banner und Try&Buy-Dialog und
+    // ein Klick auf den Cookie-Banner schließt das Try&Buy-Modal.
+    if (localStorage.getItem(COOKIE_CONSENT_KEY)) {
+      scheduleOpen();
+      return () => {
+        if (timeoutId) window.clearTimeout(timeoutId);
+      };
     }
+
+    // Auf Consent warten: pollen + Storage-Event (für andere Tabs)
+    const checkConsent = () => {
+      if (localStorage.getItem(COOKIE_CONSENT_KEY)) {
+        cleanup();
+        scheduleOpen();
+      }
+    };
+    const intervalId = window.setInterval(checkConsent, 500);
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === COOKIE_CONSENT_KEY) checkConsent();
+    };
+    window.addEventListener("storage", onStorage);
+
+    function cleanup() {
+      window.clearInterval(intervalId);
+      window.removeEventListener("storage", onStorage);
+    }
+
+    return () => {
+      cleanup();
+      if (timeoutId) window.clearTimeout(timeoutId);
+    };
   }, []);
 
   const handleClose = (val: boolean) => {
