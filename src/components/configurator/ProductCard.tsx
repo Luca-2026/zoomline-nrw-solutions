@@ -1,6 +1,8 @@
-import { ArrowRight, Download } from "lucide-react";
+import { ArrowRight, Download, Info } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { type AerialPlatform } from "@/data/products";
+import { getProductPageRoute } from "@/data/productPageLinks";
 import iconArbeitsbuehne from "@/assets/icons/icon-arbeitsbuehne.png";
 
 interface ProductCardProps {
