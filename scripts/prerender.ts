@@ -128,8 +128,10 @@ function applySeoToHtml(template, route) {
     `<link rel="canonical" href="${escapeAttr(url)}" />`,
   );
 
-  // robots: per-Route override (z. B. Thin-Content-Stadtseiten auf noindex,follow)
-  const robotsContent = route.noindex
+  // robots: per-Route override (z. B. Thin-Content-Stadtseiten auf noindex,follow,
+  // sowie /teleskoplader bis Detailseiten existieren)
+  const TEMP_NOINDEX = new Set<string>(["/teleskoplader"]);
+  const robotsContent = route.noindex || TEMP_NOINDEX.has(path)
     ? "noindex, follow"
     : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1";
   html = upsertHeadTag(
