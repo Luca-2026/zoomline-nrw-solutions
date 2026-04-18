@@ -1,6 +1,6 @@
 # React/Vite SPA Routing fuer Apache + LiteSpeed
 DirectoryIndex index.html
-Options -Indexes -MultiViews
+Options +FollowSymLinks -Indexes -MultiViews
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
@@ -8,31 +8,36 @@ Options -Indexes -MultiViews
 
   # ----------------------------------------------------------
   # Canonical Host: Erzwinge https:// + www.
-  # Verhindert "Canonical points to different page"-Fehler.
+  # WICHTIG: Beide Regeln MUESSEN vor allen anderen RewriteRules
+  # stehen und mit absoluter URL + [L,R=301] enden, damit LiteSpeed
+  # sie sofort ausliefert. "RewriteRule ^" ohne Slash kann auf
+  # manchen LiteSpeed-Setups stillschweigend ignoriert werden,
+  # daher hier "RewriteRule (.*)" mit explizitem Capture.
   # ----------------------------------------------------------
-  # http -> https (alle Hosts)
+
+  # 1) HTTP -> HTTPS (alle Hosts)
   RewriteCond %{HTTPS} !=on
-  RewriteRule ^ https://www.zoomlion-nrw.de%{REQUEST_URI} [L,R=301]
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule (.*) https://www.zoomlion-nrw.de/$1 [L,R=301,NE]
 
-  # non-www -> www
+  # 2) non-www -> www (auch fuer https-Anfragen auf Apex-Domain)
   RewriteCond %{HTTP_HOST} ^zoomlion-nrw\.de$ [NC]
-  RewriteRule ^ https://www.zoomlion-nrw.de%{REQUEST_URI} [L,R=301]
+  RewriteRule (.*) https://www.zoomlion-nrw.de/$1 [L,R=301,NE]
 
-  # index.html nicht erneut umschreiben
+  # 3) index.html nicht erneut umschreiben (Endlosschleife verhindern)
   RewriteRule ^index\.html$ - [L]
 
-  # Vorhandene Dateien/Ordner/Symlinks normal ausliefern
+  # 4) Vorhandene Dateien/Ordner/Symlinks normal ausliefern
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d [OR]
   RewriteCond %{REQUEST_FILENAME} -l
   RewriteRule ^ - [L]
 
-  # Prerendered Routen: /bagger -> /bagger/index.html (etc.)
-  # Pruefe explizit, ob ein gleichnamiges Verzeichnis mit index.html existiert
+  # 5) Prerendered Routen: /bagger -> /bagger/index.html (etc.)
   RewriteCond %{DOCUMENT_ROOT}/$1/index.html -f
   RewriteRule ^([^/]+(?:/[^/]+)*)/?$ /$1/index.html [L]
 
-  # Restliche Deep-Links der SPA auf root index.html (Fallback)
+  # 6) Restliche Deep-Links der SPA auf root index.html (Fallback)
   RewriteRule ^.*$ /index.html [L]
 </IfModule>
 
@@ -50,8 +55,6 @@ ErrorDocument 404 /index.html
 <IfModule mod_headers.c>
   # ----------------------------------------------------------
   # 1) HTML (prerendered Routen + SPA-Fallback)
-  #    Kurzes Browser-Caching, langes CDN-Caching, SWR fuer
-  #    sofortige Auslieferung waehrend Revalidate im Hintergrund.
   # ----------------------------------------------------------
   <FilesMatch "\.(html)$">
     Header set Cache-Control "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400"
@@ -60,29 +63,27 @@ ErrorDocument 404 /index.html
   </FilesMatch>
 
   # ----------------------------------------------------------
-  # 2) Hashed Build-Assets (Vite -> /assets/*-[hash].{js,css})
-  #    Unveraenderlich, 1 Jahr cachen.
+  # 2) Hashed Build-Assets
   # ----------------------------------------------------------
   <FilesMatch "\.(js|mjs|css|woff|woff2|ttf|otf|eot)$">
     Header set Cache-Control "public, max-age=31536000, immutable"
   </FilesMatch>
 
   # ----------------------------------------------------------
-  # 3) Bilder & PDFs (Produktbilder, OG-Image, Datenblaetter)
-  #    Ebenfalls langlebig, immutable.
+  # 3) Bilder & PDFs
   # ----------------------------------------------------------
   <FilesMatch "\.(png|jpg|jpeg|webp|avif|gif|svg|ico|pdf)$">
     Header set Cache-Control "public, max-age=31536000, immutable"
   </FilesMatch>
 
   # ----------------------------------------------------------
-  # 4) Sitemap & robots.txt - moderates Caching
+  # 4) Sitemap & robots.txt
   # ----------------------------------------------------------
   <FilesMatch "(sitemap\.xml|robots\.txt)$">
     Header set Cache-Control "public, max-age=3600"
   </FilesMatch>
 
-  # Sicherheits-Header (klein gehalten, SEO-neutral)
+  # Sicherheits-Header
   Header set X-Content-Type-Options "nosniff"
   Header set Referrer-Policy "strict-origin-when-cross-origin"
 </IfModule>
