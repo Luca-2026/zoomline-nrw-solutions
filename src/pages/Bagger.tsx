@@ -5,44 +5,52 @@ import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { ExcavatorConfigurator } from "@/components/configurator/ExcavatorConfigurator";
 import { SocialMeta } from "@/components/shared/SocialMeta";
+import { getProductPagesByCategory } from "@/data/productPages";
+import { SITE_URL } from "@/data/seoRoutes";
 
 const Bagger = () => {
-  const baggerModels = [
-    { name: "Zoomlion ZE18GU Minibagger", image: "https://www.zoomlion-nrw.de/excavators/ze18gu.png", anchor: "ze18gu" },
-    { name: "Zoomlion ZE36GU Minibagger", image: "https://www.zoomlion-nrw.de/excavators/ze36gu.png", anchor: "ze36gu" },
-    { name: "Zoomlion ZE75G Kompaktbagger", image: "https://www.zoomlion-nrw.de/excavators/ze75g.png", anchor: "ze75g" },
-  ];
+  // ItemList aus realen Detailseiten (PRODUCT_PAGES) – korrekte Deep-Links
+  const baggerPages = getProductPagesByCategory("bagger");
 
   const collectionPageSchema = {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
-    "@id": "https://www.zoomlion-nrw.de/bagger/",
+    "@id": `${SITE_URL}/bagger/`,
     "name": "Zoomlion Minibagger & Kompaktbagger kaufen in NRW",
-    "description": "Übersicht aller Zoomlion Minibagger und Kompaktbagger zum Kauf in Nordrhein-Westfalen. Von 1,8 bis 25 Tonnen, Diesel oder Elektro, mit 3 Jahren Garantie.",
-    "url": "https://www.zoomlion-nrw.de/bagger/",
+    "description":
+      "Übersicht aller Zoomlion Minibagger und Kompaktbagger zum Kauf in Nordrhein-Westfalen. Von 1,8 bis 25 Tonnen, Diesel oder Elektro, mit 3 Jahren Garantie.",
+    "url": `${SITE_URL}/bagger/`,
     "inLanguage": "de-DE",
-    "isPartOf": { "@id": "https://www.zoomlion-nrw.de/#website" },
+    "isPartOf": { "@id": `${SITE_URL}/#website` },
     "mainEntity": {
       "@type": "ItemList",
-      "numberOfItems": baggerModels.length,
-      "itemListElement": baggerModels.map((m, i) => ({
+      "numberOfItems": baggerPages.length,
+      "itemListElement": baggerPages.map((p, i) => ({
         "@type": "ListItem",
         "position": i + 1,
+        "url": `${SITE_URL}/bagger/${p.slug}/`,
         "item": {
           "@type": "Product",
-          "name": m.name,
-          "image": m.image,
-          "url": `https://www.zoomlion-nrw.de/bagger/#${m.anchor}`,
+          "@id": `${SITE_URL}/bagger/${p.slug}/#product`,
+          "name": p.name,
+          "image": `${SITE_URL}${p.imagePublicPath}`,
+          "url": `${SITE_URL}/bagger/${p.slug}/`,
           "brand": { "@type": "Brand", "name": "Zoomlion" },
+          "category": p.categoryLabel,
           "offers": {
             "@type": "Offer",
+            "url": `${SITE_URL}/bagger/${p.slug}/`,
             "availability": "https://schema.org/InStock",
             "priceCurrency": "EUR",
-            "seller": { "@type": "Organization", "name": "Zoomlion NRW" }
-          }
-        }
-      }))
-    }
+            "itemCondition": "https://schema.org/NewCondition",
+            "seller": {
+              "@type": "AutomotiveBusiness",
+              "@id": `${SITE_URL}/standorte/krefeld#localbusiness`,
+            },
+          },
+        },
+      })),
+    },
   };
 
   const faqSchema = {

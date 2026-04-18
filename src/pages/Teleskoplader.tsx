@@ -24,6 +24,8 @@ const Teleskoplader = () => {
     "url": "https://www.zoomlion-nrw.de/teleskoplader/",
     "inLanguage": "de-DE",
     "isPartOf": { "@id": "https://www.zoomlion-nrw.de/#website" },
+    // Noch keine eigenen Produktdetailseiten -> ItemList ohne InStock/Offer
+    // (Seite ist zusätzlich auf noindex,follow gesetzt, siehe <meta robots>)
     "mainEntity": {
       "@type": "ItemList",
       "numberOfItems": telehandlerModels.length,
@@ -34,17 +36,12 @@ const Teleskoplader = () => {
           "@type": "Product",
           "name": m.name,
           "image": m.image,
-          "url": `https://www.zoomlion-nrw.de/teleskoplader/#${m.anchor}`,
+          "url": `https://www.zoomlion-nrw.de/teleskoplader/`,
           "brand": { "@type": "Brand", "name": "Zoomlion" },
-          "offers": {
-            "@type": "Offer",
-            "availability": "https://schema.org/InStock",
-            "priceCurrency": "EUR",
-            "seller": { "@type": "Organization", "name": "Zoomlion NRW" }
-          }
-        }
-      }))
-    }
+          "category": "Teleskoplader",
+        },
+      })),
+    },
   };
 
   return (
@@ -64,6 +61,8 @@ const Teleskoplader = () => {
           content="Teleskoplader kaufen, Teleskoplader kaufen NRW, Telehandler kaufen, Telehandler kaufen NRW, Drehteleskoplader kaufen, Teleskoplader neu, Teleskoplader Allrad, Teleskoplader Landwirtschaft, Teleskoplader Bau, Teleskoplader Köln, Teleskoplader Düsseldorf, Teleskoplader Bonn, Teleskoplader finanzieren, Radlader Alternative" 
         />
         <link rel="canonical" href="https://www.zoomlion-nrw.de/teleskoplader/" />
+        {/* Noch keine eigenen Produktdetailseiten vorhanden – Kategorie temporär noindex */}
+        <meta name="robots" content="noindex, follow" />
         
         {/* Open Graph & Twitter Card via SocialMeta below */}
         
