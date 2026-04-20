@@ -132,8 +132,8 @@ export default function ProductPage({ category }: ProductPageProps) {
             </h1>
             <p className="text-lg text-muted-foreground mb-6">{product.tagline}</p>
             <div className="flex flex-wrap gap-3">
-              <Button asChild size="lg">
-                <Link to="/kontakt">Angebot anfordern</Link>
+              <Button size="lg" onClick={() => setInquiryOpen(true)}>
+                Angebot anfordern
               </Button>
               <Button asChild size="lg" variant="outline">
                 <a
