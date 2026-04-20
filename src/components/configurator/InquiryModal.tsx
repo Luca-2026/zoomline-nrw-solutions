@@ -530,6 +530,8 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
             )}
           </Button>
         </form>
+          </>
+        )}
       </DialogContent>
     </Dialog>
   );
