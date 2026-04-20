@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Download, CheckCircle2, ChevronRight, MapPin } from "lucide-react";
@@ -11,6 +12,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { SocialMeta } from "@/components/shared/SocialMeta";
+import { InquiryModal } from "@/components/configurator/InquiryModal";
 import {
   type ProductCategory,
   type ProductPage as ProductPageType,
@@ -19,6 +21,11 @@ import {
 } from "@/data/productPages";
 import { getProductImage } from "@/data/productImages";
 import { SITE_URL } from "@/data/seoRoutes";
+
+const categoryToInquiryType: Record<ProductCategory, "bagger" | "arbeitsbuehne"> = {
+  bagger: "bagger",
+  arbeitsbuehnen: "arbeitsbuehne",
+};
 
 interface ProductPageProps {
   category: ProductCategory;
