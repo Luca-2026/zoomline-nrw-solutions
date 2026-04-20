@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
@@ -420,10 +419,12 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
               <div className="grid grid-cols-2 gap-2">
                 {anbaugeraeteOptions.map((option) => (
                   <div key={option.id} className="flex items-center gap-2">
-                    <Checkbox
+                    <input
                       id={option.id}
+                      type="checkbox"
                       checked={selectedAnbaugeraete.includes(option.id)}
-                      onCheckedChange={() => toggleAnbaugeraet(option.id)}
+                      onChange={() => toggleAnbaugeraet(option.id)}
+                      className="h-4 w-4 shrink-0 rounded-sm border border-primary accent-primary"
                     />
                     <Label htmlFor={option.id} className="cursor-pointer text-sm">
                       {option.label}
@@ -471,19 +472,23 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
           </div>
 
           <div className="flex items-center gap-2">
-            <Checkbox
+            <input
               id="rueckruf"
+              type="checkbox"
               checked={formData.rueckruf}
-              onCheckedChange={(v) => handleChange("rueckruf", !!v)}
+              onChange={(event) => handleChange("rueckruf", event.target.checked)}
+              className="h-4 w-4 shrink-0 rounded-sm border border-primary accent-primary"
             />
             <Label htmlFor="rueckruf" className="cursor-pointer">Bitte um Rückruf</Label>
           </div>
 
           <div className="flex items-center gap-2">
-            <Checkbox
+            <input
               id="lieferung"
+              type="checkbox"
               checked={formData.lieferung}
-              onCheckedChange={(v) => handleChange("lieferung", !!v)}
+              onChange={(event) => handleChange("lieferung", event.target.checked)}
+              className="h-4 w-4 shrink-0 rounded-sm border border-primary accent-primary"
             />
             <Label htmlFor="lieferung" className="cursor-pointer">
               Lieferung gewünscht
@@ -492,16 +497,19 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
 
           <div className="space-y-3">
             <div className="flex items-center gap-2">
-              <Checkbox
+              <input
                 id="wartungsvertrag"
+                type="checkbox"
                 checked={formData.wartungsvertrag}
-                onCheckedChange={(v) => {
-                  handleChange("wartungsvertrag", !!v);
-                  if (!v) {
+                onChange={(event) => {
+                  const checked = event.target.checked;
+                  handleChange("wartungsvertrag", checked);
+                  if (!checked) {
                     handleChange("wartungsvertragArt", "");
                     handleChange("wartungsvertragMonate", "");
                   }
                 }}
+                className="h-4 w-4 shrink-0 rounded-sm border border-primary accent-primary"
               />
               <Label htmlFor="wartungsvertrag" className="cursor-pointer">
                 Wartungsvertrag gewünscht
@@ -541,10 +549,11 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
           </div>
 
           <div className="flex items-start gap-2">
-            <Checkbox
+            <input
               id="dsgvo"
+              type="checkbox"
               checked={formData.dsgvo}
-              onCheckedChange={(v) => handleChange("dsgvo", !!v)}
+              onChange={(event) => handleChange("dsgvo", event.target.checked)}
               className={errors.dsgvo ? "border-destructive" : ""}
             />
             <div>
