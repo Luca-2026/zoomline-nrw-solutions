@@ -2,7 +2,6 @@ import { useCallback, useMemo, useRef, useState, type ChangeEvent } from "react"
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { supabase } from "@/integrations/supabase/client";
 import { ArrowRightLeft, Upload, X, Loader2, Image as ImageIcon, AlertCircle } from "lucide-react";
@@ -216,11 +215,13 @@ export function TradeInSection({ value, onChange, productType = "bagger" }: Trad
           }
         }}
       >
-        <Checkbox
+        <input
           id="trade-in-toggle"
+          type="checkbox"
           checked={value.enabled}
-          onCheckedChange={(v) => setEnabled(!!v)}
+          onChange={(event) => setEnabled(event.target.checked)}
           onClick={(e) => e.stopPropagation()}
+          className="h-4 w-4 shrink-0 rounded-sm border border-primary accent-primary"
         />
         <ArrowRightLeft className={`h-5 w-5 ${value.enabled ? "text-primary" : "text-muted-foreground"}`} />
         <div className="flex-1">
