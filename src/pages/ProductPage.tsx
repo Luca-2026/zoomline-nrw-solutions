@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useParams, Link, Navigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Download, CheckCircle2, ChevronRight, MapPin } from "lucide-react";
@@ -11,6 +12,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { SocialMeta } from "@/components/shared/SocialMeta";
+import { InquiryModal } from "@/components/configurator/InquiryModal";
 import {
   type ProductCategory,
   type ProductPage as ProductPageType,
@@ -19,6 +21,11 @@ import {
 } from "@/data/productPages";
 import { getProductImage } from "@/data/productImages";
 import { SITE_URL } from "@/data/seoRoutes";
+
+const categoryToInquiryType: Record<ProductCategory, "bagger" | "arbeitsbuehne"> = {
+  bagger: "bagger",
+  arbeitsbuehnen: "arbeitsbuehne",
+};
 
 interface ProductPageProps {
   category: ProductCategory;
@@ -39,6 +46,7 @@ const categoryParentLabel: Record<ProductCategory, string> = {
 export default function ProductPage({ category }: ProductPageProps) {
   const { slug } = useParams<{ slug: string }>();
   const product = slug ? getProductPageBySlug(slug) : undefined;
+  const [inquiryOpen, setInquiryOpen] = useState(false);
 
   if (!product || product.category !== category) {
     return <Navigate to="/404" replace />;
@@ -124,8 +132,8 @@ export default function ProductPage({ category }: ProductPageProps) {
             </h1>
             <p className="text-lg text-muted-foreground mb-6">{product.tagline}</p>
             <div className="flex flex-wrap gap-3">
-              <Button asChild size="lg">
-                <Link to="/kontakt">Angebot anfordern</Link>
+              <Button size="lg" onClick={() => setInquiryOpen(true)}>
+                Angebot anfordern
               </Button>
               <Button asChild size="lg" variant="outline">
                 <a
@@ -297,12 +305,19 @@ export default function ProductPage({ category }: ProductPageProps) {
             </Button>
           </div>
           <div className="mt-6">
-            <Button asChild size="lg">
-              <Link to="/kontakt">Jetzt Angebot anfordern</Link>
+            <Button size="lg" onClick={() => setInquiryOpen(true)}>
+              Jetzt Angebot anfordern
             </Button>
           </div>
         </div>
       </section>
+
+      <InquiryModal
+        isOpen={inquiryOpen}
+        onClose={() => setInquiryOpen(false)}
+        type={categoryToInquiryType[category]}
+        selectedProduct={product.name}
+      />
     </Layout>
   );
 }
