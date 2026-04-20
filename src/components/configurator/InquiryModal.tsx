@@ -249,10 +249,10 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
     kontakt: "Kontakt",
   };
 
-  if (isSuccess) {
-    return (
-      <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="sm:max-w-md">
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
+        {isSuccess ? (
           <div className="flex flex-col items-center justify-center py-8 text-center">
             <CheckCircle className="h-16 w-16 text-primary mb-4" />
             <h3 className="font-heading text-xl font-bold mb-2">Vielen Dank!</h3>
@@ -260,14 +260,8 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
               Wir haben Ihre Anfrage erhalten und melden uns kurzfristig.
             </p>
           </div>
-        </DialogContent>
-      </Dialog>
-    );
-  }
-
-  return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
+        ) : (
+          <>
         <DialogHeader>
           <DialogTitle className="font-heading">
             {selectedProduct ? `Anfrage: ${selectedProduct}` : `${typeLabels[type]} anfragen`}
