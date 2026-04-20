@@ -46,6 +46,7 @@ const categoryParentLabel: Record<ProductCategory, string> = {
 export default function ProductPage({ category }: ProductPageProps) {
   const { slug } = useParams<{ slug: string }>();
   const product = slug ? getProductPageBySlug(slug) : undefined;
+  const [inquiryOpen, setInquiryOpen] = useState(false);
 
   if (!product || product.category !== category) {
     return <Navigate to="/404" replace />;
