@@ -250,7 +250,9 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={(open) => {
+      if (!open) onClose();
+    }}>
       <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
         {isSuccess ? (
           <div className="flex flex-col items-center justify-center py-8 text-center">
