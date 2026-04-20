@@ -1,6 +1,5 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { z } from "zod";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -9,7 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import { Loader2, CheckCircle } from "lucide-react";
+import { Loader2, CheckCircle, X } from "lucide-react";
 import { FinancingSection } from "@/components/financing/FinancingSection";
 import { FinancingRequestData } from "@/lib/financing";
 import { TradeInSection, TradeInData } from "@/components/configurator/TradeInSection";
@@ -92,6 +91,26 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
     wartungsvertragMonate: "",
     dsgvo: false,
   });
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+
+    window.addEventListener("keydown", handleEscape);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleEscape);
+    };
+  }, [isOpen, onClose]);
 
   const handleFinancingChange = useCallback((data: FinancingRequestData) => {
     setFinancingData(data);
@@ -249,11 +268,35 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
     kontakt: "Kontakt",
   };
 
+  if (!isOpen) {
+    return null;
+  }
+
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => {
-      if (!open) onClose();
-    }}>
-      <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50">
+      <button
+        type="button"
+        aria-label="Anfragemaske schließen"
+        className="absolute inset-0 bg-background/80 backdrop-blur-sm"
+        onClick={onClose}
+      />
+      <div className="absolute left-1/2 top-1/2 z-10 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 border border-border bg-background p-6 shadow-lg sm:rounded-lg">
+        <div className="max-h-[90vh] overflow-y-auto pr-1">
+          <div className="mb-6 flex items-start justify-between gap-4">
+            <div className="space-y-2">
+              <h2 className="font-heading text-lg font-semibold leading-none tracking-tight">
+                {selectedProduct ? `Anfrage: ${selectedProduct}` : `${typeLabels[type]} anfragen`}
+              </h2>
+              <p className="text-sm text-muted-foreground">
+                Füllen Sie das Formular aus – wir melden uns kurzfristig mit Verfügbarkeit und Angebot.
+              </p>
+            </div>
+            <Button type="button" variant="ghost" size="icon" className="shrink-0" onClick={onClose}>
+              <X className="h-4 w-4" />
+              <span className="sr-only">Schließen</span>
+            </Button>
+          </div>
+
         {isSuccess ? (
           <div className="flex flex-col items-center justify-center py-8 text-center">
             <CheckCircle className="h-16 w-16 text-primary mb-4" />
@@ -264,15 +307,6 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
           </div>
         ) : (
           <>
-        <DialogHeader>
-          <DialogTitle className="font-heading">
-            {selectedProduct ? `Anfrage: ${selectedProduct}` : `${typeLabels[type]} anfragen`}
-          </DialogTitle>
-          <DialogDescription>
-            Füllen Sie das Formular aus – wir melden uns kurzfristig mit Verfügbarkeit und Angebot.
-          </DialogDescription>
-        </DialogHeader>
-
         {/* Filter Summary */}
         {filters && Object.keys(filters).some(k => filters[k]) && (
           <div className="p-3 rounded-lg bg-muted text-sm">
@@ -534,7 +568,8 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
         </form>
           </>
         )}
-      </DialogContent>
-    </Dialog>
+        </div>
+      </div>
+    </div>
   );
 }
