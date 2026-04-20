@@ -48,20 +48,24 @@ export function FinancingSection({ productPrice, onChange, initialData }: Financ
     balloonPercent
   });
 
-  // Update parent component
+  // Update parent component – depend on primitives only (result is a new object every render)
+  const downPaymentEur = result.downPaymentEur;
+  const balloonEur = result.balloonEur;
+  const monthlyRate = result.isValid ? result.monthlyRate : 0;
   useEffect(() => {
     onChange({
       financingRequested,
       netPurchasePrice: canCalculate ? netPurchasePrice : 0,
       downPaymentPercent,
-      downPaymentEur: result.downPaymentEur,
+      downPaymentEur,
       termMonths,
       balloonPercent,
-      balloonEur: result.balloonEur,
-      estimatedMonthlyRate: result.isValid ? result.monthlyRate : 0,
+      balloonEur,
+      estimatedMonthlyRate: monthlyRate,
       priceOnRequest: priceOnRequest && !canCalculate
     });
-  }, [financingRequested, netPurchasePrice, downPaymentPercent, termMonths, balloonPercent, result, canCalculate, priceOnRequest, onChange]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [financingRequested, netPurchasePrice, downPaymentPercent, termMonths, balloonPercent, downPaymentEur, balloonEur, monthlyRate, canCalculate, priceOnRequest]);
 
   // Formatiere Preis beim Verlassen
   const handlePriceBlur = () => {
