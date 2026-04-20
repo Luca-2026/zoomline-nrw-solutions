@@ -439,6 +439,53 @@ Deno.serve(async (req) => {
 
     console.log("Email sent successfully:", emailResponse);
 
+    // ─── Eingangsbestätigung an den Kunden ──────────────────────────────
+    const customerHtml = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #1f2937;">
+        <h1 style="color: #1e40af;">Vielen Dank für Ihre Anfrage${ansprechpartnerName ? `, ${ansprechpartnerName}` : ""}!</h1>
+        <p>Wir haben Ihre Anfrage erhalten und melden uns kurzfristig – in der Regel innerhalb eines Werktages – mit Empfehlung, Verfügbarkeit und Preis bei Ihnen.</p>
+
+        <h2 style="color: #1e40af; border-bottom: 2px solid #1e40af; padding-bottom: 6px; font-size: 16px;">Ihre Angaben im Überblick</h2>
+        <table style="border-collapse: collapse; width: 100%; font-size: 14px;">
+          ${firmaName ? `<tr><td style="padding: 8px; border: 1px solid #e5e7eb;"><strong>Firma:</strong></td><td style="padding: 8px; border: 1px solid #e5e7eb;">${firmaName}</td></tr>` : ""}
+          ${ansprechpartnerName ? `<tr><td style="padding: 8px; border: 1px solid #e5e7eb;"><strong>Ansprechpartner:</strong></td><td style="padding: 8px; border: 1px solid #e5e7eb;">${ansprechpartnerName}</td></tr>` : ""}
+          <tr><td style="padding: 8px; border: 1px solid #e5e7eb;"><strong>E-Mail:</strong></td><td style="padding: 8px; border: 1px solid #e5e7eb;">${email}</td></tr>
+          ${telefonNr ? `<tr><td style="padding: 8px; border: 1px solid #e5e7eb;"><strong>Telefon:</strong></td><td style="padding: 8px; border: 1px solid #e5e7eb;">${telefonNr}</td></tr>` : ""}
+          ${plz ? `<tr><td style="padding: 8px; border: 1px solid #e5e7eb;"><strong>PLZ / Einsatzort:</strong></td><td style="padding: 8px; border: 1px solid #e5e7eb;">${plz}</td></tr>` : ""}
+          ${nachrichtText ? `<tr><td style="padding: 8px; border: 1px solid #e5e7eb; vertical-align: top;"><strong>Nachricht:</strong></td><td style="padding: 8px; border: 1px solid #e5e7eb;">${nachrichtText.replace(/\n/g, "<br>")}</td></tr>` : ""}
+        </table>
+
+        <h2 style="color: #1e40af; border-bottom: 2px solid #1e40af; padding-bottom: 6px; font-size: 16px; margin-top: 24px;">Ihr persönlicher Ansprechpartner</h2>
+        <p style="margin: 4px 0;"><strong>Benedikt Nöchel</strong> – Vertrieb & Beratung</p>
+        <p style="margin: 4px 0;">📞 <a href="tel:+4921514179904" style="color: #1e40af;">02151 4179904</a></p>
+        <p style="margin: 4px 0;">✉️ <a href="mailto:verkauf@zoomlion-nrw.de" style="color: #1e40af;">verkauf@zoomlion-nrw.de</a></p>
+
+        <hr style="margin: 30px 0 15px; border: none; border-top: 1px solid #e5e7eb;">
+        <p style="font-size: 12px; color: #6b7280;">
+          Dies ist eine automatische Eingangsbestätigung – bitte antworten Sie nicht direkt auf diese E-Mail.<br>
+          Zoomlion NRW · SLT Technology Group · <a href="https://www.zoomlion-nrw.de" style="color: #6b7280;">www.zoomlion-nrw.de</a>
+        </p>
+      </div>
+    `;
+
+    try {
+      const confirmResponse = await resend.emails.send({
+        from: "Zoomlion NRW <info@zoomlion-nrw.de>",
+        to: [email],
+        replyTo: "verkauf@zoomlion-nrw.de",
+        subject: "Eingangsbestätigung Ihrer Anfrage – Zoomlion NRW",
+        html: customerHtml,
+      });
+      if (confirmResponse.error) {
+        console.error("Customer confirmation email failed:", confirmResponse.error);
+      } else {
+        console.log("Customer confirmation sent:", confirmResponse);
+      }
+    } catch (confirmErr) {
+      // Bestätigungsmail-Fehler darf Hauptanfrage nicht blockieren
+      console.error("Customer confirmation exception:", confirmErr);
+    }
+
     return new Response(
       JSON.stringify({ success: true, message: "Anfrage erfolgreich gesendet" }),
       {
