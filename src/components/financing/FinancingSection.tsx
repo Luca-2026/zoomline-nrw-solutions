@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { HelpCircle, Info } from "lucide-react";
@@ -81,10 +80,12 @@ export function FinancingSection({ productPrice, onChange, initialData }: Financ
     <div className="space-y-4 p-4 rounded-lg border border-border bg-muted/30">
       {/* Checkbox: Finanzierung gewünscht */}
       <div className="flex items-center gap-2">
-        <Checkbox
+        <input
           id="financing-requested"
+          type="checkbox"
           checked={financingRequested}
-          onCheckedChange={(checked) => setFinancingRequested(!!checked)}
+          onChange={(event) => setFinancingRequested(event.target.checked)}
+          className="h-4 w-4 shrink-0 rounded-sm border border-primary accent-primary"
         />
         <Label htmlFor="financing-requested" className="cursor-pointer font-medium">
           Finanzierung gewünscht
