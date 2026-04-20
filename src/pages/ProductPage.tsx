@@ -305,12 +305,19 @@ export default function ProductPage({ category }: ProductPageProps) {
             </Button>
           </div>
           <div className="mt-6">
-            <Button asChild size="lg">
-              <Link to="/kontakt">Jetzt Angebot anfordern</Link>
+            <Button size="lg" onClick={() => setInquiryOpen(true)}>
+              Jetzt Angebot anfordern
             </Button>
           </div>
         </div>
       </section>
+
+      <InquiryModal
+        isOpen={inquiryOpen}
+        onClose={() => setInquiryOpen(false)}
+        type={categoryToInquiryType[category]}
+        selectedProduct={product.name}
+      />
     </Layout>
   );
 }
