@@ -272,15 +272,15 @@ export function InquiryModal({ isOpen, onClose, type, selectedProduct, filters, 
   }
 
   return (
-    <div className="fixed inset-0 z-50">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <button
         type="button"
         aria-label="Anfragemaske schließen"
         className="absolute inset-0 bg-background/80 backdrop-blur-sm"
         onClick={onClose}
       />
-      <div className="absolute left-1/2 top-1/2 z-10 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 border border-border bg-background p-6 shadow-lg sm:rounded-lg">
-        <div className="max-h-[90vh] overflow-y-auto pr-1">
+      <div className="relative z-10 flex max-h-[calc(100vh-2rem)] w-full max-w-lg flex-col border border-border bg-background shadow-lg sm:rounded-lg">
+        <div className="overflow-y-auto overscroll-contain p-6">
           <div className="mb-6 flex items-start justify-between gap-4">
             <div className="space-y-2">
               <h2 className="font-heading text-lg font-semibold leading-none tracking-tight">
