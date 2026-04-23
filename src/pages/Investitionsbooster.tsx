@@ -2,7 +2,6 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
-  CheckCircle2,
   Download,
   Calendar,
   Building2,
@@ -16,7 +15,6 @@ import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { SocialMeta } from "@/components/shared/SocialMeta";
-import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 
 const faqs = [
   {
@@ -91,20 +89,38 @@ export default function Investitionsbooster() {
       {/* Hero – füllt initial mind. die Viewport-Höhe (abzgl. Header) */}
       <section className="bg-secondary text-secondary-foreground flex flex-col min-h-[calc(100vh-4rem)]">
         <div className="container mx-auto px-4 pt-6">
-          <Breadcrumbs
-            items={[
-              { label: "Start", href: "/" },
-              { label: "Investitionsbooster" },
-            ]}
-          />
+          {/* Heller Breadcrumb für dunklen Hero */}
+          <nav aria-label="Breadcrumb" className="py-3">
+            <ol className="flex items-center flex-wrap gap-1 text-sm">
+              <li>
+                <Link
+                  to="/"
+                  className="flex items-center gap-1.5 text-white/70 hover:text-primary transition-colors"
+                >
+                  <span>Start</span>
+                </Link>
+              </li>
+              <li className="flex items-center text-white/40">
+                <ArrowRight className="h-3.5 w-3.5 mx-1 rotate-0" />
+              </li>
+              <li>
+                <span className="text-white font-medium" aria-current="page">
+                  Investitionsbooster
+                </span>
+              </li>
+            </ol>
+          </nav>
         </div>
         <div className="container mx-auto px-4 py-10 md:py-16 flex-1 flex items-center">
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-            <div>
+          <div className="w-full grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <div className="min-w-0">
               <span className="inline-flex items-center gap-2 rounded-full bg-primary/15 text-primary px-3 py-1 text-xs font-semibold uppercase tracking-wide ring-1 ring-primary/30 mb-5">
                 Steuer-Tipp 2026 / 2027
               </span>
-              <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
+              <h1
+                className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight break-words hyphens-auto"
+                lang="de"
+              >
                 Investitionsbooster nutzen:{" "}
                 <span className="text-primary">30 % Sofortabschreibung</span> auf
                 Ihre neue Baumaschine
@@ -140,14 +156,14 @@ export default function Investitionsbooster() {
                 </Button>
               </div>
             </div>
-            <div className="relative flex items-center justify-center">
+            <div className="relative flex items-center justify-center min-w-0">
               <div className="relative w-full max-w-md aspect-square flex items-center justify-center">
                 <div className="absolute inset-0 rounded-full bg-primary/10 blur-3xl" />
                 <div className="relative text-center">
-                  <div className="font-heading text-[10rem] md:text-[12rem] leading-none font-black text-primary">
+                  <div className="font-heading text-[6rem] sm:text-[8rem] md:text-[10rem] lg:text-[12rem] leading-none font-black text-primary">
                     30%
                   </div>
-                  <p className="mt-2 text-lg font-semibold text-secondary-foreground/80">
+                  <p className="mt-2 text-base sm:text-lg font-semibold text-secondary-foreground/80">
                     degressive AfA p.&nbsp;a.
                   </p>
                   <p className="mt-1 text-sm text-secondary-foreground/60">
