@@ -230,6 +230,7 @@ export default function HotDeals() {
         acceptPrivacy: false,
       });
       setFinancingData({ financingRequested: false });
+      setTradeInData(initialTradeIn);
     } catch (error) {
       console.error("Error sending inquiry:", error);
       toast({
