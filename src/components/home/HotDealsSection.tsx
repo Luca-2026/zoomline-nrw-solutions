@@ -85,7 +85,8 @@ function HotDealCard({ deal }: { deal: HotDeal }) {
 export function HotDealsSection() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
-  
+  const userInteractedRef = useRef(false);
+
   // Duplicate deals for seamless infinite scroll
   const duplicatedDeals = [...hotDeals, ...hotDeals, ...hotDeals];
 
@@ -94,20 +95,16 @@ export function HotDealsSection() {
     if (!scrollContainer) return;
 
     let animationFrameId: number;
-    let scrollPosition = 0;
     const scrollSpeed = 0.5; // pixels per frame
 
     const scroll = () => {
-      if (!isPaused && scrollContainer) {
-        scrollPosition += scrollSpeed;
-        
-        // Reset scroll position when we've scrolled through one set of deals
+      if (!isPaused && !userInteractedRef.current && scrollContainer) {
         const singleSetWidth = scrollContainer.scrollWidth / 3;
-        if (scrollPosition >= singleSetWidth) {
-          scrollPosition = 0;
+        let next = scrollContainer.scrollLeft + scrollSpeed;
+        if (next >= singleSetWidth * 2) {
+          next -= singleSetWidth;
         }
-        
-        scrollContainer.scrollLeft = scrollPosition;
+        scrollContainer.scrollLeft = next;
       }
       animationFrameId = requestAnimationFrame(scroll);
     };
@@ -118,6 +115,28 @@ export function HotDealsSection() {
       cancelAnimationFrame(animationFrameId);
     };
   }, [isPaused]);
+
+  // Keep scrollLeft within the middle copy so infinite loop works in both directions
+  const normalizeScroll = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const singleSetWidth = el.scrollWidth / 3;
+    if (el.scrollLeft < singleSetWidth * 0.5) {
+      el.scrollLeft += singleSetWidth;
+    } else if (el.scrollLeft > singleSetWidth * 2) {
+      el.scrollLeft -= singleSetWidth;
+    }
+  };
+
+  const handleNav = (direction: "prev" | "next") => {
+    const el = scrollRef.current;
+    if (!el) return;
+    userInteractedRef.current = true;
+    normalizeScroll();
+    const card = el.querySelector<HTMLElement>("[data-deal-card]");
+    const cardWidth = card ? card.offsetWidth + 24 /* gap-6 */ : 340;
+    el.scrollBy({ left: direction === "next" ? cardWidth : -cardWidth, behavior: "smooth" });
+  };
 
   return (
     <section className="py-16 md:py-24 bg-gradient-to-b from-destructive/5 to-background overflow-hidden">
@@ -140,16 +159,36 @@ export function HotDealsSection() {
         onMouseLeave={() => setIsPaused(false)}
       >
         {/* Gradient Overlays for fade effect */}
-        <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
-        
+        <div className="absolute left-0 top-0 bottom-0 w-12 md:w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-12 md:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+
+        {/* Prev / Next Buttons */}
+        <button
+          type="button"
+          aria-label="Vorheriges Modell"
+          onClick={() => handleNav("prev")}
+          className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-20 h-10 w-10 md:h-12 md:w-12 rounded-full bg-background/90 border border-border shadow-md flex items-center justify-center hover:bg-background hover:text-primary transition-colors"
+        >
+          <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
+        </button>
+        <button
+          type="button"
+          aria-label="Nächstes Modell"
+          onClick={() => handleNav("next")}
+          className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-20 h-10 w-10 md:h-12 md:w-12 rounded-full bg-background/90 border border-border shadow-md flex items-center justify-center hover:bg-background hover:text-primary transition-colors"
+        >
+          <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
+        </button>
+
         <div 
           ref={scrollRef}
-          className="flex gap-6 overflow-x-hidden px-4 md:px-8"
-          style={{ scrollBehavior: 'auto' }}
+          className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory px-4 md:px-8 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden touch-pan-x"
+          onTouchStart={() => { userInteractedRef.current = true; }}
+          onPointerDown={() => { userInteractedRef.current = true; }}
+          onScroll={normalizeScroll}
         >
           {duplicatedDeals.map((deal, index) => (
-            <div key={`${deal.id}-${index}`} className="flex-shrink-0">
+            <div key={`${deal.id}-${index}`} data-deal-card className="flex-shrink-0 snap-start">
               <HotDealCard deal={deal} />
             </div>
           ))}
