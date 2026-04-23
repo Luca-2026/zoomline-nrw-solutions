@@ -119,7 +119,7 @@ export function HotDealsSection() {
         </div>
 
         {/* Slider */}
-        <div className="mt-10 relative px-8 md:px-12">
+        <div className="mt-10 relative px-10 sm:px-12">
           <Carousel
             setApi={setCarouselApi}
             opts={{ loop: true, align: "start" }}
@@ -129,15 +129,15 @@ export function HotDealsSection() {
               {hotDeals.map((deal) => (
                 <CarouselItem
                   key={deal.id}
-                  className="pl-4 md:pl-6 basis-full sm:basis-1/2 lg:basis-1/3"
+                  className="pl-4 md:pl-6 basis-full sm:basis-1/2 lg:basis-1/3 flex"
                 >
                   <HotDealCard deal={deal} />
                 </CarouselItem>
               ))}
             </CarouselContent>
 
-            <CarouselPrevious className="-left-2 md:-left-4" />
-            <CarouselNext className="-right-2 md:-right-4" />
+            <CarouselPrevious className="left-0 sm:-left-2 md:-left-4" />
+            <CarouselNext className="right-0 sm:-right-2 md:-right-4" />
           </Carousel>
         </div>
       </div>
