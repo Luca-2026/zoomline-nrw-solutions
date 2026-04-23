@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Flame, Pause, Play } from "lucide-react";
+import { ArrowRight, Flame } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { LazyImage } from "@/components/shared/LazyImage";
@@ -92,10 +92,9 @@ function HotDealCard({ deal }: { deal: HotDeal }) {
 
 export function HotDealsSection() {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
-  const [isAutoplayEnabled, setIsAutoplayEnabled] = useState(true);
 
   useEffect(() => {
-    if (!carouselApi || !isAutoplayEnabled) return;
+    if (!carouselApi) return;
 
     const intervalId = window.setInterval(() => {
       carouselApi.scrollNext();
@@ -104,19 +103,7 @@ export function HotDealsSection() {
     return () => {
       window.clearInterval(intervalId);
     };
-  }, [carouselApi, isAutoplayEnabled]);
-
-  const handlePrevious = () => {
-    if (!carouselApi) return;
-    setIsAutoplayEnabled(false);
-    carouselApi.scrollPrev();
-  };
-
-  const handleNext = () => {
-    if (!carouselApi) return;
-    setIsAutoplayEnabled(false);
-    carouselApi.scrollNext();
-  };
+  }, [carouselApi]);
 
   return (
     <section className="py-16 md:py-24 bg-gradient-to-b from-destructive/5 to-background overflow-hidden">
@@ -130,42 +117,29 @@ export function HotDealsSection() {
           />
           <Flame className="h-8 w-8 text-destructive animate-pulse" />
         </div>
-      </div>
 
-      {/* Slider */}
-      <div className="mt-10 relative">
-        <div className="container mx-auto mb-4 flex justify-end px-4 lg:px-6">
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            onClick={() => setIsAutoplayEnabled((prev) => !prev)}
-            aria-label={isAutoplayEnabled ? "Autoplay anhalten" : "Autoplay starten"}
+        {/* Slider */}
+        <div className="mt-10 relative px-8 md:px-12">
+          <Carousel
+            setApi={setCarouselApi}
+            opts={{ loop: true, align: "start" }}
+            className="w-full"
           >
-            {isAutoplayEnabled ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
-            {isAutoplayEnabled ? "Autoplay stoppen" : "Autoplay starten"}
-          </Button>
+            <CarouselContent className="-ml-4 md:-ml-6">
+              {hotDeals.map((deal) => (
+                <CarouselItem
+                  key={deal.id}
+                  className="pl-4 md:pl-6 basis-full sm:basis-1/2 lg:basis-1/3"
+                >
+                  <HotDealCard deal={deal} />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+
+            <CarouselPrevious className="-left-2 md:-left-4" />
+            <CarouselNext className="-right-2 md:-right-4" />
+          </Carousel>
         </div>
-
-        <Carousel
-          setApi={setCarouselApi}
-          opts={{ loop: true, align: "start" }}
-          className="w-full"
-        >
-          <CarouselContent className="ml-0">
-            {hotDeals.map((deal) => (
-              <CarouselItem
-                key={deal.id}
-                className="pl-4 md:pl-6 basis-[88%] sm:basis-[70%] lg:basis-[42%] xl:basis-[34%]"
-              >
-                <HotDealCard deal={deal} />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-
-          <CarouselPrevious onClick={handlePrevious} className="left-2 md:left-4" />
-          <CarouselNext onClick={handleNext} className="right-2 md:right-4" />
-        </Carousel>
       </div>
 
       <div className="container mx-auto px-4 lg:px-6">
