@@ -41,11 +41,10 @@
     <meta name="theme-color" content="#16a34a" />
     <meta name="msapplication-TileColor" content="#16a34a" />
     
-    <!-- Preload Critical Assets für bessere LCP -->
-    <!-- Preload Hero Image - wichtigstes LCP-Element -->
-    <link rel="preload" href="/src/assets/hero-grafik.jpg" as="image" type="image/jpeg" fetchpriority="high" />
-    <!-- Preload Logo -->
-    <link rel="preload" href="/src/assets/logo-zoomlion-nrw.png" as="image" type="image/png" />
+    <!-- Hero LCP & logo are bundled by Vite with content hashes (e.g. /assets/hero-grafik-XYZ.jpg).
+         A static preload to /src/assets/... only works in dev and ships a 404 in production,
+         doubling LCP traffic. The hero <img> uses fetchpriority="high" + loading="eager"
+         which is sufficient for LCP without a misconfigured preload. -->
     
     <!-- Preconnect zu externen Ressourcen -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

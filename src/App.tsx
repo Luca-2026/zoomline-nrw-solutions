@@ -8,8 +8,12 @@ import { HelmetProvider } from "react-helmet-async";
 
 // Eagerly load the index page for fast initial load
 import Index from "./pages/Index";
-import { TryAndBuyModal } from "./components/shared/TryAndBuyModal";
 import { ScrollToTop } from "./components/shared/ScrollToTop";
+
+// TryAndBuyModal: only renders a popup later — no need in initial bundle.
+const TryAndBuyModal = lazy(() =>
+  import("./components/shared/TryAndBuyModal").then((m) => ({ default: m.TryAndBuyModal }))
+);
 
 // Lazy load all other pages for code-splitting
 const Arbeitsbuehnen = lazy(() => import("./pages/Arbeitsbuehnen"));
@@ -39,16 +43,20 @@ const AGBArchiv = lazy(() => import("./pages/AGBArchiv"));
 const Widerrufsbelehrung = lazy(() => import("./pages/Widerrufsbelehrung"));
 const Investitionsbooster = lazy(() => import("./pages/Investitionsbooster"));
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000, // 5 Minuten
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      retry: 1,
+    },
+  },
+});
 
-// Loading fallback component
+// Loading fallback component (lightweight, no spinner-flash for fast lazy chunks)
 const PageLoader = () => (
-  <div className="min-h-screen flex items-center justify-center bg-background">
-    <div className="flex flex-col items-center gap-4">
-      <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
-      <p className="text-muted-foreground text-sm">Laden...</p>
-    </div>
-  </div>
+  <div className="min-h-screen bg-background" aria-hidden="true" />
 );
 
 const App = () => (
@@ -59,7 +67,6 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <ScrollToTop />
-          <TryAndBuyModal />
           <Suspense fallback={<PageLoader />}>
             <Routes>
               <Route path="/" element={<Index />} />
@@ -92,6 +99,9 @@ const App = () => (
               <Route path="/try-and-buy" element={<TryAndBuy />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
+          </Suspense>
+          <Suspense fallback={null}>
+            <TryAndBuyModal />
           </Suspense>
         </BrowserRouter>
       </TooltipProvider>

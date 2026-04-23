@@ -1,6 +1,5 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import {
@@ -276,12 +275,6 @@ const regions = [
   { name: "Neuss", to: "/baumaschinen/neuss" },
 ];
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0 },
-};
-const stagger = { visible: { transition: { staggerChildren: 0.1 } } };
-
 const TryAndBuy = () => {
   useRevealOnScroll();
 
@@ -398,84 +391,46 @@ const TryAndBuy = () => {
         />
         <div className="container relative mx-auto px-4 py-20 md:py-28">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div initial="hidden" animate="visible" variants={stagger}>
-              <motion.div
-                variants={fadeUp}
-                transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-                className="inline-flex items-center gap-2 rounded-full bg-primary/20 border border-primary/30 px-4 py-1.5 text-sm font-medium text-primary mb-6"
-              >
+            <div>
+              <div className="inline-flex items-center gap-2 rounded-full bg-primary/20 border border-primary/30 px-4 py-1.5 text-sm font-medium text-primary mb-6 animate-fade-in-up opacity-0" style={{ animationDelay: "0.05s", animationFillMode: "forwards" }}>
                 <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
                 Exklusives Angebot · Nur für Zoomlion NRW Kunden
-              </motion.div>
+              </div>
 
-              <motion.h1
-                variants={fadeUp}
-                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] tracking-tight"
-              >
+              <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] tracking-tight animate-fade-in-up opacity-0" style={{ animationDelay: "0.15s", animationFillMode: "forwards" }}>
                 Try & Buy: Baumaschinen testen
                 <span className="block bg-gradient-to-r from-primary via-primary to-primary/70 bg-clip-text text-transparent mt-2">
                   – dann entscheiden.
                 </span>
-              </motion.h1>
+              </h1>
 
-              <motion.p
-                variants={fadeUp}
-                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-8 text-lg md:text-xl text-white/80 max-w-xl leading-relaxed"
-              >
+              <p className="mt-8 text-lg md:text-xl text-white/80 max-w-xl leading-relaxed animate-fade-in-up opacity-0" style={{ animationDelay: "0.25s", animationFillMode: "forwards" }}>
                 Minibagger, Arbeitsbühne oder Teleskoplader von Zoomlion erst auf
                 Ihrer Baustelle im Einsatz prüfen und bei Kauf{" "}
-                <span className="text-primary font-semibold">
-                  100 % der Testmiete
-                </span>{" "}
+                <span className="text-primary font-semibold">100 % der Testmiete</span>{" "}
                 auf den Kaufpreis anrechnen lassen. Exklusiv in NRW bei Ihrem
                 Zoomlion Fachhändler in Bonn, Krefeld und Mülheim an der Ruhr.
-              </motion.p>
+              </p>
 
-              <motion.div
-                variants={fadeUp}
-                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-10 flex flex-col sm:flex-row gap-4"
-              >
-                <Button
-                  asChild
-                  size="lg"
-                  className="group rounded-full px-8 shadow-lg shadow-primary/30"
-                >
-                  <Link
-                    to="/kontakt?betreff=try-and-buy"
-                    className="flex items-center"
-                  >
+              <div className="mt-10 flex flex-col sm:flex-row gap-4 animate-fade-in-up opacity-0" style={{ animationDelay: "0.35s", animationFillMode: "forwards" }}>
+                <Button asChild size="lg" className="group rounded-full px-8 shadow-lg shadow-primary/30">
+                  <Link to="/kontakt?betreff=try-and-buy" className="flex items-center">
                     Testmiete anfragen
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Link>
                 </Button>
-                <Button
-                  asChild
-                  size="lg"
-                  variant="outline"
-                  className="rounded-full px-8 border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white"
-                >
+                <Button asChild size="lg" variant="outline" className="rounded-full px-8 border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white">
                   <a href="#ablauf">So funktioniert's</a>
                 </Button>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-              className="hidden lg:flex justify-center relative min-h-[320px]"
-            >
-              <div
-                aria-hidden="true"
-                className="absolute inset-0 bg-primary/15 rounded-full"
-              />
+            <div className="hidden lg:flex justify-center relative min-h-[320px] animate-fade-in opacity-0" style={{ animationDelay: "0.4s", animationFillMode: "forwards" }}>
+              <div aria-hidden="true" className="absolute inset-0 bg-primary/15 rounded-full" />
               <div className="relative max-w-lg w-full">
                 <AnimatedExcavator className="w-full h-auto" />
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>

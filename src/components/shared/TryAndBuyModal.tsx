@@ -18,13 +18,9 @@ export function TryAndBuyModal() {
     let timeoutId: number | undefined;
 
     const scheduleOpen = () => {
-      // 1,2 s nach Cookie-Consent sanft einblenden
       timeoutId = window.setTimeout(() => setOpen(true), 1200);
     };
 
-    // Nur anzeigen, wenn Cookie-Consent bereits getroffen wurde –
-    // sonst überlagern sich Cookie-Banner und Try&Buy-Dialog und
-    // ein Klick auf den Cookie-Banner schließt das Try&Buy-Modal.
     if (localStorage.getItem(COOKIE_CONSENT_KEY)) {
       scheduleOpen();
       return () => {
@@ -32,22 +28,23 @@ export function TryAndBuyModal() {
       };
     }
 
-    // Auf Consent warten: pollen + Storage-Event (für andere Tabs)
-    const checkConsent = () => {
+    // Wait for consent — event-based only, no polling.
+    // Listens to `storage` (cross-tab) and our custom `cookie-consent-set` event (same tab).
+    const onConsent = () => {
       if (localStorage.getItem(COOKIE_CONSENT_KEY)) {
         cleanup();
         scheduleOpen();
       }
     };
-    const intervalId = window.setInterval(checkConsent, 500);
     const onStorage = (e: StorageEvent) => {
-      if (e.key === COOKIE_CONSENT_KEY) checkConsent();
+      if (e.key === COOKIE_CONSENT_KEY) onConsent();
     };
     window.addEventListener("storage", onStorage);
+    window.addEventListener("cookie-consent-set", onConsent);
 
     function cleanup() {
-      window.clearInterval(intervalId);
       window.removeEventListener("storage", onStorage);
+      window.removeEventListener("cookie-consent-set", onConsent);
     }
 
     return () => {
@@ -66,7 +63,7 @@ export function TryAndBuyModal() {
       <DialogContent className="max-w-lg p-0 overflow-hidden">
         <div className="bg-gradient-to-br from-primary/10 via-background to-accent/30 p-6 md:p-8">
           <div className="flex justify-center mb-4">
-            <img src={tryAndBuyImage} alt="Try & Buy" className="h-40 w-40 object-contain" width={768} height={768} />
+            <img src={tryAndBuyImage} alt="Try & Buy" className="h-40 w-40 object-contain" width={768} height={768} loading="lazy" decoding="async" />
           </div>
           <DialogHeader>
             <div className="inline-flex items-center gap-2 rounded-full bg-primary/20 px-3 py-1 text-xs font-bold text-primary mb-3 self-start">
