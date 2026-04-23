@@ -20,7 +20,7 @@ const AGBVerkauf = () => (
     title="AGB für den Verkauf und die Lieferung von Baumaschinen"
     metaTitle="AGB Verkauf | Zoomlion NRW"
     metaDescription="Allgemeine Geschäftsbedingungen für den Verkauf und die Lieferung von Baumaschinen der SLT Technology Group GmbH & Co. KG."
-    canonical="https://www.zoomlion-nrw.de/agb/verkauf"
+    canonical="https://www.zoomlion-nrw.de/agb/verkauf/"
     standDatum="23.04.2026"
     pdfHref="/dokumente/agb-verkauf.pdf"
     pdfFilename="AGB-Verkauf-Zoomlion-NRW.pdf"

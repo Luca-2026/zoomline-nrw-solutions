@@ -12,7 +12,7 @@ const Widerrufsbelehrung = () => (
     title="Widerrufsbelehrung"
     metaTitle="Widerrufsbelehrung | Zoomlion NRW"
     metaDescription="Widerrufsbelehrung für Verbraucher bei Fernabsatzverträgen mit der SLT Technology Group GmbH & Co. KG inklusive Muster-Widerrufsformular."
-    canonical="https://www.zoomlion-nrw.de/widerrufsbelehrung"
+    canonical="https://www.zoomlion-nrw.de/widerrufsbelehrung/"
     standDatum="23.04.2026"
     pdfHref="/dokumente/widerrufsbelehrung.pdf"
     pdfFilename="Widerrufsbelehrung-Zoomlion-NRW.pdf"

@@ -41,8 +41,8 @@ const AGBUebersicht = () => (
         name="description"
         content="Allgemeine Geschäftsbedingungen für Verkauf und Vermietung sowie die Widerrufsbelehrung der SLT Technology Group GmbH & Co. KG."
       />
-      <meta name="robots" content="noindex,follow" />
-      <link rel="canonical" href="https://www.zoomlion-nrw.de/agb" />
+      <meta name="robots" content="index,follow" />
+      <link rel="canonical" href="https://www.zoomlion-nrw.de/agb/" />
     </Helmet>
 
     <section className="py-16 md:py-24">

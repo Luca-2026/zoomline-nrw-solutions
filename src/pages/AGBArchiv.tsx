@@ -8,7 +8,7 @@ const AGBArchiv = () => (
       <title>AGB Archiv | Zoomlion NRW</title>
       <meta name="description" content="Archivierte Versionen unserer AGB." />
       <meta name="robots" content="noindex,follow" />
-      <link rel="canonical" href="https://www.zoomlion-nrw.de/agb/archiv" />
+      <link rel="canonical" href="https://www.zoomlion-nrw.de/agb/archiv/" />
     </Helmet>
     <section className="py-16 md:py-24">
       <div className="container mx-auto px-4 max-w-3xl">
