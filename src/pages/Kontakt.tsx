@@ -11,6 +11,7 @@ import { Phone, Mail, Loader2 } from "lucide-react";
 import { TrustBadges } from "@/components/shared/TrustBadges";
 import benediktImage from "@/assets/benedikt-noechel.jpg";
 import { SocialMeta } from "@/components/shared/SocialMeta";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -26,13 +27,14 @@ const Kontakt = () => {
     plz: "",
     msg: "",
     dsgvo: false,
+    agb: false,
     _hp_field: "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!form.dsgvo) {
-      toast({ title: "Bitte Datenschutz akzeptieren", variant: "destructive" });
+    if (!form.dsgvo || !form.agb) {
+      toast({ title: "Bitte AGB und Datenschutz akzeptieren", variant: "destructive" });
       return;
     }
     setIsSubmitting(true);
