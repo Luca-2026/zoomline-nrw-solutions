@@ -28,6 +28,10 @@ const getStoredPreferences = (): CookiePreferences | null => {
 
 const savePreferences = (preferences: CookiePreferences) => {
   localStorage.setItem(COOKIE_CONSENT_KEY, JSON.stringify(preferences));
+  // Notify same-tab listeners (e.g. TryAndBuyModal) — `storage` event only fires cross-tab.
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new Event("cookie-consent-set"));
+  }
 };
 
 export const CookieConsent = () => {

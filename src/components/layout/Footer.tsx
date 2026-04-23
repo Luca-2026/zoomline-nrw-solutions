@@ -1,8 +1,9 @@
+import { memo } from "react";
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, ExternalLink } from "lucide-react";
 import logoImage from "@/assets/logo-zoomlion-nrw.png";
 
-export function Footer() {
+function FooterInner() {
   return (
     <footer className="bg-secondary text-secondary-foreground">
       <div className="container mx-auto px-4 py-12 lg:py-16">
@@ -325,3 +326,5 @@ export function Footer() {
     </footer>
   );
 }
+
+export const Footer = memo(FooterInner);
