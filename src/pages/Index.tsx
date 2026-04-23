@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { Layout } from "@/components/layout/Layout";
 import { HeroSection } from "@/components/home/HeroSection";
+import { InvestitionsboosterBanner } from "@/components/shared/InvestitionsboosterBanner";
 import { HotDealsSection } from "@/components/home/HotDealsSection";
 import { ProductCategories } from "@/components/home/ProductCategories";
 import { USPSection } from "@/components/home/USPSection";
@@ -72,6 +73,7 @@ const Index = () => {
         url="https://www.zoomlion-nrw.de/"
       />
       <HeroSection />
+      <InvestitionsboosterBanner />
       <USPSection />
       <HotDealsSection />
       <ProductCategories />

@@ -7,7 +7,9 @@ import { FinancingCalculator } from "@/components/financing/FinancingCalculator"
 import { InquiryModal } from "@/components/configurator/InquiryModal";
 import { TrustBadges } from "@/components/shared/TrustBadges";
 import { Card, CardContent } from "@/components/ui/card";
-import { CheckCircle, Calculator, Clock, Shield, Percent } from "lucide-react";
+import { CheckCircle, Calculator, Clock, Shield, Percent, TrendingUp, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import { SocialMeta } from "@/components/shared/SocialMeta";
 
 const Finanzierung = () => {
