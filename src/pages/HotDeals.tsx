@@ -91,29 +91,31 @@ function HotDealDetailCard({ deal, onInquiry }: { deal: HotDeal; onInquiry: () =
             </div>
           </div>
 
-          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <Button onClick={onInquiry} size="lg" className="w-full group/btn">
-              <Mail className="mr-2 h-4 w-4" />
-              Jetzt anfragen
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
-            </Button>
-            <Button asChild variant="outline" size="lg" className="w-full">
-              <a href="tel:02151-4179904">
-                <Phone className="mr-2 h-4 w-4" />
-                Anrufen
-              </a>
-            </Button>
-          </div>
           {(() => {
             const detailRoute = getProductPageRoute(deal.id);
-            if (!detailRoute) return null;
             return (
-              <Button asChild variant="ghost" size="lg" className="mt-3 w-full text-primary hover:text-primary">
-                <Link to={detailRoute} className="inline-flex items-center justify-center gap-1">
-                  Zur Produktseite mit Datenblatt &amp; allen Specs
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </Button>
+              <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <Button onClick={onInquiry} size="lg" className="w-full group/btn">
+                  <Mail className="mr-2 h-4 w-4 shrink-0" />
+                  <span className="truncate">Jetzt anfragen</span>
+                  <ArrowRight className="ml-2 h-4 w-4 shrink-0 transition-transform group-hover/btn:translate-x-1" />
+                </Button>
+                {detailRoute ? (
+                  <Button asChild variant="outline" size="lg" className="w-full">
+                    <Link to={detailRoute} className="inline-flex items-center justify-center">
+                      <span className="truncate">Produktseite & Details</span>
+                      <ArrowRight className="ml-2 h-4 w-4 shrink-0" />
+                    </Link>
+                  </Button>
+                ) : (
+                  <Button asChild variant="outline" size="lg" className="w-full">
+                    <a href="tel:02151-4179904">
+                      <Phone className="mr-2 h-4 w-4 shrink-0" />
+                      <span className="truncate">Anrufen</span>
+                    </a>
+                  </Button>
+                )}
+              </div>
             );
           })()}
         </div>
