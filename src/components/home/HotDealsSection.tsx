@@ -125,8 +125,8 @@ export function HotDealsSection() {
         <div className="flex items-center justify-center gap-3 mb-4">
           <Flame className="h-8 w-8 text-destructive animate-pulse" />
           <SectionHeading
-            title="Hot Deals"
-            subtitle="Limitierte Sonderangebote – Jetzt zugreifen!"
+            title="Top Seller"
+            subtitle="Aktionsmodelle zu besonderen Konditionen – jetzt sichern!"
             align="center"
           />
           <Flame className="h-8 w-8 text-destructive animate-pulse" />
