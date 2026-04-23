@@ -295,22 +295,22 @@ export function Footer() {
           </div>
         </div>
 
+        {/* Rechtliches */}
+        <div className="border-t border-secondary-foreground/10 mt-8 pt-6">
+          <h3 className="font-heading text-xs font-semibold mb-3 text-secondary-foreground/60">
+            Rechtliches
+          </h3>
+          <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs">
+            <Link to="/impressum" className="text-secondary-foreground/60 hover:text-primary transition-colors py-1">Impressum</Link>
+            <Link to="/datenschutz" className="text-secondary-foreground/60 hover:text-primary transition-colors py-1">Datenschutz</Link>
+            <Link to="/agb/verkauf" className="text-secondary-foreground/60 hover:text-primary transition-colors py-1">AGB Verkauf</Link>
+            <Link to="/agb/vermietung" className="text-secondary-foreground/60 hover:text-primary transition-colors py-1">AGB Vermietung</Link>
+            <Link to="/widerrufsbelehrung" className="text-secondary-foreground/60 hover:text-primary transition-colors py-1">Widerrufsbelehrung</Link>
+          </div>
+        </div>
+
         {/* Bottom Bar */}
         <div className="border-t border-secondary-foreground/10 mt-6 pt-6 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-secondary-foreground/60">
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link
-              to="/datenschutz"
-              className="hover:text-secondary-foreground transition-colors"
-            >
-              Datenschutz
-            </Link>
-            <Link
-              to="/impressum"
-              className="hover:text-secondary-foreground transition-colors"
-            >
-              Impressum
-            </Link>
-          </div>
           <p>© {new Date().getFullYear()} SLT Technology Group GmbH & Co. KG. Alle Rechte vorbehalten.</p>
         </div>
       </div>
