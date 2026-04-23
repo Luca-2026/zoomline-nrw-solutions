@@ -156,14 +156,14 @@ export default function Investitionsbooster() {
                 </Button>
               </div>
             </div>
-            <div className="relative flex items-center justify-center">
+            <div className="relative flex items-center justify-center min-w-0">
               <div className="relative w-full max-w-md aspect-square flex items-center justify-center">
                 <div className="absolute inset-0 rounded-full bg-primary/10 blur-3xl" />
                 <div className="relative text-center">
-                  <div className="font-heading text-[10rem] md:text-[12rem] leading-none font-black text-primary">
+                  <div className="font-heading text-[6rem] sm:text-[8rem] md:text-[10rem] lg:text-[12rem] leading-none font-black text-primary">
                     30%
                   </div>
-                  <p className="mt-2 text-lg font-semibold text-secondary-foreground/80">
+                  <p className="mt-2 text-base sm:text-lg font-semibold text-secondary-foreground/80">
                     degressive AfA p.&nbsp;a.
                   </p>
                   <p className="mt-1 text-sm text-secondary-foreground/60">
