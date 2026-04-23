@@ -72,7 +72,7 @@ function HotDealCard({ deal }: { deal: HotDeal }) {
         </div>
 
         <Button asChild className="w-full group/btn">
-          <Link to={getProductPageRoute(deal.id) ?? "/hot-deals"}>
+          <Link to={getProductPageRoute(deal.id) ?? "/top-seller"}>
             Details &amp; Datenblatt
             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
           </Link>
