@@ -20,6 +20,10 @@ export interface SeoRoute {
   h1: string;
   /** 1–3 Absätze SEO-Text, die Crawler ohne JS lesen */
   intro: string[];
+  /** Wenn true: <meta name="robots" content="noindex,follow"> */
+  noindex?: boolean;
+  /** Wenn true: Route wird NICHT in sitemap.xml aufgenommen */
+  excludeFromSitemap?: boolean;
 }
 
 export const SITE_URL = "https://www.zoomlion-nrw.de";
