@@ -1,11 +1,11 @@
 import { Helmet } from "react-helmet-async";
 import { Layout } from "@/components/layout/Layout";
 import { HeroSection } from "@/components/home/HeroSection";
-import { InvestitionsboosterBanner } from "@/components/shared/InvestitionsboosterBanner";
 import { HotDealsSection } from "@/components/home/HotDealsSection";
 import { ProductCategories } from "@/components/home/ProductCategories";
 import { USPSection } from "@/components/home/USPSection";
 import { FinancingTeaser } from "@/components/home/FinancingTeaser";
+import { InvestitionsboosterSection } from "@/components/home/InvestitionsboosterSection";
 import { ServiceTeaser } from "@/components/home/ServiceTeaser";
 import { ComparisonSection } from "@/components/home/ComparisonSection";
 import { LocationsTeaser } from "@/components/home/LocationsTeaser";
@@ -73,11 +73,11 @@ const Index = () => {
         url="https://www.zoomlion-nrw.de/"
       />
       <HeroSection />
-      <InvestitionsboosterBanner />
       <USPSection />
       <HotDealsSection />
       <ProductCategories />
       <FinancingTeaser />
+      <InvestitionsboosterSection />
       <ServiceTeaser />
       <ComparisonSection />
       <LocationsTeaser />

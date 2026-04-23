@@ -29,6 +29,7 @@ const navigation: NavItem[] = [
       { name: "Serviceverträge", href: "/servicevertraege", desc: "ZL|Care, ZL|Pro & ZL|Complete" },
       { name: "Try & Buy", href: "/try-and-buy", desc: "Erst testen, dann kaufen – Miete wird angerechnet" },
       { name: "Finanzierung", href: "/finanzierung", desc: "Leasing & Ratenkauf" },
+      { name: "Investitionsbooster", href: "/investitionsbooster", desc: "Bis 30 % Sofortabschreibung bis 2027" },
     ],
   },
   { name: "Standorte", href: "/standorte" },
