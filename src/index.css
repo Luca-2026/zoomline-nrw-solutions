@@ -307,3 +307,33 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Legal documents typography (AGB / Widerruf / etc.) */
+.legal-prose {
+  color: hsl(var(--foreground));
+  font-size: 1rem;
+  line-height: 1.7;
+}
+.legal-prose h2 {
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin: 2.25rem 0 1rem;
+  scroll-margin-top: 6rem;
+  color: hsl(var(--foreground));
+}
+.legal-prose h3 {
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 1.75rem 0 0.75rem;
+  color: hsl(var(--foreground));
+}
+.legal-prose p { margin: 0 0 1rem; }
+.legal-prose ul, .legal-prose ol { margin: 0 0 1rem 1.4rem; }
+.legal-prose ul li { list-style: disc; margin-bottom: 0.4rem; }
+.legal-prose ol li { list-style: decimal; margin-bottom: 0.4rem; }
+.legal-prose a { color: hsl(var(--primary)); text-decoration: underline; }
+.legal-prose strong { color: hsl(var(--foreground)); font-weight: 600; }
+.legal-prose hr { margin: 2rem 0; border-color: hsl(var(--border)); }
+.legal-prose address { font-style: normal; }
