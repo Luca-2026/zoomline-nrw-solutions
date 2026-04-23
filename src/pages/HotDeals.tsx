@@ -208,6 +208,7 @@ export default function HotDeals() {
             balloonEur: financingData.balloonEur,
             estimatedMonthlyRate: financingData.estimatedMonthlyRate,
           } : undefined,
+          tradeIn: tradeInData.enabled ? tradeInData : undefined,
         },
       });
 
