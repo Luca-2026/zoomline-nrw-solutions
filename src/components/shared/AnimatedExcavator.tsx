@@ -28,12 +28,10 @@ export function AnimatedExcavator({ className }: { className?: string }) {
 
         <style>{`
           @keyframes excBob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-2px); } }
-          @keyframes excArm { 0%,100% { transform: rotate(-8deg); } 50% { transform: rotate(6deg); } }
-          @keyframes excBucket { 0%,100% { transform: rotate(-10deg); } 50% { transform: rotate(15deg); } }
+          @keyframes excArm { 0%,100% { transform: rotate(-4deg); } 50% { transform: rotate(3deg); } }
           @keyframes excSparkle { 0%,100% { opacity: 0; transform: scale(0.5); } 50% { opacity: 1; transform: scale(1.5); } }
           .exc-bob { animation: excBob 3s ease-in-out infinite; transform-origin: 200px 220px; transform-box: fill-box; }
           .exc-arm { animation: excArm 4s ease-in-out infinite; transform-origin: 232px 178px; transform-box: fill-box; }
-          .exc-bucket { animation: excBucket 4s ease-in-out infinite; transform-origin: 335px 190px; transform-box: fill-box; }
           .exc-spark { animation: excSparkle 2.5s ease-in-out infinite; transform-box: fill-box; }
           .exc-spark-1 { transform-origin: 80px 80px; animation-delay: 0s; }
           .exc-spark-2 { transform-origin: 340px 60px; animation-delay: 0.8s; }
@@ -78,7 +76,7 @@ export function AnimatedExcavator({ className }: { className?: string }) {
         <circle cx="295" cy="115" r="6" fill="hsl(210 20% 22%)" />
         <circle cx="295" cy="115" r="2" fill="hsl(72 62% 55%)" />
 
-        <g className="exc-bucket">
+        <g>
           <path
             d="M 318 188 L 352 188 L 358 210 L 345 224 L 325 224 L 314 210 Z"
             fill="url(#bodyGrad)"
