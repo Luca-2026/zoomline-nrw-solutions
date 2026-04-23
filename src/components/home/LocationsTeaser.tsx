@@ -29,9 +29,11 @@ export function LocationsTeaser() {
             const locationImage = locationImages[location.id];
             
             return (
-              <div
+              <Link
                 key={location.id}
-                className="group relative rounded-xl border border-border bg-card overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-primary/30 hover:-translate-y-1"
+                to={`/standorte/${location.id}`}
+                aria-label={`${location.name} – Details ansehen`}
+                className="group relative rounded-xl border border-border bg-card overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-primary/30 hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
               >
                 {/* Location Image */}
                 <div className="aspect-video bg-muted relative overflow-hidden">
@@ -55,7 +57,7 @@ export function LocationsTeaser() {
 
                 {/* Content */}
                 <div className="p-4">
-                  <h3 className="font-heading text-lg font-bold text-foreground mb-2">
+                  <h3 className="font-heading text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
                     {location.name}
                   </h3>
                   <p className="text-sm text-muted-foreground mb-1">
@@ -68,14 +70,20 @@ export function LocationsTeaser() {
                   {location.showPhone && location.phone && (
                     <a
                       href={`tel:${location.phone.replace(/\s/g, "")}`}
+                      onClick={(e) => e.stopPropagation()}
                       className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
                     >
                       <Phone className="h-4 w-4" />
                       {location.phone}
                     </a>
                   )}
+
+                  <div className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary">
+                    Standort ansehen
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </div>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>
