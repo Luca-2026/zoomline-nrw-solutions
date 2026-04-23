@@ -91,13 +91,13 @@ function HotDealDetailCard({ deal, onInquiry }: { deal: HotDeal; onInquiry: () =
             </div>
           </div>
 
-          <div className="mt-6 flex flex-col sm:flex-row gap-3">
-            <Button onClick={onInquiry} size="lg" className="flex-1 group/btn">
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <Button onClick={onInquiry} size="lg" className="w-full group/btn">
               <Mail className="mr-2 h-4 w-4" />
               Jetzt anfragen
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
             </Button>
-            <Button asChild variant="outline" size="lg">
+            <Button asChild variant="outline" size="lg" className="w-full">
               <a href="tel:02151-4179904">
                 <Phone className="mr-2 h-4 w-4" />
                 Anrufen
@@ -108,13 +108,12 @@ function HotDealDetailCard({ deal, onInquiry }: { deal: HotDeal; onInquiry: () =
             const detailRoute = getProductPageRoute(deal.id);
             if (!detailRoute) return null;
             return (
-              <Link
-                to={detailRoute}
-                className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
-              >
-                Zur Produktseite mit Datenblatt &amp; allen Specs
-                <ArrowRight className="h-4 w-4" />
-              </Link>
+              <Button asChild variant="ghost" size="lg" className="mt-3 w-full text-primary hover:text-primary">
+                <Link to={detailRoute} className="inline-flex items-center justify-center gap-1">
+                  Zur Produktseite mit Datenblatt &amp; allen Specs
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </Button>
             );
           })()}
         </div>
