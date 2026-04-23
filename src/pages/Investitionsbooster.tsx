@@ -88,8 +88,8 @@ export default function Investitionsbooster() {
         url={url}
       />
 
-      {/* Hero */}
-      <section className="bg-secondary text-secondary-foreground">
+      {/* Hero – füllt initial mind. die Viewport-Höhe (abzgl. Header) */}
+      <section className="bg-secondary text-secondary-foreground flex flex-col min-h-[calc(100vh-4rem)]">
         <div className="container mx-auto px-4 pt-6">
           <Breadcrumbs
             items={[
@@ -98,7 +98,7 @@ export default function Investitionsbooster() {
             ]}
           />
         </div>
-        <div className="container mx-auto px-4 py-12 md:py-20">
+        <div className="container mx-auto px-4 py-10 md:py-16 flex-1 flex items-center">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div>
               <span className="inline-flex items-center gap-2 rounded-full bg-primary/15 text-primary px-3 py-1 text-xs font-semibold uppercase tracking-wide ring-1 ring-primary/30 mb-5">
