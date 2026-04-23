@@ -115,6 +115,14 @@ export function Footer() {
               </li>
               <li>
                 <Link
+                  to="/investitionsbooster"
+                  className="text-primary font-semibold hover:underline transition-colors"
+                >
+                  💡 Steuer-Tipp: Investitionsbooster bis 2027
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/faq"
                   className="text-secondary-foreground/80 hover:text-primary transition-colors"
                 >
