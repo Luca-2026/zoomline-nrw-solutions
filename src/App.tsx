@@ -37,6 +37,7 @@ const AGBVerkauf = lazy(() => import("./pages/AGBVerkauf"));
 const AGBVermietung = lazy(() => import("./pages/AGBVermietung"));
 const AGBArchiv = lazy(() => import("./pages/AGBArchiv"));
 const Widerrufsbelehrung = lazy(() => import("./pages/Widerrufsbelehrung"));
+const Investitionsbooster = lazy(() => import("./pages/Investitionsbooster"));
 
 const queryClient = new QueryClient();
 
@@ -85,6 +86,7 @@ const App = () => (
               <Route path="/agb/vermietung" element={<AGBVermietung />} />
               <Route path="/agb/archiv" element={<AGBArchiv />} />
               <Route path="/widerrufsbelehrung" element={<Widerrufsbelehrung />} />
+              <Route path="/investitionsbooster" element={<Investitionsbooster />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/baumaschinen/:stadt" element={<StadtSeite />} />
               <Route path="/try-and-buy" element={<TryAndBuy />} />

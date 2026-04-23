@@ -12,6 +12,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { SocialMeta } from "@/components/shared/SocialMeta";
+import { InvestitionsboosterCallout } from "@/components/shared/InvestitionsboosterCallout";
 import { InquiryModal } from "@/components/configurator/InquiryModal";
 import {
   type ProductCategory,
@@ -149,6 +150,9 @@ export default function ProductPage({ category }: ProductPageProps) {
             <p className="mt-4 text-sm text-muted-foreground">
               Preis auf Anfrage · 3 Jahre Garantie · Made in EU
             </p>
+            <div className="mt-6 max-w-md">
+              <InvestitionsboosterCallout />
+            </div>
           </div>
         </div>
       </section>

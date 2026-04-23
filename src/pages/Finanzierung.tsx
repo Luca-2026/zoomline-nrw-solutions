@@ -7,7 +7,9 @@ import { FinancingCalculator } from "@/components/financing/FinancingCalculator"
 import { InquiryModal } from "@/components/configurator/InquiryModal";
 import { TrustBadges } from "@/components/shared/TrustBadges";
 import { Card, CardContent } from "@/components/ui/card";
-import { CheckCircle, Calculator, Clock, Shield, Percent } from "lucide-react";
+import { CheckCircle, Calculator, Clock, Shield, Percent, TrendingUp, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 import { SocialMeta } from "@/components/shared/SocialMeta";
 
 const Finanzierung = () => {
@@ -214,6 +216,36 @@ const Finanzierung = () => {
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* Investitionsbooster-Hinweis */}
+          <div className="max-w-3xl mx-auto mt-12">
+            <div className="rounded-xl border-2 border-primary/30 bg-primary/5 p-6 md:p-8">
+              <div className="flex items-center gap-2 mb-3">
+                <TrendingUp className="h-5 w-5 text-primary" />
+                <h3 className="font-heading font-bold text-lg">
+                  Steuerlichen Vorteil durch Investitionsbooster berücksichtigen
+                </h3>
+              </div>
+              <p className="text-sm md:text-base text-foreground/85 leading-relaxed mb-4">
+                Bis zum 31.12.2027 können Unternehmen für neu angeschaffte
+                Baumaschinen bis zu <strong>30 % degressive AfA pro Jahr</strong>{" "}
+                geltend machen (§ 7 Abs. 2 EStG, „Investitionsbooster"). Je nach
+                steuerlicher Situation kann das Ihre Liquidität in den ersten
+                Jahren spürbar verbessern.
+              </p>
+              <Button asChild variant="outline" size="sm">
+                <Link to="/investitionsbooster">
+                  Mehr zum Investitionsbooster
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+              <p className="mt-4 text-xs text-muted-foreground italic leading-snug">
+                Allgemeine Information, ersetzt keine steuerliche Beratung. Die
+                tatsächliche Wirkung hängt von Ihren individuellen steuerlichen
+                Verhältnissen ab — bitte sprechen Sie mit Ihrem Steuerberater.
+              </p>
             </div>
           </div>
         </div>
