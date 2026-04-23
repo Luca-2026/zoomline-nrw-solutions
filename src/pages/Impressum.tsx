@@ -85,7 +85,6 @@ const Impressum = () => {
               Anrather Straße 291<br />
               DE-47807 Krefeld<br /><br />
               Fon: +49 (0) 2151 - 417 99 03<br />
-              Fax: +49 (0) 2151 - 417 99 04<br />
               E-Mail: <a href="mailto:info@slt-m.de" className="text-primary hover:underline">info@slt-m.de</a>
             </address>
             <p className="mt-3 text-sm">
