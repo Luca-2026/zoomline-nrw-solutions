@@ -361,12 +361,43 @@ export function buildHomeSchemas(): Schema[] {
 // Generische Routen (Kontakt, Service, FAQ, etc.)
 // ---------------------------------------------------------------------------
 
-export function buildGenericSchemas(path: string, name: string): Schema[] {
-  const url = `${SITE_URL}${path.endsWith("/") ? path : path + "/"}`;
-  return [
-    buildBreadcrumb([
-      { name: "Start", url: `${SITE_URL}/` },
-      { name, url },
-    ]),
+// Friendly Breadcrumb-Labels für nicht spezialisierte Routen.
+// Wird vom Prerender via buildGenericSchemas() konsumiert.
+const GENERIC_LABELS: Record<string, string> = {
+  "/investitionsbooster": "Investitionsbooster",
+  "/agb": "AGB & Widerrufsbelehrung",
+  "/agb/verkauf": "AGB Verkauf",
+  "/agb/vermietung": "AGB Vermietung",
+  "/agb/archiv": "AGB Archiv",
+  "/widerrufsbelehrung": "Widerrufsbelehrung",
+  "/kontakt": "Kontakt",
+  "/faq": "FAQ",
+  "/ueber-uns": "Über uns",
+  "/finanzierung": "Finanzierung",
+  "/service": "Service & Wartung",
+  "/servicevertraege": "Serviceverträge",
+  "/try-and-buy": "Try & Buy",
+  "/datenschutz": "Datenschutz",
+  "/impressum": "Impressum",
+  "/top-seller": "Top Seller",
+};
+
+export function buildGenericSchemas(path: string, fallbackName: string): Schema[] {
+  const normalized = path.endsWith("/") && path !== "/" ? path.slice(0, -1) : path;
+  const url = `${SITE_URL}${normalized === "/" ? "/" : normalized + "/"}`;
+
+  // Mehrstufige Breadcrumbs: /agb/verkauf → Start › AGB › AGB Verkauf
+  const segments = normalized.split("/").filter(Boolean);
+  const items: Array<{ name: string; url: string }> = [
+    { name: "Start", url: `${SITE_URL}/` },
   ];
+  let acc = "";
+  for (let i = 0; i < segments.length; i++) {
+    acc += `/${segments[i]}`;
+    const isLast = i === segments.length - 1;
+    const label = GENERIC_LABELS[acc] ?? (isLast ? fallbackName : segments[i]);
+    items.push({ name: label, url: `${SITE_URL}${acc}/` });
+  }
+
+  return [buildBreadcrumb(items)];
 }
