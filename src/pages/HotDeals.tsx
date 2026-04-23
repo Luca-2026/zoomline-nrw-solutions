@@ -21,6 +21,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { FinancingSection } from "@/components/financing/FinancingSection";
 import type { FinancingRequestData } from "@/lib/financing";
+import { TradeInSection, type TradeInData } from "@/components/configurator/TradeInSection";
 import { SocialMeta } from "@/components/shared/SocialMeta";
 
 const formatPrice = (price: number) => {
