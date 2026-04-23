@@ -325,7 +325,7 @@ export default function HotDeals() {
             <div className="flex items-center gap-3 mb-8">
               <Shovel className="h-8 w-8 text-primary" />
               <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground">
-                Minibagger Sonderangebote
+                Minibagger Aktionsmodelle
               </h2>
             </div>
             <div className="space-y-8">
