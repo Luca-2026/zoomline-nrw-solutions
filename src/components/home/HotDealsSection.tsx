@@ -93,10 +93,9 @@ function HotDealCard({ deal }: { deal: HotDeal }) {
 export function HotDealsSection() {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [isAutoplayEnabled, setIsAutoplayEnabled] = useState(true);
-  const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
-    if (!carouselApi || !isAutoplayEnabled || isHovering) return;
+    if (!carouselApi || !isAutoplayEnabled) return;
 
     const intervalId = window.setInterval(() => {
       carouselApi.scrollNext();
@@ -105,7 +104,19 @@ export function HotDealsSection() {
     return () => {
       window.clearInterval(intervalId);
     };
-  }, [carouselApi, isAutoplayEnabled, isHovering]);
+  }, [carouselApi, isAutoplayEnabled]);
+
+  const handlePrevious = () => {
+    if (!carouselApi) return;
+    setIsAutoplayEnabled(false);
+    carouselApi.scrollPrev();
+  };
+
+  const handleNext = () => {
+    if (!carouselApi) return;
+    setIsAutoplayEnabled(false);
+    carouselApi.scrollNext();
+  };
 
   return (
     <section className="py-16 md:py-24 bg-gradient-to-b from-destructive/5 to-background overflow-hidden">
@@ -122,11 +133,7 @@ export function HotDealsSection() {
       </div>
 
       {/* Slider */}
-      <div 
-        className="mt-10 relative"
-        onMouseEnter={() => setIsHovering(true)}
-        onMouseLeave={() => setIsHovering(false)}
-      >
+      <div className="mt-10 relative">
         <div className="container mx-auto mb-4 flex justify-end px-4 lg:px-6">
           <Button
             type="button"
@@ -156,14 +163,8 @@ export function HotDealsSection() {
             ))}
           </CarouselContent>
 
-          <CarouselPrevious
-            onClick={() => setIsAutoplayEnabled(false)}
-            className="left-2 md:left-4"
-          />
-          <CarouselNext
-            onClick={() => setIsAutoplayEnabled(false)}
-            className="right-2 md:right-4"
-          />
+          <CarouselPrevious onClick={handlePrevious} className="left-2 md:left-4" />
+          <CarouselNext onClick={handleNext} className="right-2 md:right-4" />
         </Carousel>
       </div>
 
