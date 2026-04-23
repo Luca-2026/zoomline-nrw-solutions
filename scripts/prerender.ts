@@ -62,6 +62,8 @@ function sitemapMeta(path) {
   if (path === "/kontakt") return { priority: "0.8", changefreq: "monthly" };
   if (path === "/faq") return { priority: "0.75", changefreq: "monthly" };
   if (path === "/ueber-uns") return { priority: "0.6", changefreq: "monthly" };
+  if (path === "/investitionsbooster") return { priority: "0.7", changefreq: "monthly" };
+  if (path === "/agb") return { priority: "0.3", changefreq: "yearly" };
   if (["/datenschutz", "/impressum"].includes(path))
     return { priority: "0.3", changefreq: "yearly" };
   return { priority: "0.7", changefreq: "monthly" };

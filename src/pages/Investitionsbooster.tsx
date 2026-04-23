@@ -52,7 +52,7 @@ const faqs = [
 ];
 
 export default function Investitionsbooster() {
-  const url = "https://www.zoomlion-nrw.de/investitionsbooster";
+  const url = "https://www.zoomlion-nrw.de/investitionsbooster/";
 
   const faqJsonLd = {
     "@context": "https://schema.org",

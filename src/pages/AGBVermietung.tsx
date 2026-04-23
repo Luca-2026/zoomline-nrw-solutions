@@ -18,7 +18,7 @@ const AGBVermietung = () => (
     title="AGB für die Vermietung von Baumaschinen"
     metaTitle="AGB Vermietung | Zoomlion NRW"
     metaDescription="Allgemeine Geschäftsbedingungen für die Vermietung von Baumaschinen, Arbeitsbühnen und Zubehör der SLT Technology Group GmbH & Co. KG."
-    canonical="https://www.zoomlion-nrw.de/agb/vermietung"
+    canonical="https://www.zoomlion-nrw.de/agb/vermietung/"
     standDatum="23.04.2026"
     pdfHref="/dokumente/agb-vermietung.pdf"
     pdfFilename="AGB-Vermietung-Zoomlion-NRW.pdf"
