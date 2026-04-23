@@ -112,12 +112,15 @@ export default function Investitionsbooster() {
           </nav>
         </div>
         <div className="container mx-auto px-4 py-10 md:py-16 flex-1 flex items-center">
-          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-            <div>
+          <div className="w-full grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <div className="min-w-0">
               <span className="inline-flex items-center gap-2 rounded-full bg-primary/15 text-primary px-3 py-1 text-xs font-semibold uppercase tracking-wide ring-1 ring-primary/30 mb-5">
                 Steuer-Tipp 2026 / 2027
               </span>
-              <h1 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
+              <h1
+                className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight break-words hyphens-auto"
+                lang="de"
+              >
                 Investitionsbooster nutzen:{" "}
                 <span className="text-primary">30 % Sofortabschreibung</span> auf
                 Ihre neue Baumaschine
