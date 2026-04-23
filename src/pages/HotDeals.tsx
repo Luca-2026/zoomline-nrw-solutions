@@ -368,7 +368,7 @@ export default function HotDeals() {
       <section className="py-16 md:py-24 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 lg:px-6 text-center">
           <h2 className="font-heading text-2xl md:text-3xl font-bold mb-4">
-            Fragen zu unseren Hot Deals?
+            Fragen zu unseren Top Sellern?
           </h2>
           <p className="text-lg opacity-90 mb-8 max-w-xl mx-auto">
             Unser Team berät Sie gerne persönlich zu allen Angeboten und findet
