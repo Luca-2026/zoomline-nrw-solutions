@@ -36,7 +36,7 @@ const formatPrice = (price: number) => {
 function HotDealDetailCard({ deal, onInquiry }: { deal: HotDeal; onInquiry: () => void }) {
   return (
     <div className="group relative rounded-xl border-2 border-primary/30 bg-card overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-primary">
-      {/* Hot Deal Badge */}
+      {/* Top Seller Badge */}
       {deal.highlight && (
         <div className="absolute top-4 right-4 z-10">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-destructive px-4 py-1.5 text-sm font-bold text-destructive-foreground animate-pulse">
@@ -165,7 +165,7 @@ export default function HotDeals() {
     setSelectedDeal(deal);
     setFormData((prev) => ({
       ...prev,
-      message: `Ich interessiere mich für das Hot Deal Angebot: ${deal.name} (${deal.typeLabel}). Bitte senden Sie mir den Aktionspreis zu.`,
+      message: `Ich interessiere mich für das Top-Seller-Aktionsmodell: ${deal.name} (${deal.typeLabel}). Bitte senden Sie mir die besonderen Konditionen zu.`,
     }));
     setModalOpen(true);
   };
@@ -249,8 +249,8 @@ export default function HotDeals() {
   const dealsSchema = {
     "@context": "https://schema.org",
     "@type": "OfferCatalog",
-    "name": "Zoomlion Hot Deals - Sonderangebote Baumaschinen NRW",
-    "description": "Limitierte Sonderangebote für Minibagger und Arbeitsbühnen von Zoomlion in NRW",
+    "name": "Zoomlion Top Seller - Aktionsmodelle Baumaschinen NRW",
+    "description": "Top-Seller-Aktionsmodelle für Minibagger und Arbeitsbühnen von Zoomlion in NRW zu besonderen Konditionen",
     "numberOfItems": hotDeals.length,
     "itemListElement": hotDeals.map((deal, index) => ({
       "@type": "Offer",
@@ -270,20 +270,20 @@ export default function HotDeals() {
   return (
     <Layout>
       <Helmet>
-        <title>Hot Deals – Minibagger & Arbeitsbühnen Sonderangebote NRW | Zoomlion</title>
+        <title>Top Seller – Aktionsmodelle Minibagger & Arbeitsbühnen NRW | Zoomlion</title>
         <meta 
           name="title" 
-          content="Hot Deals – Minibagger & Arbeitsbühnen Sonderangebote NRW | Zoomlion" 
+          content="Top Seller – Aktionsmodelle Minibagger & Arbeitsbühnen NRW | Zoomlion" 
         />
         <meta 
           name="description" 
-          content="🔥 Limitierte Sonderangebote: Zoomlion Minibagger & Arbeitsbühnen zu Bestpreisen kaufen ➤ Sofort verfügbar ✓ Finanzierung möglich ✓ 3 Jahre Garantie. Jetzt zugreifen!" 
+          content="🔥 Top Seller: Beliebteste Zoomlion Minibagger & Arbeitsbühnen zu besonderen Konditionen ➤ Sofort verfügbar ✓ Finanzierung möglich ✓ 3 Jahre Garantie. Jetzt sichern!" 
         />
         <meta 
           name="keywords" 
-          content="Minibagger Angebot NRW, Arbeitsbühne Sonderangebot, Baumaschinen günstig kaufen, Zoomlion Aktion, Bagger Schnäppchen, Arbeitsbühne reduziert, Hot Deals Baumaschinen" 
+          content="Top Seller Baumaschinen NRW, Minibagger Aktionsmodell, Arbeitsbühne Aktionsmodell, Zoomlion Aktion, Bagger besondere Konditionen, Arbeitsbühne reduziert, Top Seller Baumaschinen" 
         />
-        <link rel="canonical" href="https://www.zoomlion-nrw.de/hot-deals" />
+        <link rel="canonical" href="https://www.zoomlion-nrw.de/top-seller" />
         
         {/* Open Graph & Twitter Card via SocialMeta below */}
         
@@ -292,9 +292,9 @@ export default function HotDeals() {
         </script>
       </Helmet>
       <SocialMeta
-        title="Hot Deals – Baumaschinen Sonderangebote NRW"
-        description="Limitierte Sonderangebote für Minibagger und Arbeitsbühnen. Jetzt zu Bestpreisen kaufen!"
-        url="https://www.zoomlion-nrw.de/hot-deals"
+        title="Top Seller – Aktionsmodelle Baumaschinen NRW"
+        description="Beliebteste Zoomlion Minibagger und Arbeitsbühnen zu besonderen Konditionen. Jetzt sichern!"
+        url="https://www.zoomlion-nrw.de/top-seller"
       />
 
       {/* Hero */}
@@ -303,16 +303,16 @@ export default function HotDeals() {
           <div className="flex items-center justify-center gap-4 mb-6">
             <Flame className="h-12 w-12 text-destructive animate-pulse" />
             <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-foreground">
-              Hot Deals
+              Top Seller
             </h1>
             <Flame className="h-12 w-12 text-destructive animate-pulse" />
           </div>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Limitierte Sonderangebote für Minibagger & Arbeitsbühnen zu Bestpreisen – solange der Vorrat reicht!
+            Unsere beliebtesten Minibagger & Arbeitsbühnen als Aktionsmodelle zu besonderen Konditionen – solange der Vorrat reicht!
           </p>
           <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary/10 px-6 py-2 text-primary font-medium">
             <span>🔥</span>
-            <span>{hotDeals.length} aktuelle Angebote verfügbar</span>
+            <span>{hotDeals.length} Aktionsmodelle verfügbar</span>
             <span>🔥</span>
           </div>
         </div>
@@ -325,7 +325,7 @@ export default function HotDeals() {
             <div className="flex items-center gap-3 mb-8">
               <Shovel className="h-8 w-8 text-primary" />
               <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground">
-                Minibagger Sonderangebote
+                Minibagger Aktionsmodelle
               </h2>
             </div>
             <div className="space-y-8">
@@ -348,7 +348,7 @@ export default function HotDeals() {
             <div className="flex items-center gap-3 mb-8">
               <ChevronsUp className="h-8 w-8 text-primary" />
               <h2 className="font-heading text-2xl md:text-3xl font-bold text-foreground">
-                Arbeitsbühnen Sonderangebote
+                Arbeitsbühnen Aktionsmodelle
               </h2>
             </div>
             <div className="space-y-8">
@@ -368,7 +368,7 @@ export default function HotDeals() {
       <section className="py-16 md:py-24 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 lg:px-6 text-center">
           <h2 className="font-heading text-2xl md:text-3xl font-bold mb-4">
-            Fragen zu unseren Hot Deals?
+            Fragen zu unseren Top Sellern?
           </h2>
           <p className="text-lg opacity-90 mb-8 max-w-xl mx-auto">
             Unser Team berät Sie gerne persönlich zu allen Angeboten und findet
@@ -397,7 +397,7 @@ export default function HotDeals() {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Flame className="h-5 w-5 text-destructive" />
-              Hot Deal anfragen
+              Top Seller anfragen
             </DialogTitle>
             <DialogDescription>
               {selectedDeal && (

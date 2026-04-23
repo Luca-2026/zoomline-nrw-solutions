@@ -72,7 +72,7 @@ function HotDealCard({ deal }: { deal: HotDeal }) {
         </div>
 
         <Button asChild className="w-full group/btn">
-          <Link to={getProductPageRoute(deal.id) ?? "/hot-deals"}>
+          <Link to={getProductPageRoute(deal.id) ?? "/top-seller"}>
             Details &amp; Datenblatt
             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover/btn:translate-x-1" />
           </Link>
@@ -125,8 +125,8 @@ export function HotDealsSection() {
         <div className="flex items-center justify-center gap-3 mb-4">
           <Flame className="h-8 w-8 text-destructive animate-pulse" />
           <SectionHeading
-            title="Hot Deals"
-            subtitle="Limitierte Sonderangebote – Jetzt zugreifen!"
+            title="Top Seller"
+            subtitle="Aktionsmodelle zu besonderen Konditionen – jetzt sichern!"
             align="center"
           />
           <Flame className="h-8 w-8 text-destructive animate-pulse" />
@@ -159,8 +159,8 @@ export function HotDealsSection() {
       <div className="container mx-auto px-4 lg:px-6">
         <div className="mt-10 text-center">
           <Button asChild size="lg" variant="outline" className="group">
-            <Link to="/hot-deals">
-              Alle {hotDeals.length} Hot Deals ansehen
+            <Link to="/top-seller">
+              Alle {hotDeals.length} Top-Seller-Aktionsmodelle ansehen
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </Button>

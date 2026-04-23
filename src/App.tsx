@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 
 // Eagerly load the index page for fast initial load
@@ -62,7 +62,8 @@ const App = () => (
               <Route path="/bagger/:slug" element={<ProductPage category="bagger" />} />
               <Route path="/arbeitsbuehnen/:slug" element={<ProductPage category="arbeitsbuehnen" />} />
               <Route path="/teleskoplader" element={<Teleskoplader />} />
-              <Route path="/hot-deals" element={<HotDeals />} />
+              <Route path="/top-seller" element={<HotDeals />} />
+              <Route path="/hot-deals" element={<Navigate to="/top-seller" replace />} />
               <Route path="/service" element={<Service />} />
               <Route path="/servicevertraege" element={<Servicevertraege />} />
               <Route path="/standorte" element={<Standorte />} />

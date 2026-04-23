@@ -21,7 +21,7 @@ const navigation: NavItem[] = [
       { name: "Teleskoplader", href: "/teleskoplader", desc: "Starre & drehbare Telehandler" },
     ],
   },
-  { name: "Hot Deals", href: "/hot-deals", highlight: true },
+  { name: "Top Seller", href: "/top-seller", highlight: true },
   {
     name: "Service",
     children: [

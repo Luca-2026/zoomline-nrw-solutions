@@ -108,12 +108,12 @@ const NotFound = () => {
                   </p>
                 </Link>
                 <Link 
-                  to="/hot-deals" 
+                  to="/top-seller" 
                   className="p-4 bg-background rounded-lg border border-border hover:border-primary transition-colors"
                 >
-                  <h3 className="font-semibold mb-1">Hot Deals</h3>
+                  <h3 className="font-semibold mb-1">Top Seller</h3>
                   <p className="text-sm text-muted-foreground">
-                    Aktuelle Sonderangebote entdecken
+                    Aktionsmodelle zu besonderen Konditionen
                   </p>
                 </Link>
                 <Link 
