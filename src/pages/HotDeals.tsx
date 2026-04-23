@@ -36,7 +36,7 @@ const formatPrice = (price: number) => {
 function HotDealDetailCard({ deal, onInquiry }: { deal: HotDeal; onInquiry: () => void }) {
   return (
     <div className="group relative rounded-xl border-2 border-primary/30 bg-card overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-primary">
-      {/* Hot Deal Badge */}
+      {/* Top Seller Badge */}
       {deal.highlight && (
         <div className="absolute top-4 right-4 z-10">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-destructive px-4 py-1.5 text-sm font-bold text-destructive-foreground animate-pulse">
