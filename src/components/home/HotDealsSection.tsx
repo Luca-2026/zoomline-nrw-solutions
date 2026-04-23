@@ -85,10 +85,22 @@ function HotDealCard({ deal }: { deal: HotDeal }) {
 export function HotDealsSection() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
-  const userInteractedRef = useRef(false);
+  const interactionTimeoutRef = useRef<number | null>(null);
 
   // Duplicate deals for seamless infinite scroll
   const duplicatedDeals = [...hotDeals, ...hotDeals, ...hotDeals];
+
+  // Pause autoplay temporarily after user interaction, then resume
+  const pauseTemporarily = (ms = 4000) => {
+    setIsPaused(true);
+    if (interactionTimeoutRef.current) {
+      window.clearTimeout(interactionTimeoutRef.current);
+    }
+    interactionTimeoutRef.current = window.setTimeout(() => {
+      setIsPaused(false);
+      interactionTimeoutRef.current = null;
+    }, ms);
+  };
 
   useEffect(() => {
     const scrollContainer = scrollRef.current;
@@ -98,7 +110,7 @@ export function HotDealsSection() {
     const scrollSpeed = 0.5; // pixels per frame
 
     const scroll = () => {
-      if (!isPaused && !userInteractedRef.current && scrollContainer) {
+      if (!isPaused && scrollContainer) {
         const singleSetWidth = scrollContainer.scrollWidth / 3;
         let next = scrollContainer.scrollLeft + scrollSpeed;
         if (next >= singleSetWidth * 2) {
@@ -113,6 +125,9 @@ export function HotDealsSection() {
 
     return () => {
       cancelAnimationFrame(animationFrameId);
+      if (interactionTimeoutRef.current) {
+        window.clearTimeout(interactionTimeoutRef.current);
+      }
     };
   }, [isPaused]);
 
