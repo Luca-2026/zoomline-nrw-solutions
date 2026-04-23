@@ -57,7 +57,7 @@ const Kontakt = () => {
         title: "Anfrage gesendet ✓",
         description: "Wir melden uns kurzfristig bei Ihnen.",
       });
-      setForm({ firma: "", name: "", email: "", tel: "", plz: "", msg: "", dsgvo: false, _hp_field: "" });
+      setForm({ firma: "", name: "", email: "", tel: "", plz: "", msg: "", dsgvo: false, agb: false, _hp_field: "" });
     } catch (err: any) {
       console.error("Inquiry error:", err);
       toast({
