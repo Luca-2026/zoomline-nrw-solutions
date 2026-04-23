@@ -62,7 +62,8 @@ const App = () => (
               <Route path="/bagger/:slug" element={<ProductPage category="bagger" />} />
               <Route path="/arbeitsbuehnen/:slug" element={<ProductPage category="arbeitsbuehnen" />} />
               <Route path="/teleskoplader" element={<Teleskoplader />} />
-              <Route path="/hot-deals" element={<HotDeals />} />
+              <Route path="/top-seller" element={<HotDeals />} />
+              <Route path="/hot-deals" element={<Navigate to="/top-seller" replace />} />
               <Route path="/service" element={<Service />} />
               <Route path="/servicevertraege" element={<Servicevertraege />} />
               <Route path="/standorte" element={<Standorte />} />
