@@ -270,20 +270,20 @@ export default function HotDeals() {
   return (
     <Layout>
       <Helmet>
-        <title>Hot Deals – Minibagger & Arbeitsbühnen Sonderangebote NRW | Zoomlion</title>
+        <title>Top Seller – Aktionsmodelle Minibagger & Arbeitsbühnen NRW | Zoomlion</title>
         <meta 
           name="title" 
-          content="Hot Deals – Minibagger & Arbeitsbühnen Sonderangebote NRW | Zoomlion" 
+          content="Top Seller – Aktionsmodelle Minibagger & Arbeitsbühnen NRW | Zoomlion" 
         />
         <meta 
           name="description" 
-          content="🔥 Limitierte Sonderangebote: Zoomlion Minibagger & Arbeitsbühnen zu Bestpreisen kaufen ➤ Sofort verfügbar ✓ Finanzierung möglich ✓ 3 Jahre Garantie. Jetzt zugreifen!" 
+          content="🔥 Top Seller: Beliebteste Zoomlion Minibagger & Arbeitsbühnen zu besonderen Konditionen ➤ Sofort verfügbar ✓ Finanzierung möglich ✓ 3 Jahre Garantie. Jetzt sichern!" 
         />
         <meta 
           name="keywords" 
-          content="Minibagger Angebot NRW, Arbeitsbühne Sonderangebot, Baumaschinen günstig kaufen, Zoomlion Aktion, Bagger Schnäppchen, Arbeitsbühne reduziert, Hot Deals Baumaschinen" 
+          content="Top Seller Baumaschinen NRW, Minibagger Aktionsmodell, Arbeitsbühne Aktionsmodell, Zoomlion Aktion, Bagger besondere Konditionen, Arbeitsbühne reduziert, Top Seller Baumaschinen" 
         />
-        <link rel="canonical" href="https://www.zoomlion-nrw.de/hot-deals" />
+        <link rel="canonical" href="https://www.zoomlion-nrw.de/top-seller" />
         
         {/* Open Graph & Twitter Card via SocialMeta below */}
         
@@ -292,9 +292,9 @@ export default function HotDeals() {
         </script>
       </Helmet>
       <SocialMeta
-        title="Hot Deals – Baumaschinen Sonderangebote NRW"
-        description="Limitierte Sonderangebote für Minibagger und Arbeitsbühnen. Jetzt zu Bestpreisen kaufen!"
-        url="https://www.zoomlion-nrw.de/hot-deals"
+        title="Top Seller – Aktionsmodelle Baumaschinen NRW"
+        description="Beliebteste Zoomlion Minibagger und Arbeitsbühnen zu besonderen Konditionen. Jetzt sichern!"
+        url="https://www.zoomlion-nrw.de/top-seller"
       />
 
       {/* Hero */}
