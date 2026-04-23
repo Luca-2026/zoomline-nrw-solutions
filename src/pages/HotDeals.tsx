@@ -145,6 +145,22 @@ export default function HotDeals() {
     financingRequested: false,
   });
 
+  const initialTradeIn: TradeInData = {
+    enabled: false,
+    hersteller: "",
+    modell: "",
+    baujahr: "",
+    betriebsstunden: "",
+    zustand: "",
+    seriennummer: "",
+    ausstattung: "",
+    letzteWartung: "",
+    standort: "",
+    anmerkungen: "",
+    imageUrls: [],
+  };
+  const [tradeInData, setTradeInData] = useState<TradeInData>(initialTradeIn);
+
   const handleInquiry = (deal: HotDeal) => {
     setSelectedDeal(deal);
     setFormData((prev) => ({
