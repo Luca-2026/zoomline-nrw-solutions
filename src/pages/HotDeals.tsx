@@ -21,6 +21,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { FinancingSection } from "@/components/financing/FinancingSection";
 import type { FinancingRequestData } from "@/lib/financing";
+import { TradeInSection, type TradeInData } from "@/components/configurator/TradeInSection";
 import { SocialMeta } from "@/components/shared/SocialMeta";
 
 const formatPrice = (price: number) => {
@@ -144,6 +145,22 @@ export default function HotDeals() {
     financingRequested: false,
   });
 
+  const initialTradeIn: TradeInData = {
+    enabled: false,
+    hersteller: "",
+    modell: "",
+    baujahr: "",
+    betriebsstunden: "",
+    zustand: "",
+    seriennummer: "",
+    ausstattung: "",
+    letzteWartung: "",
+    standort: "",
+    anmerkungen: "",
+    imageUrls: [],
+  };
+  const [tradeInData, setTradeInData] = useState<TradeInData>(initialTradeIn);
+
   const handleInquiry = (deal: HotDeal) => {
     setSelectedDeal(deal);
     setFormData((prev) => ({
@@ -191,6 +208,7 @@ export default function HotDeals() {
             balloonEur: financingData.balloonEur,
             estimatedMonthlyRate: financingData.estimatedMonthlyRate,
           } : undefined,
+          tradeIn: tradeInData.enabled ? tradeInData : undefined,
         },
       });
 
@@ -212,6 +230,7 @@ export default function HotDeals() {
         acceptPrivacy: false,
       });
       setFinancingData({ financingRequested: false });
+      setTradeInData(initialTradeIn);
     } catch (error) {
       console.error("Error sending inquiry:", error);
       toast({
@@ -451,6 +470,13 @@ export default function HotDeals() {
             <FinancingSection 
               productPrice={selectedDeal?.dealPrice} 
               onChange={setFinancingData}
+            />
+
+            {/* Trade-In Section */}
+            <TradeInSection
+              value={tradeInData}
+              onChange={setTradeInData}
+              productType={selectedDeal?.type === "bagger" ? "bagger" : "arbeitsbuehne"}
             />
 
             <div className="flex items-start space-x-2">
