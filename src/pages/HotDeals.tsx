@@ -472,6 +472,13 @@ export default function HotDeals() {
               onChange={setFinancingData}
             />
 
+            {/* Trade-In Section */}
+            <TradeInSection
+              value={tradeInData}
+              onChange={setTradeInData}
+              productType={selectedDeal?.type === "bagger" ? "bagger" : "arbeitsbuehne"}
+            />
+
             <div className="flex items-start space-x-2">
               <Checkbox
                 id="wartungsvertrag"
