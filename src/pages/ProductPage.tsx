@@ -131,18 +131,18 @@ export default function ProductPage({ category }: ProductPageProps) {
               {product.name} kaufen
             </h1>
             <p className="text-lg text-muted-foreground mb-6">{product.tagline}</p>
-            <div className="flex flex-wrap gap-3">
-              <Button size="lg" onClick={() => setInquiryOpen(true)}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-md">
+              <Button size="lg" className="w-full" onClick={() => setInquiryOpen(true)}>
                 Angebot anfordern
               </Button>
-              <Button asChild size="lg" variant="outline">
+              <Button asChild size="lg" variant="outline" className="w-full">
                 <a
                   href={product.datasheetPdf}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Download className="mr-2 h-4 w-4" />
-                  Datenblatt herunterladen (PDF)
+                  <Download className="mr-2 h-4 w-4 shrink-0" />
+                  <span className="truncate">Datenblatt (PDF)</span>
                 </a>
               </Button>
             </div>
