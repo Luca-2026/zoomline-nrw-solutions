@@ -146,7 +146,7 @@ export function HotDealsSection() {
   const handleNav = (direction: "prev" | "next") => {
     const el = scrollRef.current;
     if (!el) return;
-    userInteractedRef.current = true;
+    pauseTemporarily();
     normalizeScroll();
     const card = el.querySelector<HTMLElement>("[data-deal-card]");
     const cardWidth = card ? card.offsetWidth + 24 /* gap-6 */ : 340;
