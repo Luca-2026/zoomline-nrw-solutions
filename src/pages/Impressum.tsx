@@ -52,7 +52,7 @@ const Impressum = () => {
             Impressum
           </h1>
           <p className="mt-3 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto">
-            Angaben gemäß § 5 TMG
+            Angaben gemäß § 5 DDG (Digitale-Dienste-Gesetz)
           </p>
         </div>
         
