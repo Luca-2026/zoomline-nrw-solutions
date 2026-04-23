@@ -303,16 +303,16 @@ export default function HotDeals() {
           <div className="flex items-center justify-center gap-4 mb-6">
             <Flame className="h-12 w-12 text-destructive animate-pulse" />
             <h1 className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-foreground">
-              Hot Deals
+              Top Seller
             </h1>
             <Flame className="h-12 w-12 text-destructive animate-pulse" />
           </div>
           <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Limitierte Sonderangebote für Minibagger & Arbeitsbühnen zu Bestpreisen – solange der Vorrat reicht!
+            Unsere beliebtesten Minibagger & Arbeitsbühnen als Aktionsmodelle zu besonderen Konditionen – solange der Vorrat reicht!
           </p>
           <div className="mt-6 inline-flex items-center gap-2 rounded-full bg-primary/10 px-6 py-2 text-primary font-medium">
             <span>🔥</span>
-            <span>{hotDeals.length} aktuelle Angebote verfügbar</span>
+            <span>{hotDeals.length} Aktionsmodelle verfügbar</span>
             <span>🔥</span>
           </div>
         </div>
