@@ -91,12 +91,27 @@ export default function Investitionsbooster() {
       {/* Hero – füllt initial mind. die Viewport-Höhe (abzgl. Header) */}
       <section className="bg-secondary text-secondary-foreground flex flex-col min-h-[calc(100vh-4rem)]">
         <div className="container mx-auto px-4 pt-6">
-          <Breadcrumbs
-            items={[
-              { label: "Start", href: "/" },
-              { label: "Investitionsbooster" },
-            ]}
-          />
+          {/* Heller Breadcrumb für dunklen Hero */}
+          <nav aria-label="Breadcrumb" className="py-3">
+            <ol className="flex items-center flex-wrap gap-1 text-sm">
+              <li>
+                <Link
+                  to="/"
+                  className="flex items-center gap-1.5 text-white/70 hover:text-primary transition-colors"
+                >
+                  <span>Start</span>
+                </Link>
+              </li>
+              <li className="flex items-center text-white/40">
+                <ArrowRight className="h-3.5 w-3.5 mx-1 rotate-0" />
+              </li>
+              <li>
+                <span className="text-white font-medium" aria-current="page">
+                  Investitionsbooster
+                </span>
+              </li>
+            </ol>
+          </nav>
         </div>
         <div className="container mx-auto px-4 py-10 md:py-16 flex-1 flex items-center">
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
