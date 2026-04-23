@@ -165,7 +165,7 @@ export default function HotDeals() {
     setSelectedDeal(deal);
     setFormData((prev) => ({
       ...prev,
-      message: `Ich interessiere mich für das Hot Deal Angebot: ${deal.name} (${deal.typeLabel}). Bitte senden Sie mir den Aktionspreis zu.`,
+      message: `Ich interessiere mich für das Top-Seller-Aktionsmodell: ${deal.name} (${deal.typeLabel}). Bitte senden Sie mir die besonderen Konditionen zu.`,
     }));
     setModalOpen(true);
   };
