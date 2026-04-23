@@ -72,13 +72,13 @@ export const seoRoutes: SeoRoute[] = [
     ],
   },
   {
-    path: "/hot-deals",
-    title: "Hot Deals – Baumaschinen Sonderangebote NRW",
+    path: "/top-seller",
+    title: "Top Seller – Aktionsmodelle Baumaschinen NRW | Zoomlion",
     description:
-      "Aktuelle Sonderangebote für Zoomlion Minibagger, Arbeitsbühnen & Teleskoplader in NRW ➤ Sofort verfügbar ✓ Mit Rabatt ✓ Solange Vorrat reicht. Jetzt Schnäppchen sichern!",
-    h1: "Hot Deals – Aktuelle Baumaschinen-Sonderangebote",
+      "Aktionsmodelle der beliebtesten Zoomlion Minibagger, Arbeitsbühnen & Teleskoplader in NRW ➤ Sofort verfügbar ✓ Zu besonderen Konditionen ✓ Solange Vorrat reicht.",
+    h1: "Top Seller – Aktionsmodelle zu besonderen Konditionen",
     intro: [
-      "Hier finden Sie unsere aktuellen Sonderangebote für sofort verfügbare Zoomlion Baumaschinen in NRW. Profitieren Sie von attraktiven Rabatten auf Minibagger, Arbeitsbühnen und Teleskoplader – solange der Vorrat reicht.",
+      "Hier finden Sie unsere beliebtesten Zoomlion Baumaschinen als Aktionsmodelle – sofort verfügbar in NRW. Profitieren Sie von besonderen Konditionen auf Top-Seller-Minibagger, -Arbeitsbühnen und -Teleskoplader, solange der Vorrat reicht.",
     ],
   },
   {
