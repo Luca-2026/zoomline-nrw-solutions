@@ -29,13 +29,8 @@ const usps = [
   },
   {
     icon: Wrench,
-    title: "Ersatzteile vor Ort",
-    description: "Sofort verfügbar an allen Standorten"
-  },
-  {
-    icon: Clock,
-    title: "Kurze Reaktionszeiten",
-    description: "Eigenes Team für Service & Inbetriebnahme"
+    title: "Service & Ersatzteile",
+    description: "Ersatzteile sofort an allen Standorten verfügbar – eigenes Team für Service & Inbetriebnahme mit kurzen Reaktionszeiten"
   }
 ];
 
