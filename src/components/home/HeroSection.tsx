@@ -31,7 +31,7 @@ export function HeroSection() {
         <div className="max-w-2xl">
           {/* Content */}
           <div className="text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 rounded-full bg-primary/20 backdrop-blur-sm px-4 py-1.5 text-sm font-medium text-primary mb-6 animate-fade-in-down opacity-0" style={{ animationDelay: '0.1s' }}>
+            <div className="inline-flex items-center gap-2 rounded-full bg-primary/25 px-4 py-1.5 text-sm font-medium text-primary mb-6 animate-fade-in-down opacity-0" style={{ animationDelay: '0.1s' }}>
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-primary" />
@@ -66,7 +66,7 @@ export function HeroSection() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="border-white/30 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 hover:text-white transition-all duration-300 group"
+                className="border-white/40 bg-white/15 text-white hover:bg-white/25 hover:text-white transition-colors duration-300 group"
               >
                 <Link to="/bagger" className="flex items-center">
                   <img 
@@ -82,7 +82,7 @@ export function HeroSection() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="border-white/30 bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 hover:text-white transition-all duration-300 group"
+                className="border-white/40 bg-white/15 text-white hover:bg-white/25 hover:text-white transition-colors duration-300 group"
               >
                 <Link to="/teleskoplader" className="flex items-center">
                   <img 
@@ -98,16 +98,16 @@ export function HeroSection() {
 
             {/* Trust Indicators */}
             <div className="mt-10 flex flex-wrap justify-center lg:justify-start gap-4 md:gap-6 text-sm text-white/90 animate-fade-in-up opacity-0" style={{ animationDelay: '0.5s' }}>
-              <div className="flex items-center gap-2 bg-black/20 backdrop-blur-sm rounded-full px-3 md:px-4 py-2 hover-lift cursor-default">
-                <span className="flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-full bg-primary/30 text-primary font-bold text-xs">3</span>
+              <div className="flex items-center gap-2 bg-black/30 rounded-full px-3 md:px-4 py-2 hover-lift cursor-default">
+                <span className="flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-full bg-primary/40 text-primary font-bold text-xs">3</span>
                 <span className="text-xs md:text-sm">Standorte in NRW</span>
               </div>
-              <div className="flex items-center gap-2 bg-black/20 backdrop-blur-sm rounded-full px-3 md:px-4 py-2 hover-lift cursor-default">
-                <span className="flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-full bg-primary/30 text-primary font-bold text-xs">3J</span>
+              <div className="flex items-center gap-2 bg-black/30 rounded-full px-3 md:px-4 py-2 hover-lift cursor-default">
+                <span className="flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-full bg-primary/40 text-primary font-bold text-xs">3J</span>
                 <span className="text-xs md:text-sm">Garantie</span>
               </div>
-              <div className="flex items-center gap-2 bg-black/20 backdrop-blur-sm rounded-full px-3 md:px-4 py-2 hover-lift cursor-default">
-                <span className="flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-full bg-primary/30 text-primary font-bold text-xs">✓</span>
+              <div className="flex items-center gap-2 bg-black/30 rounded-full px-3 md:px-4 py-2 hover-lift cursor-default">
+                <span className="flex h-7 w-7 md:h-8 md:w-8 items-center justify-center rounded-full bg-primary/40 text-primary font-bold text-xs">✓</span>
                 <span className="text-xs md:text-sm">Ersatzteile vor Ort</span>
               </div>
             </div>

@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, memo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Phone, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -97,13 +97,13 @@ function DesktopDropdown({ item }: { item: NavItem }) {
   );
 }
 
-export function Header() {
+function HeaderInner() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const location = useLocation();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/95">
       <nav className="container mx-auto flex h-16 items-center justify-between px-4 lg:px-6">
         {/* Logo */}
         <Link to="/" className="flex items-center">
@@ -111,6 +111,9 @@ export function Header() {
             src={logoImage}
             alt="Zoomlion NRW - Fachhändler für Arbeitsbühnen und Bagger in Nordrhein-Westfalen"
             className="h-10 md:h-12 w-auto"
+            width={180}
+            height={48}
+            decoding="async"
           />
         </Link>
 
@@ -233,3 +236,5 @@ export function Header() {
     </header>
   );
 }
+
+export const Header = memo(HeaderInner);

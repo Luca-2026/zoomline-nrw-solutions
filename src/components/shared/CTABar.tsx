@@ -29,7 +29,7 @@ export function CTABar() {
             <Button
               asChild
               variant="outline"
-              className="border-white bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 hover:text-white"
+              className="border-white bg-white/15 text-white hover:bg-white/25 hover:text-white"
             >
               <Link to="/kontakt">
                 <MessageSquare className="mr-2 h-4 w-4" />
