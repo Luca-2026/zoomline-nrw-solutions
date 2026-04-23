@@ -1,11 +1,19 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, Flame, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, Flame, Pause, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { LazyImage } from "@/components/shared/LazyImage";
 import { hotDeals, type HotDeal } from "@/data/hotDeals";
 import { getProductPageRoute } from "@/data/productPageLinks";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi,
+} from "@/components/ui/carousel";
 
 const formatPrice = (price: number) => {
   return new Intl.NumberFormat("de-DE", {
@@ -83,75 +91,21 @@ function HotDealCard({ deal }: { deal: HotDeal }) {
 }
 
 export function HotDealsSection() {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [isPaused, setIsPaused] = useState(false);
-  const interactionTimeoutRef = useRef<number | null>(null);
-
-  // Duplicate deals for seamless infinite scroll
-  const duplicatedDeals = [...hotDeals, ...hotDeals, ...hotDeals];
-
-  // Pause autoplay temporarily after user interaction, then resume
-  const pauseTemporarily = (ms = 4000) => {
-    setIsPaused(true);
-    if (interactionTimeoutRef.current) {
-      window.clearTimeout(interactionTimeoutRef.current);
-    }
-    interactionTimeoutRef.current = window.setTimeout(() => {
-      setIsPaused(false);
-      interactionTimeoutRef.current = null;
-    }, ms);
-  };
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
+  const [isAutoplayEnabled, setIsAutoplayEnabled] = useState(true);
+  const [isHovering, setIsHovering] = useState(false);
 
   useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer) return;
+    if (!carouselApi || !isAutoplayEnabled || isHovering) return;
 
-    let animationFrameId: number;
-    const scrollSpeed = 0.5; // pixels per frame
-
-    const scroll = () => {
-      if (!isPaused && scrollContainer) {
-        const singleSetWidth = scrollContainer.scrollWidth / 3;
-        let next = scrollContainer.scrollLeft + scrollSpeed;
-        if (next >= singleSetWidth * 2) {
-          next -= singleSetWidth;
-        }
-        scrollContainer.scrollLeft = next;
-      }
-      animationFrameId = requestAnimationFrame(scroll);
-    };
-
-    animationFrameId = requestAnimationFrame(scroll);
+    const intervalId = window.setInterval(() => {
+      carouselApi.scrollNext();
+    }, 3500);
 
     return () => {
-      cancelAnimationFrame(animationFrameId);
-      if (interactionTimeoutRef.current) {
-        window.clearTimeout(interactionTimeoutRef.current);
-      }
+      window.clearInterval(intervalId);
     };
-  }, [isPaused]);
-
-  // Keep scrollLeft within the middle copy so infinite loop works in both directions
-  const normalizeScroll = () => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const singleSetWidth = el.scrollWidth / 3;
-    if (el.scrollLeft < singleSetWidth * 0.5) {
-      el.scrollLeft += singleSetWidth;
-    } else if (el.scrollLeft > singleSetWidth * 2) {
-      el.scrollLeft -= singleSetWidth;
-    }
-  };
-
-  const handleNav = (direction: "prev" | "next") => {
-    const el = scrollRef.current;
-    if (!el) return;
-    pauseTemporarily();
-    normalizeScroll();
-    const card = el.querySelector<HTMLElement>("[data-deal-card]");
-    const cardWidth = card ? card.offsetWidth + 24 /* gap-6 */ : 340;
-    el.scrollBy({ left: direction === "next" ? cardWidth : -cardWidth, behavior: "smooth" });
-  };
+  }, [carouselApi, isAutoplayEnabled, isHovering]);
 
   return (
     <section className="py-16 md:py-24 bg-gradient-to-b from-destructive/5 to-background overflow-hidden">
@@ -167,47 +121,50 @@ export function HotDealsSection() {
         </div>
       </div>
 
-      {/* Continuous Scroll Container */}
+      {/* Slider */}
       <div 
         className="mt-10 relative"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
+        onMouseEnter={() => setIsHovering(true)}
+        onMouseLeave={() => setIsHovering(false)}
       >
-        {/* Gradient Overlays for fade effect */}
-        <div className="absolute left-0 top-0 bottom-0 w-12 md:w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-12 md:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
-
-        {/* Prev / Next Buttons */}
-        <button
-          type="button"
-          aria-label="Vorheriges Modell"
-          onClick={() => handleNav("prev")}
-          className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-20 h-10 w-10 md:h-12 md:w-12 rounded-full bg-background/90 border border-border shadow-md flex items-center justify-center hover:bg-background hover:text-primary transition-colors"
-        >
-          <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
-        </button>
-        <button
-          type="button"
-          aria-label="Nächstes Modell"
-          onClick={() => handleNav("next")}
-          className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-20 h-10 w-10 md:h-12 md:w-12 rounded-full bg-background/90 border border-border shadow-md flex items-center justify-center hover:bg-background hover:text-primary transition-colors"
-        >
-          <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
-        </button>
-
-        <div 
-          ref={scrollRef}
-          className="flex gap-6 overflow-x-auto scroll-smooth px-4 md:px-8 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden touch-pan-x"
-          onTouchStart={() => pauseTemporarily()}
-          onPointerDown={() => pauseTemporarily()}
-          onScroll={normalizeScroll}
-        >
-          {duplicatedDeals.map((deal, index) => (
-            <div key={`${deal.id}-${index}`} data-deal-card className="flex-shrink-0">
-              <HotDealCard deal={deal} />
-            </div>
-          ))}
+        <div className="container mx-auto mb-4 flex justify-end px-4 lg:px-6">
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            onClick={() => setIsAutoplayEnabled((prev) => !prev)}
+            aria-label={isAutoplayEnabled ? "Autoplay anhalten" : "Autoplay starten"}
+          >
+            {isAutoplayEnabled ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+            {isAutoplayEnabled ? "Autoplay stoppen" : "Autoplay starten"}
+          </Button>
         </div>
+
+        <Carousel
+          setApi={setCarouselApi}
+          opts={{ loop: true, align: "start" }}
+          className="w-full"
+        >
+          <CarouselContent className="ml-0">
+            {hotDeals.map((deal) => (
+              <CarouselItem
+                key={deal.id}
+                className="pl-4 md:pl-6 basis-[88%] sm:basis-[70%] lg:basis-[42%] xl:basis-[34%]"
+              >
+                <HotDealCard deal={deal} />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+
+          <CarouselPrevious
+            onClick={() => setIsAutoplayEnabled(false)}
+            className="left-2 md:left-4"
+          />
+          <CarouselNext
+            onClick={() => setIsAutoplayEnabled(false)}
+            className="right-2 md:right-4"
+          />
+        </Carousel>
       </div>
 
       <div className="container mx-auto px-4 lg:px-6">
