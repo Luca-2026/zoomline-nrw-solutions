@@ -249,8 +249,8 @@ export default function HotDeals() {
   const dealsSchema = {
     "@context": "https://schema.org",
     "@type": "OfferCatalog",
-    "name": "Zoomlion Hot Deals - Sonderangebote Baumaschinen NRW",
-    "description": "Limitierte Sonderangebote für Minibagger und Arbeitsbühnen von Zoomlion in NRW",
+    "name": "Zoomlion Top Seller - Aktionsmodelle Baumaschinen NRW",
+    "description": "Top-Seller-Aktionsmodelle für Minibagger und Arbeitsbühnen von Zoomlion in NRW zu besonderen Konditionen",
     "numberOfItems": hotDeals.length,
     "itemListElement": hotDeals.map((deal, index) => ({
       "@type": "Offer",
