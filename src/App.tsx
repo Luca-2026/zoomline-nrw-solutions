@@ -32,6 +32,11 @@ const StandortKrefeld = lazy(() => import("./pages/StandortKrefeld"));
 const StandortBonn = lazy(() => import("./pages/StandortBonn"));
 const StandortMuelheim = lazy(() => import("./pages/StandortMuelheim"));
 const ProductPage = lazy(() => import("./pages/ProductPage"));
+const AGBUebersicht = lazy(() => import("./pages/AGBUebersicht"));
+const AGBVerkauf = lazy(() => import("./pages/AGBVerkauf"));
+const AGBVermietung = lazy(() => import("./pages/AGBVermietung"));
+const AGBArchiv = lazy(() => import("./pages/AGBArchiv"));
+const Widerrufsbelehrung = lazy(() => import("./pages/Widerrufsbelehrung"));
 
 const queryClient = new QueryClient();
 
@@ -75,6 +80,11 @@ const App = () => (
               <Route path="/finanzierung" element={<Finanzierung />} />
               <Route path="/datenschutz" element={<Datenschutz />} />
               <Route path="/impressum" element={<Impressum />} />
+              <Route path="/agb" element={<AGBUebersicht />} />
+              <Route path="/agb/verkauf" element={<AGBVerkauf />} />
+              <Route path="/agb/vermietung" element={<AGBVermietung />} />
+              <Route path="/agb/archiv" element={<AGBArchiv />} />
+              <Route path="/widerrufsbelehrung" element={<Widerrufsbelehrung />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/baumaschinen/:stadt" element={<StadtSeite />} />
               <Route path="/try-and-buy" element={<TryAndBuy />} />
