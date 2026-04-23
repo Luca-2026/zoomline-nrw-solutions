@@ -198,8 +198,8 @@ export function HotDealsSection() {
         <div 
           ref={scrollRef}
           className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory px-4 md:px-8 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden touch-pan-x"
-          onTouchStart={() => { userInteractedRef.current = true; }}
-          onPointerDown={() => { userInteractedRef.current = true; }}
+          onTouchStart={() => pauseTemporarily()}
+          onPointerDown={() => pauseTemporarily()}
           onScroll={normalizeScroll}
         >
           {duplicatedDeals.map((deal, index) => (
