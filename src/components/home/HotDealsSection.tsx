@@ -85,10 +85,22 @@ function HotDealCard({ deal }: { deal: HotDeal }) {
 export function HotDealsSection() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
-  const userInteractedRef = useRef(false);
+  const interactionTimeoutRef = useRef<number | null>(null);
 
   // Duplicate deals for seamless infinite scroll
   const duplicatedDeals = [...hotDeals, ...hotDeals, ...hotDeals];
+
+  // Pause autoplay temporarily after user interaction, then resume
+  const pauseTemporarily = (ms = 4000) => {
+    setIsPaused(true);
+    if (interactionTimeoutRef.current) {
+      window.clearTimeout(interactionTimeoutRef.current);
+    }
+    interactionTimeoutRef.current = window.setTimeout(() => {
+      setIsPaused(false);
+      interactionTimeoutRef.current = null;
+    }, ms);
+  };
 
   useEffect(() => {
     const scrollContainer = scrollRef.current;
@@ -98,7 +110,7 @@ export function HotDealsSection() {
     const scrollSpeed = 0.5; // pixels per frame
 
     const scroll = () => {
-      if (!isPaused && !userInteractedRef.current && scrollContainer) {
+      if (!isPaused && scrollContainer) {
         const singleSetWidth = scrollContainer.scrollWidth / 3;
         let next = scrollContainer.scrollLeft + scrollSpeed;
         if (next >= singleSetWidth * 2) {
@@ -113,6 +125,9 @@ export function HotDealsSection() {
 
     return () => {
       cancelAnimationFrame(animationFrameId);
+      if (interactionTimeoutRef.current) {
+        window.clearTimeout(interactionTimeoutRef.current);
+      }
     };
   }, [isPaused]);
 
@@ -131,7 +146,7 @@ export function HotDealsSection() {
   const handleNav = (direction: "prev" | "next") => {
     const el = scrollRef.current;
     if (!el) return;
-    userInteractedRef.current = true;
+    pauseTemporarily();
     normalizeScroll();
     const card = el.querySelector<HTMLElement>("[data-deal-card]");
     const cardWidth = card ? card.offsetWidth + 24 /* gap-6 */ : 340;
@@ -183,8 +198,8 @@ export function HotDealsSection() {
         <div 
           ref={scrollRef}
           className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory px-4 md:px-8 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden touch-pan-x"
-          onTouchStart={() => { userInteractedRef.current = true; }}
-          onPointerDown={() => { userInteractedRef.current = true; }}
+          onTouchStart={() => pauseTemporarily()}
+          onPointerDown={() => pauseTemporarily()}
           onScroll={normalizeScroll}
         >
           {duplicatedDeals.map((deal, index) => (
