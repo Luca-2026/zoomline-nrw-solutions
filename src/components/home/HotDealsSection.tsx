@@ -197,13 +197,13 @@ export function HotDealsSection() {
 
         <div 
           ref={scrollRef}
-          className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory px-4 md:px-8 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden touch-pan-x"
+          className="flex gap-6 overflow-x-auto scroll-smooth px-4 md:px-8 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden touch-pan-x"
           onTouchStart={() => pauseTemporarily()}
           onPointerDown={() => pauseTemporarily()}
           onScroll={normalizeScroll}
         >
           {duplicatedDeals.map((deal, index) => (
-            <div key={`${deal.id}-${index}`} data-deal-card className="flex-shrink-0 snap-start">
+            <div key={`${deal.id}-${index}`} data-deal-card className="flex-shrink-0">
               <HotDealCard deal={deal} />
             </div>
           ))}
@@ -211,11 +211,11 @@ export function HotDealsSection() {
       </div>
 
       <div className="container mx-auto px-4 lg:px-6">
-        <div className="mt-10 text-center">
-          <Button asChild size="lg" variant="outline" className="group">
+        <div className="mt-10 flex justify-center">
+          <Button asChild size="lg" variant="outline" className="group w-full sm:w-auto max-w-full whitespace-normal text-center h-auto py-3 px-4 leading-snug">
             <Link to="/top-seller">
-              Alle {hotDeals.length} Top-Seller-Aktionsmodelle ansehen
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              <span className="break-words">Alle {hotDeals.length} Top-Seller-Aktionsmodelle ansehen</span>
+              <ArrowRight className="ml-2 h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1" />
             </Link>
           </Button>
         </div>
