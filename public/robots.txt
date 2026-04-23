@@ -38,3 +38,6 @@ Disallow: /api/
 Disallow: /_
 Disallow: /supabase/
 Disallow: /*.json$
+
+# Archivierte AGB-Versionen nicht indexieren
+Disallow: /agb/archiv/

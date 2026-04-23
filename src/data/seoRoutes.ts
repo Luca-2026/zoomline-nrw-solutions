@@ -154,6 +154,8 @@ export const seoRoutes: SeoRoute[] = [
     intro: [
       "Diese Datenschutzerklärung informiert Sie über die Verarbeitung personenbezogener Daten beim Besuch unserer Website www.zoomlion-nrw.de gemäß Datenschutz-Grundverordnung (DSGVO).",
     ],
+    noindex: true,
+    excludeFromSitemap: true,
   },
   {
     path: "/impressum",
@@ -164,6 +166,8 @@ export const seoRoutes: SeoRoute[] = [
     intro: [
       "Anbieter dieser Website ist die SLT Technology Group GmbH & Co. KG, Anrather Straße 291, 47807 Krefeld. Hier finden Sie alle Pflichtangaben gemäß § 5 TMG.",
     ],
+    noindex: true,
+    excludeFromSitemap: true,
   },
   {
     path: "/faq",
@@ -242,4 +246,83 @@ export const productRoutes: SeoRoute[] = PRODUCT_PAGES.map((p) => ({
 }));
 
 // Komplette Liste für Prerender (statisch + Produktseiten)
-export const allSeoRoutes: SeoRoute[] = [...seoRoutes, ...productRoutes];
+  // ====================================================================
+// AGB, Widerrufsbelehrung, Investitionsbooster
+// ====================================================================
+// /investitionsbooster ist indexierbar und steht in der Sitemap.
+// Die übrigen Rechtsdokumente werden mit noindex,follow ausgeliefert
+// und sind aus der Sitemap ausgeschlossen, bleiben aber prerendert,
+// damit Crawler sie sauber parsen können (Backlinks, Snippets).
+
+const legalAndContentRoutes: SeoRoute[] = [
+  {
+    path: "/investitionsbooster",
+    title: "Investitionsbooster: 30 % Sofortabschreibung Baumaschine 2027",
+    description:
+      "Investitionsbooster nutzen: bis zu 30 % degressive AfA auf Bagger, Arbeitsbühnen & Teleskoplader bis 31.12.2027. Steuerlich profitieren mit Zoomlion NRW.",
+    h1: "Investitionsbooster nutzen: 30 % Sofortabschreibung auf Ihre neue Baumaschine",
+    intro: [
+      "Bis zum 31.12.2027 profitieren Unternehmen und Selbstständige in Deutschland vom steuerlichen Investitionsbooster: 30 % degressive AfA auf neu angeschaffte Baumaschinen nach § 7 Abs. 2 EStG.",
+      "Egal ob Minibagger, Kompaktbagger, Scheren- oder Teleskoparbeitsbühne, Mastbühne oder Teleskoplader – als bewegliche Wirtschaftsgüter des Anlagevermögens fallen alle Zoomlion-Maschinen unter diese Sonderregelung. Voraussetzung ist eine betriebliche Nutzung von mindestens 90 %.",
+      "Lassen Sie sich von unserem Vertriebsteam in Bonn, Krefeld oder Mülheim an der Ruhr beraten und sichern Sie sich Ihre Steuerersparnis vor Ablauf der Frist.",
+    ],
+  },
+  {
+    path: "/agb",
+    title: "AGB & Widerrufsbelehrung | Zoomlion NRW",
+    description:
+      "Allgemeine Geschäftsbedingungen für Verkauf und Vermietung sowie die Widerrufsbelehrung der SLT Technology Group GmbH & Co. KG.",
+    h1: "AGB & Widerrufsbelehrung",
+    intro: [
+      "Hier finden Sie unsere Allgemeinen Geschäftsbedingungen (AGB) für Verkauf und Vermietung sowie die Widerrufsbelehrung für Verbraucher. Alle Dokumente sind auch als PDF zum Download verfügbar.",
+    ],
+  },
+  {
+    path: "/agb/verkauf",
+    title: "AGB Verkauf | Zoomlion NRW",
+    description:
+      "Allgemeine Geschäftsbedingungen für den Verkauf und die Lieferung von Baumaschinen der SLT Technology Group GmbH & Co. KG.",
+    h1: "AGB für den Verkauf und die Lieferung von Baumaschinen",
+    intro: [
+      "Allgemeine Geschäftsbedingungen für den Verkauf und die Lieferung von Baumaschinen, Zubehör und Ersatzteilen durch die SLT Technology Group GmbH & Co. KG, Krefeld.",
+    ],
+    noindex: true,
+    excludeFromSitemap: true,
+  },
+  {
+    path: "/agb/vermietung",
+    title: "AGB Vermietung | Zoomlion NRW",
+    description:
+      "Allgemeine Geschäftsbedingungen für die Vermietung von Baumaschinen, Arbeitsbühnen und Zubehör der SLT Technology Group GmbH & Co. KG.",
+    h1: "AGB für die Vermietung von Baumaschinen",
+    intro: [
+      "Allgemeine Geschäftsbedingungen für die Vermietung von Baumaschinen, Arbeitsbühnen, Anbaugeräten und Zubehör durch die SLT Technology Group GmbH & Co. KG, Krefeld.",
+    ],
+    noindex: true,
+    excludeFromSitemap: true,
+  },
+  {
+    path: "/widerrufsbelehrung",
+    title: "Widerrufsbelehrung | Zoomlion NRW",
+    description:
+      "Widerrufsbelehrung für Verbraucher bei Fernabsatzverträgen mit der SLT Technology Group GmbH & Co. KG inklusive Muster-Widerrufsformular.",
+    h1: "Widerrufsbelehrung",
+    intro: [
+      "Widerrufsbelehrung für Verbraucher bei Fernabsatzverträgen mit der SLT Technology Group GmbH & Co. KG inklusive Muster-Widerrufsformular nach § 312g BGB.",
+    ],
+    noindex: true,
+    excludeFromSitemap: true,
+  },
+  {
+    path: "/agb/archiv",
+    title: "AGB Archiv | Zoomlion NRW",
+    description: "Archivierte Versionen der Allgemeinen Geschäftsbedingungen der SLT Technology Group GmbH & Co. KG.",
+    h1: "AGB Archiv",
+    intro: ["Archivierte Versionen unserer AGB zur Einsicht."],
+    noindex: true,
+    excludeFromSitemap: true,
+  },
+];
+
+// Komplette Liste für Prerender (statisch + Produktseiten + Legal/Content)
+export const allSeoRoutes: SeoRoute[] = [...seoRoutes, ...productRoutes, ...legalAndContentRoutes];
