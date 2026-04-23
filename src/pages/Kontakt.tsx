@@ -151,9 +151,27 @@ const Kontakt = () => {
                 </div>
                 <div><Label htmlFor="plz">PLZ / Einsatzort</Label><Input id="plz" placeholder="z.B. 50667 Köln" value={form.plz} onChange={(e) => setForm({ ...form, plz: e.target.value })} /></div>
                 <div><Label htmlFor="msg">Ihre Nachricht</Label><Textarea id="msg" rows={4} placeholder="Welche Maschine suchen Sie? (Minibagger, Arbeitsbühne, Gewichtsklasse, etc.)" value={form.msg} onChange={(e) => setForm({ ...form, msg: e.target.value })} /></div>
-                <div className="flex items-start gap-2">
-                  <Checkbox id="dsgvo" required checked={form.dsgvo} onCheckedChange={(c) => setForm({ ...form, dsgvo: c === true })} />
-                  <Label htmlFor="dsgvo" className="text-sm">Ich stimme der Verarbeitung meiner Daten gemäß Datenschutzerklärung zu *</Label>
+                <div className="space-y-3">
+                  <div className="flex items-start gap-2">
+                    <Checkbox id="agb" required checked={form.agb} onCheckedChange={(c) => setForm({ ...form, agb: c === true })} />
+                    <Label htmlFor="agb" className="text-sm leading-snug">
+                      Ich habe die{" "}
+                      <Link to="/agb/verkauf" target="_blank" className="underline text-primary">AGB für den Verkauf</Link>
+                      {" "}und ggf. die{" "}
+                      <Link to="/agb/vermietung" target="_blank" className="underline text-primary">AGB für die Vermietung</Link>
+                      {" "}zur Kenntnis genommen und akzeptiere diese. Als Verbraucher habe ich zusätzlich die{" "}
+                      <Link to="/widerrufsbelehrung" target="_blank" className="underline text-primary">Widerrufsbelehrung</Link>
+                      {" "}zur Kenntnis genommen. *
+                    </Label>
+                  </div>
+                  <div className="flex items-start gap-2">
+                    <Checkbox id="dsgvo" required checked={form.dsgvo} onCheckedChange={(c) => setForm({ ...form, dsgvo: c === true })} />
+                    <Label htmlFor="dsgvo" className="text-sm leading-snug">
+                      Ich habe die{" "}
+                      <Link to="/datenschutz" target="_blank" className="underline text-primary">Datenschutzerklärung</Link>
+                      {" "}zur Kenntnis genommen. *
+                    </Label>
+                  </div>
                 </div>
                 <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
                   {isSubmitting ? (<><Loader2 className="mr-2 h-4 w-4 animate-spin" />Wird gesendet…</>) : "Anfrage senden"}
