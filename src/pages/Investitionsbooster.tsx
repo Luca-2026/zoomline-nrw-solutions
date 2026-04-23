@@ -2,7 +2,6 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
-  CheckCircle2,
   Download,
   Calendar,
   Building2,
@@ -16,7 +15,6 @@ import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { SocialMeta } from "@/components/shared/SocialMeta";
-import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 
 const faqs = [
   {
