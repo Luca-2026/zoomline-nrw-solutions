@@ -2,17 +2,16 @@ import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 
-// Entfernt den von scripts/prerender.mjs eingefügten SEO-Block, sobald
-// React die App übernommen hat. So sehen Crawler ohne JS H1+SEO-Text,
-// echte Nutzer bekommen die SPA ohne Doppelinhalt.
-const removePrerenderBlock = () => {
-  const el = document.getElementById("seo-prerender");
-  if (el) el.remove();
-};
+const rootEl = document.getElementById("root")!;
+createRoot(rootEl).render(<App />);
 
-createRoot(document.getElementById("root")!).render(<App />);
-
-// Im nächsten Tick (nach erstem Render) den SEO-Block entfernen.
+// Remove the prerender SEO block AFTER React has actually painted, not before.
+// Two rAFs guarantee one paint has occurred -> no blank flash between
+// crawler-visible HTML and the hydrated SPA.
 if (typeof window !== "undefined") {
-  requestAnimationFrame(removePrerenderBlock);
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      document.getElementById("seo-prerender")?.remove();
+    });
+  });
 }
