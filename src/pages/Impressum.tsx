@@ -68,7 +68,6 @@ const Impressum = () => {
               Anrather Straße 291<br />
               DE-47807 Krefeld<br /><br />
               Fon: +49 (0) 2151 - 417 99 02<br />
-              Fax: +49 (0) 2151 - 417 99 04<br />
               E-Mail: <a href="mailto:verkauf@zoomlion-nrw.de" className="text-primary hover:underline">verkauf@zoomlion-nrw.de</a>
             </address>
             <p className="mt-4 text-sm">
