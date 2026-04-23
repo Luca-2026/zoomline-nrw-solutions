@@ -205,6 +205,18 @@
   .reveal.visible {
     @apply opacity-100 translate-y-0;
   }
+
+  /* Lightweight global IntersectionObserver reveal (no Framer Motion) */
+  .reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    will-change: auto;
+  }
+  .reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: none;
+  }
   
   /* Glass effect */
   .glass {
@@ -282,4 +294,16 @@
   line-height: 1.6;
   margin: 0 0 0.75rem;
   color: hsl(var(--muted-foreground));
+}
+
+/* Respect user motion preferences globally (a11y + perf) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
 }
